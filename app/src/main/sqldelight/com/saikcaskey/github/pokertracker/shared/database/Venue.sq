@@ -1,0 +1,39 @@
+CREATE TABLE Venue (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  address TEXT,
+  description TEXT,
+  created_at TEXT,
+  updated_at TEXT
+);
+
+getAll:
+SELECT * FROM Venue ORDER BY id DESC;
+
+getRecent:
+SELECT * FROM Venue WHERE date(created_at) <= date(:beforeDate) ORDER BY created_at DESC LIMIT :limit;
+
+insert:
+INSERT INTO Venue(name, address, description, created_at)
+VALUES (?, ?, ?, ?);
+
+update:
+UPDATE Venue
+SET
+  name = ?,
+  address = ?,
+  description = ?,
+  updated_at = ?
+WHERE id = ?;
+
+getById:
+SELECT * FROM Venue WHERE id = ?;
+
+deleteAll:
+DELETE FROM Venue;
+
+deleteById:
+DELETE FROM Venue WHERE id = :id;
+
+lastInsertRowId:
+SELECT last_insert_rowid();

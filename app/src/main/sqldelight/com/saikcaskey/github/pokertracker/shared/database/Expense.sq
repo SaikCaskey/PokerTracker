@@ -1,0 +1,133 @@
+CREATE TABLE Expense (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  event_id INTEGER REFERENCES Event(id) ON DELETE CASCADE,
+  venue_id INTEGER REFERENCES Venue(id) ON DELETE CASCADE,
+  type TEXT NOT NULL,
+  amount REAL NOT NULL,
+  description TEXT,
+  date TEXT,
+  created_at TEXT,
+  updated_at TEXT
+);
+
+getAll:
+SELECT * FROM Expense ORDER BY id DESC;
+
+getRecent:
+SELECT * FROM Expense WHERE date(created_at) <= date(:beforeDate) ORDER BY date(created_at) DESC LIMIT :limit;
+
+getUpcomingCosts:
+SELECT
+  SUM(
+    CASE
+      WHEN type NOT IN ('CASH_OUT', 'DEAL') THEN -amount
+      ELSE 0
+    END
+  ) AS balance
+FROM Expense
+WHERE date(date) >= date(:afterDate);
+
+getByEvent:
+SELECT * FROM Expense WHERE event_id = ? ORDER BY id;
+
+insert:
+INSERT INTO Expense(event_id, venue_id, type, amount, description, date, created_at)
+VALUES (?, ?, ?, ?, ?,  ?,  ?);
+
+update:
+UPDATE Expense
+SET
+  event_id = ?,
+  venue_id = ?,
+  amount = ?,
+  type = ?,
+  description = ?,
+  date = ?,
+  updated_at = ?
+WHERE id = ?;
+
+getById:
+SELECT * FROM Expense WHERE id = ?;
+
+deleteById:
+DELETE FROM Expense WHERE id = :id;
+
+deleteAll:
+DELETE FROM Expense;
+
+getBalance:
+SELECT
+  SUM(
+    CASE
+      WHEN type IN ('CASH_OUT', 'DEAL') THEN amount
+      ELSE -amount
+    END
+  ) AS balance
+FROM Expense
+WHERE date(date) BETWEEN :startDate AND :endDate;
+
+getEventBalance:
+SELECT
+  SUM(
+    CASE
+      WHEN type IN ('CASH_OUT', 'DEAL') THEN amount
+      ELSE -amount
+    END
+  ) AS balance
+FROM Expense
+WHERE event_id = ?;
+
+getEventCostsSubtotal:
+SELECT
+  SUM(
+    CASE
+      WHEN type NOT IN ('CASH_OUT', 'DEAL') THEN amount
+    END
+  ) AS balance
+FROM Expense
+WHERE event_id = ?;
+
+getEventCashesSubtotal:
+SELECT
+  SUM(
+    CASE
+      WHEN type IN ('CASH_OUT', 'DEAL') THEN amount
+    END
+  ) AS balance
+FROM Expense
+WHERE event_id = ?;
+
+-- Cashes from all events at a venue
+getVenueCashesSubtotal:
+SELECT
+  SUM(
+    CASE
+      WHEN type IN ('CASH_OUT', 'DEAL') THEN amount
+    END
+  ) AS balance
+FROM Expense
+JOIN Event ON Expense.event_id = Event.id
+WHERE Event.venue_id = :venueId;
+
+getVenueCostsSubtotal:
+SELECT
+  SUM(
+    CASE
+      WHEN type NOT IN ('CASH_OUT', 'DEAL') THEN amount
+    END
+  ) AS balance
+FROM Expense
+JOIN Event ON Expense.event_id = Event.id
+WHERE Event.venue_id = :venueId;
+
+getVenueBalance:
+SELECT
+  SUM(
+    CASE
+      WHEN type IN ('CASH_OUT', 'DEAL') THEN amount
+      ELSE -amount
+    END
+  ) AS balance
+FROM Expense
+JOIN Event ON Expense.event_id = Event.id
+WHERE Event.venue_id = :venueId;

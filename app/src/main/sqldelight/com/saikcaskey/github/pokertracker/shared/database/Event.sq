@@ -1,0 +1,64 @@
+CREATE TABLE Event (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  venue_id INTEGER REFERENCES Venue(id) ON DELETE CASCADE,
+  name TEXT,
+  date TEXT,
+  game_type TEXT NOT NULL,
+  description TEXT,
+  created_at TEXT,
+  updated_at TEXT
+);
+
+getByVenue:
+SELECT * FROM Event WHERE venue_id = :venue_id ORDER BY id DESC;
+
+getAll:
+SELECT * FROM Event ORDER BY id DESC;
+
+getRecent:
+SELECT * FROM Event WHERE date(date) < date(:beforeDate) ORDER BY date(date) DESC LIMIT :limit;
+
+getUpcoming:
+SELECT * FROM Event WHERE date(date) >= date(:afterDate) ORDER BY date(date) ASC LIMIT :limit;
+
+getUpcomingByVenue:
+SELECT * FROM Event WHERE date(date) > date(:afterDate) AND venue_id =:id ORDER BY date(date) ASC;
+
+getRecentByVenue:
+SELECT * FROM Event WHERE date(date) >= date(:afterDate) AND venue_id =:id ORDER BY date(date) DESC;
+
+insert:
+INSERT INTO Event(
+  venue_id, name, date, game_type, description, created_at
+) VALUES (?, ?, ?, ?, ?, ?);
+
+update:
+UPDATE Event
+SET
+  venue_id = ?,
+  name = ?,
+  date = ?,
+  game_type = ?,
+  description = ?,
+ updated_at = ?
+WHERE id = ?;
+
+getById:
+SELECT * FROM Event WHERE id = ?;
+
+getByDate:
+SELECT * FROM Event WHERE date(date) = date(?) ORDER BY time(date);
+
+getEventDates:
+SELECT DISTINCT date(date) AS event_date
+FROM Event
+WHERE date(date);
+
+deleteById:
+DELETE FROM Event WHERE id = :id;
+
+deleteAll:
+DELETE FROM Event;
+
+lastInsertRowId:
+SELECT last_insert_rowid();

@@ -1,0 +1,33 @@
+Categories:
+  - Tools
+License: MIT
+SourceCode: https://github.com/saikcaskey/pokertracker
+IssueTracker: https://github.com/saikcaskey/pokertracker/issues
+Changelog: https://github.com/saikcaskey/pokertracker/releases
+Summary: Privacy-friendly poker tracking app
+Description: |
+  PokerTracker helps you track your poker game stats offline.
+  - Log hands and sessions
+  - Review game history
+  - Works fully offline and open-source
+
+RepoType: git
+Repo: https://github.com/saikcaskey/pokertracker.git
+
+Builds:
+  - versionName: 1.0.0
+    versionCode: 1
+    commit: v1.0.0
+    subdir: .
+    gradle:
+      - assembleRelease
+    output: app/build/outputs/apk/release/app-release.apk
+    fastlane:
+      metadata: fastlane/metadata/android
+
+AutoUpdate:
+  mode: Version
+  pattern: v%v
+UpdateCheckMode: Tags
+CurrentVersion: 1.0.0
+CurrentVersionCode: 1

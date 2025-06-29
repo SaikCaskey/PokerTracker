@@ -1,0 +1,10 @@
+Poker Tracker is a privacy-friendly app for tracking and planning poker sessions and expenses.
+
+Features:
+- Works entirely offline
+- No ads or analytics tracking
+- Plan poker events and tournaments
+- Add venues and associate expenses with sessions
+- View your data and trends (more visualizations coming soon!)
+
+More features coming soon!
