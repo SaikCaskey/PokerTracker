@@ -1,0 +1,7 @@
+Koin
+License: Apache License 2.0
+
+Copyright 2017-2024 InsertKoinIO
+
+Licensed under the Apache License, Version 2.0...
+Source: https://insert-koin.io/
