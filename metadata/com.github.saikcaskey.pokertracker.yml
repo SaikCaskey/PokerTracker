@@ -4,9 +4,6 @@ License: MIT
 SourceCode: https://github.com/saikcaskey/pokertracker
 IssueTracker: https://github.com/saikcaskey/pokertracker/issues
 Changelog: https://github.com/saikcaskey/pokertracker/releases
-Summary: Personal poker tracking app
-Description: |
-  PokerTracker helps you plan and track your poker events, expenses and earnings.
 
 RepoType: git
 Repo: https://github.com/saikcaskey/pokertracker.git
@@ -15,16 +12,12 @@ Builds:
   - versionName: 0.1.0
     versionCode: 1
     commit: v0.1.0
-    subdir: .
+    subdir: app
     gradle:
-      - assembleRelease
-    output: app/build/outputs/apk/release/app-release.apk
-    fastlane:
-      metadata: fastlane/metadata/android
+      - yes
 
-AutoUpdate:
-  mode: Version
-  pattern: v%v
+AutoUpdateMode: Version
 UpdateCheckMode: Tags
+UpdateCheckName: Ignore
 CurrentVersion: 0.1.0
 CurrentVersionCode: 1

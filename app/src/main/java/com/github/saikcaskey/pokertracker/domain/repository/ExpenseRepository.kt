@@ -1,4 +1,4 @@
-package com.saikcaskey.github.pokertracker.shared.domain.repository
+package com.github.saikcaskey.pokertracker.shared.domain.repository
 
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import kotlinx.coroutines.flow.Flow

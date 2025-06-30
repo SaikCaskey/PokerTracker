@@ -14,7 +14,7 @@ import com.github.saikcaskey.pokertracker.presentation.common.section.SectionCon
 import com.github.saikcaskey.pokertracker.presentation.main.DashboardEventsList
 import com.github.saikcaskey.pokertracker.data.utils.toUiDateTimeOrNull
 import com.github.saikcaskey.pokertracker.domain.models.Event
-import com.saikcaskey.github.pokertracker.shared.presentation.venue.VenueDetailComponent
+import com.github.saikcaskey.pokertracker.shared.presentation.venue.VenueDetailComponent
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.PlusCircle

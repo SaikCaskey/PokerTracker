@@ -1,4 +1,4 @@
-package com.saikcaskey.github.pokertracker.shared.presentation.root
+package com.github.saikcaskey.pokertracker.shared.presentation.root
 
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
@@ -7,11 +7,11 @@ import com.github.saikcaskey.pokertracker.presentation.event.InsertEventComponen
 import com.github.saikcaskey.pokertracker.presentation.event.ViewEventsComponent
 import com.github.saikcaskey.pokertracker.presentation.expense.ExpenseDetailComponent
 import com.github.saikcaskey.pokertracker.presentation.expense.InsertExpenseComponent
-import com.saikcaskey.github.pokertracker.shared.presentation.expense.ViewExpensesComponent
-import com.saikcaskey.github.pokertracker.shared.presentation.main.MainComponent
+import com.github.saikcaskey.pokertracker.shared.presentation.expense.ViewExpensesComponent
+import com.github.saikcaskey.pokertracker.presentation.main.MainComponent
 import com.github.saikcaskey.pokertracker.presentation.planner.DayDetailComponent
-import com.saikcaskey.github.pokertracker.shared.presentation.venue.InsertVenueComponent
-import com.saikcaskey.github.pokertracker.shared.presentation.venue.VenueDetailComponent
+import com.github.saikcaskey.pokertracker.shared.presentation.venue.InsertVenueComponent
+import com.github.saikcaskey.pokertracker.shared.presentation.venue.VenueDetailComponent
 import com.github.saikcaskey.pokertracker.presentation.venue.ViewVenuesComponent
 
 interface RootComponent {

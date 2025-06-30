@@ -1,7 +1,8 @@
-package com.saikcaskey.github.pokertracker.shared.presentation.main
+package com.github.saikcaskey.pokertracker.presentation.main
 
 import com.arkivanov.decompose.router.pages.ChildPages
 import com.arkivanov.decompose.value.Value
+import com.github.saikcaskey.pokertracker.shared.presentation.main.MainPagerPageComponent
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.serialization.Serializable
 

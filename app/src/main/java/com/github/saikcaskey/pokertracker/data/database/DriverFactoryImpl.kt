@@ -5,7 +5,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import com.github.saikcaskey.pokertracker.domain.DriverFactory
-import com.saikcaskey.github.pokertracker.shared.database.PokerTrackerDatabase
+import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 
 class DriverFactoryImpl(private val context: Context) : DriverFactory {
     override fun createDriver(): SqlDriver {

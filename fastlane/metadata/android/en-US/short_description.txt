@@ -1,1 +1,1 @@
-A privacy-friendly poker log with planning and stats.
+Personal poker tracking app

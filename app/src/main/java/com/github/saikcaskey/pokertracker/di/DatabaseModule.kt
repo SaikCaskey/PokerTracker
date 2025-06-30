@@ -4,7 +4,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import com.github.saikcaskey.pokertracker.data.database.DriverFactoryImpl
 import com.github.saikcaskey.pokertracker.domain.DriverFactory
-import com.saikcaskey.github.pokertracker.shared.database.PokerTrackerDatabase
+import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.koin.dsl.module
@@ -15,7 +15,7 @@ val databaseModule = module {
             AndroidSqliteDriver(
                 PokerTrackerDatabase.Schema,
                 get(),
-                "test.db",
+                "poker-tracker-database.db",
                 callback = object : AndroidSqliteDriver.Callback(PokerTrackerDatabase.Schema) {
                     override fun onConfigure(db: SupportSQLiteDatabase) {
                         super.onConfigure(db)

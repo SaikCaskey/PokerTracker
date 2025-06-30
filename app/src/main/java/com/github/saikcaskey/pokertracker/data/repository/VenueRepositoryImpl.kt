@@ -2,7 +2,7 @@ package com.github.saikcaskey.pokertracker.data.repository
 
 import app.cash.sqldelight.coroutines.*
 import com.github.saikcaskey.pokertracker.data.mappers.toDomain
-import com.saikcaskey.github.pokertracker.shared.database.PokerTrackerDatabase
+import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.models.Venue
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import com.saikcaskey.github.pokertracker.shared.database.Venue as DatabaseVenue
+import com.github.saikcaskey.pokertracker.database.Venue as DatabaseVenue
 
 class VenueRepositoryImpl(
     private val database: PokerTrackerDatabase,

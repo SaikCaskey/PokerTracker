@@ -19,8 +19,8 @@ import com.github.saikcaskey.pokertracker.presentation.venue.VenueDetailContent
 import com.github.saikcaskey.pokertracker.presentation.venue.ViewVenuesContent
 import com.github.saikcaskey.pokertracker.presentation.main.MainContent
 import com.github.saikcaskey.pokertracker.presentation.planner.DayDetailContent
-import com.saikcaskey.github.pokertracker.shared.presentation.root.RootComponent
-import com.saikcaskey.github.pokertracker.shared.presentation.root.RootComponent.Child
+import com.github.saikcaskey.pokertracker.shared.presentation.root.RootComponent
+import com.github.saikcaskey.pokertracker.shared.presentation.root.RootComponent.Child
 
 @Composable
 fun RootContent(

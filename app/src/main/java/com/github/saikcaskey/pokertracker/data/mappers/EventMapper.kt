@@ -1,9 +1,9 @@
 package com.github.saikcaskey.pokertracker.data.mappers
 
-import com.github.saikcaskey.pokertracker.domain.models.GameType
 import com.github.saikcaskey.pokertracker.data.utils.asInstantOrNow
 import com.github.saikcaskey.pokertracker.data.utils.asInstantOrNull
-import com.saikcaskey.github.pokertracker.shared.database.Event
+import com.github.saikcaskey.pokertracker.database.Event
+import com.github.saikcaskey.pokertracker.domain.models.GameType
 import com.github.saikcaskey.pokertracker.domain.models.Event as DomainEvent
 
 fun Event.toDomain(): DomainEvent {

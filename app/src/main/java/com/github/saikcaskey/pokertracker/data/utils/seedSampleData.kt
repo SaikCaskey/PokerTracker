@@ -1,7 +1,7 @@
 package com.github.saikcaskey.pokertracker.data.utils
 
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
-import com.saikcaskey.github.pokertracker.shared.database.PokerTrackerDatabase
+import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import kotlinx.datetime.*
 import kotlin.random.Random
 

@@ -13,7 +13,7 @@ import com.github.saikcaskey.pokertracker.presentation.common.section.SectionLis
 import com.github.saikcaskey.pokertracker.data.utils.toUiDateTimeOrNull
 import com.github.saikcaskey.pokertracker.domain.models.Event
 import com.github.saikcaskey.pokertracker.domain.models.Venue
-import com.saikcaskey.github.pokertracker.shared.presentation.main.MainPagerPageDashboardComponent
+import com.github.saikcaskey.pokertracker.shared.presentation.main.MainPagerPageDashboardComponent
 
 @Composable
 fun MainPagerDashboardContent(component: MainPagerPageDashboardComponent) {
