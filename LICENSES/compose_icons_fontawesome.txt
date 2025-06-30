@@ -1,0 +1,7 @@
+Compose Icons - Font Awesome (br.com.devsrsouza.compose.icons:font-awesome)
+License: MIT License
+
+Copyright (c) 2021 Raphael Souza
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software...
+Source: https://github.com/DevSrSouza/compose-icons

@@ -1,0 +1,17 @@
+Third-Party Licenses Used in This App
+======================================
+
+This application includes the following third-party libraries:
+
+- Font Awesome Free — CC BY 4.0, SIL OFL 1.1, MIT
+- Compose Icons (Font Awesome) — MIT
+- Kermit Logging — Apache 2.0
+- Material Kolor — Apache 2.0
+- Decompose — Apache 2.0
+- Essenty — Apache 2.0
+- SQLDelight — Apache 2.0
+- Koin — Apache 2.0
+- Calendar Multiplatform — MIT
+- Kotlinx Coroutines, Serialization, DateTime — Apache 2.0
+
+Full license texts are located in the `licenses/` directory of the app package.
