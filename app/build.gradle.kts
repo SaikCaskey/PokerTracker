@@ -16,7 +16,7 @@ android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.saikcaskey.github.pokertracker.fdroid"
+        applicationId = "com.github.saikcaskey.pokertracker"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
