@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+pokertracker-f-droid.keystore
+*.keystore
