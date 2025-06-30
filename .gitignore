@@ -16,3 +16,4 @@ local-env.properties
 local.properties
 pokertracker-f-droid.keystore
 *.keystore
+fastlane/report.xml
