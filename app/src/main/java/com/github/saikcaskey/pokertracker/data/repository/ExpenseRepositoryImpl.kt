@@ -2,7 +2,7 @@ package com.github.saikcaskey.pokertracker.data.repository
 
 import app.cash.sqldelight.coroutines.*
 import com.github.saikcaskey.pokertracker.data.mappers.toDomain
-import com.github.saikcaskey.pokertracker.shared.database.PokerTrackerDatabase
+import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.shared.domain.repository.ExpenseRepository

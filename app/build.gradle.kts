@@ -103,7 +103,7 @@ dependencies {
 sqldelight {
     databases {
         create("PokerTrackerDatabase") {
-             packageName.set("com.github.saikcaskey.pokertracker.shared.database")
+             packageName.set("com.github.saikcaskey.pokertracker.database")
         }
     }
 }
