@@ -1,0 +1,10 @@
+Kotlinx Coroutines, DateTime, Serialization
+License: Apache License 2.0
+
+Copyright 2017-2024 JetBrains s.r.o. and Kotlin contributors
+
+Licensed under the Apache License, Version 2.0...
+Sources:
+- https://github.com/Kotlin/kotlinx.coroutines
+- https://github.com/Kotlin/kotlinx.datetime
+- https://github.com/Kotlin/kotlinx.serialization
