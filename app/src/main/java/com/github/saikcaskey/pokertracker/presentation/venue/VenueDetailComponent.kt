@@ -1,4 +1,4 @@
-package com.saikcaskey.github.pokertracker.shared.presentation.venue
+package com.github.saikcaskey.pokertracker.shared.presentation.venue
 
 import com.github.saikcaskey.pokertracker.domain.models.Event
 import com.github.saikcaskey.pokertracker.domain.models.ProfitSummary

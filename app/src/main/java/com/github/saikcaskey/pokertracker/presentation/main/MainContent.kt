@@ -6,7 +6,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.pages.*
-import com.saikcaskey.github.pokertracker.shared.presentation.main.*
+import com.github.saikcaskey.pokertracker.shared.presentation.main.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

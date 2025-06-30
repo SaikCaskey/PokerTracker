@@ -7,7 +7,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputFormScaffold
-import com.saikcaskey.github.pokertracker.shared.presentation.venue.InsertVenueComponent
+import com.github.saikcaskey.pokertracker.shared.presentation.venue.InsertVenueComponent
 
 @Composable
 fun InsertVenueContent(component: InsertVenueComponent) {

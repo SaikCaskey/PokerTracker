@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.sqlite.db.SupportSQLiteDatabase
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
-import com.saikcaskey.github.pokertracker.shared.database.PokerTrackerDatabase
+import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 
 interface DriverFactory {
     fun createDriver(): SqlDriver

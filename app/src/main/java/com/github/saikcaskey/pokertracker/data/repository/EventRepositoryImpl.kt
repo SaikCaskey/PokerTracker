@@ -2,13 +2,13 @@ package com.github.saikcaskey.pokertracker.data.repository
 
 import app.cash.sqldelight.coroutines.*
 import com.github.saikcaskey.pokertracker.data.mappers.toDomain
-import com.saikcaskey.github.pokertracker.shared.database.PokerTrackerDatabase
+import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.models.Event
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.*
-import com.saikcaskey.github.pokertracker.shared.database.Event as DatabaseEvent
+import com.github.saikcaskey.pokertracker.database.Event as DatabaseEvent
 
 class EventRepositoryImpl(
     private val database: PokerTrackerDatabase,
