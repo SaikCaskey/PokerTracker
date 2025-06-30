@@ -31,14 +31,14 @@ android {
 
     // Load properties from local.properties
     val localProperties = Properties()
-    val localPropertiesFile = project.rootProject.file("local.properties")
+    val localPropertiesFile = project.rootProject.file("local-env.properties")
 
     if (localPropertiesFile.exists()) {
         FileInputStream(localPropertiesFile).use {
             localProperties.load(it)
         }
     } else {
-        println("WARNING: local.properties file not found. App Signing won't work correctly.")
+        println("WARNING: local-env.properties file not found. App Signing won't work correctly.")
     }
 
     signingConfigs {
@@ -55,6 +55,10 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             signingConfig = signingConfigs.getByName("release")
+        }
+        getByName("debug") {
+            isMinifyEnabled = false
+            isShrinkResources = false
         }
     }
 
@@ -99,7 +103,7 @@ dependencies {
 sqldelight {
     databases {
         create("PokerTrackerDatabase") {
-             packageName.set("com.saikcaskey.github.pokertracker.shared.database")
+             packageName.set("com.github.saikcaskey.pokertracker.shared.database")
         }
     }
 }

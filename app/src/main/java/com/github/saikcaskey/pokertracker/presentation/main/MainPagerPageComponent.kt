@@ -1,3 +1,3 @@
-package com.saikcaskey.github.pokertracker.shared.presentation.main
+package com.github.saikcaskey.pokertracker.shared.presentation.main
 
 interface MainPagerPageComponent

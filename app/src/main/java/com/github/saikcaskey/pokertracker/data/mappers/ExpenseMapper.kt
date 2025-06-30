@@ -4,7 +4,7 @@ import co.touchlab.kermit.Logger
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.data.utils.asInstantOrNow
 import com.github.saikcaskey.pokertracker.data.utils.asInstantOrNull
-import com.saikcaskey.github.pokertracker.shared.database.Expense
+import com.github.saikcaskey.pokertracker.shared.database.Expense
 import com.github.saikcaskey.pokertracker.domain.models.Expense as DomainExpense
 
 fun Expense.toDomain(): DomainExpense {

@@ -1,4 +1,4 @@
-package com.saikcaskey.github.pokertracker.shared.presentation.expense
+package com.github.saikcaskey.pokertracker.shared.presentation.expense
 
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import kotlinx.coroutines.flow.StateFlow

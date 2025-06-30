@@ -12,6 +12,7 @@
 /captures
 .externalNativeBuild
 .cxx
+local-env.properties
 local.properties
 pokertracker-f-droid.keystore
 *.keystore
