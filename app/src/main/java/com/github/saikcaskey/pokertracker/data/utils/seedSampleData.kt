@@ -12,7 +12,6 @@ fun interface SampleDataSeeder {
 class SampleDataSeederImpl : SampleDataSeeder {
 
     override fun seedSampleData(database: PokerTrackerDatabase) {
-        val now = Clock.System.now()
         val timeOffsets = listOf(
             DatePeriod(days = -14),
             DatePeriod(days = -7),
@@ -33,7 +32,7 @@ class SampleDataSeederImpl : SampleDataSeeder {
 
         repeat(5) {
             val offset = timeOffsets.random()
-            val baseDate = now.toLocalDateTime(TimeZone.currentSystemDefault()).date
+            val baseDate = nowAsLocalDateTime().date
                 .plus(offset)
                 .atStartOfDayIn(TimeZone.currentSystemDefault())
                 .toLocalDateTime(TimeZone.currentSystemDefault())
@@ -83,18 +82,18 @@ class SampleDataSeederImpl : SampleDataSeeder {
         baseDate: LocalDateTime,
     ) {
         val date = baseDate.toString()
-        val createdAt = Clock.System.now().toString()
+        val createdAt = nowAsLocalDateTime().toString()
 
         // Fixed buy-in
         val buyInAmount = 200.0
         database.expenseQueries.insert(
-            eventId,
-            venueId,
-            "BUY_IN",
-            buyInAmount,
-            "Buy-in",
-            date,
-            createdAt
+            event_id = eventId,
+            venue_id = venueId,
+            type = "BUY_IN",
+            amount = buyInAmount,
+            description = "Buy-in",
+            date = date,
+            created_at = createdAt
         )
 
         // Random other expenses
@@ -104,28 +103,27 @@ class SampleDataSeederImpl : SampleDataSeeder {
             val amount = type.toRandomExpenseAmount()
             val note = expenseDescriptions.random()
             database.expenseQueries.insert(
-                eventId,
-                venueId,
-                type.toString(),
-                amount,
-                note,
-                date,
-                createdAt
+                event_id = eventId,
+                venue_id = venueId,
+                type = type.toString(),
+                amount = amount,
+                description = note,
+                date = date,
+                created_at = createdAt
             )
         }
 
         // Cashout result: profit or bust
         val cashOutAmount = Random.nextDouble(0.00, 1000.0)
         database.expenseQueries.insert(
-            eventId,
-            venueId,
-            "CASH_OUT",
-            cashOutAmount,
-            "Cashout",
-            date,
-            createdAt
+            event_id = eventId,
+            venue_id = venueId,
+            type = "CASH_OUT",
+            amount = cashOutAmount,
+            description = "Cashout",
+            date = date,
+            created_at = createdAt
         )
-
     }
 
     private fun ExpenseType.toRandomExpenseAmount(): Double {

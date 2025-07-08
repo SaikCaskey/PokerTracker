@@ -2,6 +2,7 @@ package com.github.saikcaskey.pokertracker.data.repository
 
 import app.cash.sqldelight.coroutines.*
 import com.github.saikcaskey.pokertracker.data.mappers.toDomain
+import com.github.saikcaskey.pokertracker.data.utils.nowAsInstant
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.models.Expense
@@ -153,7 +154,7 @@ class ExpenseRepositoryImpl(
             amount = amount,
             description = description,
             date = date,
-            updated_at = Clock.System.now().toString()
+            updated_at = nowAsInstant().toString()
         )
     }
 

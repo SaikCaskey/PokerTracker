@@ -2,6 +2,7 @@ package com.github.saikcaskey.pokertracker.data.repository
 
 import app.cash.sqldelight.coroutines.*
 import com.github.saikcaskey.pokertracker.data.mappers.toDomain
+import com.github.saikcaskey.pokertracker.data.utils.nowAsInstant
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.models.Event
@@ -132,11 +133,12 @@ class EventRepositoryImpl(
                 id = id,
                 venue_id = venueId,
                 name = name,
-                date = parsedLocalDate.atTime(parsedTime).toInstant(TimeZone.currentSystemDefault())
+                date = parsedLocalDate.atTime(parsedTime)
+                    .toInstant(TimeZone.currentSystemDefault())
                     .toString(),
                 game_type = gameType,
                 description = description,
-                updated_at = Clock.System.now().toString()
+                updated_at = nowAsInstant().toString()
             )
         }
     }
