@@ -5,8 +5,6 @@ import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import com.github.saikcaskey.pokertracker.data.database.DriverFactoryImpl
 import com.github.saikcaskey.pokertracker.domain.DriverFactory
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.get
 import org.koin.dsl.module
 
 val databaseModule = module {
@@ -26,12 +24,4 @@ val databaseModule = module {
         )
     }
     single<DriverFactory> { DriverFactoryImpl(get()) }
-}
-
-object DriverFactoryProvider : KoinComponent {
-    fun provide(): DriverFactory = get()
-}
-
-object DatabaseProvider : KoinComponent {
-    fun provide(): PokerTrackerDatabase = get()
 }
