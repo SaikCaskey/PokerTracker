@@ -14,7 +14,7 @@ import com.github.saikcaskey.pokertracker.presentation.common.section.SectionCon
 import com.github.saikcaskey.pokertracker.presentation.main.DashboardEventsList
 import com.github.saikcaskey.pokertracker.data.utils.toUiDateTimeOrNull
 import com.github.saikcaskey.pokertracker.domain.models.Event
-import com.github.saikcaskey.pokertracker.shared.presentation.venue.VenueDetailComponent
+import com.github.saikcaskey.pokertracker.domain.components.VenueDetailComponent
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.PlusCircle
@@ -36,7 +36,7 @@ internal fun VenueDetailContent(modifier: Modifier = Modifier, component: VenueD
         floatingActionButton = {
             FloatingActionButton(component::onShowInsertEventClicked) {
                 Icon(
-                    modifier = Modifier.height(32.dp),
+                    modifier = Modifier.height(24.dp),
                     imageVector = FontAwesomeIcons.Solid.PlusCircle,
                     contentDescription = "Add event"
                 )
@@ -96,11 +96,11 @@ fun VenueDetailSummary(state: VenueDetailComponent.UiState) {
         Text("Created:  ${state.venue?.createdAt?.toUiDateTimeOrNull()}")
         if (state.venue?.description != null) {
             Spacer(Modifier.height(4.dp))
-            Text(state.venue.description.orEmpty())
+            Text(state.venue.description)
         }
         if (state.venue?.address != null) {
             Spacer(Modifier.height(4.dp))
-            Text(state.venue.address.orEmpty())
+            Text(state.venue.address)
         }
     }
 }

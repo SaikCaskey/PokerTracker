@@ -1,9 +1,9 @@
-package com.github.saikcaskey.pokertracker.shared.presentation.planner
+package com.github.saikcaskey.pokertracker.presentation.planner
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
-import com.github.saikcaskey.pokertracker.presentation.planner.DayDetailComponent
+import com.github.saikcaskey.pokertracker.domain.components.DayDetailComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

@@ -13,6 +13,7 @@ import com.github.saikcaskey.pokertracker.presentation.common.appbar.TopBarItemD
 import com.github.saikcaskey.pokertracker.presentation.common.profitsummary.AnimatedExpenseText
 import com.github.saikcaskey.pokertracker.presentation.common.section.SectionContainer
 import com.github.saikcaskey.pokertracker.data.utils.toUiDateTimeOrNull
+import com.github.saikcaskey.pokertracker.domain.components.ExpenseDetailComponent
 
 @Composable
 internal fun ExpenseDetailContent(

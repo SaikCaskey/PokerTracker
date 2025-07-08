@@ -13,7 +13,6 @@ import com.github.saikcaskey.pokertracker.presentation.common.section.SectionLis
 import com.github.saikcaskey.pokertracker.data.utils.toUiDateTimeOrNull
 import com.github.saikcaskey.pokertracker.domain.models.Event
 import com.github.saikcaskey.pokertracker.domain.models.Venue
-import com.github.saikcaskey.pokertracker.shared.presentation.main.MainPagerPageDashboardComponent
 
 @Composable
 fun MainPagerDashboardContent(component: MainPagerPageDashboardComponent) {
@@ -61,7 +60,7 @@ fun MainPagerDashboardContent(component: MainPagerPageDashboardComponent) {
         }
         item {
             SectionContainer(
-                title = "Recent Expenses",
+                title = "Expenses",
                 onAddClick = component::onShowInsertExpenseClicked,
                 onShowAllClick = component::onShowAllExpensesClicked,
             ) {
@@ -73,7 +72,7 @@ fun MainPagerDashboardContent(component: MainPagerPageDashboardComponent) {
         }
         item {
             SectionContainer(
-                title = "Recent Venues",
+                title = "Venues",
                 onAddClick = component::onShowInsertVenueClicked,
                 onShowAllClick = component::onShowAllVenuesClicked,
             ) {

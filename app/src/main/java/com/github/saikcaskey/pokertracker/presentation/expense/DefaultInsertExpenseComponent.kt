@@ -1,11 +1,10 @@
-@file:OptIn(ExperimentalCoroutinesApi::class)
-
 package com.github.saikcaskey.pokertracker.presentation.expense
 
 import co.touchlab.kermit.Logger
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
+import com.github.saikcaskey.pokertracker.domain.components.InsertExpenseComponent
 import com.github.saikcaskey.pokertracker.domain.models.Event
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.domain.models.Venue

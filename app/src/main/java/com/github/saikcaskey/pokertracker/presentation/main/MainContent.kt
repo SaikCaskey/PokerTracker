@@ -6,12 +6,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.pages.*
-import com.github.saikcaskey.pokertracker.shared.presentation.main.*
+import com.github.saikcaskey.pokertracker.domain.components.MainComponent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun MainContent(component: MainComponent, modifier: Modifier = Modifier) {
-    val selectedPage = component.selectedIndex.collectAsState()
     val title = component.title.collectAsState()
 
     Scaffold(

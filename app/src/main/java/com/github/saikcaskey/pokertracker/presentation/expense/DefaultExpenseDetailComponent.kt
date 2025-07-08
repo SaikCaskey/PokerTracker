@@ -1,15 +1,12 @@
-@file:OptIn(ExperimentalCoroutinesApi::class)
-
-package com.github.saikcaskey.pokertracker.shared.presentation.expense
+package com.github.saikcaskey.pokertracker.presentation.expense
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.shared.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
-import com.github.saikcaskey.pokertracker.presentation.expense.ExpenseDetailComponent
+import com.github.saikcaskey.pokertracker.domain.components.ExpenseDetailComponent
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine

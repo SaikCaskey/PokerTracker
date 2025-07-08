@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.github.saikcaskey.pokertracker.presentation.venue
 
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -7,7 +5,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputFormScaffold
-import com.github.saikcaskey.pokertracker.shared.presentation.venue.InsertVenueComponent
+import com.github.saikcaskey.pokertracker.domain.components.InsertVenueComponent
 
 @Composable
 fun InsertVenueContent(component: InsertVenueComponent) {
