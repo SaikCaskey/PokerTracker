@@ -1,27 +1,27 @@
 [versions]
 
+agp = "8.11.0"
+android-minSdk = "26"
+android-compileSdk = "36"
+android-targetSdk = "36"
 androidDriver = "2.1.0"
 composeMultiplatform = "2.7.0"
 coroutinesExtensions = "2.1.0"
-kotlinxDatetime = "0.6.2"
-materialKolor = "3.0.0-alpha04"
-nativeDriver = "2.1.0"
-android-minSdk = "26"
-android-compileSdk = "35"
-android-targetSdk = "36"
-kotlin = "2.1.21"
-agp = "8.9.3"
 jvmTarget = "21"
+kotlin = "2.2.0"
+kotlinxDatetime = "0.7.1"
+materialKolor = "3.0.0"
+nativeDriver = "2.1.0"
 
 androidx-activityCompose = "1.10.1"
-compose-jetbrains = "1.8.1"
+compose-jetbrains = "1.8.2"
 compose-icons = "1.1.1"
 decompose = "3.3.0"
 essenty = "2.5.0"
 koin = "4.1.0"
 
 kotlinx-coroutines = "1.10.2"
-kotlinx-serialization = "1.8.1"
+kotlinx-serialization = "1.9.0"
 runtime = "2.1.0"
 sqldelight = "2.1.0"
 
@@ -43,14 +43,12 @@ decompose-decompose = { group = "com.arkivanov.decompose", name = "decompose", v
 decompose-extensionsComposeJetbrains = { group = "com.arkivanov.decompose", name = "extensions-compose", version.ref = "decompose" }
 essenty-lifecycle = { group = "com.arkivanov.essenty", name = "lifecycle", version.ref = "essenty" }
 insert-koin-koin-core = { module = "io.insert-koin:koin-core" }
-kermit = { module = "co.touchlab:kermit", version = "2.0.5" }
+kermit = { module = "co.touchlab:kermit", version = "2.0.6" }
 koin-android = { module = "io.insert-koin:koin-android" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose" }
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
-koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 material-kolor = { module = "com.materialkolor:material-kolor", version.ref = "materialKolor" }
