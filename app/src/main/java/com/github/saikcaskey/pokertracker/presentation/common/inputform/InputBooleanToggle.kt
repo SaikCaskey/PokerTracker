@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
+@Suppress("unused")
 @Composable
 fun InputBooleanToggle(
     value: Boolean,
