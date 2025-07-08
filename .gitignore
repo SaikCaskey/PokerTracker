@@ -20,3 +20,5 @@ pokertracker-f-droid.keystore
 fastlane/report.xml
 /repo
 /tmp
+.idea/material_theme_project_new.xml
+.idea/vcs.xml
