@@ -107,19 +107,4 @@ dependencies {
     implementation(libs.sqldelight.coroutines.extensions)
     implementation(libs.sqldelight.runtime)
 }
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    kotlin {
-        compilerOptions {
-            freeCompilerArgs.set(
-                listOf(
-                    "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
-                    "-opt-in=kotlin.time.ExperimentalTime",
-                    "-Xcontext-receivers"
-                )
-            )
-        }
     }
-}
-
-
