@@ -12,10 +12,11 @@ class DriverFactoryImpl(private val context: Context) : DriverFactory {
         return AndroidSqliteDriver(
             PokerTrackerDatabase.Schema,
             context,
-            "test.db",
+            "poker-tracker-database",
             callback = object : AndroidSqliteDriver.Callback(PokerTrackerDatabase.Schema) {
                 override fun onConfigure(db: SupportSQLiteDatabase) {
                     super.onConfigure(db)
+                    // Enable foreign_keys between tables
                     db.execSQL("PRAGMA foreign_keys = ON;")
                 }
             }
