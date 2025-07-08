@@ -3,6 +3,8 @@
 /local.properties
 /.idea/assetWizardSettings.xml
 /.idea/caches
+/.idea/compiler.xml
+/.idea/deviceManager.xml
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/libraries
 /.idea/material_theme_project_new.xml
