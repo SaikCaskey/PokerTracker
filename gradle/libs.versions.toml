@@ -9,7 +9,8 @@ composeMultiplatform = "2.7.0"
 coroutinesExtensions = "2.1.0"
 jvmTarget = "21"
 kotlin = "2.2.0"
-kotlinxDatetime = "0.7.1"
+#noinspection NewerVersionAvailable
+kotlinxDatetime = "0.6.2"
 materialKolor = "3.0.0"
 nativeDriver = "2.1.0"
 
