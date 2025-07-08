@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.expense
+package com.github.saikcaskey.pokertracker.domain.components
 
 import com.github.saikcaskey.pokertracker.domain.models.Event
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
