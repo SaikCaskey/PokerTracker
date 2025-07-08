@@ -66,9 +66,17 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
+}
 
-    kotlinOptions {
-        jvmTarget = libs.versions.jvmTarget.get()
+kotlin {
+    jvmToolchain(libs.versions.jvmTarget.get().toInt())
+}
+
+sqldelight {
+    databases {
+        create("PokerTrackerDatabase") {
+            packageName.set("com.github.saikcaskey.pokertracker.database")
+        }
     }
 }
 
@@ -100,11 +108,18 @@ dependencies {
     implementation(libs.sqldelight.runtime)
 }
 
-sqldelight {
-    databases {
-        create("PokerTrackerDatabase") {
-             packageName.set("com.github.saikcaskey.pokertracker.database")
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlin {
+        compilerOptions {
+            freeCompilerArgs.set(
+                listOf(
+                    "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
+                    "-opt-in=kotlin.time.ExperimentalTime",
+                    "-Xcontext-receivers"
+                )
+            )
         }
     }
 }
+
 
