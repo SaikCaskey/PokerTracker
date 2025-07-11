@@ -2,8 +2,6 @@ package com.github.saikcaskey.pokertracker.presentation.root
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.DecomposeExperimentFlags
-import com.arkivanov.decompose.DelicateDecomposeApi
-import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
@@ -55,7 +53,6 @@ import com.github.saikcaskey.pokertracker.presentation.venue.DefaultViewVenuesCo
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.Serializable
 
-@OptIn(DelicateDecomposeApi::class, ExperimentalDecomposeApi::class)
 class DefaultRootComponent(
     componentContext: ComponentContext,
     private val eventRepository: EventRepository,
