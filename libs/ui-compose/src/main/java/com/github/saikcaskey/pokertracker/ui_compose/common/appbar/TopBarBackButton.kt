@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.common.appbar
+package com.github.saikcaskey.pokertracker.ui_compose.common.appbar
 
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable

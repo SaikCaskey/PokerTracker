@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.common.inputform
+package com.github.saikcaskey.pokertracker.ui_compose.common.inputform
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

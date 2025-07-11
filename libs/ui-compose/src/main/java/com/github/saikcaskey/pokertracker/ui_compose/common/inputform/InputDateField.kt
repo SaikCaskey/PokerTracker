@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.common.inputform
+package com.github.saikcaskey.pokertracker.ui_compose.common.inputform
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource

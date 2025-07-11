@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.common.profitsummary
+package com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.*

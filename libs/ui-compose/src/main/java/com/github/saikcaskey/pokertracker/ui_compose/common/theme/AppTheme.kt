@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.common.theme
+package com.github.saikcaskey.pokertracker.ui_compose.common.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
