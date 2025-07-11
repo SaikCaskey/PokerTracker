@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.expense
+package com.github.saikcaskey.pokertracker.ui_compose.components.expense
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions

@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.root
+package com.github.saikcaskey.pokertracker.ui_compose.components.root
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -7,20 +7,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.stack.animation.*
-import com.github.saikcaskey.pokertracker.presentation.event.EventDetailContent
-import com.github.saikcaskey.pokertracker.presentation.event.InsertEventContent
-import com.github.saikcaskey.pokertracker.presentation.event.ViewEventsContent
-import com.github.saikcaskey.pokertracker.presentation.expense.ExpenseDetailContent
-import com.github.saikcaskey.pokertracker.presentation.expense.InsertExpenseContent
-import com.github.saikcaskey.pokertracker.presentation.expense.ViewExpensesContent
-import com.github.saikcaskey.pokertracker.presentation.venue.InsertVenueContent
-import com.github.saikcaskey.pokertracker.presentation.venue.VenueDetailContent
-import com.github.saikcaskey.pokertracker.presentation.venue.ViewVenuesContent
-import com.github.saikcaskey.pokertracker.presentation.main.MainContent
-import com.github.saikcaskey.pokertracker.presentation.planner.DayDetailContent
+import com.github.saikcaskey.pokertracker.ui_compose.components.venue.InsertVenueContent
+import com.github.saikcaskey.pokertracker.ui_compose.components.venue.VenueDetailContent
+import com.github.saikcaskey.pokertracker.ui_compose.components.venue.ViewVenuesContent
 import com.github.saikcaskey.pokertracker.domain.components.RootComponent
 import com.github.saikcaskey.pokertracker.domain.components.RootComponent.Child
 import com.github.saikcaskey.pokertracker.ui_compose.common.theme.AppTheme
+import com.github.saikcaskey.pokertracker.ui_compose.components.event.EventDetailContent
+import com.github.saikcaskey.pokertracker.ui_compose.components.event.InsertEventContent
+import com.github.saikcaskey.pokertracker.ui_compose.components.event.ViewEventsContent
+import com.github.saikcaskey.pokertracker.ui_compose.components.expense.ExpenseDetailContent
+import com.github.saikcaskey.pokertracker.ui_compose.components.expense.InsertExpenseContent
+import com.github.saikcaskey.pokertracker.ui_compose.components.expense.ViewExpensesContent
+import com.github.saikcaskey.pokertracker.ui_compose.components.main.MainContent
+import com.github.saikcaskey.pokertracker.ui_compose.components.planner.DayDetailContent
 
 @Composable
 fun RootContent(

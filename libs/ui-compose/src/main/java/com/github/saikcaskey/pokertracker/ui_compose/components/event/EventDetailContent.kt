@@ -1,7 +1,5 @@
-package com.github.saikcaskey.pokertracker.presentation.event
+package com.github.saikcaskey.pokertracker.ui_compose.components.event
 
-import android.R.attr.description
-import android.R.attr.name
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn

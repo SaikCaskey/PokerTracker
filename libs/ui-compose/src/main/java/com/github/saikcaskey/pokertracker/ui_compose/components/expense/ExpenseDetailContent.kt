@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.expense
+package com.github.saikcaskey.pokertracker.ui_compose.components.expense
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,7 +9,6 @@ import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.models.prettyName
 import com.github.saikcaskey.pokertracker.domain.util.toUiDateTimeOrNull
 import com.github.saikcaskey.pokertracker.domain.components.ExpenseDetailComponent
-import com.github.saikcaskey.pokertracker.domain.models.Venue
 import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopBarItemDetail
 import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedExpenseText
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer

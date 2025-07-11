@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.main
+package com.github.saikcaskey.pokertracker.ui_compose.components.main
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -7,6 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.pages.*
 import com.github.saikcaskey.pokertracker.domain.components.MainComponent
+import com.github.saikcaskey.pokertracker.domain.components.MainPagerPageDashboardComponent
+import com.github.saikcaskey.pokertracker.domain.components.MainPagerPagePlannerComponent
 
 @Composable
 internal fun MainContent(component: MainComponent, modifier: Modifier = Modifier) {

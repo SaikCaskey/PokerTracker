@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.event
+package com.github.saikcaskey.pokertracker.ui_compose.components.expense
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -7,21 +7,22 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.github.saikcaskey.pokertracker.domain.components.ViewEventsComponent
+import com.github.saikcaskey.pokertracker.domain.components.ViewExpensesComponent
 import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopAppBarItemViewer
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDropdownSimple
+import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedExpenseText
 
 @Composable
-fun ViewEventsContent(component: ViewEventsComponent) {
+fun ViewExpensesContent(component: ViewExpensesComponent) {
     val uiState by component.uiState.collectAsState()
 
     Scaffold(
         topBar = {
             TopAppBarItemViewer(
-                "All Events",
+                "All Expenses",
                 onBackClicked = component::onBackClicked,
-                onShowInsertItemClicked = component::onShowInsertEventClicked,
-                onDeleteAllItemsClicked = component::onDeleteAllEventsClicked,
+                onShowInsertItemClicked = component::onShowInsertExpenseClicked,
+                onDeleteAllItemsClicked = component::onDeleteAllExpensesClicked,
             )
         },
     ) { scaffoldPadding ->
@@ -38,20 +39,19 @@ fun ViewEventsContent(component: ViewEventsComponent) {
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(8.dp))
-
             InputDropdownSimple(
                 selected = uiState.searchFilter.sort,
-                entries = ViewEventsComponent.EventSortOption.entries,
+                entries = ViewExpensesComponent.ExpenseSortOption.entries,
                 onSelected = component::onFilterOptionChanged
             )
             Spacer(modifier = Modifier.height(8.dp))
 
             LazyColumn {
-                items(uiState.filtered) { event ->
+                items(uiState.filtered) { expense ->
                     ListItem(
-                        headlineContent = { Text(event.name ?: event.id.toString()) },
-                        supportingContent = { Text(event.createdAt?.toString().orEmpty()) },
-                        modifier = Modifier.clickable { component.onShowEventDetailClicked(event.id) }
+                        headlineContent = { AnimatedExpenseText(expense) },
+                        supportingContent = { Text(expense.createdAt.toString()) },
+                        modifier = Modifier.clickable { component.onShowExpenseDetailClicked(expense.id) }
                     )
                     HorizontalDivider()
                 }

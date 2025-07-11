@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.event
+package com.github.saikcaskey.pokertracker.ui_compose.components.event
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.*
