@@ -16,6 +16,7 @@ import com.github.saikcaskey.pokertracker.domain.models.Venue
 
 @Composable
 fun MainPagerDashboardContent(component: MainPagerPageDashboardComponent) {
+    // TODO
     val upcomingEvents = component.upcomingEvents.collectAsState()
     val todayEvents = component.todayEvents.collectAsState()
     val recentEvents = component.recentEvents.collectAsState()
@@ -31,6 +32,7 @@ fun MainPagerDashboardContent(component: MainPagerPageDashboardComponent) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize(),
     ) {
+
         item {
             DashboardProfitSummary(
                 upcomingCosts = upcomingCosts.value,
@@ -39,56 +41,108 @@ fun MainPagerDashboardContent(component: MainPagerPageDashboardComponent) {
                 balanceForMonth = balanceForMonth.value
             )
         }
+
         item {
-            SectionContainer(
-                title = "Events",
-                onAddClick = component::onShowInsertEventClicked,
-                onShowAllClick = component::onShowAllEventsClicked,
-            ) {
-                Text(text = "Upcoming", style = MaterialTheme.typography.labelLarge)
-                DashboardEventsList(
-                    items = upcomingEvents.value,
-                    emptyMessage = "No Upcoming events",
-                    onEventClicked = component::onShowEventDetailClicked,
-                )
-                Text(text = "Today", style = MaterialTheme.typography.labelLarge)
-                DashboardEventsList(
-                    items = todayEvents.value,
-                    emptyMessage = "",
-                    onEventClicked = component::onShowEventDetailClicked,
-                )
-                Text(text = "Recent", style = MaterialTheme.typography.labelLarge)
-                DashboardEventsList(
-                    items = recentEvents.value,
-                    emptyMessage = "No Recent events",
-                    onEventClicked = component::onShowEventDetailClicked,
-                )
-            }
+            DashboardEventSummary(
+                recentEvents = recentEvents.value,
+                todayEvents = todayEvents.value,
+                upcomingEvents = upcomingEvents.value,
+                onShowAllEventsClicked = component::onShowAllEventsClicked,
+                onShowInsertEventClicked = component::onShowInsertEventClicked,
+                onShowEventDetailClicked = component::onShowEventDetailClicked,
+            )
         }
+
         item {
-            SectionContainer(
-                title = "Expenses",
-                onAddClick = component::onShowInsertExpenseClicked,
-                onShowAllClick = component::onShowAllExpensesClicked,
-            ) {
-                DashboardExpensesList(
-                    items = recentExpenses.value,
-                    onExpenseClicked = component::onShowExpenseDetailClicked,
-                )
-            }
+            DashboardExpensesSummary(
+                recentExpenses = recentExpenses.value,
+                onShowAllExpensesClicked = component::onShowAllExpensesClicked,
+                onShowInsertExpenseClicked = component::onShowInsertExpenseClicked,
+                onShowExpenseDetailClicked = component::onShowExpenseDetailClicked,
+            )
         }
+
         item {
-            SectionContainer(
-                title = "Venues",
-                onAddClick = component::onShowInsertVenueClicked,
-                onShowAllClick = component::onShowAllVenuesClicked,
-            ) {
-                DashboardVenueList(
-                    items = venues.value,
-                    onVenueClicked = component::onShowVenueDetailClicked,
-                )
-            }
+            DashboardVenuesSummary(
+                venues = venues.value,
+                onShowAllVenuesClicked = component::onShowAllExpensesClicked,
+                onShowInsertVenueClicked = component::onShowInsertVenueClicked,
+                onShowVenueDetailClicked = component::onShowVenueDetailClicked,
+            )
         }
+    }
+}
+
+@Composable
+fun DashboardVenuesSummary(
+    venues: List<Venue>,
+    onShowAllVenuesClicked: () -> Unit,
+    onShowInsertVenueClicked: () -> Unit,
+    onShowVenueDetailClicked: (Long) -> Unit,
+) {
+    SectionContainer(
+        title = "Venues",
+        onAddClick = onShowInsertVenueClicked,
+        onShowAllClick = onShowAllVenuesClicked,
+    ) {
+        DashboardVenueList(
+            items = venues,
+            onVenueClicked = onShowVenueDetailClicked,
+        )
+    }
+}
+
+@Composable
+fun DashboardExpensesSummary(
+    recentExpenses: List<Expense>,
+    onShowAllExpensesClicked: () -> Unit,
+    onShowInsertExpenseClicked: () -> Unit,
+    onShowExpenseDetailClicked: (Long) -> Unit,
+) {
+    SectionContainer(
+        title = "Expenses",
+        onAddClick = onShowInsertExpenseClicked,
+        onShowAllClick = onShowAllExpensesClicked,
+    ) {
+        DashboardExpensesList(
+            items = recentExpenses,
+            onExpenseClicked = onShowExpenseDetailClicked,
+        )
+    }
+}
+
+@Composable
+fun DashboardEventSummary(
+    recentEvents: List<Event>,
+    todayEvents: List<Event>,
+    upcomingEvents: List<Event>,
+    onShowAllEventsClicked: () -> Unit,
+    onShowInsertEventClicked: () -> Unit,
+    onShowEventDetailClicked: (Long) -> Unit,
+) {
+    SectionContainer(
+        title = "Events",
+        onAddClick = onShowInsertEventClicked,
+        onShowAllClick = onShowAllEventsClicked,
+    ) {
+        Text(text = "Upcoming", style = MaterialTheme.typography.labelLarge)
+        DashboardEventsList(
+            items = upcomingEvents,
+            emptyMessage = "No Upcoming events",
+            onEventClicked = onShowEventDetailClicked,
+        )
+        Text(text = "Today", style = MaterialTheme.typography.labelLarge)
+        DashboardEventsList(
+            items = todayEvents,
+            emptyMessage = "",
+            onEventClicked = onShowEventDetailClicked,
+        )
+        Text(text = "Recent", style = MaterialTheme.typography.labelLarge)
+        DashboardEventsList(
+            items = recentEvents,
+            emptyMessage = "No Recent events",
+            onEventClicked = onShowEventDetailClicked,
+        )
     }
 }
 
