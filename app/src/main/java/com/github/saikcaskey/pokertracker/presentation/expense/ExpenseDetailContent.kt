@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.github.saikcaskey.pokertracker.presentation.expense
 
 import androidx.compose.foundation.clickable
@@ -77,7 +75,7 @@ fun ExpenseVenueSummary(state: ExpenseDetailComponent.UiState, onVenueClicked: (
                 .wrapContentHeight()
                 .clickable(true) { onVenueClicked(eventVenue.id) },
             content = {
-                if (eventVenue.name.isNotBlank()) Text(state.venue?.name.orEmpty())
+                if (eventVenue.name.isNotBlank()) Text(state.venue.name)
                 Text("Address: ${eventVenue.address}")
                 if (!eventVenue.description.isNullOrBlank()) Text(eventVenue.description)
                 Text("Created:  ${eventVenue.createdAt?.toUiDateTimeOrNull()}")

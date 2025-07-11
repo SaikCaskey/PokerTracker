@@ -12,7 +12,6 @@ import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputDro
 import com.github.saikcaskey.pokertracker.presentation.common.profitsummary.AnimatedExpenseText
 import com.github.saikcaskey.pokertracker.domain.components.ViewExpensesComponent
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ViewExpensesContent(component: ViewExpensesComponent) {
     val uiState by component.uiState.collectAsState()
@@ -28,7 +27,8 @@ fun ViewExpensesContent(component: ViewExpensesComponent) {
         },
     ) { scaffoldPadding ->
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
                 .padding(scaffoldPadding)
                 .padding(16.dp)
         ) {

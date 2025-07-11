@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.github.saikcaskey.pokertracker.presentation.expense
 
 import androidx.compose.foundation.layout.fillMaxWidth
