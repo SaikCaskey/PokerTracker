@@ -10,7 +10,6 @@ plugins {
     alias(libs.plugins.sqldelight).apply(false)
 }
 
-
 allprojects {
     tasks.withType<KotlinCompile> {
         compilerOptions {
