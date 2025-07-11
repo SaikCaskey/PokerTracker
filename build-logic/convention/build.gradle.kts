@@ -28,4 +28,19 @@ dependencies {
     compileOnly(libs.jetbrains.kotlin.gradle)
 }
 
+gradlePlugin {
+    plugins {
+        register("androidapp") {
+            id = "pokertracker.android.app"
+            implementationClass = "com.github.saikcaskey.pokertracker.build_logic.convention.plugins.ModuleAppConventionPlugin"
+        }
+        register("androidlib") {
+            id = "pokertracker.android.lib"
+            implementationClass = "com.github.saikcaskey.pokertracker.build_logic.convention.plugins.ModuleLibraryConventionPlugin"
+        }
+        register("composelib") {
+            id = "pokertracker.android.composelib"
+            implementationClass = "com.github.saikcaskey.pokertracker.build_logic.convention.plugins.ModuleComposeLibraryConventionPlugin"
+        }
+    }
 }
