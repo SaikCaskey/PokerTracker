@@ -15,17 +15,23 @@ SELECT * FROM Event WHERE venue_id = :venue_id ORDER BY id DESC;
 getAll:
 SELECT * FROM Event ORDER BY id DESC;
 
-getRecent:
-SELECT * FROM Event WHERE date(date) < date(:beforeDate) ORDER BY date(date) DESC LIMIT :limit;
-
 getUpcoming:
 SELECT * FROM Event WHERE date(date) >= date(:afterDate) ORDER BY date(date) ASC LIMIT :limit;
 
 getUpcomingByVenue:
-SELECT * FROM Event WHERE date(date) > date(:afterDate) AND venue_id =:id ORDER BY date(date) ASC;
+SELECT * FROM Event WHERE date(date) >= date(:afterDate) AND venue_id = :id ORDER BY date(date) ASC LIMIT :limit;
+
+getDay:
+SELECT * FROM Event WHERE date(date) == date(:day) ORDER BY date(date) ASC LIMIT :limit;
+
+getDayByVenue:
+SELECT * FROM Event WHERE date(date) == date(:day) AND venue_id =:id ORDER BY date(date) ASC LIMIT :limit;
+
+getRecent:
+SELECT * FROM Event WHERE date(date) <= date(:beforeDate) ORDER BY date(date) DESC LIMIT :limit;
 
 getRecentByVenue:
-SELECT * FROM Event WHERE date(date) >= date(:afterDate) AND venue_id =:id ORDER BY date(date) DESC;
+SELECT * FROM Event WHERE date(date) <= date(:beforeDate) AND venue_id =:id ORDER BY date(date) DESC LIMIT :limit;
 
 insert:
 INSERT INTO Event(

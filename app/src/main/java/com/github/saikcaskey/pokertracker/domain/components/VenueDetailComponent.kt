@@ -19,6 +19,7 @@ interface VenueDetailComponent {
         val venue: Venue? = null,
         val pastEvents: List<Event> = emptyList(),
         val upcomingEvents: List<Event> = emptyList(),
+        val todayEvents: List<Event> = emptyList(),
         val profitSummary: ProfitSummary = ProfitSummary(),
     )
 }

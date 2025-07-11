@@ -8,6 +8,7 @@ import com.github.saikcaskey.pokertracker.data.utils.nowAsInstant
 import com.github.saikcaskey.pokertracker.data.utils.nowAsLocalDateTime
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
+import com.github.saikcaskey.pokertracker.domain.DEFAULT_LIMIT
 import com.github.saikcaskey.pokertracker.domain.models.Event
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import kotlinx.coroutines.flow.*
@@ -43,7 +44,7 @@ class EventRepositoryImpl(
         val now = nowAsLocalDateTime()
         val today = now.date.atStartOfDayInstant().toString()
 
-        return database.eventQueries.getRecent(today, 5)
+        return database.eventQueries.getRecent(today, DEFAULT_LIMIT)
             .asFlow()
             .mapToList(coroutineDispatchers.io)
             .map { events -> events.map { event -> event.toDomain() } }
@@ -53,7 +54,7 @@ class EventRepositoryImpl(
         val now = nowAsLocalDateTime()
         val tomorrow = now.date.atStartOfDayInstant().toString()
 
-        return database.eventQueries.getRecentByVenue(tomorrow, venueId)
+        return database.eventQueries.getRecentByVenue(tomorrow, venueId, DEFAULT_LIMIT)
             .asFlow()
             .mapToList(coroutineDispatchers.io)
             .map { events -> events.map { event -> event.toDomain() } }
@@ -63,7 +64,7 @@ class EventRepositoryImpl(
         val now = nowAsLocalDateTime()
         val tomorrow = now.date.plus(DatePeriod(days = 1)).atStartOfDayInstant().toString()
 
-        return database.eventQueries.getUpcoming(tomorrow, 5)
+        return database.eventQueries.getUpcoming(tomorrow, DEFAULT_LIMIT)
             .asFlow()
             .mapToList(coroutineDispatchers.io)
             .map { events -> events.map { event -> event.toDomain() } }
@@ -73,7 +74,25 @@ class EventRepositoryImpl(
         val now = nowAsLocalDateTime()
         val startOfTomorrow = now.date.plus(DatePeriod(days = 1)).atStartOfDayInstant().toString()
 
-        return database.eventQueries.getUpcomingByVenue(startOfTomorrow, venueId)
+        return database.eventQueries.getUpcomingByVenue(startOfTomorrow, venueId, DEFAULT_LIMIT)
+            .asFlow()
+            .mapToList(coroutineDispatchers.io)
+            .map { events -> events.map { event -> event.toDomain() } }
+    }
+
+    override fun getToday(): Flow<List<Event>> {
+        return database.eventQueries.getDay(nowAsLocalDateTime().toString(), DEFAULT_LIMIT)
+            .asFlow()
+            .mapToList(coroutineDispatchers.io)
+            .map { events -> events.map { event -> event.toDomain() } }
+    }
+
+    override fun getTodayByVenue(venueId: Long?): Flow<List<Event>> {
+        return database.eventQueries.getDayByVenue(
+            nowAsLocalDateTime().toString(),
+            venueId,
+            DEFAULT_LIMIT
+        )
             .asFlow()
             .mapToList(coroutineDispatchers.io)
             .map { events -> events.map { event -> event.toDomain() } }
