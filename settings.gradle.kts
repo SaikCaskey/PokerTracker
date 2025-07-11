@@ -1,8 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":libs:data")
 include(":libs:domain")
 include(":libs:ui-compose")
-
 
 pluginManagement {
     repositories {

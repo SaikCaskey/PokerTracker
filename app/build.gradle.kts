@@ -8,7 +8,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kotlinx.serialization)
-    alias(libs.plugins.sqldelight)
 }
 
 android {
@@ -72,16 +71,9 @@ kotlin {
     jvmToolchain(libs.versions.jvmTarget.get().toInt())
 }
 
-sqldelight {
-    databases {
-        create("PokerTrackerDatabase") {
-            packageName.set("com.github.saikcaskey.pokertracker.database")
-        }
-    }
-}
-
 dependencies {
     implementation(project(":libs:ui-compose"))
+    implementation(project(":libs:data"))
     implementation(project(":libs:domain"))
 
     implementation(compose.ui)
@@ -107,6 +99,4 @@ dependencies {
     implementation(libs.koin.androidx.compose)
     implementation(libs.material.kolor)
     implementation(libs.sqldelight.android.driver)
-    implementation(libs.sqldelight.coroutines.extensions)
-    implementation(libs.sqldelight.runtime)
 }
