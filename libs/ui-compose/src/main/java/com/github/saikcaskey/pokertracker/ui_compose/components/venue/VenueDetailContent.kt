@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.venue
+package com.github.saikcaskey.pokertracker.ui_compose.components.venue
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*

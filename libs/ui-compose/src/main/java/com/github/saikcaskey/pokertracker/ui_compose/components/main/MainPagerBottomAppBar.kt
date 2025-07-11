@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.main
+package com.github.saikcaskey.pokertracker.ui_compose.components.main
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.*
