@@ -27,3 +27,5 @@ fastlane/report.xml
 /repo
 /tmp
 
+.idea/gradle.xml
+.idea/kotlinc.xml
