@@ -79,7 +79,7 @@ fun ExpenseVenueSummary(state: ExpenseDetailComponent.UiState, onVenueClicked: (
             content = {
                 if (eventVenue.name.isNotBlank()) Text(state.venue?.name.orEmpty())
                 Text("Address: ${eventVenue.address}")
-                if (!eventVenue.description.isNullOrBlank()) Text(eventVenue.description.orEmpty())
+                if (!eventVenue.description.isNullOrBlank()) Text(eventVenue.description)
                 Text("Created:  ${eventVenue.createdAt?.toUiDateTimeOrNull()}")
                 Text("Updated At: ${eventVenue.updatedAt?.toUiDateTimeOrNull()}")
             },
