@@ -1,15 +1,18 @@
 package com.github.saikcaskey.pokertracker.data.repository
 
-import app.cash.sqldelight.coroutines.*
+import app.cash.sqldelight.coroutines.asFlow
+import app.cash.sqldelight.coroutines.mapToList
+import app.cash.sqldelight.coroutines.mapToOneNotNull
 import com.github.saikcaskey.pokertracker.data.mappers.toDomain
+import com.github.saikcaskey.pokertracker.data.utils.nowAsInstant
+import com.github.saikcaskey.pokertracker.data.utils.nowAsLocalDateTime
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.models.Venue
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import com.github.saikcaskey.pokertracker.database.Venue as DatabaseVenue
 
 class VenueRepositoryImpl(
@@ -20,10 +23,10 @@ class VenueRepositoryImpl(
     override fun getAll(): Flow<List<Venue>> = database.venueQueries.getAll()
         .asFlow()
         .mapToList(dispatchers.io)
-        .map { list -> list.map { it.toDomain() } }
+        .map { list -> list.map(DatabaseVenue::toDomain) }
 
     override fun getRecent(): Flow<List<Venue>> {
-        val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        val now = nowAsLocalDateTime()
         val today = now.date.toString()
 
         return database.venueQueries.getRecent(
@@ -32,7 +35,7 @@ class VenueRepositoryImpl(
         )
             .asFlow()
             .mapToList(dispatchers.io)
-            .map { list -> list.map { it.toDomain() } }
+            .map { list -> list.map(DatabaseVenue::toDomain) }
     }
 
     override fun getById(venueId: Long): Flow<Venue> = database.venueQueries.getById(venueId)
@@ -60,7 +63,7 @@ class VenueRepositoryImpl(
             name = name,
             address = address,
             description = description,
-            updated_at = Clock.System.now().toString(),
+            updated_at = nowAsInstant().toString(),
         )
     }
 

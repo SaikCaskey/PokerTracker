@@ -1,11 +1,11 @@
-package com.github.saikcaskey.pokertracker.shared.presentation.venue
+package com.github.saikcaskey.pokertracker.presentation.venue
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.models.Venue
-import com.github.saikcaskey.pokertracker.presentation.venue.ViewVenuesComponent
+import com.github.saikcaskey.pokertracker.domain.components.ViewVenuesComponent
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
-import com.github.saikcaskey.pokertracker.presentation.venue.ViewVenuesComponent.*
+import com.github.saikcaskey.pokertracker.domain.components.ViewVenuesComponent.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
@@ -28,8 +28,10 @@ class DefaultViewVenuesComponent(
         combine(venueRepository.getAll(), _searchOptions) { venues, searchFilter ->
             val filtered = venues
                 .filter { venue ->
-                    searchFilter.query.isNullOrBlank() ||
-                            venue.name.contains(searchFilter.query, ignoreCase = true) == true
+                    searchFilter.query.isNullOrBlank() || venue.name.contains(
+                        searchFilter.query,
+                        ignoreCase = true
+                    )
                 }
                 .sortedWith(
                     when (searchFilter.sort) {

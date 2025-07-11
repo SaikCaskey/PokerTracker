@@ -12,7 +12,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.*
 import com.kizitonwose.calendar.compose.*
 import com.kizitonwose.calendar.core.*
-import com.github.saikcaskey.pokertracker.shared.presentation.main.MainPagerPagePlannerComponent
 import kotlinx.datetime.DayOfWeek
 
 @Composable

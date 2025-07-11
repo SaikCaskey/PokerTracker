@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.github.saikcaskey.pokertracker.domain.components.DayDetailComponent
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Regular
 import compose.icons.fontawesomeicons.Solid
@@ -76,8 +77,9 @@ fun DayDetailContent(component: DayDetailComponent) {
                 .padding(16.dp)
                 .clickable(
                     indication = null,
-                    interactionSource = remember { MutableInteractionSource() }
-                ) { component.onBackClicked() }
+                    interactionSource = remember { MutableInteractionSource() },
+                    onClick = component::onBackClicked
+                )
         ) {
             Card(
                 modifier = Modifier
@@ -110,8 +112,14 @@ fun DayDetailContent(component: DayDetailComponent) {
                                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
                             ) {
                                 Column(Modifier.padding(12.dp)) {
-                                    Text(event.name ?: "Unnamed Event", style = MaterialTheme.typography.titleMedium)
-                                    Text("Game Type: ${event.gameType}", style = MaterialTheme.typography.bodySmall)
+                                    Text(
+                                        event.name ?: "Unnamed Event",
+                                        style = MaterialTheme.typography.titleMedium
+                                    )
+                                    Text(
+                                        "Game Type: ${event.gameType}",
+                                        style = MaterialTheme.typography.bodySmall
+                                    )
                                 }
                             }
                         }

@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.shared.presentation.main
+package com.github.saikcaskey.pokertracker.presentation.main
 
 enum class MainMenuPagerItemType {
     Dashboard,

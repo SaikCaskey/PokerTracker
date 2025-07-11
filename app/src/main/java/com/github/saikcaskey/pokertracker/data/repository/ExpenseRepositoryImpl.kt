@@ -2,10 +2,13 @@ package com.github.saikcaskey.pokertracker.data.repository
 
 import app.cash.sqldelight.coroutines.*
 import com.github.saikcaskey.pokertracker.data.mappers.toDomain
+import com.github.saikcaskey.pokertracker.data.utils.atStartOfDayInstant
+import com.github.saikcaskey.pokertracker.data.utils.nowAsInstant
+import com.github.saikcaskey.pokertracker.data.utils.nowAsLocalDateTime
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.models.Expense
-import com.github.saikcaskey.pokertracker.shared.domain.repository.ExpenseRepository
+import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.*
 
@@ -20,9 +23,8 @@ class ExpenseRepositoryImpl(
         .map { expenses -> expenses.map { expense -> expense.toDomain() } }
 
     override fun getUpcomingCosts(): Flow<Double> {
-        val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        val tomorrow = now.date.plus(DatePeriod(days = 1))
-            .atStartOfDayIn(TimeZone.currentSystemDefault()).toString()
+        val now = nowAsLocalDateTime()
+        val tomorrow = now.date.plus(DatePeriod(days = 1)).atStartOfDayInstant().toString()
         return database.expenseQueries.getUpcomingCosts(tomorrow)
             .asFlow()
             .mapToOneOrNull(dispatchers.io)
@@ -30,9 +32,8 @@ class ExpenseRepositoryImpl(
     }
 
     override fun getRecent(): Flow<List<Expense>> {
-        val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        val tomorrow = now.date.plus(DatePeriod(days = 1))
-            .atStartOfDayIn(TimeZone.currentSystemDefault()).toString()
+        val now = nowAsLocalDateTime()
+        val tomorrow = now.date.plus(DatePeriod(days = 1)).atStartOfDayInstant().toString()
 
         return database.expenseQueries.getRecent(tomorrow, 5)
             .asFlow()
@@ -47,21 +48,23 @@ class ExpenseRepositoryImpl(
 
 
     override fun getBalanceAllTime(): Flow<Double> {
-        val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        val now = nowAsLocalDateTime()
         val then =
-            Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date.minus(DatePeriod(years = 30))
-        return database.expenseQueries.getBalance(startDate = then.toString(), endDate = now.toString())
+            nowAsLocalDateTime().date.minus(DatePeriod(years = 30))
+        return database.expenseQueries.getBalance(
+            startDate = then.toString(),
+            endDate = now.toString()
+        )
             .asFlow()
             .mapToOneOrNull(dispatchers.io)
             .map { it?.balance ?: 0.0 }
     }
 
     override fun getBalanceForYear(): Flow<Double> {
-        val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        val oneYearAgo = now.date.minus(DatePeriod(years = 1))
-            .atStartOfDayIn(TimeZone.currentSystemDefault())
+        val now = nowAsLocalDateTime()
+        val oneYearAgo = now.date.minus(DatePeriod(years = 1)).atStartOfDayInstant().toString()
         return database.expenseQueries.getBalance(
-            startDate = oneYearAgo.toString(),
+            startDate = oneYearAgo,
             endDate = now.toString(),
         )
             .asFlow()
@@ -70,11 +73,10 @@ class ExpenseRepositoryImpl(
     }
 
     override fun getBalanceForMonth(): Flow<Double> {
-        val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        val oneMonthAgo = now.date.minus(DatePeriod(months = 1))
-            .atStartOfDayIn(TimeZone.currentSystemDefault())
+        val now = nowAsLocalDateTime()
+        val oneMonthAgo = now.date.minus(DatePeriod(months = 1)).atStartOfDayInstant().toString()
         return database.expenseQueries.getBalance(
-            startDate = oneMonthAgo.toString(),
+            startDate = oneMonthAgo,
             endDate = now.toString(),
         )
             .asFlow()
@@ -82,10 +84,11 @@ class ExpenseRepositoryImpl(
             .map { it?.balance ?: 0.0 }
     }
 
-    override fun getEventBalance(eventId: Long): Flow<Double> = database.expenseQueries.getEventBalance(eventId)
-        .asFlow()
-        .mapToOne(dispatchers.io)
-        .map { it.balance ?: 0.0 }
+    override fun getEventBalance(eventId: Long): Flow<Double> =
+        database.expenseQueries.getEventBalance(eventId)
+            .asFlow()
+            .mapToOne(dispatchers.io)
+            .map { it.balance ?: 0.0 }
 
     override fun getEventCostSubtotal(eventId: Long): Flow<Double> =
         database.expenseQueries.getEventCostsSubtotal(eventId)
@@ -99,10 +102,11 @@ class ExpenseRepositoryImpl(
             .mapToOne(dispatchers.io)
             .map { it.balance ?: 0.0 }
 
-    override fun getVenueBalance(venueId: Long): Flow<Double> = database.expenseQueries.getVenueBalance(venueId)
-        .asFlow()
-        .mapToOne(dispatchers.io)
-        .map { it.balance ?: 0.0 }
+    override fun getVenueBalance(venueId: Long): Flow<Double> =
+        database.expenseQueries.getVenueBalance(venueId)
+            .asFlow()
+            .mapToOne(dispatchers.io)
+            .map { it.balance ?: 0.0 }
 
 
     override fun getVenueCostSubtotal(venueId: Long): Flow<Double> =
@@ -153,7 +157,7 @@ class ExpenseRepositoryImpl(
             amount = amount,
             description = description,
             date = date,
-            updated_at = Clock.System.now().toString()
+            updated_at = nowAsInstant().toString()
         )
     }
 

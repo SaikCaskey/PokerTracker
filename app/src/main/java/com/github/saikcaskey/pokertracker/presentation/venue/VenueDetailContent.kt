@@ -14,7 +14,7 @@ import com.github.saikcaskey.pokertracker.presentation.common.section.SectionCon
 import com.github.saikcaskey.pokertracker.presentation.main.DashboardEventsList
 import com.github.saikcaskey.pokertracker.data.utils.toUiDateTimeOrNull
 import com.github.saikcaskey.pokertracker.domain.models.Event
-import com.github.saikcaskey.pokertracker.shared.presentation.venue.VenueDetailComponent
+import com.github.saikcaskey.pokertracker.domain.components.VenueDetailComponent
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.PlusCircle
@@ -36,7 +36,7 @@ internal fun VenueDetailContent(modifier: Modifier = Modifier, component: VenueD
         floatingActionButton = {
             FloatingActionButton(component::onShowInsertEventClicked) {
                 Icon(
-                    modifier = Modifier.height(32.dp),
+                    modifier = Modifier.height(24.dp),
                     imageVector = FontAwesomeIcons.Solid.PlusCircle,
                     contentDescription = "Add event"
                 )
@@ -46,7 +46,8 @@ internal fun VenueDetailContent(modifier: Modifier = Modifier, component: VenueD
         LazyColumn(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
                 .padding(innerPadding)
                 .padding(horizontal = 12.dp),
         ) {
@@ -55,6 +56,7 @@ internal fun VenueDetailContent(modifier: Modifier = Modifier, component: VenueD
             item {
                 VenueEventsSummary(
                     upcomingEvents = state.upcomingEvents,
+                    todayEvents = state.todayEvents,
                     pastEvents = state.pastEvents,
                     onEventClicked = component::onShowEventDetailClicked
                 )
@@ -67,6 +69,7 @@ internal fun VenueDetailContent(modifier: Modifier = Modifier, component: VenueD
 fun VenueEventsSummary(
     upcomingEvents: List<Event>,
     pastEvents: List<Event>,
+    todayEvents: List<Event>,
     onEventClicked: (Long) -> Unit,
 ) {
     SectionContainer(
@@ -75,6 +78,13 @@ fun VenueEventsSummary(
         Text(text = "Upcoming", style = MaterialTheme.typography.labelLarge)
         DashboardEventsList(
             items = upcomingEvents,
+            emptyMessage = "",
+            onEventClicked = onEventClicked,
+        )
+        Spacer(Modifier.height(8.dp))
+        Text(text = "Today", style = MaterialTheme.typography.labelLarge)
+        DashboardEventsList(
+            items = todayEvents,
             emptyMessage = "",
             onEventClicked = onEventClicked,
         )
@@ -96,11 +106,11 @@ fun VenueDetailSummary(state: VenueDetailComponent.UiState) {
         Text("Created:  ${state.venue?.createdAt?.toUiDateTimeOrNull()}")
         if (state.venue?.description != null) {
             Spacer(Modifier.height(4.dp))
-            Text(state.venue.description.orEmpty())
+            Text(state.venue.description)
         }
         if (state.venue?.address != null) {
             Spacer(Modifier.height(4.dp))
-            Text(state.venue.address.orEmpty())
+            Text(state.venue.address)
         }
     }
 }
@@ -113,9 +123,11 @@ fun VenueProfitSummary(
 ) {
     SectionContainer(
         title = "Venue Cashflow",
-        modifier = modifier.fillMaxSize().clickable(state.venue?.id != null) {
-            state.venue?.id?.let { onVenueClicked?.invoke(it) }
-        }
+        modifier = modifier
+            .fillMaxSize()
+            .clickable(state.venue?.id != null) {
+                state.venue?.id?.let { onVenueClicked?.invoke(it) }
+            }
     ) {
         Text("Expenses:")
         AnimatedProfitText(

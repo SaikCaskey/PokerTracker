@@ -7,9 +7,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.github.saikcaskey.pokertracker.domain.components.ViewVenuesComponent
 import com.github.saikcaskey.pokertracker.presentation.common.appbar.TopAppBarItemViewer
 import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputDropdownSimple
-import com.github.saikcaskey.pokertracker.presentation.venue.ViewVenuesComponent.VenueSortOption
+import com.github.saikcaskey.pokertracker.domain.components.ViewVenuesComponent.VenueSortOption
 
 @Composable
 fun ViewVenuesContent(component: ViewVenuesComponent) {

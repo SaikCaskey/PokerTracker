@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
+import androidx.compose.ui.unit.dp
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.presentation.common.profitsummary.AnimatedExpenseText
 import com.github.saikcaskey.pokertracker.presentation.common.profitsummary.AnimatedProfitText
@@ -13,11 +14,11 @@ import com.github.saikcaskey.pokertracker.presentation.common.section.SectionLis
 import com.github.saikcaskey.pokertracker.data.utils.toUiDateTimeOrNull
 import com.github.saikcaskey.pokertracker.domain.models.Event
 import com.github.saikcaskey.pokertracker.domain.models.Venue
-import com.github.saikcaskey.pokertracker.shared.presentation.main.MainPagerPageDashboardComponent
 
 @Composable
 fun MainPagerDashboardContent(component: MainPagerPageDashboardComponent) {
     val upcomingEvents = component.upcomingEvents.collectAsState()
+    val todayEvents = component.todayEvents.collectAsState()
     val recentEvents = component.recentEvents.collectAsState()
     val recentExpenses = component.recentExpenses.collectAsState()
     val venues = component.recentVenues.collectAsState()
@@ -51,6 +52,12 @@ fun MainPagerDashboardContent(component: MainPagerPageDashboardComponent) {
                     emptyMessage = "No Upcoming events",
                     onEventClicked = component::onShowEventDetailClicked,
                 )
+                Text(text = "Today", style = MaterialTheme.typography.labelLarge)
+                DashboardEventsList(
+                    items = todayEvents.value,
+                    emptyMessage = "",
+                    onEventClicked = component::onShowEventDetailClicked,
+                )
                 Text(text = "Recent", style = MaterialTheme.typography.labelLarge)
                 DashboardEventsList(
                     items = recentEvents.value,
@@ -61,7 +68,7 @@ fun MainPagerDashboardContent(component: MainPagerPageDashboardComponent) {
         }
         item {
             SectionContainer(
-                title = "Recent Expenses",
+                title = "Expenses",
                 onAddClick = component::onShowInsertExpenseClicked,
                 onShowAllClick = component::onShowAllExpensesClicked,
             ) {
@@ -73,7 +80,7 @@ fun MainPagerDashboardContent(component: MainPagerPageDashboardComponent) {
         }
         item {
             SectionContainer(
-                title = "Recent Venues",
+                title = "Venues",
                 onAddClick = component::onShowInsertVenueClicked,
                 onShowAllClick = component::onShowAllVenuesClicked,
             ) {

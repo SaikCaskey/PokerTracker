@@ -18,6 +18,7 @@ import com.github.saikcaskey.pokertracker.presentation.common.profitsummary.Anim
 import com.github.saikcaskey.pokertracker.presentation.common.section.SectionContainer
 import com.github.saikcaskey.pokertracker.presentation.common.section.SectionListContainer
 import com.github.saikcaskey.pokertracker.data.utils.toUiDateTimeOrNull
+import com.github.saikcaskey.pokertracker.domain.components.EventDetailComponent
 import com.github.saikcaskey.pokertracker.presentation.common.profitsummary.AnimatedExpenseText
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid

@@ -8,6 +8,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
+import com.github.saikcaskey.pokertracker.domain.components.InsertExpenseComponent
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputDropdownEvent
 import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputDateField
@@ -40,7 +41,7 @@ fun InsertExpenseContent(component: InsertExpenseComponent) {
         )
         OutlinedTextField(
             value = state.inputData.amount?.toString().orEmpty(),
-            label = { Text("Amount*") },
+            label = { Text("Amount") },
             onValueChange = component::onAmountChanged,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth()
@@ -54,7 +55,7 @@ fun InsertExpenseContent(component: InsertExpenseComponent) {
         )
         OutlinedTextField(
             value = state.inputData.description,
-            label = { Text("Description*") },
+            label = { Text("Description") },
             onValueChange = component::onDescriptionChanged,
             modifier = Modifier.fillMaxWidth()
         )

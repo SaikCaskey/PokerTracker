@@ -5,7 +5,7 @@ import com.github.saikcaskey.pokertracker.data.repository.ExpenseRepositoryImpl
 import com.github.saikcaskey.pokertracker.data.repository.VenueRepositoryImpl
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
-import com.github.saikcaskey.pokertracker.shared.domain.repository.ExpenseRepository
+import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.koin.dsl.module

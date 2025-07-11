@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.shared.presentation.venue
+package com.github.saikcaskey.pokertracker.domain.components
 
 import kotlinx.coroutines.flow.StateFlow
 

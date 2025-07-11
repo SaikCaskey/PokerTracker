@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.shared.presentation.venue
+package com.github.saikcaskey.pokertracker.domain.components
 
 import com.github.saikcaskey.pokertracker.domain.models.Event
 import com.github.saikcaskey.pokertracker.domain.models.ProfitSummary
@@ -19,6 +19,7 @@ interface VenueDetailComponent {
         val venue: Venue? = null,
         val pastEvents: List<Event> = emptyList(),
         val upcomingEvents: List<Event> = emptyList(),
+        val todayEvents: List<Event> = emptyList(),
         val profitSummary: ProfitSummary = ProfitSummary(),
     )
 }
