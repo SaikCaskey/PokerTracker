@@ -41,4 +41,3 @@ interface InsertExpenseComponent {
         val isSubmitEnabled: Boolean = true,
     )
 }
-

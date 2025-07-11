@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 interface VenueDetailComponent {
 
     val uiState: StateFlow<UiState>
+
     fun onBackClicked()
     fun onShowInsertEventClicked()
     fun onShowEditVenueClicked()

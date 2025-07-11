@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.data.utils
+package com.github.saikcaskey.pokertracker.domain.util
 
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime

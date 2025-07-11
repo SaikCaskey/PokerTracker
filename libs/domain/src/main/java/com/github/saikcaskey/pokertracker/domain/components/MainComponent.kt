@@ -12,12 +12,4 @@ interface MainComponent {
 
     fun selectPage(index: Int)
 
-    @Serializable
-    sealed class MainMenuPagerPageConfig {
-        @Serializable
-        data object Dashboard : MainMenuPagerPageConfig()
-
-        @Serializable
-        data object Planner : MainMenuPagerPageConfig()
-    }
 }

@@ -8,6 +8,7 @@ import kotlinx.datetime.LocalTime
 
 interface InsertEventComponent {
     val uiState: StateFlow<UiState>
+
     fun onNameChanged(name: String)
     fun onDescriptionChanged(description: String)
     fun onDateChanged(date: LocalDate?)

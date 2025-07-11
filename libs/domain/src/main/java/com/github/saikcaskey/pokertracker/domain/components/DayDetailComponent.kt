@@ -8,9 +8,7 @@ interface DayDetailComponent {
     val uiState: StateFlow<UiState>
 
     fun onShowEventDetailClicked(eventId: Long)
-
     fun onShowInsertEventClicked()
-
     fun onBackClicked()
 
     data class UiState(

@@ -4,7 +4,6 @@ import com.github.saikcaskey.pokertracker.domain.models.Venue
 import kotlinx.coroutines.flow.StateFlow
 
 interface ViewVenuesComponent {
-
     val uiState: StateFlow<UiState>
 
     fun onBackClicked()

@@ -21,4 +21,3 @@ interface ExpenseDetailComponent {
         val venue: Venue? = null,
     )
 }
-
