@@ -20,21 +20,21 @@ fun InsertVenueContent(component: InsertVenueComponent) {
         OutlinedTextField(
             value = state.inputData.name,
             onValueChange = component::onNameChanged,
-            label = { Text("name*") },
+            label = { Text("Name") },
             modifier = Modifier.fillMaxWidth()
         )
 
         OutlinedTextField(
             value = state.inputData.address,
             onValueChange = component::onAddressChanged,
-            label = { Text("address*") },
+            label = { Text("Address") },
             modifier = Modifier.fillMaxWidth()
         )
 
         OutlinedTextField(
             value = state.inputData.description,
             onValueChange = component::onDescriptionChanged,
-            label = { Text("description*") },
+            label = { Text("Description") },
             modifier = Modifier.fillMaxWidth()
         )
     }
