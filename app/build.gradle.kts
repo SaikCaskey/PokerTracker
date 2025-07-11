@@ -2,13 +2,6 @@ plugins {
     id("pokertracker.android.app")
 }
 
-android{
-
-}
-kotlin {
-    jvmToolchain(libs.versions.jvmTarget.get().toInt())
-}
-
 dependencies {
     implementation(project(":libs:ui-compose"))
     implementation(project(":libs:data"))

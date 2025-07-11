@@ -1,33 +1,9 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.jetbrains.compose)
+    id("pokertracker.android.composelib")
 }
 
 android {
     namespace = "com.github.saikcaskey.pokertracker.ui_compose"
-
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-    }
-
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
-}
-
-kotlin {
-    jvmToolchain(libs.versions.jvmTarget.get().toInt())
 }
 
 dependencies {
