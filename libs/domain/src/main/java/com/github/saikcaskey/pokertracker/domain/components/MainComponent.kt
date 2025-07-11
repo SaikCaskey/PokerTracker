@@ -3,7 +3,6 @@ package com.github.saikcaskey.pokertracker.domain.components
 import com.arkivanov.decompose.router.pages.ChildPages
 import com.arkivanov.decompose.value.Value
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.serialization.Serializable
 
 interface MainComponent {
     val pages: Value<ChildPages<*, MainPagerPageComponent>>
@@ -11,5 +10,4 @@ interface MainComponent {
     val title: StateFlow<String>
 
     fun selectPage(index: Int)
-
 }
