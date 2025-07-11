@@ -1,11 +1,11 @@
-package com.github.saikcaskey.pokertracker.shared.presentation.expense
+package com.github.saikcaskey.pokertracker.presentation.expense
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.components.ViewExpensesComponent
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.models.adjustedAmount
-import com.github.saikcaskey.pokertracker.shared.domain.repository.ExpenseRepository
+import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.components.ViewExpensesComponent.*
 import com.github.saikcaskey.pokertracker.domain.components.ViewExpensesComponent.ExpenseSortOption.*
 import kotlinx.coroutines.*

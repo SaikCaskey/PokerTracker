@@ -9,7 +9,7 @@ import com.arkivanov.decompose.value.Value
 import com.github.saikcaskey.pokertracker.data.utils.defaultCoroutineDispatchersProviders
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
-import com.github.saikcaskey.pokertracker.shared.domain.repository.ExpenseRepository
+import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import com.github.saikcaskey.pokertracker.presentation.event.DefaultEventDetailComponent
 import com.github.saikcaskey.pokertracker.presentation.event.DefaultInsertEventComponent
@@ -19,7 +19,7 @@ import com.github.saikcaskey.pokertracker.domain.components.InsertEventComponent
 import com.github.saikcaskey.pokertracker.domain.components.ViewEventsComponent
 import com.github.saikcaskey.pokertracker.presentation.expense.DefaultExpenseDetailComponent
 import com.github.saikcaskey.pokertracker.presentation.expense.DefaultInsertExpenseComponent
-import com.github.saikcaskey.pokertracker.shared.presentation.expense.DefaultViewExpensesComponent
+import com.github.saikcaskey.pokertracker.presentation.expense.DefaultViewExpensesComponent
 import com.github.saikcaskey.pokertracker.domain.components.ExpenseDetailComponent
 import com.github.saikcaskey.pokertracker.domain.components.InsertExpenseComponent
 import com.github.saikcaskey.pokertracker.domain.components.ViewExpensesComponent
