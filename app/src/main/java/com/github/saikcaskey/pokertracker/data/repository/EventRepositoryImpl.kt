@@ -2,7 +2,10 @@ package com.github.saikcaskey.pokertracker.data.repository
 
 import app.cash.sqldelight.coroutines.*
 import com.github.saikcaskey.pokertracker.data.mappers.toDomain
+import com.github.saikcaskey.pokertracker.data.utils.atStartOfDayInstant
+import com.github.saikcaskey.pokertracker.data.utils.atTimeInstant
 import com.github.saikcaskey.pokertracker.data.utils.nowAsInstant
+import com.github.saikcaskey.pokertracker.data.utils.nowAsLocalDateTime
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.models.Event
@@ -37,8 +40,8 @@ class EventRepositoryImpl(
     }
 
     override fun getRecent(): Flow<List<Event>> {
-        val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        val today = now.date.atStartOfDayIn(TimeZone.currentSystemDefault()).toString()
+        val now = nowAsLocalDateTime()
+        val today = now.date.atStartOfDayInstant().toString()
 
         return database.eventQueries.getRecent(today, 5)
             .asFlow()
@@ -47,8 +50,8 @@ class EventRepositoryImpl(
     }
 
     override fun getRecentByVenue(venueId: Long?): Flow<List<Event>> {
-        val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        val tomorrow = now.date.atStartOfDayIn(TimeZone.currentSystemDefault()).toString()
+        val now = nowAsLocalDateTime()
+        val tomorrow = now.date.atStartOfDayInstant().toString()
 
         return database.eventQueries.getRecentByVenue(tomorrow, venueId)
             .asFlow()
@@ -57,9 +60,8 @@ class EventRepositoryImpl(
     }
 
     override fun getUpcoming(): Flow<List<Event>> {
-        val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        val tomorrow = now.date.plus(DatePeriod(days = 1))
-            .atStartOfDayIn(TimeZone.currentSystemDefault()).toString()
+        val now = nowAsLocalDateTime()
+        val tomorrow = now.date.plus(DatePeriod(days = 1)).atStartOfDayInstant().toString()
 
         return database.eventQueries.getUpcoming(tomorrow, 5)
             .asFlow()
@@ -68,9 +70,8 @@ class EventRepositoryImpl(
     }
 
     override fun getUpcomingByVenue(venueId: Long?): Flow<List<Event>> {
-        val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        val startOfTomorrow = now.date.plus(DatePeriod(days = 1))
-            .atStartOfDayIn(TimeZone.currentSystemDefault()).toString()
+        val now = nowAsLocalDateTime()
+        val startOfTomorrow = now.date.plus(DatePeriod(days = 1)).atStartOfDayInstant().toString()
 
         return database.eventQueries.getUpcomingByVenue(startOfTomorrow, venueId)
             .asFlow()
@@ -107,8 +108,7 @@ class EventRepositoryImpl(
             database.eventQueries.insert(
                 venue_id = venueId,
                 name = name,
-                date = parsedLocalDate.atTime(parsedTime).toInstant(TimeZone.currentSystemDefault())
-                    .toString(),
+                date = parsedLocalDate.atTimeInstant(parsedTime).toString(),
                 game_type = gameType,
                 description = description,
                 created_at = Clock.System.now().toString(),
@@ -128,14 +128,12 @@ class EventRepositoryImpl(
         database.eventQueries.transaction {
             val parsedLocalDate = LocalDate.parse(date.orEmpty())
             val parsedTime = LocalTime.parse(time.orEmpty())
-            parsedLocalDate.atTime(parsedTime).toInstant(TimeZone.currentSystemDefault()).toString()
+
             database.eventQueries.update(
                 id = id,
                 venue_id = venueId,
                 name = name,
-                date = parsedLocalDate.atTime(parsedTime)
-                    .toInstant(TimeZone.currentSystemDefault())
-                    .toString(),
+                date = parsedLocalDate.atTimeInstant(parsedTime).toString(),
                 game_type = gameType,
                 description = description,
                 updated_at = nowAsInstant().toString()

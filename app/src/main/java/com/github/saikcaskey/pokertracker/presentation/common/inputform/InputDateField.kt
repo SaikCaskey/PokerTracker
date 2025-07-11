@@ -11,6 +11,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.github.saikcaskey.pokertracker.data.utils.nowAsLocalDateTime
 import kotlinx.datetime.*
 
 @Composable
@@ -124,9 +125,9 @@ fun PickerColumn(
 
 @Composable
 fun InputDateField(
+    modifier: Modifier = Modifier,
     label: String = "Select Date",
     value: LocalDate? = null,
-    modifier: Modifier = Modifier,
     onValueChange: (LocalDate) -> Unit,
 ) {
     var showDialog by remember { mutableStateOf(false) }
@@ -174,9 +175,9 @@ fun InputDateField(
 
 @Composable
 fun InputTimeField(
+    modifier: Modifier = Modifier,
     label: String = "Select Time",
     value: LocalTime? = null,
-    modifier: Modifier = Modifier,
     onValueChange: (LocalTime?) -> Unit,
 ) {
     var showDialog by remember { mutableStateOf(false) }
@@ -212,8 +213,7 @@ fun InputTimeField(
 
     if (showDialog) {
         TimePickerDialog(
-            initialDateTime = selectedDateTime ?: Clock.System.now()
-                .toLocalDateTime(TimeZone.currentSystemDefault()).time,
+            initialDateTime = selectedDateTime ?: nowAsLocalDateTime().time,
             onDismissRequest = { showDialog = false },
             onTimeSelected = { time ->
                 selectedDateTime = time
@@ -230,8 +230,8 @@ fun TimePickerDialog(
     onDismissRequest: () -> Unit,
     onTimeSelected: (LocalTime) -> Unit,
 ) {
-    var selectedHour by remember { mutableStateOf(initialDateTime.hour) }
-    var selectedMinute by remember { mutableStateOf(initialDateTime.minute) }
+    var selectedHour by remember { mutableIntStateOf(initialDateTime.hour) }
+    var selectedMinute by remember { mutableIntStateOf(initialDateTime.minute) }
 
     Dialog(onDismissRequest = onDismissRequest) {
         Surface(
@@ -279,19 +279,13 @@ fun TimePickerDialog(
 @Composable
 fun DatePickerDialog(
     initialDate: LocalDate? = null,
-    startDate: LocalDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
-        .minus(DatePeriod(years = 2)),
-    endDate: LocalDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
-        .plus(DatePeriod(years = 2)),
+    startDate: LocalDate = nowAsLocalDateTime().date.minus(DatePeriod(years = 2)),
+    endDate: LocalDate = nowAsLocalDateTime().date.plus(DatePeriod(years = 2)),
     onDismissRequest: () -> Unit,
     onDateSelected: (LocalDate) -> Unit,
 ) {
     // State for selections
-    var selectedDate by remember {
-        mutableStateOf(
-            initialDate ?: Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
-        )
-    }
+    var selectedDate by remember { mutableStateOf(initialDate ?: nowAsLocalDateTime().date) }
 
     Dialog(onDismissRequest = onDismissRequest) {
         Surface(
