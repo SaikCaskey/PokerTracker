@@ -6,8 +6,6 @@ import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import org.koin.dsl.module
 
 val databaseModule = module {
-    single<PokerTrackerDatabase> {
-        PokerTrackerDatabase(get())
-    }
+    single<PokerTrackerDatabase> { PokerTrackerDatabase(get()) }
     single<DriverFactory> { DriverFactoryImpl(get()) }
 }
