@@ -5,7 +5,6 @@ import androidx.compose.foundation.lazy.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
-import androidx.compose.ui.unit.dp
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.presentation.common.profitsummary.AnimatedExpenseText
 import com.github.saikcaskey.pokertracker.presentation.common.profitsummary.AnimatedProfitText
