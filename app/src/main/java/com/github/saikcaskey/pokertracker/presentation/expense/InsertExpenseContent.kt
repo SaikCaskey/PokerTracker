@@ -41,7 +41,7 @@ fun InsertExpenseContent(component: InsertExpenseComponent) {
         )
         OutlinedTextField(
             value = state.inputData.amount?.toString().orEmpty(),
-            label = { Text("Amount*") },
+            label = { Text("Amount") },
             onValueChange = component::onAmountChanged,
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth()
@@ -55,7 +55,7 @@ fun InsertExpenseContent(component: InsertExpenseComponent) {
         )
         OutlinedTextField(
             value = state.inputData.description,
-            label = { Text("Description*") },
+            label = { Text("Description") },
             onValueChange = component::onDescriptionChanged,
             modifier = Modifier.fillMaxWidth()
         )
