@@ -31,6 +31,7 @@ kotlin {
 }
 
 dependencies {
+
     implementation(compose.ui)
     implementation(compose.foundation)
     implementation(compose.material3)
@@ -53,7 +54,4 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
     implementation(libs.material.kolor)
-    implementation(libs.sqldelight.android.driver)
-    implementation(libs.sqldelight.coroutines.extensions)
-    implementation(libs.sqldelight.runtime)
 }
