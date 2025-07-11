@@ -7,13 +7,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.unit.*
-import com.github.saikcaskey.pokertracker.presentation.main.DashboardEventsList
 import com.github.saikcaskey.pokertracker.domain.util.toUiDateTimeOrNull
 import com.github.saikcaskey.pokertracker.domain.models.Event
 import com.github.saikcaskey.pokertracker.domain.components.VenueDetailComponent
 import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopBarItemDetail
 import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedProfitText
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
+import com.github.saikcaskey.pokertracker.ui_compose.components.main.DashboardEventsList
 import com.github.saikcaskey.pokertracker.ui_compose.extensions.toProfitColor
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid

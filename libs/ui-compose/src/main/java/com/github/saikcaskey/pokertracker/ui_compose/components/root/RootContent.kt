@@ -19,6 +19,7 @@ import com.github.saikcaskey.pokertracker.ui_compose.components.event.ViewEvents
 import com.github.saikcaskey.pokertracker.ui_compose.components.expense.ExpenseDetailContent
 import com.github.saikcaskey.pokertracker.ui_compose.components.expense.InsertExpenseContent
 import com.github.saikcaskey.pokertracker.ui_compose.components.expense.ViewExpensesContent
+import com.github.saikcaskey.pokertracker.ui_compose.components.main.MainContent
 import com.github.saikcaskey.pokertracker.ui_compose.components.planner.DayDetailContent
 
 @Composable

@@ -56,14 +56,14 @@ class DefaultMainComponent(
         },
     ) { config, childComponentContext ->
         when (config) {
-            MainMenuPagerPageConfig.Planner -> MainPagerPagePlannerComponent(
+            MainMenuPagerPageConfig.Planner -> DefaultMainPagerPagePlannerComponent(
                 componentContext = childComponentContext,
                 eventsRepository = eventRepository,
                 onCalendarDayClicked = onShowCalendarDayDetail,
                 dispatchers = dispatchers
             )
 
-            MainMenuPagerPageConfig.Dashboard -> MainPagerPageDashboardComponent(
+            MainMenuPagerPageConfig.Dashboard -> DefaultMainPagerPageDashboardComponent(
                 componentContext = childComponentContext,
                 eventRepository = eventRepository,
                 expenseRepository = expenseRepository,

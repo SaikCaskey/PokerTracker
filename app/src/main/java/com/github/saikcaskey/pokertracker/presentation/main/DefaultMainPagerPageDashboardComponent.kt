@@ -2,16 +2,16 @@ package com.github.saikcaskey.pokertracker.presentation.main
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
+import com.github.saikcaskey.pokertracker.domain.components.MainPagerPageDashboardComponent
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
-import com.github.saikcaskey.pokertracker.domain.components.MainPagerPageComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.LocalDate
 
-class MainPagerPageDashboardComponent(
+class DefaultMainPagerPageDashboardComponent(
     componentContext: ComponentContext,
     eventRepository: EventRepository,
     expenseRepository: ExpenseRepository,
@@ -26,35 +26,35 @@ class MainPagerPageDashboardComponent(
     private val onShowAllVenues: () -> Unit,
     private val onShowAllEvents: () -> Unit,
     private val onShowAllExpenses: () -> Unit,
-) : MainPagerPageComponent, ComponentContext by componentContext {
+) : MainPagerPageDashboardComponent, ComponentContext by componentContext {
     private val coroutineScope = CoroutineScope(dispatchers.io)
 
-    val recentEvents = eventRepository.getRecent()
+    override val recentEvents = eventRepository.getRecent()
         .stateIn(coroutineScope, Eagerly, emptyList())
-    val todayEvents = eventRepository.getToday()
+    override val todayEvents = eventRepository.getToday()
         .stateIn(coroutineScope, Eagerly, emptyList())
-    val upcomingEvents = eventRepository.getUpcoming()
+    override val upcomingEvents = eventRepository.getUpcoming()
         .stateIn(coroutineScope, Eagerly, emptyList())
-    val recentExpenses = expenseRepository.getRecent()
+    override val recentExpenses = expenseRepository.getRecent()
         .stateIn(coroutineScope, Eagerly, emptyList())
-    val recentVenues = venueRepository.getRecent()
+    override val recentVenues = venueRepository.getRecent()
         .stateIn(coroutineScope, Eagerly, emptyList())
-    val balance = expenseRepository.getBalanceAllTime()
+    override val balance = expenseRepository.getBalanceAllTime()
         .stateIn(coroutineScope, Eagerly, 0.0)
-    val upcomingCosts = expenseRepository.getUpcomingCosts()
+    override val upcomingCosts = expenseRepository.getUpcomingCosts()
         .stateIn(coroutineScope, Eagerly, 0.0)
-    val balanceForYear = expenseRepository.getBalanceForYear()
+    override val balanceForYear = expenseRepository.getBalanceForYear()
         .stateIn(coroutineScope, Eagerly, 0.0)
-    val balanceForMonth = expenseRepository.getBalanceForMonth()
+    override val balanceForMonth = expenseRepository.getBalanceForMonth()
         .stateIn(coroutineScope, Eagerly, 0.0)
 
-    fun onShowEventDetailClicked(id: Long) = onShowEventDetail(id)
-    fun onShowExpenseDetailClicked(id: Long) = onShowExpenseDetail(id)
-    fun onShowInsertEventClicked() = onShowInsertEvent(null)
-    fun onShowInsertVenueClicked() = onShowInsertVenue()
-    fun onShowInsertExpenseClicked() = onShowInsertExpense()
-    fun onShowVenueDetailClicked(id: Long) = onShowVenueDetail(id)
-    fun onShowAllExpensesClicked() = onShowAllExpenses()
-    fun onShowAllEventsClicked() = onShowAllEvents()
-    fun onShowAllVenuesClicked() = onShowAllVenues()
+    override fun onShowEventDetailClicked(id: Long) = onShowEventDetail(id)
+    override fun onShowExpenseDetailClicked(id: Long) = onShowExpenseDetail(id)
+    override fun onShowInsertEventClicked() = onShowInsertEvent(null)
+    override fun onShowInsertVenueClicked() = onShowInsertVenue()
+    override fun onShowInsertExpenseClicked() = onShowInsertExpense()
+    override fun onShowVenueDetailClicked(id: Long) = onShowVenueDetail(id)
+    override fun onShowAllExpensesClicked() = onShowAllExpenses()
+    override fun onShowAllEventsClicked() = onShowAllEvents()
+    override fun onShowAllVenuesClicked() = onShowAllVenues()
 }
