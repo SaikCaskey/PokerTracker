@@ -1,11 +1,13 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":app")
 include(":libs:data")
 include(":libs:domain")
 include(":libs:ui-compose")
 
 pluginManagement {
     repositories {
+        includeBuild("build-logic")
         google {
             content {
                 includeGroupByRegex("com\\.android.*")
@@ -26,5 +28,3 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "PokerTracker"
-include(":app")
- 
