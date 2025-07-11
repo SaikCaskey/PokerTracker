@@ -1,6 +1,8 @@
 package com.github.saikcaskey.pokertracker.presentation.common.inputform
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -32,6 +34,7 @@ fun InputFormScaffold(
         Column(
             modifier = Modifier
                 .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
                 .fillMaxSize()
                 .padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp),
             content = content
