@@ -11,7 +11,6 @@ import com.github.saikcaskey.pokertracker.domain.components.ViewEventsComponent
 import com.github.saikcaskey.pokertracker.presentation.common.appbar.TopAppBarItemViewer
 import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputDropdownSimple
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ViewEventsContent(component: ViewEventsComponent) {
     val uiState by component.uiState.collectAsState()
@@ -27,7 +26,8 @@ fun ViewEventsContent(component: ViewEventsComponent) {
         },
     ) { scaffoldPadding ->
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
                 .padding(scaffoldPadding)
                 .padding(16.dp)
         ) {

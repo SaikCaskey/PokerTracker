@@ -10,12 +10,13 @@ plugins {
     alias(libs.plugins.sqldelight).apply(false)
 }
 
-
 allprojects {
     tasks.withType<KotlinCompile> {
         compilerOptions {
             freeCompilerArgs.addAll(
                 "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
+                "-opt-in=com.arkivanov.decompose.ExperimentalDecomposeApi",
+                "-opt-in=com.arkivanov.decompose.DelicateDecomposeApi",
                 "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                 "-opt-in=kotlin.time.ExperimentalTime",
             )

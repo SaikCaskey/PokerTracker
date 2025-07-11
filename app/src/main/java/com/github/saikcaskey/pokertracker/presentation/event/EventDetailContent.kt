@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.github.saikcaskey.pokertracker.presentation.event
 
 import androidx.compose.foundation.clickable

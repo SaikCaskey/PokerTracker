@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.github.saikcaskey.pokertracker.presentation.event
 
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,7 +12,6 @@ import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputDro
 import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputDropdownVenue
 import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputFormScaffold
 import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputTimeField
-import kotlinx.datetime.*
 
 @Composable
 fun InsertEventContent(component: InsertEventComponent) {

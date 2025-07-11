@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.saikcaskey.pokertracker.presentation.common.appbar.TopBarBackButton
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputFormScaffold(
     title: String,
