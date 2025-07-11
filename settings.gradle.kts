@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":libs:ui-compose")
+
+
 pluginManagement {
     repositories {
         google {
