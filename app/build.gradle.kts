@@ -82,6 +82,7 @@ sqldelight {
 
 dependencies {
     implementation(project(":libs:ui-compose"))
+    implementation(project(":libs:domain"))
 
     implementation(compose.ui)
     implementation(compose.foundation)

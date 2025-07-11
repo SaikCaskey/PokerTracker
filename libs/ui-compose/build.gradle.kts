@@ -31,6 +31,7 @@ kotlin {
 }
 
 dependencies {
+    implementation(project(":libs:domain"))
 
     implementation(compose.ui)
     implementation(compose.foundation)
