@@ -28,10 +28,10 @@ class DefaultViewVenuesComponent(
         combine(venueRepository.getAll(), _searchOptions) { venues, searchFilter ->
             val filtered = venues
                 .filter { venue ->
-                    searchFilter.query.isNullOrBlank() || venue.name.contains(
-                        searchFilter.query,
-                        ignoreCase = true
-                    )
+                    val query = searchFilter.query.orEmpty()
+
+                    query.isBlank() ||
+                            venue.name.contains(query, ignoreCase = true)
                 }
                 .sortedWith(
                     when (searchFilter.sort) {

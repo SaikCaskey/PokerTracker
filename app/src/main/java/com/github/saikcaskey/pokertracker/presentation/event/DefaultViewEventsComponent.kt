@@ -31,12 +31,13 @@ class DefaultViewEventsComponent(
         combine(eventRepository.getAll(), _searchOptions) { events, searchFilter ->
             val filtered = events
                 .filter { event ->
-                    searchFilter.query.isNullOrBlank()
-                            || event.name?.contains(searchFilter.query, ignoreCase = true) == true
-                            || event.gameType.name.contains(searchFilter.query, ignoreCase = true)
-                            || event.description?.contains(searchFilter.query, ignoreCase = true) == true
-                            || event.id == searchFilter.query.toLongOrNull()
-                            || event.venueId == searchFilter.query.toLongOrNull()
+                    val query = searchFilter.query.orEmpty()
+                    query.isBlank()
+                            || event.name?.contains(query, ignoreCase = true) == true
+                            || event.gameType.name.contains(query, ignoreCase = true)
+                            || event.description?.contains(query, ignoreCase = true) == true
+                            || event.id == query.toLongOrNull()
+                            || event.venueId == query.toLongOrNull()
                 }
                 .sortedWith(
                     when (searchFilter.sort) {

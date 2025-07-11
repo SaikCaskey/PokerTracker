@@ -31,17 +31,19 @@ class DefaultViewExpensesComponent(
         combine(expenseRepository.getAll(), _searchOptions) { expenses, searchFilter ->
             val filtered = expenses
                 .filter { expense ->
-                    searchFilter.query.isNullOrBlank()
-                            || expense.type.name.contains(searchFilter.query, ignoreCase = true)
+                    val query = searchFilter.query.orEmpty()
+
+                    query.isBlank()
+                            || expense.type.name.contains(query, ignoreCase = true)
                             || expense.description?.contains(
-                        searchFilter.query,
+                        query,
                         ignoreCase = true
                     ) == true
-                            || expense.id == searchFilter.query.toLongOrNull()
-                            || expense.venueId == searchFilter.query.toLongOrNull()
-                            || expense.eventId == searchFilter.query.toLongOrNull()
+                            || expense.id == query.toLongOrNull()
+                            || expense.venueId == query.toLongOrNull()
+                            || expense.eventId == query.toLongOrNull()
                             || expense.amount.toString()
-                        .contains(searchFilter.query, ignoreCase = true)
+                        .contains(query, ignoreCase = true)
                 }
                 .sortedWith(
                     when (searchFilter.sort) {

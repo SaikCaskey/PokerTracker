@@ -2,8 +2,8 @@ package com.github.saikcaskey.pokertracker.data.mappers
 
 import co.touchlab.kermit.Logger
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
-import com.github.saikcaskey.pokertracker.data.utils.asInstantOrNow
-import com.github.saikcaskey.pokertracker.data.utils.asInstantOrNull
+import com.github.saikcaskey.pokertracker.domain.util.asInstantOrNow
+import com.github.saikcaskey.pokertracker.domain.util.asInstantOrNull
 import com.github.saikcaskey.pokertracker.database.Expense
 import com.github.saikcaskey.pokertracker.domain.models.Expense as DomainExpense
 

@@ -81,6 +81,9 @@ sqldelight {
 }
 
 dependencies {
+    implementation(project(":libs:ui-compose"))
+    implementation(project(":libs:domain"))
+
     implementation(compose.ui)
     implementation(compose.foundation)
     implementation(compose.material3)
@@ -106,4 +109,4 @@ dependencies {
     implementation(libs.sqldelight.android.driver)
     implementation(libs.sqldelight.coroutines.extensions)
     implementation(libs.sqldelight.runtime)
-    }
+}
