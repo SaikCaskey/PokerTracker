@@ -2,6 +2,7 @@
 package com.github.saikcaskey.pokertracker.presentation.event
 
 import com.arkivanov.decompose.ComponentContext
+import com.github.saikcaskey.pokertracker.data.utils.asLocalDateTime
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.components.InsertEventComponent
 import com.github.saikcaskey.pokertracker.domain.models.GameType
@@ -22,8 +23,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 
 class DefaultInsertEventComponent(
     private val componentContext: ComponentContext,
@@ -86,8 +85,8 @@ class DefaultInsertEventComponent(
                     _inputData.update {
                         InsertEventComponent.InputData(
                             name = event?.name.orEmpty(),
-                            date = event?.date?.toLocalDateTime(TimeZone.currentSystemDefault())?.date,
-                            time = event?.date?.toLocalDateTime(TimeZone.currentSystemDefault())?.time,
+                            date = event?.date?.asLocalDateTime()?.date,
+                            time = event?.date?.asLocalDateTime()?.time,
                             type = event?.gameType ?: GameType.CASH,
                             description = event?.description.orEmpty(),
                         )

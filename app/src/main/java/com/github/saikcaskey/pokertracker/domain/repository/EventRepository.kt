@@ -11,6 +11,8 @@ interface EventRepository {
     fun getRecent(): Flow<List<Event>>
     fun getUpcoming(): Flow<List<Event>>
     fun getById(eventId: Long): Flow<Event?>
+    fun getToday(): Flow<List<Event>>
+    fun getTodayByVenue(venueId: Long?): Flow<List<Event>>
     fun getByVenue(venueId: Long): Flow<List<Event>>
     fun getUpcomingByVenue(venueId: Long?): Flow<List<Event>>
 

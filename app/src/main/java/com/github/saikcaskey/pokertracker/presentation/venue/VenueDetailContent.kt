@@ -46,7 +46,8 @@ internal fun VenueDetailContent(modifier: Modifier = Modifier, component: VenueD
         LazyColumn(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
                 .padding(innerPadding)
                 .padding(horizontal = 12.dp),
         ) {
@@ -55,6 +56,7 @@ internal fun VenueDetailContent(modifier: Modifier = Modifier, component: VenueD
             item {
                 VenueEventsSummary(
                     upcomingEvents = state.upcomingEvents,
+                    todayEvents = state.todayEvents,
                     pastEvents = state.pastEvents,
                     onEventClicked = component::onShowEventDetailClicked
                 )
@@ -67,6 +69,7 @@ internal fun VenueDetailContent(modifier: Modifier = Modifier, component: VenueD
 fun VenueEventsSummary(
     upcomingEvents: List<Event>,
     pastEvents: List<Event>,
+    todayEvents: List<Event>,
     onEventClicked: (Long) -> Unit,
 ) {
     SectionContainer(
@@ -75,6 +78,13 @@ fun VenueEventsSummary(
         Text(text = "Upcoming", style = MaterialTheme.typography.labelLarge)
         DashboardEventsList(
             items = upcomingEvents,
+            emptyMessage = "",
+            onEventClicked = onEventClicked,
+        )
+        Spacer(Modifier.height(8.dp))
+        Text(text = "Today", style = MaterialTheme.typography.labelLarge)
+        DashboardEventsList(
+            items = todayEvents,
             emptyMessage = "",
             onEventClicked = onEventClicked,
         )
@@ -113,9 +123,11 @@ fun VenueProfitSummary(
 ) {
     SectionContainer(
         title = "Venue Cashflow",
-        modifier = modifier.fillMaxSize().clickable(state.venue?.id != null) {
-            state.venue?.id?.let { onVenueClicked?.invoke(it) }
-        }
+        modifier = modifier
+            .fillMaxSize()
+            .clickable(state.venue?.id != null) {
+                state.venue?.id?.let { onVenueClicked?.invoke(it) }
+            }
     ) {
         Text("Expenses:")
         AnimatedProfitText(

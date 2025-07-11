@@ -34,11 +34,11 @@ class SampleDataSeederImpl : SampleDataSeeder {
             val offset = timeOffsets.random()
             val baseDate = nowAsLocalDateTime().date
                 .plus(offset)
-                .atStartOfDayIn(TimeZone.currentSystemDefault())
-                .toLocalDateTime(TimeZone.currentSystemDefault())
+                .atStartOfDayInstant()
+                .asLocalDateTime()
 
             insertVenueWithEventAndExpenses(
-                database,
+                database = database,
                 venueName = venueNames.random(),
                 description = venueDescriptions.random(),
                 eventName = eventNames.random(),

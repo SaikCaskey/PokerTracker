@@ -23,8 +23,7 @@ class DefaultViewExpensesComponent(
 ) : ViewExpensesComponent, ComponentContext by componentContext {
     private val coroutineScope = CoroutineScope(dispatchers.io)
     private val _searchQuery = MutableStateFlow<String?>(null)
-    private val _expenseSortOption = MutableStateFlow(CREATED_AT_DESC
-    )
+    private val _expenseSortOption = MutableStateFlow(CREATED_AT_DESC)
     private val _searchOptions = combine(_searchQuery, _expenseSortOption, ::ExpenseSearchFilter)
         .stateIn(coroutineScope, Eagerly, ExpenseSearchFilter())
 
@@ -34,11 +33,15 @@ class DefaultViewExpensesComponent(
                 .filter { expense ->
                     searchFilter.query.isNullOrBlank()
                             || expense.type.name.contains(searchFilter.query, ignoreCase = true)
-                            || expense.description?.contains(searchFilter.query, ignoreCase = true) == true
+                            || expense.description?.contains(
+                        searchFilter.query,
+                        ignoreCase = true
+                    ) == true
                             || expense.id == searchFilter.query.toLongOrNull()
                             || expense.venueId == searchFilter.query.toLongOrNull()
                             || expense.eventId == searchFilter.query.toLongOrNull()
-                            || expense.amount.toString().contains(searchFilter.query, ignoreCase = true)
+                            || expense.amount.toString()
+                        .contains(searchFilter.query, ignoreCase = true)
                 }
                 .sortedWith(
                     when (searchFilter.sort) {

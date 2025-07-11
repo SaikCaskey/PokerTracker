@@ -53,13 +53,15 @@ class DefaultVenueDetailComponent(
         venue,
         eventRepository.getUpcomingByVenue(venueId),
         eventRepository.getByVenue(venueId),
+        eventRepository.getTodayByVenue(venueId),
         profitSummary
-    ) { venue, upcomingEvents, pastEvents, profitSummary ->
+    ) { venue, upcomingEvents, pastEvents, todayEvents,  profitSummary ->
         UiState(
             id = venueId,
             venue = venue,
             upcomingEvents = upcomingEvents,
             pastEvents = pastEvents,
+            todayEvents = todayEvents,
             profitSummary = profitSummary
         )
     }.stateIn(coroutineScope, Eagerly, UiState(id = venueId, profitSummary = profitSummary.value))

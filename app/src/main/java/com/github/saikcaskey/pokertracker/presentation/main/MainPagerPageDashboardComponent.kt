@@ -31,6 +31,8 @@ class MainPagerPageDashboardComponent(
 
     val recentEvents = eventRepository.getRecent()
         .stateIn(coroutineScope, Eagerly, emptyList())
+    val todayEvents = eventRepository.getToday()
+        .stateIn(coroutineScope, Eagerly, emptyList())
     val upcomingEvents = eventRepository.getUpcoming()
         .stateIn(coroutineScope, Eagerly, emptyList())
     val recentExpenses = expenseRepository.getRecent()
