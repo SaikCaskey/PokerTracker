@@ -1,9 +1,9 @@
-package com.github.saikcaskey.pokertracker.data.repository
+package com.github.saikcaskey.data.repository
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneNotNull
-import com.github.saikcaskey.pokertracker.data.mappers.toDomain
+import com.github.saikcaskey.data.mappers.toDomain
 import com.github.saikcaskey.pokertracker.domain.util.nowAsInstant
 import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase

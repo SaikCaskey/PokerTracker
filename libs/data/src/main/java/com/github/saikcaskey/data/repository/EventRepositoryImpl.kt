@@ -1,7 +1,7 @@
-package com.github.saikcaskey.pokertracker.data.repository
+package com.github.saikcaskey.data.repository
 
 import app.cash.sqldelight.coroutines.*
-import com.github.saikcaskey.pokertracker.data.mappers.toDomain
+import com.github.saikcaskey.data.mappers.toDomain
 import com.github.saikcaskey.pokertracker.domain.util.atStartOfDayInstant
 import com.github.saikcaskey.pokertracker.domain.util.atTimeInstant
 import com.github.saikcaskey.pokertracker.domain.util.nowAsInstant

@@ -1,27 +1,13 @@
 package com.github.saikcaskey.pokertracker.di
 
-import androidx.sqlite.db.SupportSQLiteDatabase
-import app.cash.sqldelight.driver.android.AndroidSqliteDriver
-import com.github.saikcaskey.pokertracker.data.database.DriverFactoryImpl
+import com.github.saikcaskey.data.database.DriverFactoryImpl
 import com.github.saikcaskey.pokertracker.domain.DriverFactory
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import org.koin.dsl.module
 
 val databaseModule = module {
     single<PokerTrackerDatabase> {
-        PokerTrackerDatabase(
-            AndroidSqliteDriver(
-                PokerTrackerDatabase.Schema,
-                get(),
-                "poker-tracker-database.db",
-                callback = object : AndroidSqliteDriver.Callback(PokerTrackerDatabase.Schema) {
-                    override fun onConfigure(db: SupportSQLiteDatabase) {
-                        super.onConfigure(db)
-                        db.execSQL("PRAGMA foreign_keys = ON;")
-                    }
-                }
-            )
-        )
+        PokerTrackerDatabase(get())
     }
     single<DriverFactory> { DriverFactoryImpl(get()) }
 }

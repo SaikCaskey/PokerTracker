@@ -1,16 +1,12 @@
-package com.github.saikcaskey.pokertracker.data.mappers
+package com.github.saikcaskey.data.mappers
 
-import co.touchlab.kermit.Logger
-import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.domain.util.asInstantOrNow
 import com.github.saikcaskey.pokertracker.domain.util.asInstantOrNull
 import com.github.saikcaskey.pokertracker.database.Expense
 import com.github.saikcaskey.pokertracker.domain.models.Expense as DomainExpense
 
 fun Expense.toDomain(): DomainExpense {
-    Logger.i("asd expenseToDomain $date")
     return DomainExpense(
-        id = id,
         eventId = event_id,
         venueId = venue_id,
         type = ExpenseType.valueOf(type),
