@@ -7,7 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import com.github.saikcaskey.pokertracker.domain.extensions.formatAsCurrency
-import com.github.saikcaskey.pokertracker.domain.models.toProfitColor
+import com.github.saikcaskey.pokertracker.ui_compose.extensions.toProfitColor
 
 @Composable
 fun AnimatedProfitText(

@@ -8,7 +8,7 @@ import androidx.compose.ui.text.TextStyle
 import com.github.saikcaskey.pokertracker.domain.extensions.formatAsCurrency
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
-import com.github.saikcaskey.pokertracker.domain.models.toExpenseColor
+import com.github.saikcaskey.pokertracker.ui_compose.extensions.toExpenseColor
 
 @Composable
 fun AnimatedExpenseText(

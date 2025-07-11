@@ -7,14 +7,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.unit.*
-import com.github.saikcaskey.pokertracker.domain.models.toProfitColor
-import com.github.saikcaskey.pokertracker.presentation.common.appbar.TopBarItemDetail
-import com.github.saikcaskey.pokertracker.presentation.common.profitsummary.AnimatedProfitText
-import com.github.saikcaskey.pokertracker.presentation.common.section.SectionContainer
 import com.github.saikcaskey.pokertracker.presentation.main.DashboardEventsList
-import com.github.saikcaskey.pokertracker.data.utils.toUiDateTimeOrNull
+import com.github.saikcaskey.pokertracker.domain.util.toUiDateTimeOrNull
 import com.github.saikcaskey.pokertracker.domain.models.Event
 import com.github.saikcaskey.pokertracker.domain.components.VenueDetailComponent
+import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopBarItemDetail
+import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedProfitText
+import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
+import com.github.saikcaskey.pokertracker.ui_compose.extensions.toProfitColor
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.PlusCircle
@@ -101,16 +101,17 @@ fun VenueEventsSummary(
 @Composable
 fun VenueDetailSummary(state: VenueDetailComponent.UiState) {
     SectionContainer(modifier = Modifier.fillMaxHeight()) {
-        Text(state.venue?.name.orEmpty(), style = MaterialTheme.typography.displaySmall)
+        val venue = state.venue
+        Text(venue?.name.orEmpty(), style = MaterialTheme.typography.displaySmall)
         Text("Id: ${state.venue?.id}")
         Text("Created:  ${state.venue?.createdAt?.toUiDateTimeOrNull()}")
         if (state.venue?.description != null) {
             Spacer(Modifier.height(4.dp))
-            Text(state.venue.description)
+            Text(venue?.description.orEmpty())
         }
-        if (state.venue?.address != null) {
+        if (venue?.address != null) {
             Spacer(Modifier.height(4.dp))
-            Text(state.venue.address)
+            Text(venue.address.orEmpty())
         }
     }
 }

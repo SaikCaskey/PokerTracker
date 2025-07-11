@@ -7,11 +7,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.models.prettyName
-import com.github.saikcaskey.pokertracker.presentation.common.appbar.TopBarItemDetail
-import com.github.saikcaskey.pokertracker.presentation.common.profitsummary.AnimatedExpenseText
-import com.github.saikcaskey.pokertracker.presentation.common.section.SectionContainer
-import com.github.saikcaskey.pokertracker.data.utils.toUiDateTimeOrNull
+import com.github.saikcaskey.pokertracker.domain.util.toUiDateTimeOrNull
 import com.github.saikcaskey.pokertracker.domain.components.ExpenseDetailComponent
+import com.github.saikcaskey.pokertracker.domain.models.Venue
+import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopBarItemDetail
+import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedExpenseText
+import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
 
 @Composable
 internal fun ExpenseDetailContent(
@@ -75,9 +76,9 @@ fun ExpenseVenueSummary(state: ExpenseDetailComponent.UiState, onVenueClicked: (
                 .wrapContentHeight()
                 .clickable(true) { onVenueClicked(eventVenue.id) },
             content = {
-                if (eventVenue.name.isNotBlank()) Text(state.venue.name)
+                if (eventVenue.name.isNotBlank()) Text(eventVenue.name)
                 Text("Address: ${eventVenue.address}")
-                if (!eventVenue.description.isNullOrBlank()) Text(eventVenue.description)
+                if (!eventVenue.description.isNullOrBlank()) Text(eventVenue.description.orEmpty())
                 Text("Created:  ${eventVenue.createdAt?.toUiDateTimeOrNull()}")
                 Text("Updated At: ${eventVenue.updatedAt?.toUiDateTimeOrNull()}")
             },

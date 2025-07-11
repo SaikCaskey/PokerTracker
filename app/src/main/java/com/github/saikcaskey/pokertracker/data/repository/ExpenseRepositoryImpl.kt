@@ -2,9 +2,9 @@ package com.github.saikcaskey.pokertracker.data.repository
 
 import app.cash.sqldelight.coroutines.*
 import com.github.saikcaskey.pokertracker.data.mappers.toDomain
-import com.github.saikcaskey.pokertracker.data.utils.atStartOfDayInstant
-import com.github.saikcaskey.pokertracker.data.utils.nowAsInstant
-import com.github.saikcaskey.pokertracker.data.utils.nowAsLocalDateTime
+import com.github.saikcaskey.pokertracker.domain.util.atStartOfDayInstant
+import com.github.saikcaskey.pokertracker.domain.util.nowAsInstant
+import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.models.Expense

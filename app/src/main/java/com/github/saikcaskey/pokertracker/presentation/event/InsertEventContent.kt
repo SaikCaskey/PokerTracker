@@ -4,14 +4,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.github.saikcaskey.pokertracker.data.utils.nowAsLocalDateTime
+import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import com.github.saikcaskey.pokertracker.domain.components.InsertEventComponent
 import com.github.saikcaskey.pokertracker.domain.models.GameType
-import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputDateField
-import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputDropdownField
-import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputDropdownVenue
-import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputFormScaffold
-import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputTimeField
+import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDateField
+import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDropdownField
+import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDropdownVenue
+import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputFormScaffold
+import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputTimeField
 
 @Composable
 fun InsertEventContent(component: InsertEventComponent) {

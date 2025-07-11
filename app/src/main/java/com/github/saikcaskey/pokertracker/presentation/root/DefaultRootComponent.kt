@@ -10,7 +10,7 @@ import com.arkivanov.decompose.router.stack.popTo
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
 import com.github.saikcaskey.pokertracker.data.utils.defaultCoroutineDispatchersProviders
-import com.github.saikcaskey.pokertracker.data.utils.nowAsLocalDateTime
+import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.components.DayDetailComponent
 import com.github.saikcaskey.pokertracker.domain.components.EventDetailComponent

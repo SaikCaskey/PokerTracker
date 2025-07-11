@@ -4,8 +4,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputFormScaffold
 import com.github.saikcaskey.pokertracker.domain.components.InsertVenueComponent
+import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputFormScaffold
 
 @Composable
 fun InsertVenueContent(component: InsertVenueComponent) {

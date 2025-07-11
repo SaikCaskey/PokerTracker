@@ -1,9 +1,9 @@
 package com.github.saikcaskey.pokertracker.presentation.expense
 
 import com.arkivanov.decompose.ComponentContext
-import com.github.saikcaskey.pokertracker.data.utils.asLocalDateTime
-import com.github.saikcaskey.pokertracker.data.utils.atTimeInstant
-import com.github.saikcaskey.pokertracker.data.utils.nowAsLocalDateTime
+import com.github.saikcaskey.pokertracker.domain.util.asLocalDateTime
+import com.github.saikcaskey.pokertracker.domain.util.atTimeInstant
+import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.components.InsertExpenseComponent
 import com.github.saikcaskey.pokertracker.domain.models.Event

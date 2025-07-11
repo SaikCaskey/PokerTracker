@@ -1,5 +1,7 @@
 package com.github.saikcaskey.pokertracker.presentation.event
 
+import android.R.attr.description
+import android.R.attr.name
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,14 +12,14 @@ import androidx.compose.ui.unit.*
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.models.Venue
 import com.github.saikcaskey.pokertracker.domain.models.prettyName
-import com.github.saikcaskey.pokertracker.domain.models.toProfitColor
-import com.github.saikcaskey.pokertracker.presentation.common.appbar.TopBarItemDetail
-import com.github.saikcaskey.pokertracker.presentation.common.profitsummary.AnimatedProfitText
-import com.github.saikcaskey.pokertracker.presentation.common.section.SectionContainer
-import com.github.saikcaskey.pokertracker.presentation.common.section.SectionListContainer
-import com.github.saikcaskey.pokertracker.data.utils.toUiDateTimeOrNull
+import com.github.saikcaskey.pokertracker.domain.util.toUiDateTimeOrNull
 import com.github.saikcaskey.pokertracker.domain.components.EventDetailComponent
-import com.github.saikcaskey.pokertracker.presentation.common.profitsummary.AnimatedExpenseText
+import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopBarItemDetail
+import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedExpenseText
+import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedProfitText
+import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
+import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionListContainer
+import com.github.saikcaskey.pokertracker.ui_compose.extensions.toProfitColor
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.PlusCircle
@@ -109,14 +111,15 @@ fun EventDetailSummary(state: EventDetailComponent.UiState) {
         title = "",
         modifier = Modifier.fillMaxHeight(),
         content = {
-            Text(state.event?.name.orEmpty(), style = MaterialTheme.typography.displaySmall)
-            Text("Type: ${state.event?.gameType}")
-            Text("At: ${state.event?.date?.toUiDateTimeOrNull()}")
-            if (!state.event?.description.isNullOrBlank()) {
-                Text(state.event.description)
+            val event = state.event
+            Text(event?.name.orEmpty(), style = MaterialTheme.typography.displaySmall)
+            Text("Type: ${event?.gameType}")
+            Text("At: ${event?.date?.toUiDateTimeOrNull()}")
+            if (!event?.description.isNullOrBlank()) {
+                Text(event.description.orEmpty())
             }
             Text("Created:  ${state.event?.createdAt?.toUiDateTimeOrNull()}")
-            Text("Updated At: ${state.event?.updatedAt?.toUiDateTimeOrNull() ?: "Never"}")
+            Text("Updated At: ${event?.updatedAt?.toUiDateTimeOrNull() ?: "Never"}")
         },
     )
 }

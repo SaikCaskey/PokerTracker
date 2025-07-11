@@ -8,12 +8,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import com.github.saikcaskey.pokertracker.domain.components.InsertExpenseComponent
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
-import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputDropdownEvent
-import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputDateField
-import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputDropdownField
-import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputDropdownVenue
-import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputFormScaffold
-import com.github.saikcaskey.pokertracker.presentation.common.inputform.InputTimeField
+import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDateField
+import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDropdownEvent
+import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDropdownField
+import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDropdownVenue
+import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputFormScaffold
+import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputTimeField
 
 @Composable
 fun InsertExpenseContent(component: InsertExpenseComponent) {

@@ -11,7 +11,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.github.saikcaskey.pokertracker.data.utils.nowAsLocalDateTime
+import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import kotlinx.datetime.*
 
 @Composable
