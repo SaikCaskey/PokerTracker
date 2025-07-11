@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.data.utils
+package com.github.saikcaskey.data.utils
 
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import kotlinx.coroutines.Dispatchers

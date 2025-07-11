@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.data.utils
+package com.github.saikcaskey.data.utils
 
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase

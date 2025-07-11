@@ -1,9 +1,9 @@
 [versions]
 
 agp = "8.11.0"
-android-minSdk = "26"
-android-compileSdk = "36"
-android-targetSdk = "36"
+android-minsdk = "26"
+android-compilesdk = "36"
+android-targetsdk = "36"
 androidDriver = "2.1.0"
 composeMultiplatform = "2.7.0"
 coroutinesExtensions = "2.1.0"
@@ -58,3 +58,6 @@ material-kolor = { module = "com.materialkolor:material-kolor", version.ref = "m
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "androidDriver" }
 sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "runtime" }
 sqldelight-coroutines-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "coroutinesExtensions" }
+# Plugin libs that that are used in :build-logic:convention plugins
+android-gradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+jetbrains-kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
