@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.main
+package com.github.saikcaskey.pokertracker.dashboard
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
@@ -7,11 +7,11 @@ import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.LocalDate
 
-class DefaultMainPagerPageDashboardComponent(
+class DashboardFeatureComponent(
     componentContext: ComponentContext,
     eventRepository: EventRepository,
     expenseRepository: ExpenseRepository,
@@ -30,23 +30,23 @@ class DefaultMainPagerPageDashboardComponent(
     private val coroutineScope = CoroutineScope(dispatchers.io)
 
     override val recentEvents = eventRepository.getRecent()
-        .stateIn(coroutineScope, Eagerly, emptyList())
+        .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, emptyList())
     override val todayEvents = eventRepository.getToday()
-        .stateIn(coroutineScope, Eagerly, emptyList())
+        .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, emptyList())
     override val upcomingEvents = eventRepository.getUpcoming()
-        .stateIn(coroutineScope, Eagerly, emptyList())
+        .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, emptyList())
     override val recentExpenses = expenseRepository.getRecent()
-        .stateIn(coroutineScope, Eagerly, emptyList())
+        .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, emptyList())
     override val recentVenues = venueRepository.getRecent()
-        .stateIn(coroutineScope, Eagerly, emptyList())
+        .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, emptyList())
     override val balance = expenseRepository.getBalanceAllTime()
-        .stateIn(coroutineScope, Eagerly, 0.0)
+        .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, 0.0)
     override val upcomingCosts = expenseRepository.getUpcomingCosts()
-        .stateIn(coroutineScope, Eagerly, 0.0)
+        .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, 0.0)
     override val balanceForYear = expenseRepository.getBalanceForYear()
-        .stateIn(coroutineScope, Eagerly, 0.0)
+        .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, 0.0)
     override val balanceForMonth = expenseRepository.getBalanceForMonth()
-        .stateIn(coroutineScope, Eagerly, 0.0)
+        .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, 0.0)
 
     override fun onShowEventDetailClicked(id: Long) = onShowEventDetail(id)
     override fun onShowExpenseDetailClicked(id: Long) = onShowExpenseDetail(id)
