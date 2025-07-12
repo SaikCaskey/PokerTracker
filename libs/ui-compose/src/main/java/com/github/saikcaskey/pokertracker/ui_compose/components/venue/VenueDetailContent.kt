@@ -20,7 +20,7 @@ import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.PlusCircle
 
 @Composable
-internal fun VenueDetailContent(modifier: Modifier = Modifier, component: VenueDetailComponent) {
+fun VenueDetailContent(modifier: Modifier = Modifier, component: VenueDetailComponent) {
     val state by component.uiState.collectAsState()
 
     Scaffold(
