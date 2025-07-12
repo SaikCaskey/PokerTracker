@@ -2,16 +2,20 @@ package com.github.saikcaskey.pokertracker.dashboard
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
-import com.github.saikcaskey.pokertracker.domain.components.DashboardFeatureComponentImpl
+import com.github.saikcaskey.pokertracker.domain.components.DashboardFeatureComponent
+import com.github.saikcaskey.pokertracker.domain.components.DashboardFeatureComponent.UiState
+import com.github.saikcaskey.pokertracker.domain.models.DashboardEventsData
+import com.github.saikcaskey.pokertracker.domain.models.DashboardProfitSummaryData
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.LocalDate
 
-class DashboardFeatureFeatureComponentImpl(
+class DashboardFeatureComponentImpl(
     componentContext: ComponentContext,
     eventRepository: EventRepository,
     expenseRepository: ExpenseRepository,
@@ -26,27 +30,30 @@ class DashboardFeatureFeatureComponentImpl(
     private val onShowAllVenues: () -> Unit,
     private val onShowAllEvents: () -> Unit,
     private val onShowAllExpenses: () -> Unit,
-) : DashboardFeatureComponentImpl, ComponentContext by componentContext {
+) : DashboardFeatureComponent, ComponentContext by componentContext {
     private val coroutineScope = CoroutineScope(dispatchers.io)
 
-    override val recentEvents = eventRepository.getRecent()
-        .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, emptyList())
-    override val todayEvents = eventRepository.getToday()
-        .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, emptyList())
-    override val upcomingEvents = eventRepository.getUpcoming()
-        .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, emptyList())
-    override val recentExpenses = expenseRepository.getRecent()
-        .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, emptyList())
-    override val recentVenues = venueRepository.getRecent()
-        .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, emptyList())
-    override val balance = expenseRepository.getBalanceAllTime()
-        .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, 0.0)
-    override val upcomingCosts = expenseRepository.getUpcomingCosts()
-        .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, 0.0)
-    override val balanceForYear = expenseRepository.getBalanceForYear()
-        .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, 0.0)
-    override val balanceForMonth = expenseRepository.getBalanceForMonth()
-        .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, 0.0)
+    private val dashboardEventsData = combine(
+        eventRepository.getRecent(),
+        eventRepository.getToday(),
+        eventRepository.getUpcoming(),
+        ::DashboardEventsData
+    )
+    private val dashboardProfitSummary = combine(
+        expenseRepository.getBalanceAllTime(),
+        expenseRepository.getBalanceForMonth(),
+        expenseRepository.getBalanceForYear(),
+        expenseRepository.getUpcomingCosts(),
+        ::DashboardProfitSummaryData
+    )
+
+    override val uiState = combine(
+        dashboardEventsData,
+        dashboardProfitSummary,
+        venueRepository.getRecent(),
+        expenseRepository.getRecent(),
+        ::UiState
+    ).stateIn(coroutineScope, Eagerly, UiState())
 
     override fun onShowEventDetailClicked(id: Long) = onShowEventDetail(id)
     override fun onShowExpenseDetailClicked(id: Long) = onShowExpenseDetail(id)
