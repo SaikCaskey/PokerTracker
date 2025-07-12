@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.ui_compose.components.root
+package com.github.saikcaskey.pokertracker.ui.root
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -12,6 +12,7 @@ import com.github.saikcaskey.pokertracker.ui_compose.components.venue.VenueDetai
 import com.github.saikcaskey.pokertracker.ui_compose.components.venue.ViewVenuesContent
 import com.github.saikcaskey.pokertracker.domain.components.RootComponent
 import com.github.saikcaskey.pokertracker.domain.components.RootComponent.Child
+import com.github.saikcaskey.pokertracker.ui.main.MainContent
 import com.github.saikcaskey.pokertracker.ui_compose.common.theme.AppTheme
 import com.github.saikcaskey.pokertracker.ui_compose.components.event.EventDetailContent
 import com.github.saikcaskey.pokertracker.ui_compose.components.event.InsertEventContent
@@ -19,7 +20,6 @@ import com.github.saikcaskey.pokertracker.ui_compose.components.event.ViewEvents
 import com.github.saikcaskey.pokertracker.ui_compose.components.expense.ExpenseDetailContent
 import com.github.saikcaskey.pokertracker.ui_compose.components.expense.InsertExpenseContent
 import com.github.saikcaskey.pokertracker.ui_compose.components.expense.ViewExpensesContent
-import com.github.saikcaskey.pokertracker.ui_compose.components.main.MainContent
 import com.github.saikcaskey.pokertracker.ui_compose.components.planner.DayDetailContent
 
 @Composable
@@ -28,7 +28,9 @@ fun RootContent(
     modifier: Modifier = Modifier,
 ) {
     AppTheme(Color(70, 51, 250)) {
-        Surface(modifier = modifier.fillMaxSize().windowInsetsPadding(WindowInsets.systemBars)) {
+        Surface(modifier = modifier
+            .fillMaxSize()
+            .windowInsetsPadding(WindowInsets.systemBars)) {
             Children(
                 stack = component.rootNavigationStack,
                 modifier = Modifier.fillMaxSize(),

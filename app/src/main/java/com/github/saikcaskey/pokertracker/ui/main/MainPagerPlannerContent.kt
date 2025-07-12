@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.ui_compose.components.main
+package com.github.saikcaskey.pokertracker.ui.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -10,13 +10,13 @@ import androidx.compose.ui.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.*
-import com.github.saikcaskey.pokertracker.domain.components.DashboardFeaturePlannerComponent
+import com.github.saikcaskey.pokertracker.domain.components.MainPagerPagePlannerComponent
 import com.kizitonwose.calendar.compose.*
 import com.kizitonwose.calendar.core.*
 import kotlinx.datetime.DayOfWeek
 
 @Composable
-fun MainPagerPlannerContent(component: DashboardFeaturePlannerComponent) {
+fun MainPagerPlannerContent(component: MainPagerPagePlannerComponent) {
     val uiState = component.uiState.collectAsState()
     val datesWithEvents = uiState.value.datesWithEvents
     Column(
