@@ -19,29 +19,33 @@ fun DashboardEventSummary(
         onAddClick = onShowInsertEventClicked,
         onShowAllClick = onShowAllEventsClicked,
     ) {
-        if (data.upcomingEvents.isNotEmpty()) {
-            Text(text = "Upcoming", style = MaterialTheme.typography.labelLarge)
-            EventsList(
-                items = data.upcomingEvents,
-                emptyMessage = "No Upcoming events",
-                onEventClicked = onShowEventDetailClicked,
-            )
-        }
-        if (data.todayEvents.isNotEmpty()) {
-            Text(text = "Today", style = MaterialTheme.typography.labelLarge)
-            EventsList(
-                items = data.todayEvents,
-                emptyMessage = "No more events today",
-                onEventClicked = onShowEventDetailClicked,
-            )
-        }
-        if (data.recentEvents.isNotEmpty()) {
-            Text(text = "Recent", style = MaterialTheme.typography.labelLarge)
-            EventsList(
-                items = data.recentEvents,
-                emptyMessage = "No Recent events",
-                onEventClicked = onShowEventDetailClicked,
-            )
+        if (data.isEmpty) {
+            Text(text = "Nothing here yet!", style = MaterialTheme.typography.labelLarge)
+        } else {
+            if (data.upcomingEvents.isNotEmpty()) {
+                Text(text = "Upcoming", style = MaterialTheme.typography.labelLarge)
+                EventsList(
+                    items = data.upcomingEvents,
+                    emptyMessage = "No Upcoming events",
+                    onEventClicked = onShowEventDetailClicked,
+                )
+            }
+            if (data.todayEvents.isNotEmpty()) {
+                Text(text = "Today", style = MaterialTheme.typography.labelLarge)
+                EventsList(
+                    items = data.todayEvents,
+                    emptyMessage = "No more events today",
+                    onEventClicked = onShowEventDetailClicked,
+                )
+            }
+            if (data.recentEvents.isNotEmpty()) {
+                Text(text = "Recent", style = MaterialTheme.typography.labelLarge)
+                EventsList(
+                    items = data.recentEvents,
+                    emptyMessage = "No Recent events",
+                    onEventClicked = onShowEventDetailClicked,
+                )
+            }
         }
     }
 }
