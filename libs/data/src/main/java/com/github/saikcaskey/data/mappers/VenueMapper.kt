@@ -1,7 +1,7 @@
 package com.github.saikcaskey.data.mappers
 
-import com.github.saikcaskey.pokertracker.domain.util.asInstantOrNow
-import com.github.saikcaskey.pokertracker.domain.util.asInstantOrNull
+import com.github.saikcaskey.pokertracker.domain.extensions.asInstantOrNow
+import com.github.saikcaskey.pokertracker.domain.extensions.asInstantOrNull
 import com.github.saikcaskey.pokertracker.database.Venue
 import com.github.saikcaskey.pokertracker.domain.models.Venue as DomainVenue
 
