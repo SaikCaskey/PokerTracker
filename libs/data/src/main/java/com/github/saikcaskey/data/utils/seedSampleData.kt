@@ -1,15 +1,15 @@
 package com.github.saikcaskey.data.utils
 
-import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.extensions.asLocalDateTime
 import com.github.saikcaskey.pokertracker.domain.extensions.atStartOfDayInstant
-import com.github.saikcaskey.pokertracker.domain.util.atTimeInstant
+import com.github.saikcaskey.pokertracker.domain.extensions.plusMinutes
+import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
-import kotlinx.datetime.*
-import java.time.LocalTime
+import kotlinx.datetime.DatePeriod
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.plus
 import kotlin.random.Random
-import kotlin.time.Duration.Companion.minutes
 
 fun PokerTrackerDatabase.seedSampleData() {
     SampleDataSeederImpl().seedSampleData(this)
@@ -96,7 +96,7 @@ class SampleDataSeederImpl : SampleDataSeeder {
                 type = type.toString(),
                 amount = amount,
                 description = note,
-                date = baseDate.toInstant(),
+                date = baseDate.plusMinutes(extraCount).toString(),
                 created_at = createdAt
             )
         }
