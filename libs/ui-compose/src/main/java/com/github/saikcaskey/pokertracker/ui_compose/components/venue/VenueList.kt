@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.dashboard.composables
+package com.github.saikcaskey.pokertracker.ui_compose.components.venue
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -8,7 +8,7 @@ import com.github.saikcaskey.pokertracker.domain.util.toUiDateTimeOrNull
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionListContainer
 
 @Composable
-fun DashboardVenueList(items: List<Venue>, onVenueClicked: (Long) -> Unit) {
+fun VenueList(items: List<Venue>, onVenueClicked: (Long) -> Unit) {
     SectionListContainer(
         items = items,
         onItemClicked = { onVenueClicked(it.id) },

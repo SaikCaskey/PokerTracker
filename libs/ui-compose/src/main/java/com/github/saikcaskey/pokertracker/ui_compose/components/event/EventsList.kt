@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.dashboard.composables
+package com.github.saikcaskey.pokertracker.ui_compose.components.event
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -8,7 +8,7 @@ import com.github.saikcaskey.pokertracker.domain.util.toUiDateTimeOrNull
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionListContainer
 
 @Composable
-fun DashboardEventsList(
+fun EventsList(
     items: List<Event>,
     limit: Int? = 4,
     emptyMessage: String,

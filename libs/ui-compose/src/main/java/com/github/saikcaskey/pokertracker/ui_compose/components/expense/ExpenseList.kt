@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.dashboard.composables
+package com.github.saikcaskey.pokertracker.ui_compose.components.expense
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -9,7 +9,7 @@ import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.Animat
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionListContainer
 
 @Composable
-fun DashboardExpensesList(items: List<Expense>, onExpenseClicked: (Long) -> Unit) {
+fun ExpenseList(items: List<Expense>, onExpenseClicked: (Long) -> Unit) {
     SectionListContainer(
         items = items,
         onItemClicked = { onExpenseClicked(it.id) },
