@@ -85,10 +85,11 @@ class DefaultInsertExpenseComponent(
                     expense.venueId?.let { _selectedVenueId.value = it }
                     expense.eventId?.let { _selectedEventId.value = it }
                     _inputData.update {
+                        val expenseTime = (expense.date?.asLocalDateTime() ?: nowAsLocalDateTime())
                         InsertExpenseComponent.InputData(
                             amount = expense.amount,
-                            date = expense.date?.asLocalDateTime()?.date,
-                            time = expense.date?.asLocalDateTime()?.time,
+                            date = expenseTime.date,
+                            time = expenseTime.time,
                             type = expense.type,
                             description = expense.description.orEmpty(),
                         )
