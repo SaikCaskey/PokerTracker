@@ -3,6 +3,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":feature:dashboard"))
     implementation(project(":libs:ui-compose"))
     implementation(project(":libs:data"))
     implementation(project(":libs:domain"))
