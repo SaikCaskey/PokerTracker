@@ -121,7 +121,7 @@ class SampleDataSeederImpl : SampleDataSeeder {
         }
 
         // Cashout result: profit or bust
-        val cashOutAmount = Random.nextDouble(0.00, 1000.0)
+        val cashOutAmount = Random.nextDouble(0.00, 1_000_000.0)
         database.expenseQueries.insert(
             event_id = eventId,
             venue_id = venueId,

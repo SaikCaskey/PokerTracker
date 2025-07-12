@@ -18,7 +18,7 @@ import com.github.saikcaskey.pokertracker.ui.root.RootContent
 import com.github.saikcaskey.pokertracker.ui_compose.extensions.asIcon
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Regular
-import compose.icons.fontawesomeicons.regular.Dizzy
+import compose.icons.fontawesomeicons.regular.Clone
 
 class MainActivity : ComponentActivity() {
 
@@ -37,15 +37,6 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             RootContent(component = root)
-            FloatingActionButton(onClick = {
-                PokerTrackerDatabaseProvider.provide().seedSampleData()
-            }) {
-                FontAwesomeIcons.Regular.Dizzy.asIcon(
-                    height = 32.dp,
-                    contentDescription = "Seed data button"
-                )
-            }
         }
     }
 }
-
