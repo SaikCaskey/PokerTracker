@@ -38,14 +38,15 @@ class DashboardFeatureComponentImpl(
         eventRepository.getToday(),
         eventRepository.getUpcoming(),
         ::DashboardEventsData
-    )
+    ).stateIn(coroutineScope, Eagerly, DashboardEventsData())
+
     private val dashboardProfitSummary = combine(
         expenseRepository.getBalanceAllTime(),
         expenseRepository.getBalanceForMonth(),
         expenseRepository.getBalanceForYear(),
         expenseRepository.getUpcomingCosts(),
         ::DashboardProfitSummaryData
-    )
+    ).stateIn(coroutineScope, Eagerly, DashboardProfitSummaryData())
 
     override val uiState = combine(
         dashboardEventsData,
