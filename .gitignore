@@ -1,6 +1,8 @@
-*.iml
-.gradle
 /local.properties
+local-env.properties
+pokertracker-f-droid.keystore
+*.keystore
+
 /.idea/assetWizardSettings.xml
 /.idea/caches
 /.idea/compiler.xml
@@ -13,19 +15,21 @@
 /.idea/modules.xml
 /.idea/vcs.xml
 /.idea/workspace.xml
+/.idea/appInsightsSettings.xml
+/.idea/gradle.xml
+/.idea/kotlinc.xml
+
+*.iml
+.gradle
 
 .DS_Store
 /build
 /captures
 .externalNativeBuild
 .cxx
-local-env.properties
-local.properties
-pokertracker-f-droid.keystore
-*.keystore
+
 fastlane/report.xml
 /repo
 /tmp
 
-.idea/gradle.xml
-.idea/kotlinc.xml
+/.kotlin/sessions
