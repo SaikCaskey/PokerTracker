@@ -178,21 +178,6 @@ private val expenseDescriptions = listOf(
     "Late reg fee"
 )
 
-private fun ExpenseType.randomExpenseAmount(): Double {
-    return when (this) {
-        ExpenseType.ADD_ON -> Random.nextDouble(50.0, 500.0)
-        ExpenseType.REBUY -> Random.nextDouble(200.0, 1000.0)
-        ExpenseType.DRINKS -> Random.nextDouble(5.0, 1000.0)
-        ExpenseType.FINE -> if (Random.nextInt(9) > 7) {
-            Random.nextDouble(600.0, 1000.0)
-        } else {
-            Random.nextDouble(5.0, 20.0)
-        }
-
-        else -> Random.nextDouble(10.0, 40.0)
-    }
-}
-
 private val timeOffsets = listOf(
     DatePeriod(days = -14),
     DatePeriod(days = -7),
@@ -210,6 +195,21 @@ private val timeOffsets = listOf(
     DatePeriod(months = -3),
     DatePeriod(months = 3),
 )
+
+private fun ExpenseType.randomExpenseAmount(): Double {
+    return when (this) {
+        ExpenseType.ADD_ON -> Random.nextDouble(50.0, 500.0)
+        ExpenseType.REBUY -> Random.nextDouble(200.0, 1000.0)
+        ExpenseType.DRINKS -> Random.nextDouble(5.0, 1000.0)
+        ExpenseType.FINE -> if (Random.nextInt(9) > 7) {
+            Random.nextDouble(600.0, 1000.0)
+        } else {
+            Random.nextDouble(5.0, 20.0)
+        }
+
+        else -> Random.nextDouble(10.0, 40.0)
+    }
+}
 
 private fun List<String>.randomDescription(): String {
     return List(Random.nextInt(5)) { random() }
