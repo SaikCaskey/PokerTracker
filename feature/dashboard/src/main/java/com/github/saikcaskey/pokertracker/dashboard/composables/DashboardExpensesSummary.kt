@@ -3,6 +3,7 @@ package com.github.saikcaskey.pokertracker.dashboard.composables
 import androidx.compose.runtime.Composable
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
+import com.github.saikcaskey.pokertracker.ui_compose.components.expense.ExpenseList
 
 @Composable
 fun DashboardExpensesSummary(
@@ -16,7 +17,7 @@ fun DashboardExpensesSummary(
         onAddClick = onShowInsertExpenseClicked,
         onShowAllClick = onShowAllExpensesClicked,
     ) {
-        DashboardExpensesList(
+        ExpenseList(
             items = recentExpenses,
             onExpenseClicked = onShowExpenseDetailClicked,
         )
