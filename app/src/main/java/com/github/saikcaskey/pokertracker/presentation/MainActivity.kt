@@ -4,21 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.defaultComponentContext
-import com.github.saikcaskey.data.utils.seedSampleData
 import com.github.saikcaskey.pokertracker.di.CoroutineDispatchersProvider
 import com.github.saikcaskey.pokertracker.di.EventRepositoryProvider
 import com.github.saikcaskey.pokertracker.di.ExpenseRepositoryProvider
-import com.github.saikcaskey.pokertracker.di.PokerTrackerDatabaseProvider
 import com.github.saikcaskey.pokertracker.di.VenueRepositoryProvider
 import com.github.saikcaskey.pokertracker.presentation.root.DefaultRootComponent
 import com.github.saikcaskey.pokertracker.ui.root.RootContent
-import com.github.saikcaskey.pokertracker.ui_compose.extensions.asIcon
-import compose.icons.FontAwesomeIcons
-import compose.icons.fontawesomeicons.Regular
-import compose.icons.fontawesomeicons.regular.Clone
 
 class MainActivity : ComponentActivity() {
 
