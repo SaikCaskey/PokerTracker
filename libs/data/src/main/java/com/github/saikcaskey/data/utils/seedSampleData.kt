@@ -2,11 +2,14 @@ package com.github.saikcaskey.data.utils
 
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
-import com.github.saikcaskey.pokertracker.domain.util.asLocalDateTime
-import com.github.saikcaskey.pokertracker.domain.util.atStartOfDayInstant
+import com.github.saikcaskey.pokertracker.domain.extensions.asLocalDateTime
+import com.github.saikcaskey.pokertracker.domain.extensions.atStartOfDayInstant
+import com.github.saikcaskey.pokertracker.domain.util.atTimeInstant
 import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import kotlinx.datetime.*
+import java.time.LocalTime
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.minutes
 
 fun PokerTrackerDatabase.seedSampleData() {
     SampleDataSeederImpl().seedSampleData(this)
@@ -19,24 +22,6 @@ fun interface SampleDataSeeder {
 class SampleDataSeederImpl : SampleDataSeeder {
 
     override fun seedSampleData(database: PokerTrackerDatabase) {
-        val timeOffsets = listOf(
-            DatePeriod(days = -14),
-            DatePeriod(days = -7),
-            DatePeriod(days = -3),
-            DatePeriod(days = -2),
-            DatePeriod(days = -1),
-            DatePeriod(days = 1),
-            DatePeriod(days = 5),
-            DatePeriod(days = 7),
-            DatePeriod(days = 14),
-            DatePeriod(months = -1),
-            DatePeriod(months = 1),
-            DatePeriod(months = -2),
-            DatePeriod(months = 2),
-            DatePeriod(months = -3),
-            DatePeriod(months = 3),
-        )
-
         repeat(5) {
             val offset = timeOffsets.random()
             val baseDate = nowAsLocalDateTime().date
@@ -49,7 +34,7 @@ class SampleDataSeederImpl : SampleDataSeeder {
                 venueName = venueNames.random(),
                 description = venueDescriptions.random(),
                 eventName = eventNames.random(),
-                eventDescription = eventDescriptions.random(),
+                eventDescription = eventDescriptions.randomDescription(),
                 baseDate = baseDate
             )
         }
@@ -63,11 +48,9 @@ class SampleDataSeederImpl : SampleDataSeeder {
         eventDescription: String,
         baseDate: LocalDateTime,
     ) {
-        // Insert venue
         database.venueQueries.insert(venueName, "123 Poker Ave", description, baseDate.toString())
         val venueId = database.venueQueries.lastInsertRowId().executeAsOne()
 
-        // Insert event
         val gameType = listOf("CASH", "TOURNAMENT").random()
         database.eventQueries.insert(
             venue_id = venueId,
@@ -90,9 +73,8 @@ class SampleDataSeederImpl : SampleDataSeeder {
     ) {
         val date = baseDate.toString()
         val createdAt = nowAsLocalDateTime().toString()
-
-        // Fixed buy-in
         val buyInAmount = 200.0
+        // Start with a BUY_IN
         database.expenseQueries.insert(
             event_id = eventId,
             venue_id = venueId,
@@ -102,12 +84,11 @@ class SampleDataSeederImpl : SampleDataSeeder {
             date = date,
             created_at = createdAt
         )
-
-        // Random other expenses
+        // Add some random expenses
         val extraCount = Random.nextInt(3, 15)
         repeat(extraCount) {
-            val type = ExpenseType.valueOf(extraExpenseTypes.random())
-            val amount = type.toRandomExpenseAmount()
+            val type = extraExpenseTypes.random()
+            val amount = type.randomExpenseAmount()
             val note = expenseDescriptions.random()
             database.expenseQueries.insert(
                 event_id = eventId,
@@ -115,13 +96,12 @@ class SampleDataSeederImpl : SampleDataSeeder {
                 type = type.toString(),
                 amount = amount,
                 description = note,
-                date = date,
+                date = baseDate.toInstant(),
                 created_at = createdAt
             )
         }
 
-        // Cashout result: profit or bust
-        val cashOutAmount = Random.nextDouble(0.00, 1_000_000.0)
+        val cashOutAmount = Random.nextDouble(0.00, 5_000.0)
         database.expenseQueries.insert(
             event_id = eventId,
             venue_id = venueId,
@@ -132,81 +112,109 @@ class SampleDataSeederImpl : SampleDataSeeder {
             created_at = createdAt
         )
     }
+}
 
-    private fun ExpenseType.toRandomExpenseAmount(): Double {
-        return when (this) {
-            ExpenseType.ADD_ON -> Random.nextDouble(50.0, 500.0)
-            ExpenseType.REBUY -> Random.nextDouble(200.0, 1000.0)
-            ExpenseType.DRINKS -> Random.nextDouble(5.0, 1000.0)
-            ExpenseType.FINE -> if (Random.nextInt(5) > 4) {
-                Random.nextDouble(600.0, 1000.0)
-            } else {
-                Random.nextDouble(5.0, 20.0)
-            }
+private val venueNames = listOf(
+    "Bellagio",
+    "The Mirage",
+    "ARIA",
+    "Wynn",
+    "Caesars Palace",
+    "MGM Grand",
+    "Red Rock",
+    "Golden Nugget"
+)
 
-            else -> {
-                Random.nextDouble(10.0, 40.0)
-            }
+private val venueDescriptions = listOf(
+    "Famous poker room",
+    "Luxury experience",
+    "Tight games, good drinks",
+    "Great cash tables",
+    "Mixed games available",
+    "Best high roller room",
+    "Cheap drinks and loose games"
+)
+
+private val eventNames = listOf(
+    "Nightly $200 Tournament",
+    "Deepstack Saturday",
+    "Sunday Shootout",
+    "Midweek Madness",
+    "High Roller NLHE",
+    "Noon Turbo",
+    "Rebuy Rumble"
+)
+
+private val eventDescriptions = listOf(
+    "Great structure, slow blinds",
+    "They know my face",
+    "Fast-paced action",
+    "New player friendly",
+    "Lots of drinkers",
+    "Lots of experts",
+    "Lots of newbies",
+    "Lots of re-entries",
+    "Lots of regulars",
+    "High rake, but soft field",
+    "Tight aggressive tables",
+)
+
+private val extraExpenseTypes = listOf(
+    ExpenseType.FOOD,
+    ExpenseType.DRINKS,
+    ExpenseType.TRANSPORT,
+    ExpenseType.MISC,
+    ExpenseType.ADD_ON,
+)
+
+private val expenseDescriptions = listOf(
+    "Lunch",
+    "Taxi fare",
+    "Beer",
+    "Snacks",
+    "Tip to dealer",
+    "Parking",
+    "Coffee",
+    "Late reg fee"
+)
+
+private fun ExpenseType.randomExpenseAmount(): Double {
+    return when (this) {
+        ExpenseType.ADD_ON -> Random.nextDouble(50.0, 500.0)
+        ExpenseType.REBUY -> Random.nextDouble(200.0, 1000.0)
+        ExpenseType.DRINKS -> Random.nextDouble(5.0, 1000.0)
+        ExpenseType.FINE -> if (Random.nextInt(9) > 7) {
+            Random.nextDouble(600.0, 1000.0)
+        } else {
+            Random.nextDouble(5.0, 20.0)
         }
+
+        else -> Random.nextDouble(10.0, 40.0)
     }
+}
 
-    private val venueNames = listOf(
-        "Bellagio",
-        "The Mirage",
-        "ARIA",
-        "Wynn",
-        "Caesars Palace",
-        "MGM Grand",
-        "Red Rock",
-        "Golden Nugget"
-    )
+private val timeOffsets = listOf(
+    DatePeriod(days = -14),
+    DatePeriod(days = -7),
+    DatePeriod(days = -3),
+    DatePeriod(days = -2),
+    DatePeriod(days = -1),
+    DatePeriod(days = 1),
+    DatePeriod(days = 5),
+    DatePeriod(days = 7),
+    DatePeriod(days = 14),
+    DatePeriod(months = -1),
+    DatePeriod(months = 1),
+    DatePeriod(months = -2),
+    DatePeriod(months = 2),
+    DatePeriod(months = -3),
+    DatePeriod(months = 3),
+)
 
-    private val venueDescriptions = listOf(
-        "Famous poker room",
-        "Luxury experience",
-        "Tight games, good drinks",
-        "Great cash tables",
-        "Mixed games available",
-        "Best high roller room",
-        "Cheap drinks and loose games"
-    )
-
-    private val eventNames = listOf(
-        "Nightly $200 Tournament",
-        "Deepstack Saturday",
-        "Sunday Shootout",
-        "Midweek Madness",
-        "High Roller NLHE",
-        "Noon Turbo",
-        "Rebuy Rumble"
-    )
-
-    private val eventDescriptions = listOf(
-        "Great structure, slow blinds",
-        "Fast-paced action",
-        "Lots of regulars",
-        "New player friendly",
-        "Lots of re-entries",
-        "High rake but soft field",
-        "Tight aggressive tables"
-    )
-
-    private val extraExpenseTypes = listOf(
-        "FOOD",
-        "DRINKS",
-        "TRANSPORT",
-        "MISC",
-        "ADD_ON"
-    )
-
-    private val expenseDescriptions = listOf(
-        "Lunch",
-        "Taxi fare",
-        "Beer",
-        "Snacks",
-        "Tip to dealer",
-        "Parking",
-        "Coffee",
-        "Late reg fee"
-    )
+private fun List<String>.randomDescription(): String {
+    return List(Random.nextInt(5)) { random() }
+        .distinct()
+        .joinToString(", ")
+        .lowercase()
+        .replaceFirstChar(Char::uppercaseChar)
 }
