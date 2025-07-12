@@ -2,7 +2,7 @@ package com.github.saikcaskey.pokertracker.dashboard
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
-import com.github.saikcaskey.pokertracker.domain.components.MainPagerPageDashboardComponent
+import com.github.saikcaskey.pokertracker.domain.components.DashboardFeatureComponentImpl
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.LocalDate
 
-class DashboardFeatureComponent(
+class DashboardFeatureFeatureComponentImpl(
     componentContext: ComponentContext,
     eventRepository: EventRepository,
     expenseRepository: ExpenseRepository,
@@ -26,7 +26,7 @@ class DashboardFeatureComponent(
     private val onShowAllVenues: () -> Unit,
     private val onShowAllEvents: () -> Unit,
     private val onShowAllExpenses: () -> Unit,
-) : MainPagerPageDashboardComponent, ComponentContext by componentContext {
+) : DashboardFeatureComponentImpl, ComponentContext by componentContext {
     private val coroutineScope = CoroutineScope(dispatchers.io)
 
     override val recentEvents = eventRepository.getRecent()

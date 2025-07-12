@@ -4,13 +4,13 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.pages.*
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.subscribe
-import com.github.saikcaskey.pokertracker.dashboard.DashboardFeatureComponent
+import com.github.saikcaskey.pokertracker.dashboard.DashboardFeatureFeatureComponentImpl
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import com.github.saikcaskey.pokertracker.domain.components.MainComponent
-import com.github.saikcaskey.pokertracker.domain.components.MainPagerPageComponent
+import com.github.saikcaskey.pokertracker.domain.components.DashboardFeatureComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
@@ -41,7 +41,7 @@ class DefaultMainComponent(
     private val coroutineScope = CoroutineScope(dispatchers.io)
     private val navigation = PagesNavigation<MainMenuPagerPageConfig>()
 
-    override val pages: Value<ChildPages<*, MainPagerPageComponent>> = childPages(
+    override val pages: Value<ChildPages<*, DashboardFeatureComponent>> = childPages(
         source = navigation,
         serializer = MainMenuPagerPageConfig.serializer(),
         initialPages = {
@@ -57,14 +57,14 @@ class DefaultMainComponent(
         },
     ) { config, childComponentContext ->
         when (config) {
-            MainMenuPagerPageConfig.Planner -> DefaultMainPagerPagePlannerComponent(
+            MainMenuPagerPageConfig.Planner -> DefaultDashboardFeaturePlannerComponent(
                 componentContext = childComponentContext,
                 eventsRepository = eventRepository,
                 onCalendarDayClicked = onShowCalendarDayDetail,
                 dispatchers = dispatchers
             )
 
-            MainMenuPagerPageConfig.Dashboard -> DashboardFeatureComponent(
+            MainMenuPagerPageConfig.Dashboard -> DashboardFeatureFeatureComponentImpl(
                 componentContext = childComponentContext,
                 eventRepository = eventRepository,
                 expenseRepository = expenseRepository,

@@ -5,7 +5,7 @@ import com.arkivanov.decompose.value.Value
 import kotlinx.coroutines.flow.StateFlow
 
 interface MainComponent {
-    val pages: Value<ChildPages<*, MainPagerPageComponent>>
+    val pages: Value<ChildPages<*, DashboardFeatureComponent>>
     val selectedIndex: StateFlow<Int>
     val title: StateFlow<String>
 

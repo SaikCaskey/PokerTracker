@@ -1,11 +1,13 @@
 package com.github.saikcaskey.pokertracker.domain.components
 
+import com.github.saikcaskey.pokertracker.domain.models.DashboardEventsData
+import com.github.saikcaskey.pokertracker.domain.models.DashboardProfitSummaryData
 import com.github.saikcaskey.pokertracker.domain.models.Event
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.models.Venue
 import kotlinx.coroutines.flow.StateFlow
 
-interface MainPagerPageDashboardComponent : MainPagerPageComponent {
+interface DashboardFeatureComponentImpl : DashboardFeatureComponent {
     val recentEvents: StateFlow<List<Event>>
     val todayEvents: StateFlow<List<Event>>
     val upcomingEvents: StateFlow<List<Event>>
@@ -25,4 +27,11 @@ interface MainPagerPageDashboardComponent : MainPagerPageComponent {
     fun onShowAllExpensesClicked()
     fun onShowAllEventsClicked()
     fun onShowAllVenuesClicked()
+
+    data class UiState(
+        val dashboardEventsData: DashboardEventsData,
+        val dashboardProfitSummaryData: DashboardProfitSummaryData,
+        val recentVenues: List<Venue>,
+        val recentExpenses: List<Expense>
+    )
 }

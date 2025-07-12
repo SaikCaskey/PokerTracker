@@ -7,10 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.github.saikcaskey.pokertracker.domain.components.MainPagerPageDashboardComponent
+import com.github.saikcaskey.pokertracker.domain.components.DashboardFeatureComponentImpl
 
 @Composable
-fun DashboardFeatureContent(component: MainPagerPageDashboardComponent) {
+fun DashboardFeatureContent(component: DashboardFeatureComponentImpl) {
     // TODO
     val upcomingEvents = component.upcomingEvents.collectAsState()
     val todayEvents = component.todayEvents.collectAsState()

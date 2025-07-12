@@ -10,13 +10,13 @@ import androidx.compose.ui.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.*
-import com.github.saikcaskey.pokertracker.domain.components.MainPagerPagePlannerComponent
+import com.github.saikcaskey.pokertracker.domain.components.DashboardFeaturePlannerComponent
 import com.kizitonwose.calendar.compose.*
 import com.kizitonwose.calendar.core.*
 import kotlinx.datetime.DayOfWeek
 
 @Composable
-fun MainPagerPlannerContent(component: MainPagerPagePlannerComponent) {
+fun MainPagerPlannerContent(component: DashboardFeaturePlannerComponent) {
     val uiState = component.uiState.collectAsState()
     val datesWithEvents = uiState.value.datesWithEvents
     Column(
