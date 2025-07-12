@@ -20,8 +20,6 @@ sqldelight {
 dependencies {
     implementation(project(":libs:domain"))
 
-    implementation(libs.decompose.decompose)
-    implementation(libs.essenty.lifecycle)
     implementation(libs.kermit)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.datetime)
