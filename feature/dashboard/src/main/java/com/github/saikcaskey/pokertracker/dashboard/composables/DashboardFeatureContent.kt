@@ -48,7 +48,7 @@ fun DashboardFeatureContent(component: DashboardFeatureComponent) {
         item {
             DashboardVenuesSummary(
                 uiState.value.recentVenues,
-                onShowAllVenuesClicked = component::onShowAllExpensesClicked,
+                onShowAllVenuesClicked = component::onShowAllVenuesClicked,
                 onShowInsertVenueClicked = component::onShowInsertVenueClicked,
                 onShowVenueDetailClicked = component::onShowVenueDetailClicked,
             )
