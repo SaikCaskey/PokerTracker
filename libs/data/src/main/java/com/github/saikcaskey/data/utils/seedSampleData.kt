@@ -8,6 +8,10 @@ import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import kotlinx.datetime.*
 import kotlin.random.Random
 
+fun PokerTrackerDatabase.seedSampleData() {
+    SampleDataSeederImpl().seedSampleData(this)
+}
+
 fun interface SampleDataSeeder {
     fun seedSampleData(database: PokerTrackerDatabase)
 }
