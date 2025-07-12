@@ -14,7 +14,7 @@ import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.Animat
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
 
 @Composable
-internal fun ExpenseDetailContent(
+fun ExpenseDetailContent(
     component: ExpenseDetailComponent,
     modifier: Modifier = Modifier,
 ) {

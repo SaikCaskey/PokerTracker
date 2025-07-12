@@ -13,14 +13,14 @@ import com.github.saikcaskey.pokertracker.domain.components.VenueDetailComponent
 import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopBarItemDetail
 import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedProfitText
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
-import com.github.saikcaskey.pokertracker.ui_compose.components.main.DashboardEventsList
+import com.github.saikcaskey.pokertracker.ui_compose.components.event.EventsList
 import com.github.saikcaskey.pokertracker.ui_compose.extensions.toProfitColor
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.PlusCircle
 
 @Composable
-internal fun VenueDetailContent(modifier: Modifier = Modifier, component: VenueDetailComponent) {
+fun VenueDetailContent(modifier: Modifier = Modifier, component: VenueDetailComponent) {
     val state by component.uiState.collectAsState()
 
     Scaffold(
@@ -76,21 +76,21 @@ fun VenueEventsSummary(
         title = "Events",
     ) {
         Text(text = "Upcoming", style = MaterialTheme.typography.labelLarge)
-        DashboardEventsList(
+        EventsList(
             items = upcomingEvents,
             emptyMessage = "",
             onEventClicked = onEventClicked,
         )
         Spacer(Modifier.height(8.dp))
         Text(text = "Today", style = MaterialTheme.typography.labelLarge)
-        DashboardEventsList(
+        EventsList(
             items = todayEvents,
             emptyMessage = "",
             onEventClicked = onEventClicked,
         )
         Spacer(Modifier.height(8.dp))
         Text(text = "Recent", style = MaterialTheme.typography.labelLarge)
-        DashboardEventsList(
+        EventsList(
             items = pastEvents,
             emptyMessage = "",
             onEventClicked = onEventClicked,

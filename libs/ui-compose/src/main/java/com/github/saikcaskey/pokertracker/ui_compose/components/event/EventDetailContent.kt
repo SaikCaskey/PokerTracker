@@ -23,7 +23,7 @@ import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.PlusCircle
 
 @Composable
-internal fun EventDetailContent(modifier: Modifier = Modifier, component: EventDetailComponent) {
+fun EventDetailContent(modifier: Modifier = Modifier, component: EventDetailComponent) {
     val state by component.uiState.collectAsState()
 
     Scaffold(

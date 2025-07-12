@@ -9,8 +9,8 @@ import com.github.saikcaskey.pokertracker.di.CoroutineDispatchersProvider
 import com.github.saikcaskey.pokertracker.di.EventRepositoryProvider
 import com.github.saikcaskey.pokertracker.di.ExpenseRepositoryProvider
 import com.github.saikcaskey.pokertracker.di.VenueRepositoryProvider
-import com.github.saikcaskey.pokertracker.ui_compose.components.root.RootContent
 import com.github.saikcaskey.pokertracker.presentation.root.DefaultRootComponent
+import com.github.saikcaskey.pokertracker.ui.root.RootContent
 
 class MainActivity : ComponentActivity() {
 

@@ -4,6 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.pages.*
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.subscribe
+import com.github.saikcaskey.pokertracker.dashboard.DashboardFeatureComponentImpl
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
@@ -63,7 +64,7 @@ class DefaultMainComponent(
                 dispatchers = dispatchers
             )
 
-            MainMenuPagerPageConfig.Dashboard -> DefaultMainPagerPageDashboardComponent(
+            MainMenuPagerPageConfig.Dashboard -> DashboardFeatureComponentImpl(
                 componentContext = childComponentContext,
                 eventRepository = eventRepository,
                 expenseRepository = expenseRepository,

@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.ui_compose.components.main
+package com.github.saikcaskey.pokertracker.ui.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

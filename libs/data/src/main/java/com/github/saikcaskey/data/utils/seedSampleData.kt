@@ -8,6 +8,10 @@ import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import kotlinx.datetime.*
 import kotlin.random.Random
 
+fun PokerTrackerDatabase.seedSampleData() {
+    SampleDataSeederImpl().seedSampleData(this)
+}
+
 fun interface SampleDataSeeder {
     fun seedSampleData(database: PokerTrackerDatabase)
 }
@@ -117,7 +121,7 @@ class SampleDataSeederImpl : SampleDataSeeder {
         }
 
         // Cashout result: profit or bust
-        val cashOutAmount = Random.nextDouble(0.00, 1000.0)
+        val cashOutAmount = Random.nextDouble(0.00, 1_000_000.0)
         database.expenseQueries.insert(
             event_id = eventId,
             venue_id = venueId,

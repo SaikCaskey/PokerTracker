@@ -13,13 +13,6 @@ java {
 kotlin {
     compilerOptions {
         jvmTarget = JvmTarget.JVM_21
-        freeCompilerArgs.addAll(
-            "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
-            "-opt-in=com.arkivanov.decompose.ExperimentalDecomposeApi",
-            "-opt-in=com.arkivanov.decompose.DelicateDecomposeApi",
-            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-opt-in=kotlin.time.ExperimentalTime",
-        )
     }
 }
 
