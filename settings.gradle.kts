@@ -5,6 +5,7 @@ include(":libs:data")
 include(":libs:domain")
 include(":libs:ui-compose")
 include(":feature:dashboard")
+include(":feature:planner")
 
 pluginManagement {
     repositories {

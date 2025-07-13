@@ -7,6 +7,7 @@ dependencies {
     implementation(project(":libs:ui-compose"))
     implementation(project(":libs:data"))
     implementation(project(":libs:domain"))
+    implementation(project(":feature:planner"))
 
     implementation(compose.ui)
     implementation(compose.foundation)
