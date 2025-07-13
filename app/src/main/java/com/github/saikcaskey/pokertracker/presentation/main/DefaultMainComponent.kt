@@ -57,7 +57,7 @@ class DefaultMainComponent(
         },
     ) { config, childComponentContext ->
         when (config) {
-            MainMenuPagerPageConfig.Planner -> DefaultMainPagerPagePlannerComponent(
+            MainMenuPagerPageConfig.Planner -> PlannerFeatureComponentImpl(
                 componentContext = childComponentContext,
                 eventsRepository = eventRepository,
                 onCalendarDayClicked = onShowCalendarDayDetail,

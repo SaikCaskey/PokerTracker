@@ -11,7 +11,7 @@ import com.github.saikcaskey.pokertracker.dashboard.composables.DashboardFeature
 import com.github.saikcaskey.pokertracker.di.PokerTrackerDatabaseProvider
 import com.github.saikcaskey.pokertracker.domain.components.MainComponent
 import com.github.saikcaskey.pokertracker.domain.components.DashboardFeatureComponent
-import com.github.saikcaskey.pokertracker.domain.components.MainPagerPagePlannerComponent
+import com.github.saikcaskey.pokertracker.domain.components.PlannerFeatureComponent
 import com.github.saikcaskey.pokertracker.ui_compose.extensions.asIcon
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Regular
@@ -23,11 +23,7 @@ internal fun MainContent(component: MainComponent, modifier: Modifier = Modifier
 
     Scaffold(
         modifier = modifier,
-        bottomBar = {
-            MainPagerBottomAppBar(
-                selectPage = component::selectPage,
-            )
-        },
+        bottomBar = { MainPagerBottomAppBar(selectPage = component::selectPage) },
         floatingActionButton = {
             FloatingActionButton(onClick = {
                 PokerTrackerDatabaseProvider.provide().seedSampleData()
@@ -54,7 +50,7 @@ internal fun MainContent(component: MainComponent, modifier: Modifier = Modifier
                 scrollAnimation = PagesScrollAnimation.Default,
             ) { idx, pageComponent ->
                 when (pageComponent) {
-                    is MainPagerPagePlannerComponent -> MainPagerPlannerContent(pageComponent)
+                    is PlannerFeatureComponent -> PlannerFeatureContent(pageComponent)
                     is DashboardFeatureComponent -> DashboardFeatureContent(pageComponent)
                 }
             }
