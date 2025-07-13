@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import com.github.saikcaskey.pokertracker.domain.components.InsertEventComponent
 import com.github.saikcaskey.pokertracker.domain.models.GameType
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDateField
@@ -56,7 +55,7 @@ fun InsertEventContent(component: InsertEventComponent) {
             modifier = Modifier.fillMaxWidth(),
         )
         InputTimeField(
-            value = nowAsLocalDateTime().time,
+            value = state.inputData.time,
             onValueChange = component::onTimeChanged,
             label = "Time",
             modifier = Modifier.fillMaxWidth(),
