@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.ui_compose.components.planner
+package com.github.saikcaskey.pokertracker.planner.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,7 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.github.saikcaskey.pokertracker.domain.components.DayDetailComponent
+import com.github.saikcaskey.pokertracker.domain.components.PlannerDayDetailComponent
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Regular
 import compose.icons.fontawesomeicons.Solid
@@ -36,7 +36,7 @@ import compose.icons.fontawesomeicons.regular.ArrowAltCircleLeft
 import compose.icons.fontawesomeicons.solid.PlusCircle
 
 @Composable
-fun DayDetailContent(component: DayDetailComponent) {
+fun PlannerDayDetailContent(component: PlannerDayDetailComponent) {
     val state by component.uiState.collectAsState()
 
     Scaffold(

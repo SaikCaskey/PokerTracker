@@ -4,7 +4,7 @@ import com.github.saikcaskey.pokertracker.domain.models.Event
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.datetime.LocalDate
 
-interface DayDetailComponent {
+interface PlannerDayDetailComponent {
     val uiState: StateFlow<UiState>
 
     fun onShowEventDetailClicked(eventId: Long)

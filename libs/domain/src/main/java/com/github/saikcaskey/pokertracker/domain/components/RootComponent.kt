@@ -24,6 +24,6 @@ interface RootComponent {
         class ViewEvents(val component: ViewEventsComponent) : Child()
         class ViewVenues(val component: ViewVenuesComponent) : Child()
         class ViewExpenses(val component: ViewExpensesComponent) : Child()
-        class DayDetail(val component: DayDetailComponent) : Child()
+        class PlannerDayDetail(val component: PlannerDayDetailComponent) : Child()
     }
 }
