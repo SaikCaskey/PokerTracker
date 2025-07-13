@@ -14,7 +14,6 @@ dependencies {
     implementation(compose.material3)
     implementation(libs.androidx.activity.activityCompose)
     implementation(libs.br.compose.icons.font.awesome)
-    implementation(libs.compose.multiplatform.calendar)
     implementation(libs.decompose.decompose)
     implementation(libs.decompose.extensionsComposeJetbrains)
     implementation(libs.essenty.lifecycle)
