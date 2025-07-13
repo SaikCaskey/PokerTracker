@@ -12,6 +12,7 @@ import com.github.saikcaskey.pokertracker.di.PokerTrackerDatabaseProvider
 import com.github.saikcaskey.pokertracker.domain.components.MainComponent
 import com.github.saikcaskey.pokertracker.domain.components.DashboardFeatureComponent
 import com.github.saikcaskey.pokertracker.domain.components.PlannerFeatureComponent
+import com.github.saikcaskey.pokertracker.planner.PlannerFeatureContent
 import com.github.saikcaskey.pokertracker.ui_compose.extensions.asIcon
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Regular

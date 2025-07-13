@@ -46,7 +46,7 @@ import com.github.saikcaskey.pokertracker.presentation.expense.DefaultExpenseDet
 import com.github.saikcaskey.pokertracker.presentation.expense.DefaultInsertExpenseComponent
 import com.github.saikcaskey.pokertracker.presentation.expense.DefaultViewExpensesComponent
 import com.github.saikcaskey.pokertracker.presentation.main.DefaultMainComponent
-import com.github.saikcaskey.pokertracker.presentation.planner.DefaultDayDetailComponent
+import com.github.saikcaskey.pokertracker.planner.DefaultDayDetailComponent
 import com.github.saikcaskey.pokertracker.presentation.venue.DefaultInsertVenueComponent
 import com.github.saikcaskey.pokertracker.presentation.venue.DefaultVenueDetailComponent
 import com.github.saikcaskey.pokertracker.presentation.venue.DefaultViewVenuesComponent
