@@ -25,7 +25,6 @@ class DefaultInsertVenueComponent(
             existingVenueId = existingVenueId,
             inputData = inputData,
             isSubmitEnabled = inputData.name.isNotBlank()
-
         )
     }.stateIn(coroutineScope, Eagerly, InsertVenueComponent.UiState(existingVenueId = existingVenueId))
 

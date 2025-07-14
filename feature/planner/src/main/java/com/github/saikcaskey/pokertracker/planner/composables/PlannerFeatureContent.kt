@@ -1,22 +1,37 @@
-package com.github.saikcaskey.pokertracker.ui.main
+package com.github.saikcaskey.pokertracker.planner.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.*
-import com.github.saikcaskey.pokertracker.domain.components.MainPagerPagePlannerComponent
-import com.kizitonwose.calendar.compose.*
-import com.kizitonwose.calendar.core.*
-import kotlinx.datetime.DayOfWeek
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.github.saikcaskey.pokertracker.domain.components.PlannerFeatureComponent
+import com.kizitonwose.calendar.compose.VerticalCalendar
+import com.kizitonwose.calendar.compose.rememberCalendarState
+import com.kizitonwose.calendar.core.YearMonth
+import com.kizitonwose.calendar.core.daysOfWeek
+import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
+import com.kizitonwose.calendar.core.minusMonths
+import com.kizitonwose.calendar.core.plusMonths
 
 @Composable
-fun MainPagerPlannerContent(component: MainPagerPagePlannerComponent) {
+fun PlannerFeatureContent(component: PlannerFeatureComponent) {
     val uiState = component.uiState.collectAsState()
     val datesWithEvents = uiState.value.datesWithEvents
     Column(
@@ -24,6 +39,7 @@ fun MainPagerPlannerContent(component: MainPagerPagePlannerComponent) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        val daysOfWeek = remember { daysOfWeek() }
         val currentMonth = remember { YearMonth.now() }
         val startMonth = remember { currentMonth.minusMonths(100) }
         val endMonth = remember { currentMonth.plusMonths(100) }
@@ -39,12 +55,18 @@ fun MainPagerPlannerContent(component: MainPagerPagePlannerComponent) {
         VerticalCalendar(
             state = state,
             monthContainer = { month, calendar ->
-                Column(modifier = Modifier.padding(12.dp).weight(1f)) {
+                Column(
+                    modifier = Modifier
+                        .padding(12.dp)
+                        .weight(1f)
+                ) {
                     Text(
                         "${month.yearMonth.month.name} - ${month.yearMonth.year}",
                         style = MaterialTheme.typography.displaySmall.copy(fontSize = 10.sp)
                     )
-                    DaysOfWeekTitle(daysOfWeek = daysOfWeek())
+                    PlannerDaysOfWeekTitle(daysOfWeek = daysOfWeek.map { dayName ->
+                        dayName.name.first().toString()
+                    })
                     Card(
                         colors = CardDefaults.cardColors().copy(containerColor = Color.LightGray),
                         content = { calendar() }
@@ -78,19 +100,5 @@ fun MainPagerPlannerContent(component: MainPagerPagePlannerComponent) {
                 }
             }
         )
-    }
-}
-
-@Composable
-fun DaysOfWeekTitle(daysOfWeek: List<DayOfWeek>) {
-    Row(modifier = Modifier.fillMaxWidth()) {
-        for (dayOfWeek in daysOfWeek) {
-            Text(
-                modifier = Modifier.weight(1f),
-                textAlign = TextAlign.Center,
-                text = dayOfWeek.name.firstOrNull()?.toString().orEmpty(),
-                style = MaterialTheme.typography.titleSmall.copy(fontSize = 10.sp)
-            )
-        }
     }
 }

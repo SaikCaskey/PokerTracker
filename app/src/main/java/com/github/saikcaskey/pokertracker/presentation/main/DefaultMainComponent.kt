@@ -11,6 +11,7 @@ import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import com.github.saikcaskey.pokertracker.domain.components.MainComponent
 import com.github.saikcaskey.pokertracker.domain.components.MainPagerPageComponent
+import com.github.saikcaskey.pokertracker.planner.PlannerFeatureComponentImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
@@ -57,7 +58,7 @@ class DefaultMainComponent(
         },
     ) { config, childComponentContext ->
         when (config) {
-            MainMenuPagerPageConfig.Planner -> DefaultMainPagerPagePlannerComponent(
+            MainMenuPagerPageConfig.Planner -> PlannerFeatureComponentImpl(
                 componentContext = childComponentContext,
                 eventsRepository = eventRepository,
                 onCalendarDayClicked = onShowCalendarDayDetail,

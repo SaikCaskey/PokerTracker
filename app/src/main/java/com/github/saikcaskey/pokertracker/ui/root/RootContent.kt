@@ -20,7 +20,7 @@ import com.github.saikcaskey.pokertracker.ui_compose.components.event.ViewEvents
 import com.github.saikcaskey.pokertracker.ui_compose.components.expense.ExpenseDetailContent
 import com.github.saikcaskey.pokertracker.ui_compose.components.expense.InsertExpenseContent
 import com.github.saikcaskey.pokertracker.ui_compose.components.expense.ViewExpensesContent
-import com.github.saikcaskey.pokertracker.ui_compose.components.planner.DayDetailContent
+import com.github.saikcaskey.pokertracker.planner.composables.PlannerDayDetailContent
 
 @Composable
 fun RootContent(
@@ -49,7 +49,7 @@ fun RootContent(
                     is Child.InsertEvent -> InsertEventContent(component = instance.component)
                     is Child.InsertExpense -> InsertExpenseContent(component = instance.component)
                     is Child.InsertVenue -> InsertVenueContent(component = instance.component)
-                    is Child.DayDetail -> DayDetailContent(component = instance.component)
+                    is Child.PlannerDayDetail -> PlannerDayDetailContent(component = instance.component)
                 }
             }
         }
