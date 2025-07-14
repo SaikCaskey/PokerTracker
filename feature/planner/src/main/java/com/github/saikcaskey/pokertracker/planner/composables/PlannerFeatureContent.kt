@@ -59,7 +59,7 @@ fun PlannerFeatureContent(component: PlannerFeatureComponent) {
                         "${month.yearMonth.month.name} - ${month.yearMonth.year}",
                         style = MaterialTheme.typography.displaySmall.copy(fontSize = 10.sp)
                     )
-                    DaysOfWeekTitle(daysOfWeek = daysOfWeek())
+                    PlannerDaysOfWeekTitle(daysOfWeek = daysOfWeek())
                     Card(
                         colors = CardDefaults.cardColors().copy(containerColor = Color.LightGray),
                         content = { calendar() }

@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.datetime.DayOfWeek
 
 @Composable
-fun DaysOfWeekTitle(daysOfWeek: List<DayOfWeek>) {
+fun PlannerDaysOfWeekTitle(daysOfWeek: List<DayOfWeek>) {
     Row(modifier = Modifier.fillMaxWidth()) {
         for (dayOfWeek in daysOfWeek) {
             Text(
