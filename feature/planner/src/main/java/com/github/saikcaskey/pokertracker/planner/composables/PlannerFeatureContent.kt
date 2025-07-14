@@ -39,6 +39,7 @@ fun PlannerFeatureContent(component: PlannerFeatureComponent) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        val daysOfWeek = remember { daysOfWeek() }
         val currentMonth = remember { YearMonth.now() }
         val startMonth = remember { currentMonth.minusMonths(100) }
         val endMonth = remember { currentMonth.plusMonths(100) }
@@ -54,12 +55,18 @@ fun PlannerFeatureContent(component: PlannerFeatureComponent) {
         VerticalCalendar(
             state = state,
             monthContainer = { month, calendar ->
-                Column(modifier = Modifier.padding(12.dp).weight(1f)) {
+                Column(
+                    modifier = Modifier
+                        .padding(12.dp)
+                        .weight(1f)
+                ) {
                     Text(
                         "${month.yearMonth.month.name} - ${month.yearMonth.year}",
                         style = MaterialTheme.typography.displaySmall.copy(fontSize = 10.sp)
                     )
-                    PlannerDaysOfWeekTitle(daysOfWeek = daysOfWeek())
+                    PlannerDaysOfWeekTitle(daysOfWeek = daysOfWeek.map { dayName ->
+                        dayName.name.first().toString()
+                    })
                     Card(
                         colors = CardDefaults.cardColors().copy(containerColor = Color.LightGray),
                         content = { calendar() }
