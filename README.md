@@ -33,3 +33,4 @@ This project uses [Font Awesome Free](https://fontawesome.com) by Fonticons, Inc
 - Code: [MIT License](https://opensource.org/licenses/MIT)
 
 Copyright 2024 Fonticons, Inc.
+

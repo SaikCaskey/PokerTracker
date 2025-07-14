@@ -3,8 +3,9 @@ package com.github.saikcaskey.pokertracker.presentation.event
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
+import com.github.saikcaskey.pokertracker.domain.components.ViewEventsComponent
 import com.github.saikcaskey.pokertracker.domain.models.Event
-import com.github.saikcaskey.pokertracker.presentation.event.ViewEventsComponent.*
+import com.github.saikcaskey.pokertracker.domain.components.ViewEventsComponent.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
@@ -30,12 +31,13 @@ class DefaultViewEventsComponent(
         combine(eventRepository.getAll(), _searchOptions) { events, searchFilter ->
             val filtered = events
                 .filter { event ->
-                    searchFilter.query.isNullOrBlank()
-                            || event.name?.contains(searchFilter.query, ignoreCase = true) == true
-                            || event.gameType.name.contains(searchFilter.query, ignoreCase = true)
-                            || event.description?.contains(searchFilter.query, ignoreCase = true) == true
-                            || event.id == searchFilter.query.toLongOrNull()
-                            || event.venueId == searchFilter.query.toLongOrNull()
+                    val query = searchFilter.query.orEmpty()
+                    query.isBlank()
+                            || event.name?.contains(query, ignoreCase = true) == true
+                            || event.gameType.name.contains(query, ignoreCase = true)
+                            || event.description?.contains(query, ignoreCase = true) == true
+                            || event.id == query.toLongOrNull()
+                            || event.venueId == query.toLongOrNull()
                 }
                 .sortedWith(
                     when (searchFilter.sort) {

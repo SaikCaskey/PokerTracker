@@ -2,47 +2,57 @@ package com.github.saikcaskey.pokertracker.presentation.root
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.DecomposeExperimentFlags
-import com.arkivanov.decompose.DelicateDecomposeApi
-import com.arkivanov.decompose.ExperimentalDecomposeApi
-import com.arkivanov.decompose.router.stack.*
+import com.arkivanov.decompose.router.stack.ChildStack
+import com.arkivanov.decompose.router.stack.StackNavigation
+import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.pop
+import com.arkivanov.decompose.router.stack.popTo
+import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
-import com.github.saikcaskey.pokertracker.data.utils.defaultCoroutineDispatchersProviders
+import com.github.saikcaskey.data.utils.defaultCoroutineDispatchersProviders
+import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
+import com.github.saikcaskey.pokertracker.domain.components.PlannerDayDetailComponent
+import com.github.saikcaskey.pokertracker.domain.components.EventDetailComponent
+import com.github.saikcaskey.pokertracker.domain.components.ExpenseDetailComponent
+import com.github.saikcaskey.pokertracker.domain.components.InsertEventComponent
+import com.github.saikcaskey.pokertracker.domain.components.InsertExpenseComponent
+import com.github.saikcaskey.pokertracker.domain.components.InsertVenueComponent
+import com.github.saikcaskey.pokertracker.domain.components.MainComponent
+import com.github.saikcaskey.pokertracker.domain.components.RootComponent
+import com.github.saikcaskey.pokertracker.domain.components.RootComponent.Child
+import com.github.saikcaskey.pokertracker.domain.components.RootComponent.Child.PlannerDayDetail
+import com.github.saikcaskey.pokertracker.domain.components.RootComponent.Child.EventDetail
+import com.github.saikcaskey.pokertracker.domain.components.RootComponent.Child.ExpenseDetail
+import com.github.saikcaskey.pokertracker.domain.components.RootComponent.Child.InsertEvent
+import com.github.saikcaskey.pokertracker.domain.components.RootComponent.Child.InsertExpense
+import com.github.saikcaskey.pokertracker.domain.components.RootComponent.Child.InsertVenue
+import com.github.saikcaskey.pokertracker.domain.components.RootComponent.Child.Main
+import com.github.saikcaskey.pokertracker.domain.components.RootComponent.Child.VenueDetail
+import com.github.saikcaskey.pokertracker.domain.components.RootComponent.Child.ViewEvents
+import com.github.saikcaskey.pokertracker.domain.components.RootComponent.Child.ViewExpenses
+import com.github.saikcaskey.pokertracker.domain.components.RootComponent.Child.ViewVenues
+import com.github.saikcaskey.pokertracker.domain.components.VenueDetailComponent
+import com.github.saikcaskey.pokertracker.domain.components.ViewEventsComponent
+import com.github.saikcaskey.pokertracker.domain.components.ViewExpensesComponent
+import com.github.saikcaskey.pokertracker.domain.components.ViewVenuesComponent
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
-import com.github.saikcaskey.pokertracker.shared.domain.repository.ExpenseRepository
+import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import com.github.saikcaskey.pokertracker.presentation.event.DefaultEventDetailComponent
 import com.github.saikcaskey.pokertracker.presentation.event.DefaultInsertEventComponent
 import com.github.saikcaskey.pokertracker.presentation.event.DefaultViewEventsComponent
-import com.github.saikcaskey.pokertracker.presentation.event.EventDetailComponent
-import com.github.saikcaskey.pokertracker.presentation.event.InsertEventComponent
-import com.github.saikcaskey.pokertracker.presentation.event.ViewEventsComponent
-import com.github.saikcaskey.pokertracker.shared.presentation.expense.DefaultExpenseDetailComponent
+import com.github.saikcaskey.pokertracker.presentation.expense.DefaultExpenseDetailComponent
 import com.github.saikcaskey.pokertracker.presentation.expense.DefaultInsertExpenseComponent
-import com.github.saikcaskey.pokertracker.shared.presentation.expense.DefaultViewExpensesComponent
-import com.github.saikcaskey.pokertracker.presentation.expense.ExpenseDetailComponent
-import com.github.saikcaskey.pokertracker.presentation.expense.InsertExpenseComponent
-import com.github.saikcaskey.pokertracker.shared.presentation.expense.ViewExpensesComponent
-import com.github.saikcaskey.pokertracker.shared.presentation.main.DefaultMainComponent
-import com.github.saikcaskey.pokertracker.presentation.main.MainComponent
-import com.github.saikcaskey.pokertracker.presentation.planner.DayDetailComponent
-import com.github.saikcaskey.pokertracker.shared.presentation.planner.DefaultDayDetailComponent
-import com.github.saikcaskey.pokertracker.shared.presentation.root.RootComponent.Child
-import com.github.saikcaskey.pokertracker.shared.presentation.root.RootComponent.Child.*
-import com.github.saikcaskey.pokertracker.shared.presentation.venue.DefaultInsertVenueComponent
+import com.github.saikcaskey.pokertracker.presentation.expense.DefaultViewExpensesComponent
+import com.github.saikcaskey.pokertracker.presentation.main.DefaultMainComponent
+import com.github.saikcaskey.pokertracker.planner.PlannerDayDetailComponentImpl
+import com.github.saikcaskey.pokertracker.presentation.venue.DefaultInsertVenueComponent
 import com.github.saikcaskey.pokertracker.presentation.venue.DefaultVenueDetailComponent
-import com.github.saikcaskey.pokertracker.shared.presentation.venue.DefaultViewVenuesComponent
-import com.github.saikcaskey.pokertracker.shared.presentation.venue.InsertVenueComponent
-import com.github.saikcaskey.pokertracker.shared.presentation.venue.VenueDetailComponent
-import com.github.saikcaskey.pokertracker.presentation.venue.ViewVenuesComponent
-import com.github.saikcaskey.pokertracker.shared.presentation.root.RootComponent
-import kotlinx.datetime.Clock
+import com.github.saikcaskey.pokertracker.presentation.venue.DefaultViewVenuesComponent
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
 
-@OptIn(DelicateDecomposeApi::class, ExperimentalDecomposeApi::class)
 class DefaultRootComponent(
     componentContext: ComponentContext,
     private val eventRepository: EventRepository,
@@ -52,6 +62,7 @@ class DefaultRootComponent(
 ) : RootComponent, ComponentContext by componentContext {
 
     init {
+        // Enable duplicate destinations in the stack
         DecomposeExperimentFlags.duplicateConfigurationsEnabled = true
     }
 
@@ -67,7 +78,7 @@ class DefaultRootComponent(
 
     private fun buildChildComponent(config: Config, context: ComponentContext): Child = when (config) {
         is Config.Main -> Main(mainComponent(context))
-        is Config.DayDetail -> DayDetail(dayDetailComponent(context, config.date))
+        is Config.DayDetail -> PlannerDayDetail(dayDetailComponent(context, config.date))
         is Config.InsertEvent -> InsertEvent(insertEventComponent(context, config))
         is Config.InsertVenue -> InsertVenue(insertVenueComponent(context, config.venueId))
         is Config.InsertExpense -> InsertExpense(insertExpenseComponent(context, config))
@@ -114,8 +125,8 @@ class DefaultRootComponent(
             venueRepository = venueRepository,
         )
 
-    private fun dayDetailComponent(componentContext: ComponentContext, date: LocalDate): DayDetailComponent =
-        DefaultDayDetailComponent(
+    private fun dayDetailComponent(componentContext: ComponentContext, date: LocalDate): PlannerDayDetailComponent =
+        PlannerDayDetailComponentImpl(
             componentContext = componentContext,
             date = date,
             dispatchers = defaultCoroutineDispatchersProviders,
@@ -189,7 +200,7 @@ class DefaultRootComponent(
     ): InsertEventComponent =
         DefaultInsertEventComponent(
             componentContext = componentContext,
-            startDate = config.startDate ?: Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date,
+            startDate = config.startDate ?: nowAsLocalDateTime().date,
             existingEventId = config.existingEventId,
             venueId = config.venueId,
             dispatchers = dispatchers,

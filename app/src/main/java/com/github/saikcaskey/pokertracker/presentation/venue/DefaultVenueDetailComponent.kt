@@ -1,17 +1,14 @@
-@file:OptIn(ExperimentalCoroutinesApi::class)
-
 package com.github.saikcaskey.pokertracker.presentation.venue
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.models.ProfitSummary
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
-import com.github.saikcaskey.pokertracker.shared.domain.repository.ExpenseRepository
+import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
-import com.github.saikcaskey.pokertracker.shared.presentation.venue.VenueDetailComponent
-import com.github.saikcaskey.pokertracker.shared.presentation.venue.VenueDetailComponent.UiState
+import com.github.saikcaskey.pokertracker.domain.components.VenueDetailComponent
+import com.github.saikcaskey.pokertracker.domain.components.VenueDetailComponent.UiState
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -56,13 +53,15 @@ class DefaultVenueDetailComponent(
         venue,
         eventRepository.getUpcomingByVenue(venueId),
         eventRepository.getByVenue(venueId),
+        eventRepository.getTodayByVenue(venueId),
         profitSummary
-    ) { venue, upcomingEvents, pastEvents, profitSummary ->
+    ) { venue, upcomingEvents, pastEvents, todayEvents,  profitSummary ->
         UiState(
             id = venueId,
             venue = venue,
             upcomingEvents = upcomingEvents,
             pastEvents = pastEvents,
+            todayEvents = todayEvents,
             profitSummary = profitSummary
         )
     }.stateIn(coroutineScope, Eagerly, UiState(id = venueId, profitSummary = profitSummary.value))

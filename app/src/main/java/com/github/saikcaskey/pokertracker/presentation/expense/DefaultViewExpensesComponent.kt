@@ -1,12 +1,13 @@
-package com.github.saikcaskey.pokertracker.shared.presentation.expense
+package com.github.saikcaskey.pokertracker.presentation.expense
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
+import com.github.saikcaskey.pokertracker.domain.components.ViewExpensesComponent
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.models.adjustedAmount
-import com.github.saikcaskey.pokertracker.shared.domain.repository.ExpenseRepository
-import com.github.saikcaskey.pokertracker.shared.presentation.expense.ViewExpensesComponent.*
-import com.github.saikcaskey.pokertracker.shared.presentation.expense.ViewExpensesComponent.ExpenseSortOption.*
+import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
+import com.github.saikcaskey.pokertracker.domain.components.ViewExpensesComponent.*
+import com.github.saikcaskey.pokertracker.domain.components.ViewExpensesComponent.ExpenseSortOption.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
@@ -22,8 +23,7 @@ class DefaultViewExpensesComponent(
 ) : ViewExpensesComponent, ComponentContext by componentContext {
     private val coroutineScope = CoroutineScope(dispatchers.io)
     private val _searchQuery = MutableStateFlow<String?>(null)
-    private val _expenseSortOption = MutableStateFlow(CREATED_AT_DESC
-    )
+    private val _expenseSortOption = MutableStateFlow(CREATED_AT_DESC)
     private val _searchOptions = combine(_searchQuery, _expenseSortOption, ::ExpenseSearchFilter)
         .stateIn(coroutineScope, Eagerly, ExpenseSearchFilter())
 
@@ -31,13 +31,19 @@ class DefaultViewExpensesComponent(
         combine(expenseRepository.getAll(), _searchOptions) { expenses, searchFilter ->
             val filtered = expenses
                 .filter { expense ->
-                    searchFilter.query.isNullOrBlank()
-                            || expense.type.name.contains(searchFilter.query, ignoreCase = true)
-                            || expense.description?.contains(searchFilter.query, ignoreCase = true) == true
-                            || expense.id == searchFilter.query.toLongOrNull()
-                            || expense.venueId == searchFilter.query.toLongOrNull()
-                            || expense.eventId == searchFilter.query.toLongOrNull()
-                            || expense.amount.toString().contains(searchFilter.query, ignoreCase = true)
+                    val query = searchFilter.query.orEmpty()
+
+                    query.isBlank()
+                            || expense.type.name.contains(query, ignoreCase = true)
+                            || expense.description?.contains(
+                        query,
+                        ignoreCase = true
+                    ) == true
+                            || expense.id == query.toLongOrNull()
+                            || expense.venueId == query.toLongOrNull()
+                            || expense.eventId == query.toLongOrNull()
+                            || expense.amount.toString()
+                        .contains(query, ignoreCase = true)
                 }
                 .sortedWith(
                     when (searchFilter.sort) {

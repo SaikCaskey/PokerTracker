@@ -1,16 +1,17 @@
-package com.github.saikcaskey.pokertracker.shared.presentation.main
+package com.github.saikcaskey.pokertracker.presentation.main
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.pages.*
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.subscribe
+import com.github.saikcaskey.pokertracker.dashboard.DashboardFeatureComponentImpl
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
-import com.github.saikcaskey.pokertracker.shared.domain.repository.ExpenseRepository
+import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
-import com.github.saikcaskey.pokertracker.presentation.main.MainComponent
-import com.github.saikcaskey.pokertracker.presentation.main.MainComponent.MainMenuPagerPageConfig
-import com.github.saikcaskey.pokertracker.presentation.main.MainComponent.MainMenuPagerPageConfig.*
+import com.github.saikcaskey.pokertracker.domain.components.MainComponent
+import com.github.saikcaskey.pokertracker.domain.components.MainPagerPageComponent
+import com.github.saikcaskey.pokertracker.planner.PlannerFeatureComponentImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.LocalDate
+import kotlinx.serialization.Serializable
 
 class DefaultMainComponent(
     componentContext: ComponentContext,
@@ -47,8 +49,8 @@ class DefaultMainComponent(
             Pages(
                 items = List(MainMenuPagerItemType.entries.size) { index ->
                     when (index) {
-                        1 -> Planner
-                        else -> Dashboard
+                        1 -> MainMenuPagerPageConfig.Planner
+                        else -> MainMenuPagerPageConfig.Dashboard
                     }
                 },
                 selectedIndex = 0,
@@ -56,14 +58,14 @@ class DefaultMainComponent(
         },
     ) { config, childComponentContext ->
         when (config) {
-            Planner -> MainPagerPagePlannerComponent(
+            MainMenuPagerPageConfig.Planner -> PlannerFeatureComponentImpl(
                 componentContext = childComponentContext,
                 eventsRepository = eventRepository,
                 onCalendarDayClicked = onShowCalendarDayDetail,
                 dispatchers = dispatchers
             )
 
-            Dashboard -> MainPagerPageDashboardComponent(
+            MainMenuPagerPageConfig.Dashboard -> DashboardFeatureComponentImpl(
                 componentContext = childComponentContext,
                 eventRepository = eventRepository,
                 expenseRepository = expenseRepository,
@@ -96,6 +98,15 @@ class DefaultMainComponent(
 
     override fun selectPage(index: Int) {
         navigation.select(index = index)
+    }
+
+    @Serializable
+    sealed class MainMenuPagerPageConfig {
+        @Serializable
+        data object Dashboard : MainMenuPagerPageConfig()
+
+        @Serializable
+        data object Planner : MainMenuPagerPageConfig()
     }
 }
 

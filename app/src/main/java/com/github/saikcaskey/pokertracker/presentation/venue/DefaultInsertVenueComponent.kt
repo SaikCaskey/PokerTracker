@@ -1,7 +1,8 @@
-package com.github.saikcaskey.pokertracker.shared.presentation.venue
+package com.github.saikcaskey.pokertracker.presentation.venue
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
+import com.github.saikcaskey.pokertracker.domain.components.InsertVenueComponent
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -24,7 +25,6 @@ class DefaultInsertVenueComponent(
             existingVenueId = existingVenueId,
             inputData = inputData,
             isSubmitEnabled = inputData.name.isNotBlank()
-
         )
     }.stateIn(coroutineScope, Eagerly, InsertVenueComponent.UiState(existingVenueId = existingVenueId))
 
