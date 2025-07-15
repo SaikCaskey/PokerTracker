@@ -41,34 +41,12 @@ class ModuleAppConventionPlugin : Plugin<Project> {
                     }
                 }
 
-                // Load properties from local.properties
-                val localProperties = Properties()
-                val localPropertiesFile = project.rootProject.file("local-env.properties")
-
-                if (localPropertiesFile.exists()) {
-                    FileInputStream(localPropertiesFile).use {
-                        localProperties.load(it)
-                    }
-                } else {
-                    println("WARNING: local-env.properties file not found. App Signing won't work correctly.")
-                }
-
-                signingConfigs {
-                    create("release") {
-                        keyAlias = localProperties.getProperty("POKERTRACKER_F_DROID_ALIAS")
-                        keyPassword = localProperties.getProperty("POKERTRACKER_F_DROID_PASSWORD")
-                        storeFile =
-                            file("../${localProperties.getProperty("POKERTRACKER_F_DROID_KEYSTORE")}")
-                        storePassword =
-                            localProperties.getProperty("POKERTRACKER_F_DROID_STORE_PASSWORD")
-                    }
-                }
+                configureAppSigning(project)
 
                 buildTypes {
                     getByName("release") {
                         isMinifyEnabled = true
                         isShrinkResources = true
-                        signingConfig = signingConfigs.getByName("release")
                     }
                     getByName("debug") {
                         isMinifyEnabled = false
@@ -84,6 +62,46 @@ class ModuleAppConventionPlugin : Plugin<Project> {
 
             configureExtension<KotlinAndroidExtension> {
                 jvmToolchain(libs.getVersionInt("jvmTarget"))
+            }
+        }
+    }
+}
+
+private fun BaseAppModuleExtension.configureAppSigning(project: Project) {
+    with(project) {
+        val props = Properties()
+        val localPropertiesFile = project.rootProject.file("local-env.properties")
+        if (localPropertiesFile.exists()) {
+            // Load properties from local.properties to localProperties
+            FileInputStream(localPropertiesFile).use(props::load)
+
+            val keystoreFile =
+                project.rootProject.file(props.getProperty("POKERTRACKER_F_DROID_KEYSTORE"))
+            if (keystoreFile.exists()) {
+                signingConfigs {
+                    // Only create release build type if we had the local properties
+                    // Since for fdroid this won't be useful without reproducible builds
+                    create("release") {
+                        keyAlias = props.getProperty("POKERTRACKER_F_DROID_ALIAS")
+                        keyPassword = props.getProperty("POKERTRACKER_F_DROID_PASSWORD")
+                        storeFile = keystoreFile
+                        storePassword = props.getProperty("POKERTRACKER_F_DROID_STORE_PASSWORD")
+                    }
+                    buildTypes {
+                        getByName("release") {
+                            signingConfig = signingConfigs.getByName("release")
+                        }
+                    }
+                }
+            } else {
+                error("No signing config was configured in the localPropertiesFile")
+            }
+        } else {
+            println("WARNING: local-env.properties file not found.")
+            buildTypes {
+                getByName("release") {
+                    signingConfig = signingConfigs.getByName("debug")
+                }
             }
         }
     }
