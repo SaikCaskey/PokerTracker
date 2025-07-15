@@ -17,7 +17,6 @@ fun AppTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
-    val context = LocalContext.current
     MaterialTheme(
         colorScheme = if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S) {
             rememberDynamicColorScheme(
@@ -26,6 +25,7 @@ fun AppTheme(
                 style = PaletteStyle.Fidelity
             )
         } else {
+            val context = LocalContext.current
             if (useDarkTheme) {
                 dynamicDarkColorScheme(context)
             } else {
