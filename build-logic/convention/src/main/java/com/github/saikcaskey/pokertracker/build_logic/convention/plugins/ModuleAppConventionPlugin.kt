@@ -31,8 +31,8 @@ class ModuleAppConventionPlugin : Plugin<Project> {
                     applicationId = "com.github.saikcaskey.pokertracker"
                     minSdk = libs.getVersionInt("android-minsdk")
                     targetSdk = libs.getVersionInt("android-targetsdk")
-                    versionCode = 5
-                    versionName = "0.1.4"
+                    versionCode = 6
+                    versionName = "0.1.5"
                 }
 
                 packaging {
