@@ -94,7 +94,7 @@ private fun BaseAppModuleExtension.configureAppSigning(project: Project) {
                     }
                 }
             } else {
-                error("No signing config was configured in the localPropertiesFile")
+                error("No keystore was found in the localPropertiesFile")
             }
         } else {
             println("WARNING: local-env.properties file not found.")
