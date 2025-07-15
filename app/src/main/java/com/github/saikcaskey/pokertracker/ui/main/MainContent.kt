@@ -25,24 +25,12 @@ internal fun MainContent(component: MainComponent, modifier: Modifier = Modifier
     Scaffold(
         modifier = modifier,
         bottomBar = { MainPagerBottomAppBar(selectPage = component::selectPage) },
-        floatingActionButton = {
-            FloatingActionButton(onClick = {
-                PokerTrackerDatabaseProvider.provide().seedSampleData()
-            }) {
-                FontAwesomeIcons.Regular.Clone.asIcon(
-                    height = 32.dp,
-                    contentDescription = "Seed data button"
-                )
-            }
-        },
-        topBar = {
-            TopAppBar(title = { Text(text = title.value) })
-        },
-    ) {
+        topBar = { TopAppBar(title = { Text(text = title.value) }) },
+    ) { paddingValues ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(it)
+                .padding(paddingValues)
                 .padding(horizontal = 12.dp)
         ) {
             ChildPages(
