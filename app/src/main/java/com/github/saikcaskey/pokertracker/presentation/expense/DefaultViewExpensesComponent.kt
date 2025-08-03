@@ -11,7 +11,6 @@ import com.github.saikcaskey.pokertracker.domain.components.ViewExpensesComponen
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
-import kotlin.collections.filter
 
 class DefaultViewExpensesComponent(
     componentContext: ComponentContext,
