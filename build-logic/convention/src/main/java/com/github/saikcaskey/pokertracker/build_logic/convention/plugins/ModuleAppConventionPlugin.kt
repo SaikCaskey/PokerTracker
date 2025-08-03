@@ -35,6 +35,15 @@ class ModuleAppConventionPlugin : Plugin<Project> {
                     versionName = "0.1.1"
                 }
 
+                // F DROID - Disable AGP signing block
+                // See https://gitlab.com/fdroid/fdroiddata/-/merge_requests/24283#note_2636169667
+                dependenciesInfo {
+                    // Disables dependency metadata when building APKs.
+                    includeInApk = false
+                    // Disables dependency metadata when building Android App Bundles.
+                    includeInBundle = false
+                }
+
                 packaging {
                     resources {
                         excludes += "/META-INF/{AL2.0,LGPL2.1}"
