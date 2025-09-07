@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.stack.animation.*
 import com.github.saikcaskey.pokertracker.ui_compose.components.venue.InsertVenueContent
@@ -27,7 +26,7 @@ fun RootContent(
     component: RootComponent,
     modifier: Modifier = Modifier,
 ) {
-    AppTheme(Color(70, 51, 250)) {
+    AppTheme() {
         Surface(
             modifier = modifier.fillMaxSize()
         ) {
