@@ -14,6 +14,7 @@ import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import com.github.saikcaskey.pokertracker.domain.components.MainComponent
 import com.github.saikcaskey.pokertracker.domain.components.MainPagerPageComponent
 import com.github.saikcaskey.pokertracker.planner.PlannerFeatureComponentImpl
+import com.github.saikcaskey.pokertracker.presentation.settings.SettingsFeatureComponentImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
@@ -51,6 +52,7 @@ class DefaultMainComponent(
             Pages(
                 items = List(MainMenuPagerItemType.entries.size) { index ->
                     when (index) {
+                        2 -> MainMenuPagerPageConfig.Settings
                         1 -> MainMenuPagerPageConfig.Planner
                         else -> MainMenuPagerPageConfig.Dashboard
                     }
@@ -60,6 +62,7 @@ class DefaultMainComponent(
         },
     ) { config, childComponentContext ->
         when (config) {
+            MainMenuPagerPageConfig.Settings -> SettingsFeatureComponentImpl(childComponentContext)
             MainMenuPagerPageConfig.Planner -> PlannerFeatureComponentImpl(
                 componentContext = childComponentContext,
                 eventsRepository = eventRepository,
@@ -110,6 +113,9 @@ class DefaultMainComponent(
 
         @Serializable
         data object Planner : MainMenuPagerPageConfig()
+
+        @Serializable
+        data object Settings : MainMenuPagerPageConfig()
     }
 }
 
@@ -117,7 +123,7 @@ private fun Int.toPageTitle(): String {
     return when (this) {
         0 -> "Dashboard"
         1 -> "Planner"
-        2 -> "Stats"
+        2 -> "Settings"
         else -> "Settings"
     }
 }

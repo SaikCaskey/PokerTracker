@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":feature:settings")
+
+
 include(":app")
 include(":libs:data")
 include(":libs:domain")

@@ -3,11 +3,12 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":feature:dashboard"))
     implementation(project(":libs:ui-compose"))
     implementation(project(":libs:data"))
     implementation(project(":libs:domain"))
+    implementation(project(":feature:dashboard"))
     implementation(project(":feature:planner"))
+    implementation(project(":feature:settings"))
 
     implementation(compose.ui)
     implementation(compose.foundation)
