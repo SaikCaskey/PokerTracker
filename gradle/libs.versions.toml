@@ -1,17 +1,17 @@
 [versions]
 
-agp = "8.11.0"
+agp = "8.11.1"
 android-minsdk = "26"
 android-compilesdk = "36"
 android-targetsdk = "36"
 androidDriver = "2.1.0"
-composeMultiplatform = "2.7.0"
+cmpcharts = "2.0.6"
+composeMultiplatform = "2.8.0"
 coroutinesExtensions = "2.1.0"
 jvmTarget = "21"
 kotlin = "2.2.0"
-#noinspection NewerVersionAvailable
-kotlinxDatetime = "0.6.2"
-materialKolor = "3.0.0"
+kotlinxDatetime = "0.7.1"
+materialKolor = "3.0.1"
 
 androidx-activityCompose = "1.10.1"
 compose-jetbrains = "1.8.2"
