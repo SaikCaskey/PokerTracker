@@ -1,7 +1,7 @@
 package com.github.saikcaskey.pokertracker.domain.extensions
 
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
+import kotlin.time.Clock
+import kotlin.time.Instant
 
 fun String?.asInstantOrNow(): Instant {
     return this?.let {
