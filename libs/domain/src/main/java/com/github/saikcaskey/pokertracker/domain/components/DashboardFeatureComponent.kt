@@ -20,6 +20,8 @@ interface DashboardFeatureComponent : MainPagerPageComponent {
     fun onShowAllEventsClicked()
     fun onShowAllVenuesClicked()
 
+    fun seedSampleData()
+
     data class UiState(
         val eventsData: DashboardEventsData = DashboardEventsData(),
         val profitSummaryData: DashboardProfitSummaryData = DashboardProfitSummaryData(),

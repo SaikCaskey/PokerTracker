@@ -1,8 +1,11 @@
 package com.github.saikcaskey.pokertracker.dashboard.composables
 
+import androidx.compose.foundation.clickable
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import com.github.saikcaskey.pokertracker.domain.models.DashboardEventsData
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
 import com.github.saikcaskey.pokertracker.ui_compose.components.event.EventsList
@@ -13,6 +16,7 @@ fun DashboardEventSummary(
     onShowAllEventsClicked: () -> Unit,
     onShowInsertEventClicked: () -> Unit,
     onShowEventDetailClicked: (Long) -> Unit,
+    onSeedSampleData: () -> Unit,
 ) {
     SectionContainer(
         title = "Events",
@@ -20,7 +24,11 @@ fun DashboardEventSummary(
         onShowAllClick = onShowAllEventsClicked,
     ) {
         if (data.isEmpty) {
-            Text(text = "Nothing here yet!", style = MaterialTheme.typography.labelLarge)
+            Text(
+                text = "Nothing here yet!",
+                modifier = Modifier.clickable(onClick = onSeedSampleData),
+                style = MaterialTheme.typography.labelLarge
+            )
         } else {
             if (data.upcomingEvents.isNotEmpty()) {
                 Text(text = "Upcoming", style = MaterialTheme.typography.labelLarge)
