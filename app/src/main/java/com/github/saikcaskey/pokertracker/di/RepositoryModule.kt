@@ -10,7 +10,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.koin.dsl.module
 
-val repositoryModule = module {
+val coreRepositoryModule = module {
     single<EventRepository> { EventRepositoryImpl(get(), get()) }
     single<ExpenseRepository> { ExpenseRepositoryImpl(get(), get()) }
     single<VenueRepository> { VenueRepositoryImpl(get(), get()) }
