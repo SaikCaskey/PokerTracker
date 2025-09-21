@@ -27,9 +27,13 @@ gradlePlugin {
             id = "pokertracker.android.app"
             implementationClass = "com.github.saikcaskey.pokertracker.build_logic.convention.plugins.ModuleAppConventionPlugin"
         }
+        register("androidlibrary") {
+            id = "pokertracker.android.library"
+            implementationClass = "com.github.saikcaskey.pokertracker.build_logic.convention.plugins.ModuleLibraryConventionPlugin"
+        }
         register("androidlib") {
             id = "pokertracker.android.lib"
-            implementationClass = "com.github.saikcaskey.pokertracker.build_logic.convention.plugins.ModuleLibraryConventionPlugin"
+            implementationClass = "com.github.saikcaskey.pokertracker.build_logic.convention.plugins.ModuleLibConventionPlugin"
         }
         register("composelib") {
             id = "pokertracker.android.composelib"
