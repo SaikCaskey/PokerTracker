@@ -13,8 +13,9 @@ import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import com.github.saikcaskey.pokertracker.domain.components.MainComponent
 import com.github.saikcaskey.pokertracker.domain.components.MainPagerPageComponent
+import com.github.saikcaskey.pokertracker.domain.repository.SettingsRepository
 import com.github.saikcaskey.pokertracker.planner.PlannerFeatureComponentImpl
-import com.github.saikcaskey.pokertracker.presentation.settings.SettingsFeatureComponentImpl
+import com.github.saikcaskey.pokertracker.presentation.settings.SettingsFeatureFeatureComponentImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
@@ -39,6 +40,7 @@ class DefaultMainComponent(
     private val eventRepository: EventRepository,
     private val expenseRepository: ExpenseRepository,
     private val venueRepository: VenueRepository,
+    private val settingsRepository: SettingsRepository,
     private val dispatchers: CoroutineDispatchers,
 ) : MainComponent, ComponentContext by componentContext {
 
@@ -62,7 +64,12 @@ class DefaultMainComponent(
         },
     ) { config, childComponentContext ->
         when (config) {
-            MainMenuPagerPageConfig.Settings -> SettingsFeatureComponentImpl(childComponentContext)
+            MainMenuPagerPageConfig.Settings -> SettingsFeatureFeatureComponentImpl(
+                componentContext = childComponentContext,
+                settingsRepository = settingsRepository,
+                dispatchers = dispatchers,
+            )
+
             MainMenuPagerPageConfig.Planner -> PlannerFeatureComponentImpl(
                 componentContext = childComponentContext,
                 eventsRepository = eventRepository,
