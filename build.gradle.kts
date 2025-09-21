@@ -8,7 +8,6 @@ plugins {
     alias(libs.plugins.kotlinx.serialization).apply(false)
     alias(libs.plugins.jetbrains.compose).apply(false)
     alias(libs.plugins.sqldelight).apply(false)
-    alias(libs.plugins.jetbrains.kotlin.jvm) apply false
 }
 
 allprojects {
@@ -20,6 +19,7 @@ allprojects {
                 "-opt-in=com.arkivanov.decompose.DelicateDecomposeApi",
                 "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                 "-opt-in=kotlin.time.ExperimentalTime",
+                "-opt-in=kotlin.uuid.ExperimentalUuidApi",
             )
         }
     }
