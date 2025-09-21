@@ -46,7 +46,6 @@ compose-multiplatform-calendar = { module = "com.kizitonwose.calendar:compose-mu
 decompose-decompose = { group = "com.arkivanov.decompose", name = "decompose", version.ref = "decompose" }
 decompose-extensionsComposeJetbrains = { group = "com.arkivanov.decompose", name = "extensions-compose", version.ref = "decompose" }
 essenty-lifecycle = { group = "com.arkivanov.essenty", name = "lifecycle", version.ref = "essenty" }
-insert-koin-koin-core = { module = "io.insert-koin:koin-core" }
 kermit = { module = "co.touchlab:kermit", version = "2.0.8" }
 koin-android = { module = "io.insert-koin:koin-android" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose" }
