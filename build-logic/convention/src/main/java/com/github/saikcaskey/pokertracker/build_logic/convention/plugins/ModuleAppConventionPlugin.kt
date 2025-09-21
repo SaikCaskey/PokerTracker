@@ -9,6 +9,7 @@ import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.co
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedBuildTypes
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedCompileOptions
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedFlavors
+import com.github.saikcaskey.pokertracker.build_logic.convention.utils.gitCommitHash
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidExtension
@@ -36,6 +37,7 @@ class ModuleAppConventionPlugin : Plugin<Project> {
                     targetSdk = libs.getVersionInt("android-targetsdk")
                     versionCode = 3
                     versionName = "0.1.2"
+                    buildConfigField("String", "GIT_COMMIT_HASH", "\"${project.gitCommitHash()}\"")
                 }
 
                 configureSharedBuildTypes()
@@ -51,3 +53,4 @@ class ModuleAppConventionPlugin : Plugin<Project> {
         }
     }
 }
+
