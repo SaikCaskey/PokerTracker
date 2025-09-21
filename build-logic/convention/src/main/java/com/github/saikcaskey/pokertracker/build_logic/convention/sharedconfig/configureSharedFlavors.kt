@@ -1,5 +1,6 @@
 package com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig
 
+import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension
 
 /**
@@ -13,14 +14,23 @@ internal fun CommonExtension<*, *, *, *, *, *>.configureSharedFlavors() {
         create("alpha") {
             dimension = "env"
             buildConfigField("Boolean", "isProd", "false")
+            if (this is ApplicationExtension) {
+                defaultConfig.applicationIdSuffix = ".beta"
+            }
         }
         create("beta") {
             dimension = "env"
             buildConfigField("Boolean", "isProd", "false")
+            if (this is ApplicationExtension) {
+                defaultConfig.applicationIdSuffix = ".beta"
+            }
         }
         create("prod") {
             dimension = "env"
             buildConfigField("Boolean", "isProd", "true")
+            if (this is ApplicationExtension) {
+                defaultConfig.applicationIdSuffix = ".prod"
+            }
         }
     }
 }
