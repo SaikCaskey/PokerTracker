@@ -8,6 +8,8 @@ androidDriver = "2.1.0"
 cmpcharts = "2.0.6"
 composeMultiplatform = "2.8.0"
 coroutinesExtensions = "2.1.0"
+datastore = "1.1.7"
+datastorePreferences = "1.1.7"
 jvmTarget = "21"
 kotlin = "2.2.0"
 kotlinxDatetime = "0.7.1"
@@ -18,13 +20,12 @@ compose-jetbrains = "1.8.2"
 compose-icons = "1.1.1"
 decompose = "3.3.0"
 essenty = "2.5.0"
-koin = "4.1.0"
+koin = "4.1.1"
 
 kotlinx-coroutines = "1.10.2"
 kotlinx-serialization = "1.9.0"
 runtime = "2.1.0"
 sqldelight = "2.1.0"
-jetbrainsKotlinJvm = "2.2.0"
 
 [plugins]
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
@@ -34,18 +35,19 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose-jetbrains" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 
 [libraries]
 androidx-activity-activityCompose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx-activityCompose" }
 androidx-compose-material3 = { module = "androidx.compose.material3:material3", version = "1.3.2" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
 br-compose-icons-font-awesome = { module = "br.com.devsrsouza.compose.icons:font-awesome", version.ref = "compose-icons" }
 compose-multiplatform-calendar = { module = "com.kizitonwose.calendar:compose-multiplatform", version.ref = "composeMultiplatform" }
 decompose-decompose = { group = "com.arkivanov.decompose", name = "decompose", version.ref = "decompose" }
 decompose-extensionsComposeJetbrains = { group = "com.arkivanov.decompose", name = "extensions-compose", version.ref = "decompose" }
 essenty-lifecycle = { group = "com.arkivanov.essenty", name = "lifecycle", version.ref = "essenty" }
 insert-koin-koin-core = { module = "io.insert-koin:koin-core" }
-kermit = { module = "co.touchlab:kermit", version = "2.0.6" }
+kermit = { module = "co.touchlab:kermit", version = "2.0.8" }
 koin-android = { module = "io.insert-koin:koin-android" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose" }
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
