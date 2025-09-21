@@ -1,6 +1,6 @@
 package com.github.saikcaskey.pokertracker.domain.models
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 data class Event(
     val id: Long,
