@@ -1,7 +1,7 @@
 import org.gradle.kotlin.dsl.android
 
 plugins {
-    id("pokertracker.android.lib")
+    id("pokertracker.android.library")
     alias(libs.plugins.sqldelight)
 }
 
