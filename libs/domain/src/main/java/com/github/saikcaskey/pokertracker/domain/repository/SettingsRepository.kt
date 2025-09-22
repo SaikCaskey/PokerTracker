@@ -1,6 +1,7 @@
 package com.github.saikcaskey.pokertracker.domain.repository
 
 import com.github.saikcaskey.pokertracker.domain.models.SettingsItemsData
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 import kotlinx.coroutines.flow.StateFlow
 
 interface SettingsRepository {
@@ -8,4 +9,6 @@ interface SettingsRepository {
     val state: StateFlow<SettingsItemsData>
 
     fun setUserId(userId: String? = null)
+
+    fun <R> setUserPreference(preference: UserPreference<R>, value: R?)
 }
