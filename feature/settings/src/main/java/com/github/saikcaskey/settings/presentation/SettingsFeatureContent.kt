@@ -134,12 +134,9 @@ fun SettingsTextInputItem(
 ) {
     val state = rememberTextFieldState(initialText = itemData.value.orEmpty())
 
-    LaunchedEffect(itemData.value) {
+    LaunchedEffect(state.text) {
         snapshotFlow(state::text).collect {
-            onValueChange(
-                itemData.linkedUserPreference,
-                it.toString()
-            )
+            onValueChange(itemData.linkedUserPreference, it.toString())
         }
     }
 
