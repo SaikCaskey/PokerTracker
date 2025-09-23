@@ -21,6 +21,14 @@ class SettingsUserPreferencesDataSourceImpl(
         dataStore.setUserId(userId)
     }
 
+    override fun setIsDebug(value: Boolean) {
+        dataStore.setIsDebug(value)
+    }
+
+    override fun setLastSelectedTab(value: Int?) {
+        dataStore.setLastSelectedTab(value)
+    }
+
     override val state: StateFlow<SettingsData> = dataStore.data
         .stateIn(scope, Eagerly, SettingsData())
 }

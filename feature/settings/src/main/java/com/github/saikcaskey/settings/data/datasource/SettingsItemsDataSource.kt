@@ -2,10 +2,13 @@ package com.github.saikcaskey.settings.data.datasource
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.models.SettingsItem
 import com.github.saikcaskey.pokertracker.domain.models.SettingsItemsData
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 import com.github.saikcaskey.settings.domain.datasource.datasource.SettingsItemsDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
@@ -31,12 +34,34 @@ class SettingsItemsDataSourceImpl(
 }
 
 private fun Preferences.toSettingsItemsData(): SettingsItemsData {
+    fun UserPreference<String>.getStringPreference() = get(stringPreferencesKey(key))
+    fun UserPreference<Boolean>.getBooleanPreference() = get(booleanPreferencesKey(key)) == true
+    fun UserPreference<Int>.getIntPreference() = get(intPreferencesKey(key))
+
     return SettingsItemsData(
         listOf(
             SettingsItem.Header(),
             SettingsItem.Subheader(),
-            SettingsItem.Text("userId: ${get(stringPreferencesKey("user_id"))}"),
-            SettingsItem.Check(),
+            SettingsItem.Text("userId: ${UserPreference.UserId.getStringPreference()}"),
+            SettingsItem.Text("isDebug: ${UserPreference.IsDebug.getBooleanPreference()}"),
+            SettingsItem.Text("lastSelectedTab: ${UserPreference.LastSelectedTab.getIntPreference()}"),
+            SettingsItem.NumberInput(
+                linkedUserPreference = UserPreference.LastSelectedTab,
+                value = UserPreference.LastSelectedTab.getIntPreference(),
+            ),
+            SettingsItem.TextInput(
+                linkedUserPreference = UserPreference.UserId,
+                value = UserPreference.UserId.getStringPreference()
+            ),
+            SettingsItem.Toggle(
+                linkedUserPreference = UserPreference.IsDebug,
+                value = UserPreference.IsDebug.getBooleanPreference()
+            ),
+            SettingsItem.Check(
+                title = "IsDebug?",
+                linkedUserPreference = UserPreference.IsDebug,
+                value = UserPreference.IsDebug.getBooleanPreference()
+            ),
         )
     )
 }

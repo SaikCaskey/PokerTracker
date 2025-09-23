@@ -5,6 +5,8 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface UserSettingsDataSource {
     fun setUserId(userId: String? = null)
+    fun setIsDebug(value: Boolean)
+    fun setLastSelectedTab(value: Int? = null)
 
     val state: StateFlow<SettingsData>
 }

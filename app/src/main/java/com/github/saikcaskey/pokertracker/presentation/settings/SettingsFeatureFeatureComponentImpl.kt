@@ -3,13 +3,13 @@ package com.github.saikcaskey.pokertracker.presentation.settings
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.components.SettingsFeatureComponent
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 import com.github.saikcaskey.pokertracker.domain.repository.SettingsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlin.uuid.Uuid
 
 class SettingsFeatureFeatureComponentImpl(
     private val componentContext: ComponentContext,
@@ -23,8 +23,24 @@ class SettingsFeatureFeatureComponentImpl(
         settingsRepository.state.map(SettingsFeatureComponent::UiState)
             .stateIn(coroutineScope, SharingStarted.Eagerly, SettingsFeatureComponent.UiState())
 
-    override fun setUserId(uuid: Uuid) {
-        settingsRepository.setUserId(uuid.toString())
+    override fun inputToggleValue(
+        preference: UserPreference<Boolean>,
+        value: Boolean,
+    ) {
+        settingsRepository.setUserPreference(preference, value)
+    }
+
+    override fun inputTextValue(
+        preference: UserPreference<String>,
+        value: String?,
+    ) {
+        settingsRepository.setUserPreference(preference, value)
+    }
+
+    override fun inputNumberValue(
+        preference: UserPreference<Int>,
+        value: Int?,
+    ) {
+        settingsRepository.setUserPreference(preference, value)
     }
 }
-

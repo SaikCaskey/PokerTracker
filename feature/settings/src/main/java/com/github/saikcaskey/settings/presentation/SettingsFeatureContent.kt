@@ -7,22 +7,38 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.input.InputTransformation
+import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.maxLength
+import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.foundation.text.input.then
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.ToggleButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.core.text.isDigitsOnly
+import androidx.core.util.Preconditions.checkState
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import co.touchlab.kermit.Logger
 import com.github.saikcaskey.pokertracker.domain.components.SettingsFeatureComponent
 import com.github.saikcaskey.pokertracker.domain.models.SettingsItem
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -37,27 +53,143 @@ fun SettingsFeatureContent(
             .fillMaxSize()
             .background(Color.Magenta)
     ) {
-        SettingsItemsList(uiState.value) {
-            component.setUserId(Uuid.random())
-        }
+        SettingsItemsList(
+            value = uiState.value,
+            setRandomUserId = {
+                val randomId = Uuid.random()
+                Logger.i("asd setUserId: $randomId")
+                component.inputTextValue(UserPreference.UserId, randomId.toString())
+            },
+            inputToggleValue = { preference, isToggled ->
+                Logger.i("asd inputToggleValue: $preference, $isToggled")
+                component.inputToggleValue(preference, isToggled)
+            },
+            inputTextValue = { preference, value ->
+                Logger.i("asd inputTextValue: $preference, $value")
+                component.inputTextValue(preference, value)
+            },
+            inputNumberValue = { preference, value ->
+                Logger.i("asd inputNumberValue : $preference, $value")
+                component.inputNumberValue(preference, value)
+            },
+        )
     }
 }
 
 @Composable
 fun SettingsItemsList(
     value: SettingsFeatureComponent.UiState,
-    setUserId: () -> Unit,
+    setRandomUserId: () -> Unit,
+    inputToggleValue: (UserPreference<Boolean>, Boolean) -> Unit,
+    inputTextValue: (UserPreference<String>, String) -> Unit,
+    inputNumberValue: (UserPreference<Int>, Int?) -> Unit,
 ) {
     LazyColumn {
         items(value.settingsItemsData.items) { item ->
             when (item) {
-                is SettingsItem.Check -> SettingsCheckItem(item)
+                is SettingsItem.Check -> SettingsCheckItem(item, inputToggleValue)
                 is SettingsItem.Header -> SettingsHeaderItem(item)
                 is SettingsItem.Subheader -> SettingsSubheaderItem(item)
-                is SettingsItem.Text -> SettingsTextItem(item, setUserId)
+                is SettingsItem.Text -> SettingsTextItem(item, setRandomUserId)
+                is SettingsItem.TextInput -> SettingsTextInputItem(item, inputTextValue)
+                is SettingsItem.Toggle -> SettingsToggleItem(item, inputToggleValue)
+                is SettingsItem.NumberInput -> SettingsNumberInputItem(item, inputNumberValue)
             }
-            HorizontalDivider()
+            if (item.bottomDivider) HorizontalDivider()
         }
+    }
+}
+
+@Composable
+fun SettingsToggleItem(
+    itemData: SettingsItem.Toggle,
+    toggleSettingsItem: (UserPreference<Boolean>, Boolean) -> Unit,
+) {
+    Row {
+        ListItem(
+            headlineContent = {
+                Text(
+                    if (itemData.value) "checked" else "not checked",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            },
+            leadingContent = {
+                ToggleButton(
+                    checked = itemData.value,
+                    onCheckedChange = {
+                        toggleSettingsItem(
+                            itemData.linkedUserPreference,
+                            !itemData.value
+                        )
+                    },
+                    content = { itemData.title })
+            })
+    }
+}
+
+@Composable
+fun SettingsTextInputItem(
+    itemData: SettingsItem.TextInput,
+    onValueChange: (UserPreference<String>, newValue: String) -> Unit,
+) {
+    val state = rememberTextFieldState(initialText = itemData.value.orEmpty())
+
+    LaunchedEffect(itemData.value) {
+        snapshotFlow(state::text).collect {
+            onValueChange(
+                itemData.linkedUserPreference,
+                it.toString()
+            )
+        }
+    }
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        ListItem(
+            headlineContent = { Text(text = itemData.title ?: "") },
+            supportingContent = {
+                TextField(
+                    state = state,
+                    lineLimits = TextFieldLineLimits.SingleLine,
+                    textStyle = MaterialTheme.typography.bodyMedium,
+                )
+            }
+        )
+    }
+}
+
+@Composable
+fun SettingsNumberInputItem(
+    itemData: SettingsItem.NumberInput,
+    onValueChange: (UserPreference<Int>, newValue: Int?) -> Unit, // The callback to send updates to the Component
+) {
+    val state = rememberTextFieldState(initialText = itemData.value.toString())
+
+    LaunchedEffect(itemData.value) {
+        snapshotFlow(state::text).collect {
+            onValueChange(
+                itemData.linkedUserPreference,
+                it.toString().ifBlank { null }?.toIntOrNull()
+            )
+        }
+    }
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        ListItem(
+            headlineContent = { Text(text = itemData.title ?: "") },
+            supportingContent = {
+                TextField(
+                    state = state,
+                    inputTransformation = InputTransformation.maxLength(itemData.maxLength)
+                        .then { if (!asCharSequence().isDigitsOnly()) revertAllChanges() },
+                    lineLimits = TextFieldLineLimits.SingleLine,
+                    textStyle = MaterialTheme.typography.bodyMedium,
+                )
+            }
+        )
     }
 }
 
@@ -70,7 +202,7 @@ fun SettingsTextItem(
         ListItem(headlineContent = {
             Text(
                 modifier = Modifier.clickable { setUserId() },
-                text = itemData.text.orEmpty(),
+                text = itemData.title.orEmpty(),
                 style = MaterialTheme.typography.bodyMedium
             )
         })
@@ -85,7 +217,7 @@ fun SettingsSubheaderItem(
         ListItem(
             headlineContent = {
                 Text(
-                    itemData.text.orEmpty(),
+                    itemData.title.orEmpty(),
                     style = MaterialTheme.typography.headlineSmall
                 )
             },
@@ -99,7 +231,7 @@ fun SettingsHeaderItem(
 ) {
     Row {
         ListItem(headlineContent = {
-            Text(itemData.text.orEmpty(), style = MaterialTheme.typography.headlineLargeEmphasized)
+            Text(itemData.title.orEmpty(), style = MaterialTheme.typography.headlineLargeEmphasized)
         })
     }
 }
@@ -107,15 +239,17 @@ fun SettingsHeaderItem(
 @Composable
 fun SettingsCheckItem(
     itemData: SettingsItem.Check,
+    toggleSettingsItem: (UserPreference<Boolean>, Boolean) -> Unit,
 ) {
-    val checkState = remember { mutableStateOf(false) }
     Row {
         ListItem(
-            headlineContent = { Text(itemData.text.orEmpty()) },
+            headlineContent = { Text(if (itemData.value) "checked" else "not checked") },
             leadingContent = {
                 Checkbox(
-                    checked = checkState.value,
-                    onCheckedChange = { checkState.value = it },
+                    checked = itemData.value,
+                    onCheckedChange = {
+                        toggleSettingsItem(itemData.linkedUserPreference, it)
+                    },
                 )
             }
         )
