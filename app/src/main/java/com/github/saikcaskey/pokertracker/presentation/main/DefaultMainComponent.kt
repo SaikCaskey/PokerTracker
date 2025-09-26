@@ -66,6 +66,7 @@ class DefaultMainComponent(
         when (config) {
             MainMenuPagerPageConfig.Settings -> SettingsFeatureFeatureComponentImpl(
                 componentContext = childComponentContext,
+                database = PokerTrackerDatabaseProvider.provide(),
                 settingsRepository = settingsRepository,
                 dispatchers = dispatchers,
             )
