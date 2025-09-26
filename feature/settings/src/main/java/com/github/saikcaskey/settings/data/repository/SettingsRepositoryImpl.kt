@@ -12,11 +12,7 @@ class SettingsRepositoryImpl(
 
     override val state = settingsItemsDataSource.state
 
-    override fun setUserId(userId: String?) {
-        return userSettingsDataSource.setUserId(userId)
-    }
-
-    override fun <R: Any?> setUserPreference(
+    override fun <R : Any?> setUserPreference(
         preference: UserPreference<R>,
         value: R?,
     ) {

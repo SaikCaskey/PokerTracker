@@ -49,15 +49,15 @@ class SettingsFeatureFeatureComponentImpl(
     }
 
     override fun setRandomUserId() {
-        settingsRepository.setUserId(Uuid.random().toString())
+        settingsRepository.setUserPreference(UserPreference.UserId, Uuid.random().toString())
     }
 
     override fun clearLastSelectedTab() {
-        settingsRepository.setLastSelectedTab(null)
+        settingsRepository.setUserPreference(UserPreference.LastSelectedTab, null)
     }
 
     override fun clearUserId() {
-        settingsRepository.setUserId(null)
+        settingsRepository.setUserPreference(UserPreference.UserId, null)
     }
 
     override fun addDummyData() {
