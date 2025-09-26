@@ -18,8 +18,8 @@ import kotlinx.coroutines.flow.stateIn
 
 /**
  * DataSource that converts preferences from [androidx.datastore.dataStore] into
- * a list of [SettingsItem]s,
- * which should contain the data to be shown, as well as the sections to be laid out.
+ * a list of [SettingsItem]s, which should contain the data to be shown, as well as the sections
+ * to be laid out.
  */
 class SettingsItemsDataSourceImpl(
     dataStore: DataStore<Preferences>,
@@ -34,34 +34,13 @@ class SettingsItemsDataSourceImpl(
 }
 
 private fun Preferences.toSettingsItemsData(): SettingsItemsData {
-    fun UserPreference<String>.getStringPreference() = get(stringPreferencesKey(key))
-    fun UserPreference<Boolean>.getBooleanPreference() = get(booleanPreferencesKey(key)) == true
-    fun UserPreference<Int>.getIntPreference() = get(intPreferencesKey(key))
-
     return SettingsItemsData(
-        listOf(
-            SettingsItem.Header(),
-            SettingsItem.Subheader(),
-            SettingsItem.Text("userId: ${UserPreference.UserId.getStringPreference()}"),
-            SettingsItem.Text("isDebug: ${UserPreference.IsDebug.getBooleanPreference()}"),
-            SettingsItem.Text("lastSelectedTab: ${UserPreference.LastSelectedTab.getIntPreference()}"),
-            SettingsItem.NumberInput(
-                linkedUserPreference = UserPreference.LastSelectedTab,
-                value = UserPreference.LastSelectedTab.getIntPreference(),
-            ),
-            SettingsItem.TextInput(
-                linkedUserPreference = UserPreference.UserId,
-                value = UserPreference.UserId.getStringPreference()
-            ),
-            SettingsItem.Toggle(
-                linkedUserPreference = UserPreference.IsDebug,
-                value = UserPreference.IsDebug.getBooleanPreference()
-            ),
-            SettingsItem.Check(
-                title = "IsDebug?",
-                linkedUserPreference = UserPreference.IsDebug,
-                value = UserPreference.IsDebug.getBooleanPreference()
-            ),
-        )
+        get(UserPreference.UserId.getStringPreference()),
+        get(UserPreference.IsDebug.getBooleanPreference()),
+        get(UserPreference.LastSelectedTab.getIntPreference()),
     )
 }
+
+fun UserPreference<String>.getStringPreference() = stringPreferencesKey(key)
+fun UserPreference<Boolean>.getBooleanPreference() = booleanPreferencesKey(key)
+fun UserPreference<Int>.getIntPreference() = intPreferencesKey(key)
