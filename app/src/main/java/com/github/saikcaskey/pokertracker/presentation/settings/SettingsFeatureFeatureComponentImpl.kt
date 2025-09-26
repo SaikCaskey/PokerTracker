@@ -1,6 +1,8 @@
 package com.github.saikcaskey.pokertracker.presentation.settings
 
 import com.arkivanov.decompose.ComponentContext
+import com.github.saikcaskey.data.utils.seedSampleData
+import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.components.SettingsFeatureComponent
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
@@ -10,9 +12,11 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlin.uuid.Uuid
 
 class SettingsFeatureFeatureComponentImpl(
     private val componentContext: ComponentContext,
+    private val database: PokerTrackerDatabase,
     private val settingsRepository: SettingsRepository,
     dispatchers: CoroutineDispatchers,
 ) : SettingsFeatureComponent, ComponentContext by componentContext {
@@ -42,5 +46,27 @@ class SettingsFeatureFeatureComponentImpl(
         value: Int?,
     ) {
         settingsRepository.setUserPreference(preference, value)
+    }
+
+    override fun setRandomUserId() {
+        settingsRepository.setUserId(Uuid.random().toString())
+    }
+
+    override fun clearLastSelectedTab() {
+        settingsRepository.setLastSelectedTab(null)
+    }
+
+    override fun clearUserId() {
+        settingsRepository.setUserId(null)
+    }
+
+    override fun addDummyData() {
+        database.seedSampleData()
+    }
+
+    override fun clearAllData() {
+        database.eventQueries.deleteAll()
+        database.expenseQueries.deleteAll()
+        database.venueQueries.deleteAll()
     }
 }

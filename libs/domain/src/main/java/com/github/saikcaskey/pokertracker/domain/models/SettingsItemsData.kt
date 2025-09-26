@@ -1,5 +1,7 @@
 package com.github.saikcaskey.pokertracker.domain.models
 
 data class SettingsItemsData(
-    val items: List<SettingsItem> = emptyList(),
+    val userId: String? = null,
+    val isDebugEnabled: Boolean? = null,
+    val lastSelectedTab: Int? = null,
 )
