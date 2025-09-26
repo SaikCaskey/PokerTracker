@@ -31,10 +31,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.saikcaskey.pokertracker.domain.components.SettingsFeatureComponent
+import com.github.saikcaskey.pokertracker.domain.models.SettingsAction
 import com.github.saikcaskey.pokertracker.domain.models.SettingsItem
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 import kotlin.uuid.ExperimentalUuidApi
-import kotlin.uuid.Uuid
 
 @OptIn(ExperimentalUuidApi::class)
 @Composable
@@ -48,9 +48,16 @@ fun SettingsFeatureContent(
             .background(Color.Magenta)
     ) {
         SettingsItemsList(
-            value = uiState.value,
-            setRandomUserId = {
-                component.inputTextValue(UserPreference.UserId, Uuid.random().toString())
+            settingItems = uiState.value.settingsItems,
+            onPressedSettingsItem = { settingsItem ->
+                when (settingsItem.linkedSettingsAction) {
+                    SettingsAction.ClearLastSelectedTab -> component.clearLastSelectedTab()
+                    SettingsAction.ClearUserId -> component.clearUserId()
+                    SettingsAction.SetRandomUserId -> component.setRandomUserId()
+                    SettingsAction.AddDummyData -> component.addDummyData()
+                    SettingsAction.ClearAllData -> component.clearAllData()
+                    null -> {}
+                }
             },
             inputToggleValue = { preference, isToggled ->
                 component.inputToggleValue(preference, isToggled)
@@ -67,19 +74,19 @@ fun SettingsFeatureContent(
 
 @Composable
 fun SettingsItemsList(
-    value: SettingsFeatureComponent.UiState,
-    setRandomUserId: () -> Unit,
+    settingItems: List<SettingsItem>,
+    onPressedSettingsItem: ((SettingsItem) -> Unit)?,
     inputToggleValue: (UserPreference<Boolean>, Boolean) -> Unit,
     inputTextValue: (UserPreference<String>, String) -> Unit,
     inputNumberValue: (UserPreference<Int>, Int?) -> Unit,
 ) {
     LazyColumn {
-        items(value.settingsItemsData.items) { item ->
+        items(settingItems) { item ->
             when (item) {
                 is SettingsItem.Check -> SettingsCheckItem(item, inputToggleValue)
                 is SettingsItem.Header -> SettingsHeaderItem(item)
                 is SettingsItem.Subheader -> SettingsSubheaderItem(item)
-                is SettingsItem.Text -> SettingsTextItem(item, setRandomUserId)
+                is SettingsItem.Text -> SettingsTextItem(item) { onPressedSettingsItem?.invoke(item) }
                 is SettingsItem.TextInput -> SettingsTextInputItem(item, inputTextValue)
                 is SettingsItem.Toggle -> SettingsToggleItem(item, inputToggleValue)
                 is SettingsItem.NumberInput -> SettingsNumberInputItem(item, inputNumberValue)
@@ -182,12 +189,12 @@ fun SettingsNumberInputItem(
 @Composable
 fun SettingsTextItem(
     itemData: SettingsItem.Text,
-    setUserId: () -> Unit,
+    onPressed: (() -> Unit)? = null,
 ) {
     Row {
         ListItem(headlineContent = {
             Text(
-                modifier = Modifier.clickable { setUserId() },
+                modifier = Modifier.clickable(onClick = { onPressed?.invoke() }),
                 text = itemData.title.orEmpty(),
                 style = MaterialTheme.typography.bodyMedium
             )
