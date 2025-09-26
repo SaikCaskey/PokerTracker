@@ -8,7 +8,5 @@ interface SettingsRepository {
 
     val state: StateFlow<SettingsItemsData>
 
-    fun setUserId(userId: String? = null)
-
     fun <R> setUserPreference(preference: UserPreference<R>, value: R?)
 }

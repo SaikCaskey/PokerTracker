@@ -6,6 +6,7 @@ import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.components.SettingsFeatureComponent
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference.*
 import com.github.saikcaskey.pokertracker.domain.repository.SettingsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
@@ -49,15 +50,15 @@ class SettingsFeatureFeatureComponentImpl(
     }
 
     override fun setRandomUserId() {
-        settingsRepository.setUserPreference(UserPreference.UserId, Uuid.random().toString())
+        settingsRepository.setUserPreference(UserId, Uuid.random().toString())
     }
 
     override fun clearLastSelectedTab() {
-        settingsRepository.setUserPreference(UserPreference.LastSelectedTab, null)
+        settingsRepository.setUserPreference(LastSelectedTab, null)
     }
 
     override fun clearUserId() {
-        settingsRepository.setUserPreference(UserPreference.UserId, null)
+        settingsRepository.setUserPreference(UserId, null)
     }
 
     override fun addDummyData() {
