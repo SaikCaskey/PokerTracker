@@ -21,7 +21,6 @@ interface SettingsFeatureComponent : MainPagerPageComponent {
 
     data class UiState(val settingsItemsData: SettingsData = SettingsData()) {
         val settingsItems = buildList {
-            // TODO App Section
             add(SettingsItem.Header("General"))
             add(
                 SettingsItem.NumberInput(
@@ -31,7 +30,6 @@ interface SettingsFeatureComponent : MainPagerPageComponent {
                     maxLength = 100
                 )
             )
-
             add(SettingsItem.Header("User"))
             add(
                 SettingsItem.TextInput(
@@ -41,7 +39,6 @@ interface SettingsFeatureComponent : MainPagerPageComponent {
                     linkedSettingsAction = SettingsAction.SetRandomUserId
                 )
             )
-            // TODO Debug Section
             add(SettingsItem.Header("Debug"))
             add(
                 SettingsItem.Subheader(
