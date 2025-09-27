@@ -39,14 +39,13 @@ interface SettingsFeatureComponent : MainPagerPageComponent {
                     value = "${settingsItemsData.userId}",
                     linkedUserPreference = UserId,
                     linkedSettingsAction = SettingsAction.SetRandomUserId
-
                 )
             )
             // TODO Debug Section
             add(SettingsItem.Header("Debug"))
             add(
                 SettingsItem.Subheader(
-                    "Debug settings ${if (settingsItemsData.showDebugSettings) "" else "NOT"} enabled"
+                    "Debug settings ${if (settingsItemsData.showDebugSettings) "" else "NOT "}enabled"
                 )
             )
             add(
