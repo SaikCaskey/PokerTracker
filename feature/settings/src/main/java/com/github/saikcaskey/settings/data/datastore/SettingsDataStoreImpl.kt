@@ -33,9 +33,7 @@ class SettingsDataStoreImpl(
 
     override val data: Flow<SettingsData>
         get() = dataStore.data
-            .catch { exception ->
-                if (exception is IOException) emit(emptyPreferences()) else throw exception
-            }
+            .catch { err -> if (err is IOException) emit(emptyPreferences()) else throw err }
             .map(Preferences::toSettingsData)
 
     override fun setShowDebugSettings(value: Boolean) {
@@ -67,7 +65,7 @@ private fun Preferences.toSettingsData(): SettingsData {
     return SettingsData(
         userId = get(UserId.getStringPreference()),
         showDebugSettings = get(ShowDebugSettings.getBooleanPreference()) == true,
-        lastSelectedTab = get(LastSelectedTab.getIntPreference()),
+        defaultBuyIn = get(LastSelectedTab.getIntPreference()),
     )
 }
 

@@ -4,6 +4,7 @@ import com.github.saikcaskey.pokertracker.domain.models.SettingsAction
 import com.github.saikcaskey.pokertracker.domain.models.SettingsData
 import com.github.saikcaskey.pokertracker.domain.models.SettingsItem
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference.*
 import kotlinx.coroutines.flow.StateFlow
 
 interface SettingsFeatureComponent : MainPagerPageComponent {
@@ -15,62 +16,55 @@ interface SettingsFeatureComponent : MainPagerPageComponent {
     fun setRandomUserId()
     fun clearLastSelectedTab()
     fun clearUserId()
-    fun addDummyData() 
+    fun addDummyData()
     fun clearAllData()
 
     data class UiState(val settingsItemsData: SettingsData = SettingsData()) {
         val settingsItems = buildList {
             // TODO App Section
-            add(SettingsItem.Header("App"))
-            add(SettingsItem.Subheader("Last Tab Selected:"))
-            add(SettingsItem.Text("${settingsItemsData.lastSelectedTab}"))
+            add(SettingsItem.Header("General"))
             add(
                 SettingsItem.NumberInput(
-                    value = settingsItemsData.lastSelectedTab,
-                    linkedUserPreference = UserPreference.LastSelectedTab,
+                    title = "Default Buy in:",
+                    value = settingsItemsData.defaultBuyIn,
+                    linkedUserPreference = LastSelectedTab,
                     maxLength = 100
                 )
             )
-            add(
-                SettingsItem.Text(
-                    title = settingsItemsData.lastSelectedTab?.toString(),
-                )
-            )
-            // TODO User Section
+
             add(SettingsItem.Header("User"))
-            add(SettingsItem.Subheader("User Id"))
-            add(
-                SettingsItem.Text(
-                    "${settingsItemsData.userId}",
-                    linkedSettingsAction = SettingsAction.SetRandomUserId
-                )
-            )
             add(
                 SettingsItem.TextInput(
+                    title = "User Id:",
                     value = "${settingsItemsData.userId}",
-                    linkedUserPreference = UserPreference.UserId,
+                    linkedUserPreference = UserId,
+                    linkedSettingsAction = SettingsAction.SetRandomUserId
+
                 )
             )
             // TODO Debug Section
             add(SettingsItem.Header("Debug"))
-            add(SettingsItem.Subheader("Is Debug Enabled?"))
-            add(SettingsItem.Text("${settingsItemsData.showDebugSettings}"))
             add(
-                SettingsItem.Check(
-                    settingsItemsData.showDebugSettings == true,
-                    linkedUserPreference = UserPreference.ShowDebugSettings
+                SettingsItem.Subheader(
+                    "Debug settings ${if (settingsItemsData.showDebugSettings) "" else "NOT"} enabled"
                 )
             )
-            if (settingsItemsData.showDebugSettings == true) {
+            add(
+                SettingsItem.Check(
+                    value = settingsItemsData.showDebugSettings,
+                    linkedUserPreference = ShowDebugSettings
+                )
+            )
+            if (settingsItemsData.showDebugSettings) {
                 add(
                     SettingsItem.Text(
-                        "Clear All Data",
+                        title = "Clear All Data",
                         linkedSettingsAction = SettingsAction.ClearAllData
                     )
                 )
                 add(
                     SettingsItem.Text(
-                        "Add Dummy Data",
+                        title = "Add Dummy Data",
                         linkedSettingsAction = SettingsAction.AddDummyData
                     )
                 )

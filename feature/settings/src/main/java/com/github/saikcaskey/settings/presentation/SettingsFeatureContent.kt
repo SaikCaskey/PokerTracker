@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.input.InputTransformation
 import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.maxLength
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.text.input.then
@@ -41,15 +42,15 @@ import kotlin.uuid.ExperimentalUuidApi
 fun SettingsFeatureContent(
     component: SettingsFeatureComponent,
 ) {
-    val uiState = component.uiState.collectAsStateWithLifecycle()
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Magenta)
     ) {
+        val uiState = component.uiState.collectAsStateWithLifecycle()
         SettingsItemsList(
             settingItems = uiState.value.settingsItems,
-            onPressedSettingsItem = { settingsItem ->
+            pressedSettingsItem = { settingsItem ->
                 when (settingsItem.linkedSettingsAction) {
                     SettingsAction.ClearLastSelectedTab -> component.clearLastSelectedTab()
                     SettingsAction.ClearUserId -> component.clearUserId()
@@ -75,7 +76,7 @@ fun SettingsFeatureContent(
 @Composable
 fun SettingsItemsList(
     settingItems: List<SettingsItem>,
-    onPressedSettingsItem: ((SettingsItem) -> Unit)?,
+    pressedSettingsItem: ((SettingsItem) -> Unit)?,
     inputToggleValue: (UserPreference<Boolean>, Boolean) -> Unit,
     inputTextValue: (UserPreference<String>, String) -> Unit,
     inputNumberValue: (UserPreference<Int>, Int?) -> Unit,
@@ -86,10 +87,12 @@ fun SettingsItemsList(
                 is SettingsItem.Check -> SettingsCheckItem(item, inputToggleValue)
                 is SettingsItem.Header -> SettingsHeaderItem(item)
                 is SettingsItem.Subheader -> SettingsSubheaderItem(item)
-                is SettingsItem.Text -> SettingsTextItem(item) { onPressedSettingsItem?.invoke(item) }
-                is SettingsItem.TextInput -> SettingsTextInputItem(item, inputTextValue)
+                is SettingsItem.Text -> SettingsTextItem(item) { pressedSettingsItem?.invoke(item) }
                 is SettingsItem.Toggle -> SettingsToggleItem(item, inputToggleValue)
                 is SettingsItem.NumberInput -> SettingsNumberInputItem(item, inputNumberValue)
+                is SettingsItem.TextInput -> {
+                    SettingsTextInputItem(item, inputTextValue, pressedSettingsItem)
+                }
             }
             if (item.bottomDivider) HorizontalDivider()
         }
@@ -127,10 +130,10 @@ fun SettingsToggleItem(
 fun SettingsTextInputItem(
     itemData: SettingsItem.TextInput,
     onValueChange: (UserPreference<String>, newValue: String) -> Unit,
+    onPressedSettingsItem: ((SettingsItem) -> Unit)?,
 ) {
-    val state = rememberTextFieldState(initialText = itemData.value.orEmpty())
-
-    LaunchedEffect(state.text) {
+    val state = TextFieldState(itemData.value.orEmpty())
+    LaunchedEffect(itemData.value) {
         snapshotFlow(state::text).collect {
             onValueChange(itemData.linkedUserPreference, it.toString())
         }
@@ -140,6 +143,9 @@ fun SettingsTextInputItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         ListItem(
+            modifier = Modifier.clickable {
+                onPressedSettingsItem?.invoke(itemData)
+            },
             headlineContent = { Text(text = itemData.title ?: "") },
             supportingContent = {
                 TextField(
@@ -226,6 +232,7 @@ fun SettingsHeaderItem(
         ListItem(headlineContent = {
             Text(itemData.title.orEmpty(), style = MaterialTheme.typography.headlineLargeEmphasized)
         })
+        HorizontalDivider()
     }
 }
 
@@ -240,8 +247,8 @@ fun SettingsCheckItem(
             leadingContent = {
                 Checkbox(
                     checked = itemData.value,
-                    onCheckedChange = {
-                        toggleSettingsItem(itemData.linkedUserPreference, it)
+                    onCheckedChange = { isChecked ->
+                        toggleSettingsItem(itemData.linkedUserPreference, isChecked)
                     },
                 )
             }
