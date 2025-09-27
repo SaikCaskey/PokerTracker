@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlin.uuid.Uuid
 
-class SettingsFeatureFeatureComponentImpl(
+class SettingsFeatureComponentImpl(
     private val componentContext: ComponentContext,
     private val database: PokerTrackerDatabase,
     private val settingsRepository: SettingsRepository,

@@ -4,6 +4,7 @@ import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.datastore.SettingsDataStore
 import com.github.saikcaskey.pokertracker.domain.models.SettingsData
 import com.github.saikcaskey.pokertracker.domain.models.SettingsItem
+import com.github.saikcaskey.pokertracker.settings.BuildConfig
 import com.github.saikcaskey.settings.domain.datasource.SettingsDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly

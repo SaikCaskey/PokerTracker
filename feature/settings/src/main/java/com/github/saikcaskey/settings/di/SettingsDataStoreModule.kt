@@ -10,7 +10,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val settingsDataStoreModule = module {
-    single<SettingsDataStore> { SettingsDataStoreImpl(get(), get()) }
+    single<SettingsDataStore> { SettingsDataStoreImpl(get(), get(), get()) }
     single<DataStore<Preferences>> { androidContext().dataStore }
 }
 

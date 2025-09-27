@@ -15,7 +15,7 @@ import com.github.saikcaskey.pokertracker.domain.components.MainComponent
 import com.github.saikcaskey.pokertracker.domain.components.MainPagerPageComponent
 import com.github.saikcaskey.pokertracker.domain.repository.SettingsRepository
 import com.github.saikcaskey.pokertracker.planner.PlannerFeatureComponentImpl
-import com.github.saikcaskey.pokertracker.presentation.settings.SettingsFeatureFeatureComponentImpl
+import com.github.saikcaskey.pokertracker.presentation.settings.SettingsFeatureComponentImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
@@ -64,7 +64,7 @@ class DefaultMainComponent(
         },
     ) { config, childComponentContext ->
         when (config) {
-            MainMenuPagerPageConfig.Settings -> SettingsFeatureFeatureComponentImpl(
+            MainMenuPagerPageConfig.Settings -> SettingsFeatureComponentImpl(
                 componentContext = childComponentContext,
                 database = PokerTrackerDatabaseProvider.provide(),
                 settingsRepository = settingsRepository,

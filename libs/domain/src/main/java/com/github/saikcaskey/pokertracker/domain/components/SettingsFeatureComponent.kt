@@ -40,10 +40,13 @@ interface SettingsFeatureComponent : MainPagerPageComponent {
                 )
             )
             add(SettingsItem.Header("Debug"))
+            add(SettingsItem.Text("Hash: ${settingsData.gitCommitHash}"))
+            add(SettingsItem.Text("VersionName: ${settingsData.versionName}"))
+            add(SettingsItem.Text("VersionCode: ${settingsData.versionCode}"))
+            add(SettingsItem.Text("BuildType: ${settingsData.buildType}"))
+            add(SettingsItem.Text("IsProd: ${settingsData.isProd}"))
             add(
-                SettingsItem.Subheader(
-                    "Debug settings ${if (settingsData.showDebugSettings) "" else "NOT "}enabled"
-                )
+                SettingsItem.Text("Debug settings ${if (settingsData.showDebugSettings) "" else "NOT "}enabled")
             )
             add(
                 SettingsItem.Check(

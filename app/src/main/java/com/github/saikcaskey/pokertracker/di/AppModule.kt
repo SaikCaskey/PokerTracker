@@ -5,11 +5,14 @@ import com.github.saikcaskey.settings.di.settingsDataStoreModule
 import com.github.saikcaskey.settings.di.settingsRepositoryModule
 import org.koin.core.module.Module
 
-fun appModules(): List<Module> = listOf(
-    databaseModule,
-    dispatchersProvidersModule,
-    coreRepositoryModule,
-    settingsRepositoryModule,
-    settingsDataStoreModule,
-    settingsDataSourceModule,
-)
+fun appModules(): List<Module> {
+    return listOf(
+        appInfoModule,
+        databaseModule,
+        dispatchersProvidersModule,
+        coreRepositoryModule,
+        settingsRepositoryModule,
+        settingsDataStoreModule,
+        settingsDataSourceModule,
+    )
+}

@@ -1,14 +1,12 @@
 package com.github.saikcaskey.pokertracker.domain.models
 
-data class SettingsData(
-    val userId: String? = null,
-    val showDebugSettings: Boolean = false,
-    val defaultBuyIn: Int? = null,
-    val isProd: Boolean? = null,
+data class AppInfo(
     val applicationId: String? = null,
     val buildType: String? = null,
+    val flavor: String? = null,
     val versionCode: Int? = null,
     val versionName: String? = null,
     val gitCommitHash: String? = null,
-    // TODO add more fields
+    val isProd: Boolean? = null,
 )
+
