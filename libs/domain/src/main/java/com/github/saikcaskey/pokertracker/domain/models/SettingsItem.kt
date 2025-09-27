@@ -8,7 +8,7 @@ sealed class SettingsItem {
 
     data class Header(
         override val title: String? = "Header",
-        override val bottomDivider: Boolean = false,
+        override val bottomDivider: Boolean = true,
         override val linkedSettingsAction: SettingsAction? = null,
     ) : SettingsItem() {
         override val linkedUserPreference: UserPreference<*>? = null

@@ -232,7 +232,6 @@ fun SettingsHeaderItem(
         ListItem(headlineContent = {
             Text(itemData.title.orEmpty(), style = MaterialTheme.typography.headlineLargeEmphasized)
         })
-        HorizontalDivider()
     }
 }
 
