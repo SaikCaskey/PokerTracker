@@ -1,13 +1,12 @@
-package com.github.saikcaskey.settings.domain.datasource.datasource
+package com.github.saikcaskey.settings.domain.datasource
 
 import com.github.saikcaskey.pokertracker.domain.models.SettingsData
 import kotlinx.coroutines.flow.StateFlow
 
-interface UserSettingsDataSource {
-    fun setUserId(userId: String? = null)
-    fun setIsDebug(value: Boolean)
-    fun setLastSelectedTab(value: Int? = null)
-
+interface SettingsDataSource {
     val state: StateFlow<SettingsData>
-}
 
+    fun setUserId(userId: String? = null)
+    fun setShowDebugSettings(value: Boolean)
+    fun setLastSelectedTab(value: Int? = null)
+}

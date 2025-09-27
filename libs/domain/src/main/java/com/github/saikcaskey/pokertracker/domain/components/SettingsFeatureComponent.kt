@@ -1,8 +1,8 @@
 package com.github.saikcaskey.pokertracker.domain.components
 
 import com.github.saikcaskey.pokertracker.domain.models.SettingsAction
+import com.github.saikcaskey.pokertracker.domain.models.SettingsData
 import com.github.saikcaskey.pokertracker.domain.models.SettingsItem
-import com.github.saikcaskey.pokertracker.domain.models.SettingsItemsData
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 import kotlinx.coroutines.flow.StateFlow
 
@@ -18,7 +18,7 @@ interface SettingsFeatureComponent : MainPagerPageComponent {
     fun addDummyData() 
     fun clearAllData()
 
-    data class UiState(val settingsItemsData: SettingsItemsData = SettingsItemsData()) {
+    data class UiState(val settingsItemsData: SettingsData = SettingsData()) {
         val settingsItems = buildList {
             // TODO App Section
             add(SettingsItem.Header("App"))
@@ -54,14 +54,14 @@ interface SettingsFeatureComponent : MainPagerPageComponent {
             // TODO Debug Section
             add(SettingsItem.Header("Debug"))
             add(SettingsItem.Subheader("Is Debug Enabled?"))
-            add(SettingsItem.Text("${settingsItemsData.isDebugEnabled}"))
+            add(SettingsItem.Text("${settingsItemsData.showDebugSettings}"))
             add(
                 SettingsItem.Check(
-                    settingsItemsData.isDebugEnabled == true,
-                    linkedUserPreference = UserPreference.IsDebug
+                    settingsItemsData.showDebugSettings == true,
+                    linkedUserPreference = UserPreference.ShowDebugSettings
                 )
             )
-            if (settingsItemsData.isDebugEnabled == true) {
+            if (settingsItemsData.showDebugSettings == true) {
                 add(
                     SettingsItem.Text(
                         "Clear All Data",

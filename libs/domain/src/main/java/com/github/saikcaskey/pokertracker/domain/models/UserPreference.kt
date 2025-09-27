@@ -11,7 +11,7 @@ sealed class UserPreference<T> {
         override val key: String = "last_selected_tab"
     }
 
-    data object IsDebug : UserPreference<Boolean>() {
+    data object ShowDebugSettings : UserPreference<Boolean>() {
         override val key: String = "is_debug"
     }
 }

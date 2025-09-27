@@ -11,6 +11,9 @@ import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.datastore.SettingsDataStore
 import com.github.saikcaskey.pokertracker.domain.models.SettingsData
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference.LastSelectedTab
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference.ShowDebugSettings
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference.UserId
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -24,28 +27,21 @@ class SettingsDataStoreImpl(
 ) : SettingsDataStore {
 
     private val scope = CoroutineScope(dispatchers.io)
-    private val userIdPreferencesKey = stringPreferencesKey(UserPreference.UserId.key)
-    private val isDebugPreferencesKey = booleanPreferencesKey(UserPreference.IsDebug.key)
-    private val lastSelectedTabPreferencesKey =
-        intPreferencesKey(UserPreference.LastSelectedTab.key)
+    private val userIdPreferencesKey = stringPreferencesKey(UserId.key)
+    private val showDebugSettingsPreferencesKey = booleanPreferencesKey(ShowDebugSettings.key)
+    private val lastSelectedTabPreferencesKey = intPreferencesKey(LastSelectedTab.key)
 
     override val data: Flow<SettingsData>
         get() = dataStore.data
             .catch { exception ->
                 if (exception is IOException) emit(emptyPreferences()) else throw exception
             }
-            .map { preferences ->
-                SettingsData(
-                    userId = preferences[userIdPreferencesKey],
-                    lastSelectedTab = preferences[lastSelectedTabPreferencesKey],
-                    isDebug = preferences[isDebugPreferencesKey] == true,
-                )
-            }
+            .map(Preferences::toSettingsData)
 
-    override fun setIsDebug(value: Boolean) {
+    override fun setShowDebugSettings(value: Boolean) {
         scope.launch {
             dataStore.edit { preferences ->
-                preferences[isDebugPreferencesKey] = value
+                preferences[showDebugSettingsPreferencesKey] = value
             }
         }
     }
@@ -66,3 +62,15 @@ class SettingsDataStoreImpl(
         }
     }
 }
+
+private fun Preferences.toSettingsData(): SettingsData {
+    return SettingsData(
+        userId = get(UserId.getStringPreference()),
+        showDebugSettings = get(ShowDebugSettings.getBooleanPreference()) == true,
+        lastSelectedTab = get(LastSelectedTab.getIntPreference()),
+    )
+}
+
+fun UserPreference<String>.getStringPreference() = stringPreferencesKey(key)
+fun UserPreference<Boolean>.getBooleanPreference() = booleanPreferencesKey(key)
+fun UserPreference<Int>.getIntPreference() = intPreferencesKey(key)
