@@ -19,13 +19,13 @@ interface SettingsFeatureComponent : MainPagerPageComponent {
     fun addDummyData()
     fun clearAllData()
 
-    data class UiState(val settingsItemsData: SettingsData = SettingsData()) {
+    data class UiState(val settingsData: SettingsData = SettingsData()) {
         val settingsItems = buildList {
             add(SettingsItem.Header("General"))
             add(
                 SettingsItem.NumberInput(
                     title = "Default Buy in:",
-                    value = settingsItemsData.defaultBuyIn,
+                    value = settingsData.defaultBuyIn,
                     linkedUserPreference = LastSelectedTab,
                     maxLength = 100
                 )
@@ -34,7 +34,7 @@ interface SettingsFeatureComponent : MainPagerPageComponent {
             add(
                 SettingsItem.TextInput(
                     title = "User Id:",
-                    value = "${settingsItemsData.userId}",
+                    value = "${settingsData.userId}",
                     linkedUserPreference = UserId,
                     linkedSettingsAction = SettingsAction.SetRandomUserId
                 )
@@ -42,16 +42,16 @@ interface SettingsFeatureComponent : MainPagerPageComponent {
             add(SettingsItem.Header("Debug"))
             add(
                 SettingsItem.Subheader(
-                    "Debug settings ${if (settingsItemsData.showDebugSettings) "" else "NOT "}enabled"
+                    "Debug settings ${if (settingsData.showDebugSettings) "" else "NOT "}enabled"
                 )
             )
             add(
                 SettingsItem.Check(
-                    value = settingsItemsData.showDebugSettings,
+                    value = settingsData.showDebugSettings,
                     linkedUserPreference = ShowDebugSettings
                 )
             )
-            if (settingsItemsData.showDebugSettings) {
+            if (settingsData.showDebugSettings) {
                 add(
                     SettingsItem.Text(
                         title = "Clear All Data",
