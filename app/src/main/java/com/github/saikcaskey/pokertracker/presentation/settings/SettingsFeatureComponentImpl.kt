@@ -28,25 +28,9 @@ class SettingsFeatureComponentImpl(
         settingsRepository.state.map(SettingsFeatureComponent::UiState)
             .stateIn(coroutineScope, SharingStarted.Eagerly, SettingsFeatureComponent.UiState())
 
-    override fun inputToggleValue(
-        preference: UserPreference<Boolean>,
-        value: Boolean,
-    ) {
-        settingsRepository.setUserPreference(preference, value)
-    }
-
-    override fun inputTextValue(
-        preference: UserPreference<String>,
-        value: String?,
-    ) {
-        settingsRepository.setUserPreference(preference, value)
-    }
-
-    override fun inputNumberValue(
-        preference: UserPreference<Int>,
-        value: Int?,
-    ) {
-        settingsRepository.setUserPreference(preference, value)
+    override fun updatePreferenceValue(preference: UserPreference<*>, value: Any?) {
+        @Suppress("UNCHECKED_CAST")
+        settingsRepository.setUserPreference(preference as UserPreference<Any>, value)
     }
 
     override fun setRandomUserId() {

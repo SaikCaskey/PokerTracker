@@ -40,28 +40,51 @@ import kotlin.uuid.ExperimentalUuidApi
 fun SettingsFeatureContent(
     component: SettingsFeatureComponent,
 ) {
+    val uiState = component.uiState.collectAsStateWithLifecycle()
+    SettingsScreenContent(
+        uiState.value,
+        clearUserId = component::clearUserId,
+        clearDefaultBuyIn = component::clearDefaultBuyIn,
+        setRandomUserId = component::setRandomUserId,
+        addDummyData = component::addDummyData,
+        clearAllData = component::clearAllData,
+        updatePreferenceValue = { preference, value ->
+            component.updatePreferenceValue(preference, value)
+        }
+    )
+}
+
+@Composable
+fun SettingsScreenContent(
+    uiState: SettingsFeatureComponent.UiState,
+    clearUserId: () -> Unit,
+    clearDefaultBuyIn: () -> Unit,
+    setRandomUserId: () -> Unit,
+    addDummyData: () -> Unit,
+    clearAllData: () -> Unit,
+    updatePreferenceValue: (UserPreference<*>, Any?) -> Unit,
+) {
     Column(modifier = Modifier.fillMaxSize()) {
-        val uiState = component.uiState.collectAsStateWithLifecycle()
         SettingsItemsList(
-            settingItems = uiState.value.settingsItems,
+            settingItems = uiState.settingsItems,
             onItemPressed = { settingsItem ->
                 when (settingsItem.linkedSettingsAction) {
-                    SettingsAction.ClearDefaultBuyIn -> component.clearDefaultBuyIn()
-                    SettingsAction.ClearUserId -> component.clearUserId()
-                    SettingsAction.SetRandomUserId -> component.setRandomUserId()
-                    SettingsAction.AddDummyData -> component.addDummyData()
-                    SettingsAction.ClearAllData -> component.clearAllData()
+                    SettingsAction.ClearDefaultBuyIn -> clearDefaultBuyIn()
+                    SettingsAction.ClearUserId -> clearUserId()
+                    SettingsAction.SetRandomUserId -> setRandomUserId()
+                    SettingsAction.AddDummyData -> addDummyData()
+                    SettingsAction.ClearAllData -> clearAllData()
                     null -> {}
                 }
             },
             inputToggleValue = { preference, isToggled ->
-                component.inputToggleValue(preference, isToggled)
+                updatePreferenceValue(preference, isToggled)
             },
             inputTextValue = { preference, value ->
-                component.inputTextValue(preference, value)
+                updatePreferenceValue(preference, value)
             },
             inputNumberValue = { preference, value ->
-                component.inputNumberValue(preference, value)
+                updatePreferenceValue(preference, value)
             },
         )
     }
@@ -123,7 +146,7 @@ fun SettingsToggleItem(
 fun SettingsTextInputItem(
     itemData: TextInput,
     onValueChange: (UserPreference<String>, newValue: String) -> Unit,
-    onPressedSettingsItem: ((SettingsItem) -> Unit)?,
+    onItemPressed: ((SettingsItem) -> Unit)?,
 ) {
     val state = TextFieldState(itemData.value.orEmpty())
     LaunchedEffect(itemData.value) {
@@ -133,10 +156,12 @@ fun SettingsTextInputItem(
     }
 
     TextField(
-        modifier = Modifier.clickable {
-            onPressedSettingsItem?.invoke(itemData)
+        label = {
+            Text(
+                modifier = Modifier.clickable { onItemPressed?.invoke(itemData) },
+                text = itemData.title.orEmpty()
+            )
         },
-        label = { Text(itemData.title.orEmpty()) },
         state = state,
         lineLimits = TextFieldLineLimits.SingleLine,
         textStyle = MaterialTheme.typography.bodyMedium,

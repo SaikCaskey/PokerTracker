@@ -12,7 +12,6 @@ import compose.icons.fontawesomeicons.Regular
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.regular.Calendar
 import compose.icons.fontawesomeicons.regular.Gem
-import compose.icons.fontawesomeicons.solid.Hamburger
 import compose.icons.fontawesomeicons.solid.User
 
 @Composable

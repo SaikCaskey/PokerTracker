@@ -14,9 +14,8 @@ import kotlinx.coroutines.flow.StateFlow
 interface SettingsFeatureComponent : MainPagerPageComponent {
     val uiState: StateFlow<UiState>
 
-    fun inputToggleValue(preference: UserPreference<Boolean>, value: Boolean)
-    fun inputTextValue(preference: UserPreference<String>, value: String?)
-    fun inputNumberValue(preference: UserPreference<Int>, value: Int?)
+    fun updatePreferenceValue(preference: UserPreference<*>, value: Any?)
+
     fun setRandomUserId()
     fun clearDefaultBuyIn()
     fun clearUserId()
