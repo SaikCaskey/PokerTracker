@@ -1,4 +1,4 @@
-package com.github.saikcaskey.stats.data
+package com.github.saikcaskey.stats.presentation
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
@@ -10,7 +10,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 
-class DefaultViewVenuesComponent(
+class ViewVenuesComponentImpl(
     componentContext: ComponentContext,
     private val venueRepository: VenueRepository,
     private val onShowInsertVenue: () -> Unit,

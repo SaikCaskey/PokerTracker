@@ -15,7 +15,7 @@ import com.github.saikcaskey.pokertracker.domain.components.MainPagerPageCompone
 import com.github.saikcaskey.pokertracker.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.planner.PlannerFeatureComponentImpl
 import com.github.saikcaskey.pokertracker.presentation.account.AccountFeatureComponentImpl
-import com.github.saikcaskey.stats.data.StatsFeatureComponentImpl
+import com.github.saikcaskey.stats.presentation.StatsFeatureComponentImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly

@@ -42,15 +42,15 @@ import com.github.saikcaskey.pokertracker.domain.repository.AccountSettingsRepos
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import com.github.saikcaskey.pokertracker.presentation.event.DefaultEventDetailComponent
 import com.github.saikcaskey.pokertracker.presentation.event.DefaultInsertEventComponent
-import com.github.saikcaskey.stats.data.DefaultViewEventsComponent
+import com.github.saikcaskey.stats.presentation.ViewEventsComponentImpl
 import com.github.saikcaskey.pokertracker.presentation.expense.DefaultExpenseDetailComponent
 import com.github.saikcaskey.pokertracker.presentation.expense.DefaultInsertExpenseComponent
-import com.github.saikcaskey.stats.data.DefaultViewExpensesComponent
+import com.github.saikcaskey.stats.presentation.ViewExpensesComponentImpl
 import com.github.saikcaskey.pokertracker.presentation.main.DefaultMainComponent
 import com.github.saikcaskey.pokertracker.planner.PlannerDayDetailComponentImpl
 import com.github.saikcaskey.pokertracker.presentation.venue.DefaultInsertVenueComponent
 import com.github.saikcaskey.pokertracker.presentation.venue.DefaultVenueDetailComponent
-import com.github.saikcaskey.stats.data.DefaultViewVenuesComponent
+import com.github.saikcaskey.stats.presentation.ViewVenuesComponentImpl
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.Serializable
 
@@ -168,7 +168,7 @@ class DefaultRootComponent(
         )
 
     private fun viewExpensesComponent(componentContext: ComponentContext): ViewExpensesComponent =
-        DefaultViewExpensesComponent(
+        ViewExpensesComponentImpl(
             componentContext = componentContext,
             dispatchers = dispatchers,
             onShowInsertExpense = { navigator.push(Config.InsertExpense()) },
@@ -178,7 +178,7 @@ class DefaultRootComponent(
         )
 
     private fun viewVenuesComponent(componentContext: ComponentContext): ViewVenuesComponent =
-        DefaultViewVenuesComponent(
+        ViewVenuesComponentImpl(
             componentContext = componentContext,
             dispatchers = dispatchers,
             onShowInsertVenue = { navigator.push(Config.InsertVenue()) },
@@ -188,7 +188,7 @@ class DefaultRootComponent(
         )
 
     private fun viewEventsComponent(componentContext: ComponentContext): ViewEventsComponent =
-        DefaultViewEventsComponent(
+        ViewEventsComponentImpl(
             componentContext = componentContext,
             dispatchers = dispatchers,
             onShowInsertEvent = { navigator.push(Config.InsertEvent()) },
