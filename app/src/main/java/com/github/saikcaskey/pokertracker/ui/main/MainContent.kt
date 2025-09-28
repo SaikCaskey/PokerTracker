@@ -13,6 +13,8 @@ import com.github.saikcaskey.pokertracker.domain.components.PlannerFeatureCompon
 import com.github.saikcaskey.pokertracker.domain.components.AccountFeatureComponent
 import com.github.saikcaskey.pokertracker.planner.composables.PlannerFeatureContent
 import com.github.saikcaskey.account.presentation.AccountFeatureContent
+import com.github.saikcaskey.stats.domain.StatsFeatureComponent
+import com.github.saikcaskey.stats.presentation.StatsFeatureContent
 
 @Composable
 internal fun MainContent(component: MainComponent, modifier: Modifier = Modifier) {

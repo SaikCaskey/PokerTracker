@@ -34,7 +34,6 @@ fun DashboardFeatureContent(component: DashboardFeatureComponent) {
                 onShowAllEventsClicked = component::onShowAllEventsClicked,
                 onShowInsertEventClicked = component::onShowInsertEventClicked,
                 onShowEventDetailClicked = component::onShowEventDetailClicked,
-                onSeedSampleData = component::seedSampleData,
             )
         }
 

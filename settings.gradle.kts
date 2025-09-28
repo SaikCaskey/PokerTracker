@@ -1,14 +1,13 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":feature:settings")
-
-
 include(":app")
 include(":libs:data")
 include(":libs:domain")
 include(":libs:ui-compose")
 include(":feature:dashboard")
 include(":feature:planner")
+include(":feature:stats")
+include(":feature:account")
 
 pluginManagement {
     repositories {

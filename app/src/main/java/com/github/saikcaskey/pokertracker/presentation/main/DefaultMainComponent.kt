@@ -15,6 +15,7 @@ import com.github.saikcaskey.pokertracker.domain.components.MainPagerPageCompone
 import com.github.saikcaskey.pokertracker.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.planner.PlannerFeatureComponentImpl
 import com.github.saikcaskey.pokertracker.presentation.account.AccountFeatureComponentImpl
+import com.github.saikcaskey.stats.data.StatsFeatureComponentImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
@@ -53,7 +54,8 @@ class DefaultMainComponent(
             Pages(
                 items = List(MainMenuPagerItemType.entries.size) { index ->
                     when (index) {
-                        2 -> MainMenuPagerPageConfig.Account
+                        3 -> MainMenuPagerPageConfig.Account
+                        2 -> MainMenuPagerPageConfig.Stats
                         1 -> MainMenuPagerPageConfig.Planner
                         else -> MainMenuPagerPageConfig.Dashboard
                     }
@@ -96,10 +98,6 @@ class DefaultMainComponent(
 
             MainMenuPagerPageConfig.Stats -> StatsFeatureComponentImpl(
                 componentContext = childComponentContext,
-                eventRepository = eventRepository,
-                expenseRepository = expenseRepository,
-                venueRepository = venueRepository,
-                dispatchers = dispatchers,
             )
         }
     }
