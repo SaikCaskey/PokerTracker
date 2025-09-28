@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.arkivanov.decompose.defaultComponentContext
-import com.github.saikcaskey.pokertracker.di.CoroutineDispatchersProvider
+import com.github.saikcaskey.data.di.CoroutineDispatchersProvider
 import com.github.saikcaskey.stats.di.EventRepositoryProvider
 import com.github.saikcaskey.stats.di.ExpenseRepositoryProvider
 import com.github.saikcaskey.stats.di.VenueRepositoryProvider

@@ -1,7 +1,13 @@
 package com.github.saikcaskey.pokertracker.app
 
 import android.app.Application
-import com.github.saikcaskey.pokertracker.di.appModules
+import com.github.saikcaskey.account.di.accountAccountSettingsDataStoreModule
+import com.github.saikcaskey.account.di.accountSettingsDataSourceModule
+import com.github.saikcaskey.account.di.accountSettingsRepositoryModule
+import com.github.saikcaskey.data.di.databaseModule
+import com.github.saikcaskey.data.di.dispatchersProvidersModule
+import com.github.saikcaskey.pokertracker.di.appInfoModule
+import com.github.saikcaskey.stats.di.statsRepositoryModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -12,7 +18,17 @@ class PokerTrackerApp : Application() {
 
         startKoin {
             androidContext(this@PokerTrackerApp)
-            modules(appModules())
+            modules(
+                listOf(
+                    appInfoModule,
+                    databaseModule,
+                    dispatchersProvidersModule,
+                    statsRepositoryModule,
+                    accountSettingsRepositoryModule,
+                    accountAccountSettingsDataStoreModule,
+                    accountSettingsDataSourceModule,
+                )
+            )
         }
     }
 }

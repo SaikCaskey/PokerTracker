@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.di
+package com.github.saikcaskey.data.di
 
 import app.cash.sqldelight.db.SqlDriver
 import com.github.saikcaskey.data.database.DriverFactoryImpl
