@@ -29,7 +29,7 @@ class SettingsDataStoreImpl(
 ) : SettingsDataStore {
     private val scope = CoroutineScope(dispatchers.io)
     private val userIdPreferencesKey = stringPreferencesKey(UserId.key)
-    private val showDebugSettingsPreferencesKey = booleanPreferencesKey(ShowAdvancedSettings.key)
+    private val showAdvancedSettingsPreferencesKey = booleanPreferencesKey(ShowAdvancedSettings.key)
     private val defaultBuyInPreferencesKey = intPreferencesKey(DefaultBuyIn.key)
 
     override val data: Flow<SettingsData>
@@ -40,7 +40,7 @@ class SettingsDataStoreImpl(
     override fun setShowAdvancedSettings(value: Boolean) {
         scope.launch {
             dataStore.edit { preferences ->
-                preferences[showDebugSettingsPreferencesKey] = value
+                preferences[showAdvancedSettingsPreferencesKey] = value
             }
         }
     }
