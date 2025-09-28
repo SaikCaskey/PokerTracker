@@ -9,7 +9,6 @@ import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.popTo
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.Value
-import com.github.saikcaskey.data.utils.defaultCoroutineDispatchersProviders
 import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.components.PlannerDayDetailComponent
@@ -116,7 +115,7 @@ class RootComponentImpl(
         EventDetailComponentImpl(
             componentContext = componentContext,
             eventId = eventId,
-            dispatchers = defaultCoroutineDispatchersProviders,
+            dispatchers = dispatchers,
             onShowExpenseDetail = { navigator.push(Config.ExpenseDetail(it)) },
             onShowInsertExpense = { eventId, venueId -> navigator.push(Config.InsertExpense(null, eventId, venueId)) },
             onShowVenueDetail = { venueId -> navigator.push(Config.VenueDetail(venueId)) },
@@ -131,7 +130,7 @@ class RootComponentImpl(
         PlannerDayDetailComponentImpl(
             componentContext = componentContext,
             date = date,
-            dispatchers = defaultCoroutineDispatchersProviders,
+            dispatchers = dispatchers,
             onShowEventDetail = { navigator.push(Config.EventDetail(it)) },
             onShowInsertEvent = { navigator.push(Config.InsertEvent(null, null, date)) },
             onFinished = navigator::pop,

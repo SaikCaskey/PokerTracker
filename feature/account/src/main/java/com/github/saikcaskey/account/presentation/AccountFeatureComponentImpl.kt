@@ -1,7 +1,7 @@
 package com.github.saikcaskey.account.presentation
 
 import com.arkivanov.decompose.ComponentContext
-import com.github.saikcaskey.data.utils.seedSampleData
+import com.github.saikcaskey.database.utils.seedSampleData
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.components.AccountFeatureComponent

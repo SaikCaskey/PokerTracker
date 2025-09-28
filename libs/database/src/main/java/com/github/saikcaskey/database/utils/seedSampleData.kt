@@ -1,4 +1,4 @@
-package com.github.saikcaskey.data.utils
+package com.github.saikcaskey.database.utils
 
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.extensions.asLocalDateTime

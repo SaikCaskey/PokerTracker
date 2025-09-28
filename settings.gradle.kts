@@ -1,7 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 include(":app")
-include(":libs:data")
+include(":libs:database")
 include(":libs:domain")
 include(":libs:ui-compose")
 include(":feature:dashboard")

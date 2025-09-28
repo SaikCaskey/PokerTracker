@@ -1,4 +1,4 @@
-package com.github.saikcaskey.data.database
+package com.github.saikcaskey.database.driver
 
 import android.content.Context
 import androidx.sqlite.db.SupportSQLiteDatabase

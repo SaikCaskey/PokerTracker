@@ -4,7 +4,7 @@ import android.app.Application
 import com.github.saikcaskey.account.di.accountAccountSettingsDataStoreModule
 import com.github.saikcaskey.account.di.accountSettingsDataSourceModule
 import com.github.saikcaskey.account.di.accountSettingsRepositoryModule
-import com.github.saikcaskey.data.di.databaseModule
+import com.github.saikcaskey.database.di.databaseModule
 import com.github.saikcaskey.pokertracker.di.dispatchersProvidersModule
 import com.github.saikcaskey.pokertracker.di.appInfoModule
 import com.github.saikcaskey.stats.di.statsRepositoryModule

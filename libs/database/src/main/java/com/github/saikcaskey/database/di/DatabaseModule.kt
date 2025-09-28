@@ -1,7 +1,7 @@
-package com.github.saikcaskey.data.di
+package com.github.saikcaskey.database.di
 
 import app.cash.sqldelight.db.SqlDriver
-import com.github.saikcaskey.data.database.DriverFactoryImpl
+import com.github.saikcaskey.database.driver.DriverFactoryImpl
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
