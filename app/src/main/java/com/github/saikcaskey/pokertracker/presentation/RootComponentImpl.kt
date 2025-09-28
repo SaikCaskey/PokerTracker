@@ -23,7 +23,7 @@ import com.github.saikcaskey.stats.presentation.ViewExpensesComponent
 import com.github.saikcaskey.stats.presentation.ViewVenuesComponent
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
-import com.github.saikcaskey.pokertracker.domain.repository.AccountSettingsRepository
+import com.github.saikcaskey.account.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import com.github.saikcaskey.stats.presentation.EventDetailComponentImpl
 import com.github.saikcaskey.stats.presentation.InsertEventComponentImpl

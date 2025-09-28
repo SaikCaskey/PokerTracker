@@ -6,7 +6,7 @@ import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.account.presentation.AccountFeatureComponent
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
-import com.github.saikcaskey.pokertracker.domain.repository.AccountSettingsRepository
+import com.github.saikcaskey.account.domain.repository.AccountSettingsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
