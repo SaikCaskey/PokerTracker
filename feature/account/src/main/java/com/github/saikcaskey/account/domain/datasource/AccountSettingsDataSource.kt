@@ -1,9 +1,9 @@
-package com.github.saikcaskey.settings.domain.datasource
+package com.github.saikcaskey.account.domain.datasource
 
 import com.github.saikcaskey.pokertracker.domain.models.SettingsData
 import kotlinx.coroutines.flow.StateFlow
 
-interface SettingsDataSource {
+interface AccountSettingsDataSource {
     val state: StateFlow<SettingsData>
 
     fun setUserId(userId: String? = null)

@@ -11,7 +11,7 @@ import com.github.saikcaskey.pokertracker.di.ExpenseRepositoryProvider
 import com.github.saikcaskey.pokertracker.di.VenueRepositoryProvider
 import com.github.saikcaskey.pokertracker.presentation.root.DefaultRootComponent
 import com.github.saikcaskey.pokertracker.ui.root.RootContent
-import com.github.saikcaskey.settings.di.SettingsRepositoryProvider
+import com.github.saikcaskey.account.di.AccountSettingsRepositoryProvider
 
 class MainActivity : ComponentActivity() {
 
@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
             eventRepository = EventRepositoryProvider.provide(),
             venueRepository = VenueRepositoryProvider.provide(),
             expenseRepository = ExpenseRepositoryProvider.provide(),
-            settingsRepository = SettingsRepositoryProvider.provide(),
+            accountSettingsRepository = AccountSettingsRepositoryProvider.provide(),
         )
 
         setContent {

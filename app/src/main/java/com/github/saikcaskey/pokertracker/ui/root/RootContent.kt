@@ -20,7 +20,7 @@ import com.github.saikcaskey.pokertracker.ui_compose.components.expense.ExpenseD
 import com.github.saikcaskey.pokertracker.ui_compose.components.expense.InsertExpenseContent
 import com.github.saikcaskey.pokertracker.ui_compose.components.expense.ViewExpensesContent
 import com.github.saikcaskey.pokertracker.planner.composables.PlannerDayDetailContent
-import com.github.saikcaskey.settings.presentation.SettingsFeatureContent
+import com.github.saikcaskey.account.presentation.AccountFeatureContent
 
 @Composable
 fun RootContent(
@@ -48,7 +48,7 @@ fun RootContent(
                     is Child.InsertExpense -> InsertExpenseContent(component = instance.component)
                     is Child.InsertVenue -> InsertVenueContent(component = instance.component)
                     is Child.PlannerDayDetail -> PlannerDayDetailContent(component = instance.component)
-                    is Child.Settings -> SettingsFeatureContent(component = instance.component)
+                    is Child.Settings -> AccountFeatureContent(component = instance.component)
                 }
             }
         }

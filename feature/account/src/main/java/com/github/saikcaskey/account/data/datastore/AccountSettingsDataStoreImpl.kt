@@ -1,4 +1,4 @@
-package com.github.saikcaskey.settings.data.datastore
+package com.github.saikcaskey.account.data.datastore
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

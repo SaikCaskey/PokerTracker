@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package com.github.saikcaskey.settings.presentation
+package com.github.saikcaskey.account.presentation
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -28,7 +28,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.saikcaskey.pokertracker.domain.components.SettingsFeatureComponent
+import com.github.saikcaskey.pokertracker.domain.components.AccountFeatureComponent
 import com.github.saikcaskey.pokertracker.domain.models.SettingsAction
 import com.github.saikcaskey.pokertracker.domain.models.SettingsItem
 import com.github.saikcaskey.pokertracker.domain.models.SettingsItem.*
@@ -37,12 +37,12 @@ import kotlin.uuid.ExperimentalUuidApi
 
 @OptIn(ExperimentalUuidApi::class)
 @Composable
-fun SettingsFeatureContent(
-    component: SettingsFeatureComponent,
+fun AccountFeatureContent(
+    component: AccountFeatureComponent,
 ) {
     val uiState = component.uiState.collectAsStateWithLifecycle()
-    SettingsScreenContent(
-        uiState.value,
+    AccountSettingsScreenContent(
+        uiState = uiState.value,
         clearUserId = component::clearUserId,
         clearDefaultBuyIn = component::clearDefaultBuyIn,
         setRandomUserId = component::setRandomUserId,
@@ -55,8 +55,8 @@ fun SettingsFeatureContent(
 }
 
 @Composable
-fun SettingsScreenContent(
-    uiState: SettingsFeatureComponent.UiState,
+fun AccountSettingsScreenContent(
+    uiState: AccountFeatureComponent.UiState,
     clearUserId: () -> Unit,
     clearDefaultBuyIn: () -> Unit,
     setRandomUserId: () -> Unit,
@@ -68,23 +68,19 @@ fun SettingsScreenContent(
         SettingsItemsList(
             settingItems = uiState.settingsItems,
             onItemPressed = { settingsItem ->
-                when (settingsItem.linkedSettingsAction) {
-                    SettingsAction.ClearDefaultBuyIn -> clearDefaultBuyIn()
-                    SettingsAction.ClearUserId -> clearUserId()
-                    SettingsAction.SetRandomUserId -> setRandomUserId()
-                    SettingsAction.AddDummyData -> addDummyData()
-                    SettingsAction.ClearAllData -> clearAllData()
-                    null -> {}
+                val linkedSettingsAction = settingsItem.linkedSettingsAction
+                if (linkedSettingsAction != null) {
+                    when (linkedSettingsAction) {
+                        SettingsAction.ClearDefaultBuyIn -> clearDefaultBuyIn()
+                        SettingsAction.ClearUserId -> clearUserId()
+                        SettingsAction.SetRandomUserId -> setRandomUserId()
+                        SettingsAction.AddDummyData -> addDummyData()
+                        SettingsAction.ClearAllData -> clearAllData()
+                    }
                 }
             },
-            inputToggleValue = { preference, isToggled ->
+            updatePreferenceValue = { preference, isToggled ->
                 updatePreferenceValue(preference, isToggled)
-            },
-            inputTextValue = { preference, value ->
-                updatePreferenceValue(preference, value)
-            },
-            inputNumberValue = { preference, value ->
-                updatePreferenceValue(preference, value)
             },
         )
     }
@@ -94,21 +90,19 @@ fun SettingsScreenContent(
 fun SettingsItemsList(
     settingItems: List<SettingsItem>,
     onItemPressed: ((SettingsItem) -> Unit)?,
-    inputToggleValue: (UserPreference<Boolean>, Boolean) -> Unit,
-    inputTextValue: (UserPreference<String>, String) -> Unit,
-    inputNumberValue: (UserPreference<Int>, Int?) -> Unit,
+    updatePreferenceValue: (UserPreference<*>, Any?) -> Unit,
 ) {
     LazyColumn {
         items(settingItems) { item ->
             when (item) {
                 is Button -> SettingsButtonItem(item, onItemPressed)
-                is Check -> SettingsCheckItem(item, inputToggleValue)
+                is Check -> SettingsCheckItem(item, updatePreferenceValue)
                 is Header -> SettingsHeaderItem(item)
                 is InfoText -> SettingsTextItem(item) { onItemPressed?.invoke(item) }
-                is Toggle -> SettingsToggleItem(item, inputToggleValue)
-                is NumberInput -> SettingsNumberInputItem(item, inputNumberValue)
+                is Toggle -> SettingsToggleItem(item, updatePreferenceValue)
+                is NumberInput -> SettingsNumberInputItem(item, updatePreferenceValue)
                 is TextInput -> {
-                    SettingsTextInputItem(item, inputTextValue, onItemPressed)
+                    SettingsTextInputItem(item, updatePreferenceValue, onItemPressed)
                 }
             }
             if (item.bottomDivider) HorizontalDivider()

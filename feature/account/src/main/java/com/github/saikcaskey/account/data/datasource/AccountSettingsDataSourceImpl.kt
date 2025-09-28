@@ -1,18 +1,18 @@
-package com.github.saikcaskey.settings.data.datasource
+package com.github.saikcaskey.account.data.datasource
 
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.datastore.SettingsDataStore
 import com.github.saikcaskey.pokertracker.domain.models.SettingsData
-import com.github.saikcaskey.settings.domain.datasource.SettingsDataSource
+import com.github.saikcaskey.account.domain.datasource.AccountSettingsDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 
-class SettingsDataSourceImpl(
+class AccountSettingsDataSourceImpl(
     private val dataStore: SettingsDataStore,
     dispatchers: CoroutineDispatchers,
-) : SettingsDataSource {
+) : AccountSettingsDataSource {
 
     private val scope = CoroutineScope(dispatchers.io)
 

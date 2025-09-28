@@ -1,8 +1,8 @@
 package com.github.saikcaskey.pokertracker.di
 
-import com.github.saikcaskey.settings.di.settingsDataSourceModule
-import com.github.saikcaskey.settings.di.settingsDataStoreModule
-import com.github.saikcaskey.settings.di.settingsRepositoryModule
+import com.github.saikcaskey.account.di.accountSettingsDataSourceModule
+import com.github.saikcaskey.account.di.accountSettingsDataStoreModule
+import com.github.saikcaskey.account.di.accountSettingsRepositoryModule
 import org.koin.core.module.Module
 
 fun appModules(): List<Module> {
@@ -11,8 +11,8 @@ fun appModules(): List<Module> {
         databaseModule,
         dispatchersProvidersModule,
         coreRepositoryModule,
-        settingsRepositoryModule,
-        settingsDataStoreModule,
-        settingsDataSourceModule,
+        accountSettingsRepositoryModule,
+        accountSettingsDataStoreModule,
+        accountSettingsDataSourceModule,
     )
 }

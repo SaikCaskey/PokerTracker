@@ -4,10 +4,10 @@ import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.data.utils.seedSampleData
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
-import com.github.saikcaskey.pokertracker.domain.components.SettingsFeatureComponent
+import com.github.saikcaskey.pokertracker.domain.components.AccountFeatureComponent
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference.*
-import com.github.saikcaskey.pokertracker.domain.repository.SettingsRepository
+import com.github.saikcaskey.pokertracker.domain.repository.AccountSettingsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -15,34 +15,34 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlin.uuid.Uuid
 
-class SettingsFeatureComponentImpl(
+class AccountFeatureComponentImpl(
     private val componentContext: ComponentContext,
     private val database: PokerTrackerDatabase,
-    private val settingsRepository: SettingsRepository,
+    private val accountSettingsRepository: AccountSettingsRepository,
     dispatchers: CoroutineDispatchers,
-) : SettingsFeatureComponent, ComponentContext by componentContext {
+) : AccountFeatureComponent, ComponentContext by componentContext {
 
     private val coroutineScope = CoroutineScope(dispatchers.io)
 
-    override val uiState: StateFlow<SettingsFeatureComponent.UiState> =
-        settingsRepository.state.map(SettingsFeatureComponent::UiState)
-            .stateIn(coroutineScope, SharingStarted.Eagerly, SettingsFeatureComponent.UiState())
+    override val uiState: StateFlow<AccountFeatureComponent.UiState> =
+        accountSettingsRepository.state.map(AccountFeatureComponent::UiState)
+            .stateIn(coroutineScope, SharingStarted.Eagerly, AccountFeatureComponent.UiState())
 
     override fun updatePreferenceValue(preference: UserPreference<*>, value: Any?) {
         @Suppress("UNCHECKED_CAST")
-        settingsRepository.setUserPreference(preference as UserPreference<Any>, value)
+        accountSettingsRepository.setUserPreference(preference as UserPreference<Any>, value)
     }
 
     override fun setRandomUserId() {
-        settingsRepository.setUserPreference(UserId, Uuid.random().toString())
+        accountSettingsRepository.setUserPreference(UserId, Uuid.random().toString())
     }
 
     override fun clearDefaultBuyIn() {
-        settingsRepository.setUserPreference(DefaultBuyIn, null)
+        accountSettingsRepository.setUserPreference(DefaultBuyIn, null)
     }
 
     override fun clearUserId() {
-        settingsRepository.setUserPreference(UserId, null)
+        accountSettingsRepository.setUserPreference(UserId, null)
     }
 
     override fun addDummyData() {

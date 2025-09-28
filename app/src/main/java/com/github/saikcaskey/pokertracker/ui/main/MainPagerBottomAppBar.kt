@@ -12,6 +12,7 @@ import compose.icons.fontawesomeicons.Regular
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.regular.Calendar
 import compose.icons.fontawesomeicons.regular.Gem
+import compose.icons.fontawesomeicons.solid.ChartLine
 import compose.icons.fontawesomeicons.solid.User
 
 @Composable
@@ -46,6 +47,16 @@ fun MainPagerBottomAppBar(
             IconButton(
                 modifier = Modifier.weight(1f),
                 onClick = { selectPage(2) }) {
+                Icon(
+                    modifier = Modifier.height(48.dp),
+                    imageVector = FontAwesomeIcons.Solid.ChartLine,
+                    contentDescription = ""
+                )
+            }
+
+            IconButton(
+                modifier = Modifier.weight(1f),
+                onClick = { selectPage(3) }) {
                 Icon(
                     modifier = Modifier.height(48.dp),
                     imageVector = FontAwesomeIcons.Solid.User,
