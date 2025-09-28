@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.account
+package com.github.saikcaskey.account.presentation
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.data.utils.seedSampleData
@@ -6,7 +6,6 @@ import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.components.AccountFeatureComponent
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
-import com.github.saikcaskey.pokertracker.domain.models.UserPreference.*
 import com.github.saikcaskey.pokertracker.domain.repository.AccountSettingsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
@@ -26,7 +25,7 @@ class AccountFeatureComponentImpl(
 
     override val uiState: StateFlow<AccountFeatureComponent.UiState> =
         accountSettingsRepository.state.map(AccountFeatureComponent::UiState)
-            .stateIn(coroutineScope, SharingStarted.Eagerly, AccountFeatureComponent.UiState())
+            .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, AccountFeatureComponent.UiState())
 
     override fun updatePreferenceValue(preference: UserPreference<*>, value: Any?) {
         @Suppress("UNCHECKED_CAST")
@@ -34,15 +33,15 @@ class AccountFeatureComponentImpl(
     }
 
     override fun setRandomUserId() {
-        accountSettingsRepository.setUserPreference(UserId, Uuid.random().toString())
+        accountSettingsRepository.setUserPreference(UserPreference.UserId, Uuid.Companion.random().toString())
     }
 
     override fun clearDefaultBuyIn() {
-        accountSettingsRepository.setUserPreference(DefaultBuyIn, null)
+        accountSettingsRepository.setUserPreference(UserPreference.DefaultBuyIn, null)
     }
 
     override fun clearUserId() {
-        accountSettingsRepository.setUserPreference(UserId, null)
+        accountSettingsRepository.setUserPreference(UserPreference.UserId, null)
     }
 
     override fun addDummyData() {
