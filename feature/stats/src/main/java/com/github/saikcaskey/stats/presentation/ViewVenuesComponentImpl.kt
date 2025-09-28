@@ -3,9 +3,8 @@ package com.github.saikcaskey.stats.presentation
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.models.Venue
-import com.github.saikcaskey.stats.domain.ViewVenuesComponent
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
-import com.github.saikcaskey.stats.domain.ViewVenuesComponent.*
+import com.github.saikcaskey.stats.presentation.ViewVenuesComponent.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly

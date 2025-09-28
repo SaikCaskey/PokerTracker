@@ -28,7 +28,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.saikcaskey.pokertracker.domain.components.AccountFeatureComponent
+import com.github.saikcaskey.account.presentation.AccountFeatureComponent
 import com.github.saikcaskey.pokertracker.domain.models.SettingsAction
 import com.github.saikcaskey.pokertracker.domain.models.AccountSettingsItem
 import com.github.saikcaskey.pokertracker.domain.models.AccountSettingsItem.*

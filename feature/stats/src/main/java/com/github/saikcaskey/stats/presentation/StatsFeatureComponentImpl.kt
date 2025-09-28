@@ -1,7 +1,6 @@
 package com.github.saikcaskey.stats.presentation
 
 import com.arkivanov.decompose.ComponentContext
-import com.github.saikcaskey.stats.domain.StatsFeatureComponent
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 

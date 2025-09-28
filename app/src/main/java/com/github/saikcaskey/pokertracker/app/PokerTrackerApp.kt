@@ -1,7 +1,7 @@
 package com.github.saikcaskey.pokertracker.app
 
 import android.app.Application
-import com.github.saikcaskey.account.di.accountAccountSettingsDataStoreModule
+import com.github.saikcaskey.account.di.accountSettingsDataStoreModule
 import com.github.saikcaskey.account.di.accountSettingsDataSourceModule
 import com.github.saikcaskey.account.di.accountSettingsRepositoryModule
 import com.github.saikcaskey.database.di.databaseModule
@@ -25,8 +25,8 @@ class PokerTrackerApp : Application() {
                     dispatchersProvidersModule,
                     statsRepositoryModule,
                     accountSettingsRepositoryModule,
-                    accountAccountSettingsDataStoreModule,
                     accountSettingsDataSourceModule,
+                    accountSettingsDataStoreModule,
                 )
             )
         }
