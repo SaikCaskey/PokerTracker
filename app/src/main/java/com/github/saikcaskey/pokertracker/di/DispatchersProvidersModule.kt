@@ -1,4 +1,4 @@
-package com.github.saikcaskey.data.di
+package com.github.saikcaskey.pokertracker.di
 
 import com.github.saikcaskey.data.utils.defaultCoroutineDispatchersProviders
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
