@@ -1,11 +1,11 @@
-package com.github.saikcaskey.pokertracker.presentation.event
+package com.github.saikcaskey.stats.data
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
-import com.github.saikcaskey.pokertracker.domain.components.ViewEventsComponent
+import com.github.saikcaskey.stats.domain.ViewEventsComponent
 import com.github.saikcaskey.pokertracker.domain.models.Event
-import com.github.saikcaskey.pokertracker.domain.components.ViewEventsComponent.*
+import com.github.saikcaskey.stats.domain.ViewEventsComponent.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly

@@ -19,6 +19,7 @@ allprojects {
                 "-opt-in=com.arkivanov.decompose.DelicateDecomposeApi",
                 "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                 "-opt-in=kotlin.time.ExperimentalTime",
+                "-opt-in=kotlin.uuid.ExperimentalUuidApi",
             )
         }
     }

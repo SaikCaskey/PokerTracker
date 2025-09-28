@@ -11,6 +11,7 @@ import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.*
+import kotlin.time.Clock
 
 class ExpenseRepositoryImpl(
     private val database: PokerTrackerDatabase,
