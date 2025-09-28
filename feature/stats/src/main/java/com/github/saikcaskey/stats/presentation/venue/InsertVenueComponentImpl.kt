@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.venue
+package com.github.saikcaskey.stats.presentation.venue
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers

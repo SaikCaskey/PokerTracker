@@ -1,5 +1,4 @@
-
-package com.github.saikcaskey.pokertracker.presentation.event
+package com.github.saikcaskey.stats.presentation.event
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.extensions.asLocalDateTime

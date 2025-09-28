@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.expense
+package com.github.saikcaskey.stats.presentation.expense
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
