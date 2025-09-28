@@ -40,6 +40,15 @@ class ModuleAppConventionPlugin : Plugin<Project> {
                     buildConfigField("String", "GIT_COMMIT_HASH", "\"${project.gitCommitHash()}\"")
                 }
 
+                // F DROID - Disable AGP signing block
+                // See https://gitlab.com/fdroid/fdroiddata/-/merge_requests/24283#note_2636169667
+                dependenciesInfo {
+                    // Disables dependency metadata when building APKs.
+                    includeInApk = false
+                    // Disables dependency metadata when building Android App Bundles.
+                    includeInBundle = false
+                }
+
                 configureSharedBuildTypes()
                 configureSharedBuildFeatures()
                 configureSharedPackaging()

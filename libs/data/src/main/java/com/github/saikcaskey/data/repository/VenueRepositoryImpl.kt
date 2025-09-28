@@ -12,7 +12,6 @@ import com.github.saikcaskey.pokertracker.domain.models.Venue
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.datetime.Clock
 import com.github.saikcaskey.pokertracker.database.Venue as DatabaseVenue
 
 class VenueRepositoryImpl(
@@ -48,7 +47,7 @@ class VenueRepositoryImpl(
             name = name,
             address = address,
             description = description,
-            created_at = Clock.System.now().toString()
+            created_at = kotlin.time.Clock.System.now().toString()
         )
     }
 

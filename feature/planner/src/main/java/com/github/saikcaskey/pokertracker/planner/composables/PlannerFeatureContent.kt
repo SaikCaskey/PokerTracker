@@ -24,11 +24,12 @@ import androidx.compose.ui.unit.sp
 import com.github.saikcaskey.pokertracker.domain.components.PlannerFeatureComponent
 import com.kizitonwose.calendar.compose.VerticalCalendar
 import com.kizitonwose.calendar.compose.rememberCalendarState
-import com.kizitonwose.calendar.core.YearMonth
 import com.kizitonwose.calendar.core.daysOfWeek
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.core.minusMonths
+import com.kizitonwose.calendar.core.now
 import com.kizitonwose.calendar.core.plusMonths
+import kotlinx.datetime.YearMonth
 
 @Composable
 fun PlannerFeatureContent(component: PlannerFeatureComponent) {
@@ -83,7 +84,7 @@ fun PlannerFeatureContent(component: PlannerFeatureComponent) {
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Text(
-                        "${day.date.dayOfMonth}",
+                        "${day.date.day}",
                         style = MaterialTheme.typography.labelSmall.copy(
                             fontSize = 10.sp,
                             color = if (hasEvent) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface

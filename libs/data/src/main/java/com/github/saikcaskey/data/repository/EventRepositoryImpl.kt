@@ -13,6 +13,7 @@ import com.github.saikcaskey.pokertracker.domain.models.Event
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.*
+import kotlin.time.Clock
 import com.github.saikcaskey.pokertracker.database.Event as DatabaseEvent
 
 class EventRepositoryImpl(

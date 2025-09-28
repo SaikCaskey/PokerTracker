@@ -20,7 +20,10 @@ fun DashboardEventSummary(
         onShowAllClick = onShowAllEventsClicked,
     ) {
         if (data.isEmpty) {
-            Text(text = "Nothing here yet!", style = MaterialTheme.typography.labelLarge)
+            Text(
+                text = "Nothing here yet!",
+                style = MaterialTheme.typography.labelLarge
+            )
         } else {
             if (data.upcomingEvents.isNotEmpty()) {
                 Text(text = "Upcoming", style = MaterialTheme.typography.labelLarge)
