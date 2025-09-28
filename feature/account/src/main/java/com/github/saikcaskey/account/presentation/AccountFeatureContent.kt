@@ -28,8 +28,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.saikcaskey.account.presentation.AccountFeatureComponent
-import com.github.saikcaskey.account.domain.model.SettingsAction
+import com.github.saikcaskey.account.domain.model.AccountSettingsAction
 import com.github.saikcaskey.account.domain.model.AccountSettingsItem
 import com.github.saikcaskey.account.domain.model.AccountSettingsItem.*
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
@@ -68,14 +67,14 @@ fun AccountSettingsScreenContent(
         SettingsItemsList(
             settingItems = uiState.accountSettingsItems,
             onItemPressed = { settingsItem ->
-                val linkedSettingsAction = settingsItem.linkedSettingsAction
-                if (linkedSettingsAction != null) {
-                    when (linkedSettingsAction) {
-                        SettingsAction.ClearDefaultBuyIn -> clearDefaultBuyIn()
-                        SettingsAction.ClearUserId -> clearUserId()
-                        SettingsAction.SetRandomUserId -> setRandomUserId()
-                        SettingsAction.AddDummyData -> addDummyData()
-                        SettingsAction.ClearAllData -> clearAllData()
+                val linkedAction = settingsItem.linkedAction
+                if (linkedAction != null) {
+                    when (linkedAction) {
+                        AccountSettingsAction.ClearDefaultBuyIn -> clearDefaultBuyIn()
+                        AccountSettingsAction.ClearUserId -> clearUserId()
+                        AccountSettingsAction.SetRandomUserId -> setRandomUserId()
+                        AccountSettingsAction.AddDummyData -> addDummyData()
+                        AccountSettingsAction.ClearAllData -> clearAllData()
                     }
                 }
             },
@@ -129,7 +128,7 @@ fun SettingsToggleItem(
         checked = itemData.value,
         onCheckedChange = {
             toggleSettingsItem(
-                itemData.linkedUserPreference,
+                itemData.linkedPreference,
                 !itemData.value
             )
         },
@@ -145,7 +144,7 @@ fun SettingsTextInputItem(
     val state = TextFieldState(itemData.value.orEmpty())
     LaunchedEffect(itemData.value) {
         snapshotFlow(state::text).collect {
-            onValueChange(itemData.linkedUserPreference, it.toString())
+            onValueChange(itemData.linkedPreference, it.toString())
         }
     }
 
@@ -172,7 +171,7 @@ fun SettingsNumberInputItem(
     LaunchedEffect(itemData.value) {
         snapshotFlow(state::text).collect {
             onValueChange(
-                itemData.linkedUserPreference,
+                itemData.linkedPreference,
                 it.toString().ifBlank { null }?.toIntOrNull()
             )
         }
@@ -217,7 +216,7 @@ fun SettingsCheckItem(
         Checkbox(
             checked = itemData.value,
             onCheckedChange = { isChecked ->
-                toggleSettingsItem(itemData.linkedUserPreference, isChecked)
+                toggleSettingsItem(itemData.linkedPreference, isChecked)
             },
         )
     }

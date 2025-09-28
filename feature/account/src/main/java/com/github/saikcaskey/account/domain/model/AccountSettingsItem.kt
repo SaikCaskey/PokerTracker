@@ -5,39 +5,39 @@ import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 sealed class AccountSettingsItem {
     abstract val title: String?
     abstract val bottomDivider: Boolean
-    abstract val linkedUserPreference: UserPreference<*>?
-    abstract val linkedSettingsAction: SettingsAction?
+    abstract val linkedPreference: UserPreference<*>?
+    abstract val linkedAction: AccountSettingsAction?
 
     data class Header(
         override val title: String? = "Header",
         override val bottomDivider: Boolean = true,
-        override val linkedSettingsAction: SettingsAction? = null,
+        override val linkedAction: AccountSettingsAction? = null,
     ) : AccountSettingsItem() {
-        override val linkedUserPreference: UserPreference<*>? = null
+        override val linkedPreference: UserPreference<*>? = null
     }
 
     data class InfoText(
         override val title: String? = "Text",
         override val bottomDivider: Boolean = false,
-        override val linkedSettingsAction: SettingsAction? = null,
+        override val linkedAction: AccountSettingsAction? = null,
     ) : AccountSettingsItem() {
-        override val linkedUserPreference: UserPreference<*>? = null
+        override val linkedPreference: UserPreference<*>? = null
     }
 
     data class Button(
         override val title: String? = "Button",
         override val bottomDivider: Boolean = false,
-        override val linkedSettingsAction: SettingsAction? = null,
+        override val linkedAction: AccountSettingsAction? = null,
     ) : AccountSettingsItem() {
-        override val linkedUserPreference: UserPreference<*>? = null
+        override val linkedPreference: UserPreference<*>? = null
     }
 
     data class Check(
         val value: Boolean = false,
         val subtitle: String? = null,
         override val title: String? = null,
-        override val linkedSettingsAction: SettingsAction? = null,
-        override val linkedUserPreference: UserPreference<Boolean>,
+        override val linkedAction: AccountSettingsAction? = null,
+        override val linkedPreference: UserPreference<Boolean>,
         override val bottomDivider: Boolean = false,
     ) : AccountSettingsItem()
 
@@ -45,8 +45,8 @@ sealed class AccountSettingsItem {
         val value: Boolean = false,
         val subtitle: String? = null,
         override val title: String? = null,
-        override val linkedUserPreference: UserPreference<Boolean>,
-        override val linkedSettingsAction: SettingsAction? = null,
+        override val linkedPreference: UserPreference<Boolean>,
+        override val linkedAction: AccountSettingsAction? = null,
         override val bottomDivider: Boolean = false,
     ) : AccountSettingsItem()
 
@@ -54,8 +54,8 @@ sealed class AccountSettingsItem {
         val value: String? = null,
         val initialContent: String? = "Start typing...",
         override val title: String? = null,
-        override val linkedUserPreference: UserPreference<String>,
-        override val linkedSettingsAction: SettingsAction? = null,
+        override val linkedPreference: UserPreference<String>,
+        override val linkedAction: AccountSettingsAction? = null,
         override val bottomDivider: Boolean = false,
     ) : AccountSettingsItem()
 
@@ -64,8 +64,8 @@ sealed class AccountSettingsItem {
         val maxLength: Int = 20,
         val initialContent: String? = "Start typing...",
         override val title: String? = null,
-        override val linkedUserPreference: UserPreference<Int>,
-        override val linkedSettingsAction: SettingsAction? = null,
+        override val linkedPreference: UserPreference<Int>,
+        override val linkedAction: AccountSettingsAction? = null,
         override val bottomDivider: Boolean = false,
     ) : AccountSettingsItem()
 }

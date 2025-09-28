@@ -2,7 +2,7 @@ package com.github.saikcaskey.account.presentation
 
 import com.github.saikcaskey.pokertracker.domain.models.AccountSettingsData
 import com.github.saikcaskey.account.domain.model.AccountSettingsItem
-import com.github.saikcaskey.account.domain.model.SettingsAction
+import com.github.saikcaskey.account.domain.model.AccountSettingsAction
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 import com.github.saikcaskey.pokertracker.domain.presentation.MainPagerPageComponent
 import kotlinx.coroutines.flow.StateFlow
@@ -25,7 +25,7 @@ interface AccountFeatureComponent : MainPagerPageComponent {
                 AccountSettingsItem.NumberInput(
                     title = "Default Buy in:",
                     value = accountSettingsData.defaultBuyIn,
-                    linkedUserPreference = UserPreference.DefaultBuyIn,
+                    linkedPreference = UserPreference.DefaultBuyIn,
                     maxLength = 100
                 )
             )
@@ -34,8 +34,8 @@ interface AccountFeatureComponent : MainPagerPageComponent {
                 AccountSettingsItem.TextInput(
                     title = "User Id:",
                     value = "${accountSettingsData.userId}",
-                    linkedUserPreference = UserPreference.UserId,
-                    linkedSettingsAction = SettingsAction.SetRandomUserId
+                    linkedPreference = UserPreference.UserId,
+                    linkedAction = AccountSettingsAction.SetRandomUserId
                 )
             )
             add(AccountSettingsItem.Header("Debug"))
@@ -53,20 +53,20 @@ interface AccountFeatureComponent : MainPagerPageComponent {
             add(
                 AccountSettingsItem.Check(
                     value = accountSettingsData.showAdvancedSettings,
-                    linkedUserPreference = UserPreference.ShowAdvancedSettings
+                    linkedPreference = UserPreference.ShowAdvancedSettings
                 )
             )
             if (accountSettingsData.showAdvancedSettings) {
                 add(
                     AccountSettingsItem.Button(
                         title = "Clear All Data",
-                        linkedSettingsAction = SettingsAction.ClearAllData
+                        linkedAction = AccountSettingsAction.ClearAllData
                     )
                 )
                 add(
                     AccountSettingsItem.Button(
                         title = "Add Dummy Data",
-                        linkedSettingsAction = SettingsAction.AddDummyData
+                        linkedAction = AccountSettingsAction.AddDummyData
                     )
                 )
             }
