@@ -53,8 +53,8 @@ class SettingsFeatureComponentImpl(
         settingsRepository.setUserPreference(UserId, Uuid.random().toString())
     }
 
-    override fun clearLastSelectedTab() {
-        settingsRepository.setUserPreference(LastSelectedTab, null)
+    override fun clearDefaultBuyIn() {
+        settingsRepository.setUserPreference(DefaultBuyIn, null)
     }
 
     override fun clearUserId() {

@@ -8,5 +8,5 @@ interface SettingsDataSource {
 
     fun setUserId(userId: String? = null)
     fun setShowDebugSettings(value: Boolean)
-    fun setLastSelectedTab(value: Int? = null)
+    fun setDefaultBuyIn(value: Int? = null)
 }

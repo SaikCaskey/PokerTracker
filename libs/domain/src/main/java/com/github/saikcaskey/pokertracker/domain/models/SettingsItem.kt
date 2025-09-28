@@ -14,16 +14,16 @@ sealed class SettingsItem {
         override val linkedUserPreference: UserPreference<*>? = null
     }
 
-    data class Subheader(
-        override val title: String? = "Subheader",
+    data class InfoText(
+        override val title: String? = "Text",
         override val bottomDivider: Boolean = false,
         override val linkedSettingsAction: SettingsAction? = null,
     ) : SettingsItem() {
         override val linkedUserPreference: UserPreference<*>? = null
     }
 
-    data class Text(
-        override val title: String? = "Text",
+    data class Button(
+        override val title: String? = "Button",
         override val bottomDivider: Boolean = false,
         override val linkedSettingsAction: SettingsAction? = null,
     ) : SettingsItem() {
@@ -32,8 +32,8 @@ sealed class SettingsItem {
 
     data class Check(
         val value: Boolean = false,
-        val subtitle: String? = "Check",
-        override val title: String? = "Check",
+        val subtitle: String? = null,
+        override val title: String? = null,
         override val linkedSettingsAction: SettingsAction? = null,
         override val linkedUserPreference: UserPreference<Boolean>,
         override val bottomDivider: Boolean = false,
@@ -41,8 +41,8 @@ sealed class SettingsItem {
 
     data class Toggle(
         val value: Boolean = false,
-        val subtitle: String? = "Toggle",
-        override val title: String? = "Toggle",
+        val subtitle: String? = null,
+        override val title: String? = null,
         override val linkedUserPreference: UserPreference<Boolean>,
         override val linkedSettingsAction: SettingsAction? = null,
         override val bottomDivider: Boolean = false,
@@ -51,7 +51,7 @@ sealed class SettingsItem {
     data class TextInput(
         val value: String? = null,
         val initialContent: String? = "Start typing...",
-        override val title: String? = "Input",
+        override val title: String? = null,
         override val linkedUserPreference: UserPreference<String>,
         override val linkedSettingsAction: SettingsAction? = null,
         override val bottomDivider: Boolean = false,
@@ -61,7 +61,7 @@ sealed class SettingsItem {
         val value: Int? = null,
         val maxLength: Int = 20,
         val initialContent: String? = "Start typing...",
-        override val title: String? = "Input",
+        override val title: String? = null,
         override val linkedUserPreference: UserPreference<Int>,
         override val linkedSettingsAction: SettingsAction? = null,
         override val bottomDivider: Boolean = false,

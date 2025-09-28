@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface SettingsDataStore {
 
     fun setShowDebugSettings(value: Boolean)
-    fun setLastSelectedTab(value: Int?)
+    fun setDefaultBuyIn(value: Int?)
     fun setUserId(userId: String? = null)
 
     val data: Flow<SettingsData>

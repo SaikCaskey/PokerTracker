@@ -7,7 +7,7 @@ sealed class UserPreference<T> {
         override val key: String = "user_id"
     }
 
-    data object LastSelectedTab : UserPreference<Int>() {
+    data object DefaultBuyIn : UserPreference<Int>() {
         override val key: String = "last_selected_tab"
     }
 

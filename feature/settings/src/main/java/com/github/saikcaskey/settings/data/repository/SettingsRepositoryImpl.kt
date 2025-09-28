@@ -16,7 +16,7 @@ class SettingsRepositoryImpl(
     ) {
         when (preference) {
             is UserPreference.ShowDebugSettings -> settingsDataSource.setShowDebugSettings(value as Boolean)
-            is UserPreference.LastSelectedTab -> settingsDataSource.setLastSelectedTab(value as? Int)
+            is UserPreference.DefaultBuyIn -> settingsDataSource.setDefaultBuyIn(value as? Int)
             is UserPreference.UserId -> settingsDataSource.setUserId(value as? String)
         }
     }

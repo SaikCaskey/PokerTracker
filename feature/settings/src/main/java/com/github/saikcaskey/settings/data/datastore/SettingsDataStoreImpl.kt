@@ -12,7 +12,7 @@ import com.github.saikcaskey.pokertracker.domain.datastore.SettingsDataStore
 import com.github.saikcaskey.pokertracker.domain.models.AppInfo
 import com.github.saikcaskey.pokertracker.domain.models.SettingsData
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
-import com.github.saikcaskey.pokertracker.domain.models.UserPreference.LastSelectedTab
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference.DefaultBuyIn
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference.ShowDebugSettings
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference.UserId
 import kotlinx.coroutines.CoroutineScope
@@ -30,7 +30,7 @@ class SettingsDataStoreImpl(
     private val scope = CoroutineScope(dispatchers.io)
     private val userIdPreferencesKey = stringPreferencesKey(UserId.key)
     private val showDebugSettingsPreferencesKey = booleanPreferencesKey(ShowDebugSettings.key)
-    private val lastSelectedTabPreferencesKey = intPreferencesKey(LastSelectedTab.key)
+    private val defaultBuyInPreferencesKey = intPreferencesKey(DefaultBuyIn.key)
 
     override val data: Flow<SettingsData>
         get() = dataStore.data
@@ -45,10 +45,10 @@ class SettingsDataStoreImpl(
         }
     }
 
-    override fun setLastSelectedTab(value: Int?) {
+    override fun setDefaultBuyIn(value: Int?) {
         scope.launch {
             dataStore.edit { preferences ->
-                preferences[lastSelectedTabPreferencesKey] = value ?: 0
+                preferences[defaultBuyInPreferencesKey] = value ?: 0
             }
         }
     }
@@ -66,7 +66,7 @@ private fun Preferences.toSettingsData(appInfo: AppInfo): SettingsData {
     return SettingsData(
         userId = get(UserId.getStringPreference()),
         showDebugSettings = get(ShowDebugSettings.getBooleanPreference()) == true,
-        defaultBuyIn = get(LastSelectedTab.getIntPreference()),
+        defaultBuyIn = get(DefaultBuyIn.getIntPreference()),
         applicationId = appInfo.applicationId,
         isProd = appInfo.isProd,
         buildType = appInfo.buildType,

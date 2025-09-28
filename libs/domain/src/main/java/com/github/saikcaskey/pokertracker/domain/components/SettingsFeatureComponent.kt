@@ -14,7 +14,7 @@ interface SettingsFeatureComponent : MainPagerPageComponent {
     fun inputTextValue(preference: UserPreference<String>, value: String?)
     fun inputNumberValue(preference: UserPreference<Int>, value: Int?)
     fun setRandomUserId()
-    fun clearLastSelectedTab()
+    fun clearDefaultBuyIn()
     fun clearUserId()
     fun addDummyData()
     fun clearAllData()
@@ -26,7 +26,7 @@ interface SettingsFeatureComponent : MainPagerPageComponent {
                 SettingsItem.NumberInput(
                     title = "Default Buy in:",
                     value = settingsData.defaultBuyIn,
-                    linkedUserPreference = LastSelectedTab,
+                    linkedUserPreference = DefaultBuyIn,
                     maxLength = 100
                 )
             )
@@ -40,13 +40,16 @@ interface SettingsFeatureComponent : MainPagerPageComponent {
                 )
             )
             add(SettingsItem.Header("Debug"))
-            add(SettingsItem.Text("Hash: ${settingsData.gitCommitHash}"))
-            add(SettingsItem.Text("VersionName: ${settingsData.versionName}"))
-            add(SettingsItem.Text("VersionCode: ${settingsData.versionCode}"))
-            add(SettingsItem.Text("BuildType: ${settingsData.buildType}"))
-            add(SettingsItem.Text("IsProd: ${settingsData.isProd}"))
+            add(SettingsItem.InfoText("Hash: ${settingsData.gitCommitHash}"))
+            add(SettingsItem.InfoText("VersionName: ${settingsData.versionName}"))
+            add(SettingsItem.InfoText("VersionCode: ${settingsData.versionCode}"))
+            add(SettingsItem.InfoText("BuildType: ${settingsData.buildType}"))
+            add(SettingsItem.InfoText("IsProd: ${settingsData.isProd}"))
             add(
-                SettingsItem.Text("Debug settings ${if (settingsData.showDebugSettings) "" else "NOT "}enabled")
+                SettingsItem.InfoText(
+                    "Debug settings ${if (settingsData.showDebugSettings) "" else "NOT "}enabled",
+                    bottomDivider = true
+                )
             )
             add(
                 SettingsItem.Check(
@@ -56,13 +59,13 @@ interface SettingsFeatureComponent : MainPagerPageComponent {
             )
             if (settingsData.showDebugSettings) {
                 add(
-                    SettingsItem.Text(
+                    SettingsItem.Button(
                         title = "Clear All Data",
                         linkedSettingsAction = SettingsAction.ClearAllData
                     )
                 )
                 add(
-                    SettingsItem.Text(
+                    SettingsItem.Button(
                         title = "Add Dummy Data",
                         linkedSettingsAction = SettingsAction.AddDummyData
                     )
