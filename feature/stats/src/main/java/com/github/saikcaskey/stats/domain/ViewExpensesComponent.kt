@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.domain.components
+package com.github.saikcaskey.stats.domain
 
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import kotlinx.coroutines.flow.StateFlow

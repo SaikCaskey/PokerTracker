@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.ui_compose.components.venue
+package com.github.saikcaskey.stats.presentation
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -7,10 +7,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.github.saikcaskey.pokertracker.domain.components.ViewVenuesComponent
-import com.github.saikcaskey.pokertracker.domain.components.ViewVenuesComponent.VenueSortOption
 import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopAppBarItemViewer
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDropdownSimple
+import com.github.saikcaskey.stats.domain.ViewVenuesComponent
 
 @Composable
 fun ViewVenuesContent(component: ViewVenuesComponent) {
@@ -41,7 +40,7 @@ fun ViewVenuesContent(component: ViewVenuesComponent) {
 
             InputDropdownSimple(
                 selected = uiState.searchFilter.sort,
-                entries = VenueSortOption.entries,
+                entries = ViewVenuesComponent.VenueSortOption.entries,
                 onSelected = component::onFilterOptionChanged
             )
 
