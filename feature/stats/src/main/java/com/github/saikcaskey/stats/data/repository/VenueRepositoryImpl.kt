@@ -1,17 +1,19 @@
-package com.github.saikcaskey.data.repository
+package com.github.saikcaskey.stats.data.repository
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneNotNull
-import com.github.saikcaskey.data.mappers.toDomain
 import com.github.saikcaskey.pokertracker.domain.util.nowAsInstant
 import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.models.Venue
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
+import com.github.saikcaskey.stats.data.mapper.toDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlin.collections.map
+import kotlin.time.Clock
 import com.github.saikcaskey.pokertracker.database.Venue as DatabaseVenue
 
 class VenueRepositoryImpl(
@@ -47,7 +49,7 @@ class VenueRepositoryImpl(
             name = name,
             address = address,
             description = description,
-            created_at = kotlin.time.Clock.System.now().toString()
+            created_at = Clock.System.now().toString()
         )
     }
 

@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.ui.root
+package com.github.saikcaskey.pokertracker.presentation.root
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -9,9 +9,8 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.*
 import com.github.saikcaskey.pokertracker.ui_compose.components.venue.InsertVenueContent
 import com.github.saikcaskey.pokertracker.ui_compose.components.venue.VenueDetailContent
 import com.github.saikcaskey.stats.presentation.ViewVenuesContent
-import com.github.saikcaskey.pokertracker.ui.root.RootComponent
-import com.github.saikcaskey.pokertracker.ui.root.RootComponent.Child
-import com.github.saikcaskey.pokertracker.ui.main.MainContent
+import com.github.saikcaskey.pokertracker.presentation.root.RootComponent.Child
+import com.github.saikcaskey.pokertracker.presentation.main.MainContent
 import com.github.saikcaskey.pokertracker.ui_compose.common.theme.AppTheme
 import com.github.saikcaskey.pokertracker.ui_compose.components.event.EventDetailContent
 import com.github.saikcaskey.pokertracker.ui_compose.components.event.InsertEventContent

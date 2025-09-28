@@ -1,4 +1,4 @@
-package com.github.saikcaskey.data.mappers
+package com.github.saikcaskey.stats.data.mapper
 
 import com.github.saikcaskey.pokertracker.domain.extensions.asInstantOrNow
 import com.github.saikcaskey.pokertracker.domain.extensions.asInstantOrNull

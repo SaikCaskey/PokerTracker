@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.ui.main
+package com.github.saikcaskey.pokertracker.presentation.main
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.BottomAppBar

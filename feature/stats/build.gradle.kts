@@ -7,6 +7,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":libs:data"))
     implementation(project(":libs:domain"))
     implementation(project(":libs:ui-compose"))
 
@@ -24,4 +25,5 @@ dependencies {
     implementation(libs.kermit)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.datetime)
+    implementation(libs.sqldelight.coroutines.extensions)
 }

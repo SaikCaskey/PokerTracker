@@ -3,6 +3,7 @@ package com.github.saikcaskey.pokertracker.di
 import com.github.saikcaskey.account.di.accountSettingsDataSourceModule
 import com.github.saikcaskey.account.di.accountAccountSettingsDataStoreModule
 import com.github.saikcaskey.account.di.accountSettingsRepositoryModule
+import com.github.saikcaskey.stats.di.statsRepositoryModule
 import org.koin.core.module.Module
 
 fun appModules(): List<Module> {
@@ -10,7 +11,7 @@ fun appModules(): List<Module> {
         appInfoModule,
         databaseModule,
         dispatchersProvidersModule,
-        coreRepositoryModule,
+        statsRepositoryModule,
         accountSettingsRepositoryModule,
         accountAccountSettingsDataStoreModule,
         accountSettingsDataSourceModule,
