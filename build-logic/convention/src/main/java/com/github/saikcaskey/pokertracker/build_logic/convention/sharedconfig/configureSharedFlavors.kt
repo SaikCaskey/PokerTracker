@@ -14,6 +14,7 @@ internal fun CommonExtension<*, *, *, *, *, *>.configureSharedFlavors() {
         create("alpha") {
             dimension = "env"
             buildConfigField("Boolean", "isProd", "false")
+
             if (this is ApplicationExtension) {
                 defaultConfig.applicationIdSuffix = ".beta"
             }

@@ -7,11 +7,11 @@ sealed class UserPreference<T> {
         override val key: String = "user_id"
     }
 
-    data object LastSelectedTab : UserPreference<Int>() {
-        override val key: String = "last_selected_tab"
+    data object DefaultBuyIn : UserPreference<Int>() {
+        override val key: String = "default_buy_in"
     }
 
-    data object IsDebug : UserPreference<Boolean>() {
-        override val key: String = "is_debug"
+    data object ShowAdvancedSettings : UserPreference<Boolean>() {
+        override val key: String = "show_advanced_settings"
     }
 }

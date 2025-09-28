@@ -8,7 +8,8 @@ dependencies {
     implementation(project(":libs:domain"))
     implementation(project(":feature:dashboard"))
     implementation(project(":feature:planner"))
-    implementation(project(":feature:settings"))
+    implementation(project(":feature:account"))
+    implementation(project(":feature:stats"))
 
     implementation(compose.ui)
     implementation(compose.foundation)

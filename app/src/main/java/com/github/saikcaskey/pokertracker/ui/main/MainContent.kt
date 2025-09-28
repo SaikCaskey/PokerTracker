@@ -10,9 +10,11 @@ import com.github.saikcaskey.pokertracker.dashboard.composables.DashboardFeature
 import com.github.saikcaskey.pokertracker.domain.components.MainComponent
 import com.github.saikcaskey.pokertracker.domain.components.DashboardFeatureComponent
 import com.github.saikcaskey.pokertracker.domain.components.PlannerFeatureComponent
-import com.github.saikcaskey.pokertracker.domain.components.SettingsFeatureComponent
+import com.github.saikcaskey.pokertracker.domain.components.AccountFeatureComponent
 import com.github.saikcaskey.pokertracker.planner.composables.PlannerFeatureContent
-import com.github.saikcaskey.settings.presentation.SettingsFeatureContent
+import com.github.saikcaskey.account.presentation.AccountFeatureContent
+import com.github.saikcaskey.stats.domain.StatsFeatureComponent
+import com.github.saikcaskey.stats.presentation.StatsFeatureContent
 
 @Composable
 internal fun MainContent(component: MainComponent, modifier: Modifier = Modifier) {
@@ -35,9 +37,10 @@ internal fun MainContent(component: MainComponent, modifier: Modifier = Modifier
                 scrollAnimation = PagesScrollAnimation.Default,
             ) { idx, pageComponent ->
                 when (pageComponent) {
-                    is SettingsFeatureComponent -> SettingsFeatureContent(pageComponent)
+                    is AccountFeatureComponent -> AccountFeatureContent(pageComponent)
                     is PlannerFeatureComponent -> PlannerFeatureContent(pageComponent)
                     is DashboardFeatureComponent -> DashboardFeatureContent(pageComponent)
+                    is StatsFeatureComponent -> StatsFeatureContent(pageComponent)
                 }
             }
         }

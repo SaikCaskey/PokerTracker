@@ -4,7 +4,6 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.pages.*
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.subscribe
-import com.github.saikcaskey.data.utils.seedSampleData
 import com.github.saikcaskey.pokertracker.dashboard.DashboardFeatureComponentImpl
 import com.github.saikcaskey.pokertracker.di.PokerTrackerDatabaseProvider
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
@@ -13,9 +12,10 @@ import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import com.github.saikcaskey.pokertracker.domain.components.MainComponent
 import com.github.saikcaskey.pokertracker.domain.components.MainPagerPageComponent
-import com.github.saikcaskey.pokertracker.domain.repository.SettingsRepository
+import com.github.saikcaskey.pokertracker.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.planner.PlannerFeatureComponentImpl
-import com.github.saikcaskey.pokertracker.presentation.settings.SettingsFeatureFeatureComponentImpl
+import com.github.saikcaskey.pokertracker.presentation.account.AccountFeatureComponentImpl
+import com.github.saikcaskey.stats.data.StatsFeatureComponentImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
@@ -40,7 +40,7 @@ class DefaultMainComponent(
     private val eventRepository: EventRepository,
     private val expenseRepository: ExpenseRepository,
     private val venueRepository: VenueRepository,
-    private val settingsRepository: SettingsRepository,
+    private val accountSettingsRepository: AccountSettingsRepository,
     private val dispatchers: CoroutineDispatchers,
 ) : MainComponent, ComponentContext by componentContext {
 
@@ -54,7 +54,8 @@ class DefaultMainComponent(
             Pages(
                 items = List(MainMenuPagerItemType.entries.size) { index ->
                     when (index) {
-                        2 -> MainMenuPagerPageConfig.Settings
+                        3 -> MainMenuPagerPageConfig.Account
+                        2 -> MainMenuPagerPageConfig.Stats
                         1 -> MainMenuPagerPageConfig.Planner
                         else -> MainMenuPagerPageConfig.Dashboard
                     }
@@ -64,9 +65,10 @@ class DefaultMainComponent(
         },
     ) { config, childComponentContext ->
         when (config) {
-            MainMenuPagerPageConfig.Settings -> SettingsFeatureFeatureComponentImpl(
+            MainMenuPagerPageConfig.Account -> AccountFeatureComponentImpl(
                 componentContext = childComponentContext,
-                settingsRepository = settingsRepository,
+                database = PokerTrackerDatabaseProvider.provide(),
+                accountSettingsRepository = accountSettingsRepository,
                 dispatchers = dispatchers,
             )
 
@@ -91,8 +93,11 @@ class DefaultMainComponent(
                 onShowInsertVenue = { onShowInsertVenue(null) },
                 onShowAllEvents = onShowAllEvents,
                 onShowAllExpenses = onShowAllExpenses,
-                onShowAllVenues = onShowAllVenues,
-                onSeedSampleData = { PokerTrackerDatabaseProvider.provide().seedSampleData() }
+                onShowAllVenues = onShowAllVenues
+            )
+
+            MainMenuPagerPageConfig.Stats -> StatsFeatureComponentImpl(
+                componentContext = childComponentContext,
             )
         }
     }
@@ -122,7 +127,10 @@ class DefaultMainComponent(
         data object Planner : MainMenuPagerPageConfig()
 
         @Serializable
-        data object Settings : MainMenuPagerPageConfig()
+        data object Stats : MainMenuPagerPageConfig()
+
+        @Serializable
+        data object Account : MainMenuPagerPageConfig()
     }
 }
 

@@ -21,7 +21,6 @@ class DashboardFeatureComponentImpl(
     expenseRepository: ExpenseRepository,
     venueRepository: VenueRepository,
     dispatchers: CoroutineDispatchers,
-    private val onSeedSampleData: () -> Unit,
     private val onShowEventDetail: (Long) -> Unit,
     private val onShowExpenseDetail: (Long) -> Unit,
     private val onShowInsertExpense: () -> Unit,
@@ -56,8 +55,6 @@ class DashboardFeatureComponentImpl(
         expenseRepository.getRecent(),
         ::UiState
     ).stateIn(coroutineScope, Eagerly, UiState())
-
-    override fun seedSampleData(): Unit = onSeedSampleData()
 
     override fun onShowEventDetailClicked(id: Long) = onShowEventDetail(id)
     override fun onShowExpenseDetailClicked(id: Long) = onShowExpenseDetail(id)

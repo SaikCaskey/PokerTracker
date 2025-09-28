@@ -9,9 +9,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Regular
+import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.regular.Calendar
-import compose.icons.fontawesomeicons.regular.ChartBar
-import compose.icons.fontawesomeicons.regular.User
+import compose.icons.fontawesomeicons.regular.Gem
+import compose.icons.fontawesomeicons.solid.ChartLine
+import compose.icons.fontawesomeicons.solid.User
 
 @Composable
 fun MainPagerBottomAppBar(
@@ -27,7 +29,7 @@ fun MainPagerBottomAppBar(
                 onClick = { selectPage(0) }) {
                 Icon(
                     modifier = Modifier.height(48.dp),
-                    imageVector = FontAwesomeIcons.Regular.ChartBar,
+                    imageVector = FontAwesomeIcons.Regular.Gem,
                     contentDescription = ""
                 )
             }
@@ -47,7 +49,17 @@ fun MainPagerBottomAppBar(
                 onClick = { selectPage(2) }) {
                 Icon(
                     modifier = Modifier.height(48.dp),
-                    imageVector = FontAwesomeIcons.Regular.User,
+                    imageVector = FontAwesomeIcons.Solid.ChartLine,
+                    contentDescription = ""
+                )
+            }
+
+            IconButton(
+                modifier = Modifier.weight(1f),
+                onClick = { selectPage(3) }) {
+                Icon(
+                    modifier = Modifier.height(48.dp),
+                    imageVector = FontAwesomeIcons.Solid.User,
                     contentDescription = ""
                 )
             }
