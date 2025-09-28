@@ -11,7 +11,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 
-class DefaultEventDetailComponent(
+class EventDetailComponentImpl(
     private val componentContext: ComponentContext,
     private val eventId: Long,
     private val dispatchers: CoroutineDispatchers,

@@ -24,7 +24,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 
-class DefaultInsertEventComponent(
+class InsertEventComponentImpl(
     private val componentContext: ComponentContext,
     existingEventId: Long? = null,
     venueId: Long? = null,

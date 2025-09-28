@@ -40,21 +40,21 @@ import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
-import com.github.saikcaskey.pokertracker.presentation.event.DefaultEventDetailComponent
-import com.github.saikcaskey.pokertracker.presentation.event.DefaultInsertEventComponent
+import com.github.saikcaskey.pokertracker.presentation.event.EventDetailComponentImpl
+import com.github.saikcaskey.pokertracker.presentation.event.InsertEventComponentImpl
 import com.github.saikcaskey.stats.presentation.ViewEventsComponentImpl
-import com.github.saikcaskey.pokertracker.presentation.expense.DefaultExpenseDetailComponent
-import com.github.saikcaskey.pokertracker.presentation.expense.DefaultInsertExpenseComponent
+import com.github.saikcaskey.pokertracker.presentation.expense.ExpenseDetailComponentImpl
+import com.github.saikcaskey.pokertracker.presentation.expense.InsertExpenseComponentImpl
 import com.github.saikcaskey.stats.presentation.ViewExpensesComponentImpl
-import com.github.saikcaskey.pokertracker.presentation.main.DefaultMainComponent
+import com.github.saikcaskey.pokertracker.presentation.main.MainComponentImpl
 import com.github.saikcaskey.pokertracker.planner.PlannerDayDetailComponentImpl
-import com.github.saikcaskey.pokertracker.presentation.venue.DefaultInsertVenueComponent
-import com.github.saikcaskey.pokertracker.presentation.venue.DefaultVenueDetailComponent
+import com.github.saikcaskey.pokertracker.presentation.venue.InsertVenueComponentImpl
+import com.github.saikcaskey.pokertracker.presentation.venue.VenueDetailComponentImpl
 import com.github.saikcaskey.stats.presentation.ViewVenuesComponentImpl
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.Serializable
 
-class DefaultRootComponent(
+class RootComponentImpl(
     componentContext: ComponentContext,
     private val eventRepository: EventRepository,
     private val expenseRepository: ExpenseRepository,
@@ -92,7 +92,7 @@ class DefaultRootComponent(
         Config.ViewExpenses -> ViewExpenses(viewExpensesComponent(context))
     }
 
-    private fun mainComponent(componentContext: ComponentContext): MainComponent = DefaultMainComponent(
+    private fun mainComponent(componentContext: ComponentContext): MainComponent = MainComponentImpl(
         componentContext = componentContext,
         dispatchers = dispatchers,
         onShowAllEvents = { navigator.push(Config.ViewEvents) },
@@ -114,7 +114,7 @@ class DefaultRootComponent(
     )
 
     private fun eventDetailComponent(componentContext: ComponentContext, eventId: Long): EventDetailComponent =
-        DefaultEventDetailComponent(
+        EventDetailComponentImpl(
             componentContext = componentContext,
             eventId = eventId,
             dispatchers = defaultCoroutineDispatchersProviders,
@@ -140,7 +140,7 @@ class DefaultRootComponent(
         )
 
     private fun expenseDetailComponent(componentContext: ComponentContext, expenseId: Long): ExpenseDetailComponent =
-        DefaultExpenseDetailComponent(
+        ExpenseDetailComponentImpl(
             componentContext = componentContext,
             expenseId = expenseId,
             dispatchers = dispatchers,
@@ -154,7 +154,7 @@ class DefaultRootComponent(
         )
 
     private fun venueDetailComponent(componentContext: ComponentContext, venueId: Long): VenueDetailComponent =
-        DefaultVenueDetailComponent(
+        VenueDetailComponentImpl(
             componentContext = componentContext,
             venueId = venueId,
             dispatchers = dispatchers,
@@ -201,7 +201,7 @@ class DefaultRootComponent(
         componentContext: ComponentContext,
         config: Config.InsertEvent,
     ): InsertEventComponent =
-        DefaultInsertEventComponent(
+        InsertEventComponentImpl(
             componentContext = componentContext,
             startDate = config.startDate ?: nowAsLocalDateTime().date,
             existingEventId = config.existingEventId,
@@ -217,7 +217,7 @@ class DefaultRootComponent(
         componentContext: ComponentContext,
         config: Config.InsertExpense,
     ): InsertExpenseComponent =
-        DefaultInsertExpenseComponent(
+        InsertExpenseComponentImpl(
             componentContext = componentContext,
             existingExpenseId = config.existingExpenseId,
             eventId = config.eventId,
@@ -235,7 +235,7 @@ class DefaultRootComponent(
         componentContext: ComponentContext,
         venueId: Long? = null,
     ): InsertVenueComponent =
-        DefaultInsertVenueComponent(
+        InsertVenueComponentImpl(
             componentContext = componentContext,
             existingVenueId = venueId,
             dispatchers = dispatchers,

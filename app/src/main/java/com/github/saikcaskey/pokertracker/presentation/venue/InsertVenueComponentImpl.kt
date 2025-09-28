@@ -8,7 +8,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 
-class DefaultInsertVenueComponent(
+class InsertVenueComponentImpl(
     private val componentContext: ComponentContext,
     private val existingVenueId: Long? = null,
     private val venueRepository: VenueRepository,

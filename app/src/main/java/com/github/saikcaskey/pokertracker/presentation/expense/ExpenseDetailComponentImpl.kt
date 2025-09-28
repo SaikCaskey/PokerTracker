@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class DefaultExpenseDetailComponent(
+class ExpenseDetailComponentImpl(
     private val componentContext: ComponentContext,
     private val expenseRepository: ExpenseRepository,
     private val eventRepository: EventRepository,

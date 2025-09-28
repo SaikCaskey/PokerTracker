@@ -26,7 +26,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
 
-class DefaultInsertExpenseComponent(
+class InsertExpenseComponentImpl(
     private val componentContext: ComponentContext,
     private val existingExpenseId: Long? = null,
     private val eventId: Long?,

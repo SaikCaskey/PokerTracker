@@ -25,7 +25,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.Serializable
 
-class DefaultMainComponent(
+class MainComponentImpl(
     componentContext: ComponentContext,
     private val onShowEventDetail: (Long) -> Unit,
     private val onShowExpenseDetail: (Long) -> Unit,
@@ -141,4 +141,11 @@ private fun Int.toPageTitle(): String {
         2 -> "Settings"
         else -> "Settings"
     }
+}
+
+private enum class MainMenuPagerItemType {
+    Dashboard,
+    Planner,
+    Stats,
+    Settings
 }

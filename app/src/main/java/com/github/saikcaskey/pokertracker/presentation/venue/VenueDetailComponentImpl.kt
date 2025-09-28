@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class DefaultVenueDetailComponent(
+class VenueDetailComponentImpl(
     private val componentContext: ComponentContext,
     private val venueId: Long,
     private val venueRepository: VenueRepository,
