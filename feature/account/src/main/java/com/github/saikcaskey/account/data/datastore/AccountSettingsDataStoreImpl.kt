@@ -8,9 +8,9 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
-import com.github.saikcaskey.pokertracker.domain.datastore.SettingsDataStore
+import com.github.saikcaskey.pokertracker.domain.datastore.AccountSettingsDataStore
 import com.github.saikcaskey.pokertracker.domain.models.AppInfo
-import com.github.saikcaskey.pokertracker.domain.models.SettingsData
+import com.github.saikcaskey.pokertracker.domain.models.AccountSettingsData
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference.DefaultBuyIn
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference.ShowAdvancedSettings
@@ -22,17 +22,17 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-class SettingsDataStoreImpl(
+class AccountSettingsDataStoreImpl(
     private val appInfo: AppInfo,
     private val dataStore: DataStore<Preferences>,
     dispatchers: CoroutineDispatchers,
-) : SettingsDataStore {
+) : AccountSettingsDataStore {
     private val scope = CoroutineScope(dispatchers.io)
     private val userIdPreferencesKey = stringPreferencesKey(UserId.key)
     private val showAdvancedSettingsPreferencesKey = booleanPreferencesKey(ShowAdvancedSettings.key)
     private val defaultBuyInPreferencesKey = intPreferencesKey(DefaultBuyIn.key)
 
-    override val data: Flow<SettingsData>
+    override val data: Flow<AccountSettingsData>
         get() = dataStore.data
             .catch { err -> if (err is IOException) emit(emptyPreferences()) else throw err }
             .map { it.toSettingsData(appInfo) }
@@ -62,8 +62,8 @@ class SettingsDataStoreImpl(
     }
 }
 
-private fun Preferences.toSettingsData(appInfo: AppInfo): SettingsData {
-    return SettingsData(
+private fun Preferences.toSettingsData(appInfo: AppInfo): AccountSettingsData {
+    return AccountSettingsData(
         userId = get(UserId.getStringPreference()),
         showAdvancedSettings = get(ShowAdvancedSettings.getBooleanPreference()) == true,
         defaultBuyIn = get(DefaultBuyIn.getIntPreference()),

@@ -4,7 +4,6 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.pages.*
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.subscribe
-import com.github.saikcaskey.data.utils.seedSampleData
 import com.github.saikcaskey.pokertracker.dashboard.DashboardFeatureComponentImpl
 import com.github.saikcaskey.pokertracker.di.PokerTrackerDatabaseProvider
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
@@ -15,7 +14,7 @@ import com.github.saikcaskey.pokertracker.domain.components.MainComponent
 import com.github.saikcaskey.pokertracker.domain.components.MainPagerPageComponent
 import com.github.saikcaskey.pokertracker.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.planner.PlannerFeatureComponentImpl
-import com.github.saikcaskey.pokertracker.presentation.settings.AccountFeatureComponentImpl
+import com.github.saikcaskey.pokertracker.presentation.account.AccountFeatureComponentImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
@@ -92,8 +91,7 @@ class DefaultMainComponent(
                 onShowInsertVenue = { onShowInsertVenue(null) },
                 onShowAllEvents = onShowAllEvents,
                 onShowAllExpenses = onShowAllExpenses,
-                onShowAllVenues = onShowAllVenues,
-                onSeedSampleData = { PokerTrackerDatabaseProvider.provide().seedSampleData() }
+                onShowAllVenues = onShowAllVenues
             )
 
             MainMenuPagerPageConfig.Stats -> StatsFeatureComponentImpl(

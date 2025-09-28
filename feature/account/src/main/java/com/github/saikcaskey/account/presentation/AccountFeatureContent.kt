@@ -30,8 +30,8 @@ import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.saikcaskey.pokertracker.domain.components.AccountFeatureComponent
 import com.github.saikcaskey.pokertracker.domain.models.SettingsAction
-import com.github.saikcaskey.pokertracker.domain.models.SettingsItem
-import com.github.saikcaskey.pokertracker.domain.models.SettingsItem.*
+import com.github.saikcaskey.pokertracker.domain.models.AccountSettingsItem
+import com.github.saikcaskey.pokertracker.domain.models.AccountSettingsItem.*
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 import kotlin.uuid.ExperimentalUuidApi
 
@@ -66,7 +66,7 @@ fun AccountSettingsScreenContent(
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         SettingsItemsList(
-            settingItems = uiState.settingsItems,
+            settingItems = uiState.accountSettingsItems,
             onItemPressed = { settingsItem ->
                 val linkedSettingsAction = settingsItem.linkedSettingsAction
                 if (linkedSettingsAction != null) {
@@ -88,8 +88,8 @@ fun AccountSettingsScreenContent(
 
 @Composable
 fun SettingsItemsList(
-    settingItems: List<SettingsItem>,
-    onItemPressed: ((SettingsItem) -> Unit)?,
+    settingItems: List<AccountSettingsItem>,
+    onItemPressed: ((AccountSettingsItem) -> Unit)?,
     updatePreferenceValue: (UserPreference<*>, Any?) -> Unit,
 ) {
     LazyColumn {
@@ -113,7 +113,7 @@ fun SettingsItemsList(
 @Composable
 fun SettingsButtonItem(
     itemData: Button,
-    onPressedSettingsItem: ((SettingsItem) -> Unit)?,
+    onPressedSettingsItem: ((AccountSettingsItem) -> Unit)?,
 ) {
     Button(onClick = { onPressedSettingsItem?.invoke(itemData) }) {
         Text(itemData.title.orEmpty())
@@ -140,7 +140,7 @@ fun SettingsToggleItem(
 fun SettingsTextInputItem(
     itemData: TextInput,
     onValueChange: (UserPreference<String>, newValue: String) -> Unit,
-    onItemPressed: ((SettingsItem) -> Unit)?,
+    onItemPressed: ((AccountSettingsItem) -> Unit)?,
 ) {
     val state = TextFieldState(itemData.value.orEmpty())
     LaunchedEffect(itemData.value) {

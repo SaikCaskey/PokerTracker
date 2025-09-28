@@ -1,6 +1,6 @@
 package com.github.saikcaskey.pokertracker.domain.models
 
-sealed class SettingsItem {
+sealed class AccountSettingsItem {
     abstract val title: String?
     abstract val bottomDivider: Boolean
     abstract val linkedUserPreference: UserPreference<*>?
@@ -10,7 +10,7 @@ sealed class SettingsItem {
         override val title: String? = "Header",
         override val bottomDivider: Boolean = true,
         override val linkedSettingsAction: SettingsAction? = null,
-    ) : SettingsItem() {
+    ) : AccountSettingsItem() {
         override val linkedUserPreference: UserPreference<*>? = null
     }
 
@@ -18,7 +18,7 @@ sealed class SettingsItem {
         override val title: String? = "Text",
         override val bottomDivider: Boolean = false,
         override val linkedSettingsAction: SettingsAction? = null,
-    ) : SettingsItem() {
+    ) : AccountSettingsItem() {
         override val linkedUserPreference: UserPreference<*>? = null
     }
 
@@ -26,7 +26,7 @@ sealed class SettingsItem {
         override val title: String? = "Button",
         override val bottomDivider: Boolean = false,
         override val linkedSettingsAction: SettingsAction? = null,
-    ) : SettingsItem() {
+    ) : AccountSettingsItem() {
         override val linkedUserPreference: UserPreference<*>? = null
     }
 
@@ -37,7 +37,7 @@ sealed class SettingsItem {
         override val linkedSettingsAction: SettingsAction? = null,
         override val linkedUserPreference: UserPreference<Boolean>,
         override val bottomDivider: Boolean = false,
-    ) : SettingsItem()
+    ) : AccountSettingsItem()
 
     data class Toggle(
         val value: Boolean = false,
@@ -46,7 +46,7 @@ sealed class SettingsItem {
         override val linkedUserPreference: UserPreference<Boolean>,
         override val linkedSettingsAction: SettingsAction? = null,
         override val bottomDivider: Boolean = false,
-    ) : SettingsItem()
+    ) : AccountSettingsItem()
 
     data class TextInput(
         val value: String? = null,
@@ -55,7 +55,7 @@ sealed class SettingsItem {
         override val linkedUserPreference: UserPreference<String>,
         override val linkedSettingsAction: SettingsAction? = null,
         override val bottomDivider: Boolean = false,
-    ) : SettingsItem()
+    ) : AccountSettingsItem()
 
     data class NumberInput(
         val value: Int? = null,
@@ -65,5 +65,5 @@ sealed class SettingsItem {
         override val linkedUserPreference: UserPreference<Int>,
         override val linkedSettingsAction: SettingsAction? = null,
         override val bottomDivider: Boolean = false,
-    ) : SettingsItem()
+    ) : AccountSettingsItem()
 }
