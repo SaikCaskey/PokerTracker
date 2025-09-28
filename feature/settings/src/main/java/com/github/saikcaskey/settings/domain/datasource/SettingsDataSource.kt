@@ -7,6 +7,6 @@ interface SettingsDataSource {
     val state: StateFlow<SettingsData>
 
     fun setUserId(userId: String? = null)
-    fun setShowDebugSettings(value: Boolean)
+    fun setShowAdvancedSettings(value: Boolean)
     fun setDefaultBuyIn(value: Int? = null)
 }

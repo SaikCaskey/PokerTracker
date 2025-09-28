@@ -13,7 +13,7 @@ import com.github.saikcaskey.pokertracker.domain.models.AppInfo
 import com.github.saikcaskey.pokertracker.domain.models.SettingsData
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference.DefaultBuyIn
-import com.github.saikcaskey.pokertracker.domain.models.UserPreference.ShowDebugSettings
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference.ShowAdvancedSettings
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference.UserId
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -29,7 +29,7 @@ class SettingsDataStoreImpl(
 ) : SettingsDataStore {
     private val scope = CoroutineScope(dispatchers.io)
     private val userIdPreferencesKey = stringPreferencesKey(UserId.key)
-    private val showDebugSettingsPreferencesKey = booleanPreferencesKey(ShowDebugSettings.key)
+    private val showDebugSettingsPreferencesKey = booleanPreferencesKey(ShowAdvancedSettings.key)
     private val defaultBuyInPreferencesKey = intPreferencesKey(DefaultBuyIn.key)
 
     override val data: Flow<SettingsData>
@@ -37,7 +37,7 @@ class SettingsDataStoreImpl(
             .catch { err -> if (err is IOException) emit(emptyPreferences()) else throw err }
             .map { it.toSettingsData(appInfo) }
 
-    override fun setShowDebugSettings(value: Boolean) {
+    override fun setShowAdvancedSettings(value: Boolean) {
         scope.launch {
             dataStore.edit { preferences ->
                 preferences[showDebugSettingsPreferencesKey] = value
@@ -65,7 +65,7 @@ class SettingsDataStoreImpl(
 private fun Preferences.toSettingsData(appInfo: AppInfo): SettingsData {
     return SettingsData(
         userId = get(UserId.getStringPreference()),
-        showDebugSettings = get(ShowDebugSettings.getBooleanPreference()) == true,
+        showAdvancedSettings = get(ShowAdvancedSettings.getBooleanPreference()) == true,
         defaultBuyIn = get(DefaultBuyIn.getIntPreference()),
         applicationId = appInfo.applicationId,
         isProd = appInfo.isProd,

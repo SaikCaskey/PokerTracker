@@ -23,8 +23,8 @@ class SettingsDataSourceImpl(
         dataStore.setUserId(userId)
     }
 
-    override fun setShowDebugSettings(value: Boolean) {
-        dataStore.setShowDebugSettings(value)
+    override fun setShowAdvancedSettings(value: Boolean) {
+        dataStore.setShowAdvancedSettings(value)
     }
 
     override fun setDefaultBuyIn(value: Int?) {

@@ -2,7 +2,7 @@ package com.github.saikcaskey.pokertracker.domain.models
 
 data class SettingsData(
     val userId: String? = null,
-    val showDebugSettings: Boolean = false,
+    val showAdvancedSettings: Boolean = false,
     val defaultBuyIn: Int? = null,
     val isProd: Boolean? = null,
     val applicationId: String? = null,
