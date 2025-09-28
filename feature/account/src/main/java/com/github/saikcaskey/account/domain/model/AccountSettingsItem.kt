@@ -1,4 +1,6 @@
-package com.github.saikcaskey.pokertracker.domain.models
+package com.github.saikcaskey.account.domain.model
+
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 
 sealed class AccountSettingsItem {
     abstract val title: String?

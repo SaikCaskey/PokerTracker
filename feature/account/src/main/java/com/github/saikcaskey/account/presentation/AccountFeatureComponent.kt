@@ -1,8 +1,8 @@
 package com.github.saikcaskey.account.presentation
 
 import com.github.saikcaskey.pokertracker.domain.models.AccountSettingsData
-import com.github.saikcaskey.pokertracker.domain.models.AccountSettingsItem
-import com.github.saikcaskey.pokertracker.domain.models.SettingsAction
+import com.github.saikcaskey.account.domain.model.AccountSettingsItem
+import com.github.saikcaskey.account.domain.model.SettingsAction
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 import com.github.saikcaskey.pokertracker.domain.presentation.MainPagerPageComponent
 import kotlinx.coroutines.flow.StateFlow
