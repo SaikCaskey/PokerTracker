@@ -8,5 +8,5 @@ interface AccountSettingsRepository {
 
     val state: StateFlow<AccountSettingsData>
 
-    fun <R> setUserPreference(preference: UserPreference<R>, value: R?)
+    fun setUserPreference(preference: UserPreference<*>, value: Any?)
 }

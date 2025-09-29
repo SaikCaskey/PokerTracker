@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 interface AccountFeatureComponent : MainPagerPageComponent {
     val uiState: StateFlow<UiState>
 
-    fun updatePreferenceValue(preference: UserPreference<*>, value: Any?)
+    fun  updatePreferenceValue(preference: UserPreference<*>, value: Any?)
 
     fun setRandomUserId()
     fun clearDefaultBuyIn()
@@ -18,11 +18,14 @@ interface AccountFeatureComponent : MainPagerPageComponent {
     fun addDummyData()
     fun clearAllData()
 
-    data class UiState(val accountSettingsData: AccountSettingsData = AccountSettingsData()) {
+    data class UiState(
+        val accountSettingsData: AccountSettingsData = AccountSettingsData(),
+        val userIdSuggestionsData: List<Long> = emptyList(),
+    ) {
         val accountSettingsItems = buildList {
             add(AccountSettingsItem.Header("General"))
             add(
-                AccountSettingsItem.NumberInput(
+                AccountSettingsItem.IntegerInput(
                     title = "Default Buy in:",
                     value = accountSettingsData.defaultBuyIn,
                     linkedPreference = UserPreference.DefaultBuyIn,
@@ -31,14 +34,16 @@ interface AccountFeatureComponent : MainPagerPageComponent {
             )
             add(AccountSettingsItem.Header("User"))
             add(
-                AccountSettingsItem.TextInput(
+                AccountSettingsItem.DropdownInput(
                     title = "User Id:",
-                    value = "${accountSettingsData.userId}",
+                    value = accountSettingsData.userId,
                     linkedPreference = UserPreference.UserId,
-                    linkedAction = AccountSettingsAction.SetRandomUserId
+                    linkedAction = AccountSettingsAction.SetRandomUserId,
+                    suggestions = userIdSuggestionsData
                 )
             )
             add(AccountSettingsItem.Header("Debug"))
+            add(AccountSettingsItem.InfoText("UserId: ${accountSettingsData.userId}"))
             add(AccountSettingsItem.InfoText("Hash: ${accountSettingsData.gitCommitHash}"))
             add(AccountSettingsItem.InfoText("VersionName: ${accountSettingsData.versionName}"))
             add(AccountSettingsItem.InfoText("VersionCode: ${accountSettingsData.versionCode}"))

@@ -1,7 +1,7 @@
 package com.github.saikcaskey.pokertracker.domain.models
 
 data class AccountSettingsData(
-    val userId: String? = null,
+    val userId: Long? = null,
     val showAdvancedSettings: Boolean = false,
     val defaultBuyIn: Int? = null,
     val isProd: Boolean? = null,

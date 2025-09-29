@@ -3,14 +3,16 @@ package com.github.saikcaskey.account.data.datastore
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.byteArrayPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.datastore.AccountSettingsDataStore
-import com.github.saikcaskey.pokertracker.domain.models.AppInfo
 import com.github.saikcaskey.pokertracker.domain.models.AccountSettingsData
+import com.github.saikcaskey.pokertracker.domain.models.AppInfo
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference.DefaultBuyIn
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference.ShowAdvancedSettings
@@ -27,15 +29,31 @@ class AccountSettingsDataStoreImpl(
     private val dataStore: DataStore<Preferences>,
     dispatchers: CoroutineDispatchers,
 ) : AccountSettingsDataStore {
+
     private val scope = CoroutineScope(dispatchers.io)
-    private val userIdPreferencesKey = stringPreferencesKey(UserId.key)
+    private val userIdPreferencesKey = longPreferencesKey(UserId.key)
     private val showAdvancedSettingsPreferencesKey = booleanPreferencesKey(ShowAdvancedSettings.key)
-    private val defaultBuyInPreferencesKey = intPreferencesKey(DefaultBuyIn.key)
 
     override val data: Flow<AccountSettingsData>
         get() = dataStore.data
             .catch { err -> if (err is IOException) emit(emptyPreferences()) else throw err }
             .map { it.toSettingsData(appInfo) }
+
+    override fun setUserPreference(preference: UserPreference<*>, value: Any?) {
+        when (preference) {
+            DefaultBuyIn -> setDefaultBuyIn(value as? Int)
+            ShowAdvancedSettings -> setShowAdvancedSettings(value as Boolean)
+            UserId -> setUserId(value as? Long)
+        }
+    }
+
+    override fun clearUserPreference(preference: UserPreference<*>) {
+        scope.launch {
+            dataStore.edit { preferences ->
+                preferences.remove(preference.preferenceKey)
+            }
+        }
+    }
 
     override fun setShowAdvancedSettings(value: Boolean) {
         scope.launch {
@@ -48,15 +66,18 @@ class AccountSettingsDataStoreImpl(
     override fun setDefaultBuyIn(value: Int?) {
         scope.launch {
             dataStore.edit { preferences ->
-                preferences[defaultBuyInPreferencesKey] = value ?: 0
+                preferences[DefaultBuyIn.preferenceKey] = value ?: 0
             }
         }
     }
 
-    override fun setUserId(userId: String?) {
+    override fun setUserId(userId: Long?) {
         scope.launch {
             dataStore.edit { preferences ->
-                preferences[userIdPreferencesKey] = userId.orEmpty()
+                if (userId == preferences[userIdPreferencesKey]) return@edit
+                if (userId != null) {
+                    preferences[userIdPreferencesKey] = userId
+                }
             }
         }
     }
@@ -64,9 +85,9 @@ class AccountSettingsDataStoreImpl(
 
 private fun Preferences.toSettingsData(appInfo: AppInfo): AccountSettingsData {
     return AccountSettingsData(
-        userId = get(UserId.getStringPreference()),
-        showAdvancedSettings = get(ShowAdvancedSettings.getBooleanPreference()) == true,
-        defaultBuyIn = get(DefaultBuyIn.getIntPreference()),
+        userId = get(UserId.preferenceKey),
+        showAdvancedSettings = get(ShowAdvancedSettings.preferenceKey) == true,
+        defaultBuyIn = get(DefaultBuyIn.preferenceKey),
         applicationId = appInfo.applicationId,
         isProd = appInfo.isProd,
         buildType = appInfo.buildType,
@@ -76,6 +97,16 @@ private fun Preferences.toSettingsData(appInfo: AppInfo): AccountSettingsData {
     )
 }
 
-fun UserPreference<String>.getStringPreference() = stringPreferencesKey(key)
-fun UserPreference<Boolean>.getBooleanPreference() = booleanPreferencesKey(key)
-fun UserPreference<Int>.getIntPreference() = intPreferencesKey(key)
+@Suppress("UNCHECKED_CAST")
+private val <R : Any> UserPreference<R>.preferenceKey: Preferences.Key<R>
+    get() {
+        val preference = this
+        return when (preference.type) {
+            String::class -> stringPreferencesKey(preference.key)
+            Boolean::class -> booleanPreferencesKey(preference.key)
+            Long::class -> longPreferencesKey(preference.key)
+            Int::class -> intPreferencesKey(preference.key)
+            else -> byteArrayPreferencesKey(preference.key)
+        } as Preferences.Key<R>
+    }
+

@@ -1,12 +1,11 @@
 package com.github.saikcaskey.pokertracker.domain.datasource
 
 import com.github.saikcaskey.pokertracker.domain.models.AccountSettingsData
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 import kotlinx.coroutines.flow.StateFlow
 
 interface AccountSettingsDataSource {
     val state: StateFlow<AccountSettingsData>
 
-    fun setUserId(userId: String? = null)
-    fun setShowAdvancedSettings(value: Boolean)
-    fun setDefaultBuyIn(value: Int? = null)
+    fun setUserPreference(preference: UserPreference<*>, value: Any?)
 }
