@@ -14,6 +14,7 @@ import com.github.saikcaskey.account.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.planner.presentation.PlannerFeatureComponentImpl
 import com.github.saikcaskey.account.presentation.AccountFeatureComponentImpl
 import com.github.saikcaskey.pokertracker.domain.presentation.MainPagerPageComponent
+import com.github.saikcaskey.pokertracker.domain.repository.UserRepository
 import com.github.saikcaskey.stats.presentation.StatsFeatureComponentImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,6 +41,7 @@ class MainComponentImpl(
     private val expenseRepository: ExpenseRepository,
     private val venueRepository: VenueRepository,
     private val accountSettingsRepository: AccountSettingsRepository,
+    private val userRepository: UserRepository,
     private val dispatchers: CoroutineDispatchers,
 ) : MainComponent, ComponentContext by componentContext {
 
@@ -68,6 +70,7 @@ class MainComponentImpl(
                 componentContext = childComponentContext,
                 database = PokerTrackerDatabaseProvider.provide(),
                 accountSettingsRepository = accountSettingsRepository,
+                userRepository = userRepository,
                 dispatchers = dispatchers,
             )
 
