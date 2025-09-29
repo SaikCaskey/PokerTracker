@@ -1,0 +1,32 @@
+CREATE TABLE User (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+name TEXT NOT NULL,
+created_at TEXT,
+updated_at TEXT
+);
+
+insert:
+INSERT INTO User(name, created_at)
+VALUES (?, ?);
+
+update:
+UPDATE User
+SET
+name = ?,
+updated_at = ?
+WHERE id = ?;
+
+getById:
+SELECT * FROM User WHERE id = ?;
+
+getAll:
+SELECT * FROM User ORDER BY id DESC;
+
+deleteById:
+DELETE FROM User WHERE id = :id;
+
+deleteAll:
+DELETE FROM User;
+
+lastInsertRowId:
+SELECT last_insert_rowid();
