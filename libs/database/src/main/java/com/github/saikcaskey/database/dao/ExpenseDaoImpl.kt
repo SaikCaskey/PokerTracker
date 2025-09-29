@@ -191,7 +191,7 @@ class ExpenseDaoImpl(
     }
 }
 
-fun DatabaseExpense.toDomain(): Expense {
+private fun DatabaseExpense.toDomain(): Expense {
     return Expense(
         id = id,
         eventId = event_id,

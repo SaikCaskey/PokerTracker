@@ -88,7 +88,7 @@ class VenueDaoImpl(
     }
 }
 
-fun DatabaseVenue.toDomain() = Venue(
+private fun DatabaseVenue.toDomain() = Venue(
     id = id,
     name = name,
     address = address,

@@ -198,7 +198,7 @@ class EventDaoImpl(
     }
 }
 
-fun DatabaseEvent.toDomain(): Event {
+private fun DatabaseEvent.toDomain(): Event {
     return Event(
         id = id,
         venueId = venue_id,
