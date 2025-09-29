@@ -1,55 +1,43 @@
 package com.github.saikcaskey.stats.data.repository
 
-import app.cash.sqldelight.coroutines.asFlow
-import app.cash.sqldelight.coroutines.mapToList
-import app.cash.sqldelight.coroutines.mapToOneNotNull
-import com.github.saikcaskey.pokertracker.domain.util.nowAsInstant
-import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
-import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
-import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.models.Venue
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
-import com.github.saikcaskey.stats.data.mapper.toDomain
+import com.github.saikcaskey.pokertracker.domain.dao.VenueDao
+import com.github.saikcaskey.pokertracker.domain.datasource.UserDataSource
+import com.github.saikcaskey.stats.ext.flatMapWithUserId
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import kotlin.collections.map
-import kotlin.time.Clock
-import com.github.saikcaskey.pokertracker.database.Venue as DatabaseVenue
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.emptyFlow
 
 class VenueRepositoryImpl(
-    private val database: PokerTrackerDatabase,
-    private val dispatchers: CoroutineDispatchers,
+    private val venueDao: VenueDao,
+    private val userDataSource: UserDataSource,
 ) : VenueRepository {
 
-    override fun getAll(): Flow<List<Venue>> = database.venueQueries.getAll()
-        .asFlow()
-        .mapToList(dispatchers.io)
-        .map { list -> list.map(DatabaseVenue::toDomain) }
-
-    override fun getRecent(): Flow<List<Venue>> {
-        val now = nowAsLocalDateTime()
-        val today = now.date.toString()
-
-        return database.venueQueries.getRecent(
-            beforeDate = today,
-            limit = 5
-        )
-            .asFlow()
-            .mapToList(dispatchers.io)
-            .map { list -> list.map(DatabaseVenue::toDomain) }
+    override fun getAll(): Flow<List<Venue>> {
+        return userDataSource.storedUser.flatMapWithUserId(venueDao::getAll)
     }
 
-    override fun getById(venueId: Long): Flow<Venue> = database.venueQueries.getById(venueId)
-        .asFlow()
-        .mapToOneNotNull(dispatchers.io)
-        .map(DatabaseVenue::toDomain)
+    override fun getRecent(): Flow<List<Venue>> {
+        return userDataSource.storedUser.flatMapWithUserId(venueDao::getRecent)
+    }
 
-    override suspend fun insert(name: String, address: String, description: String) {
-        database.venueQueries.insert(
+    override fun getById(venueId: Long): Flow<Venue> {
+        return userDataSource.storedUser.flatMapWithUserId { userId ->
+            venueDao.getById(userId = userId, venueId = venueId)
+        }
+    }
+
+    override suspend fun insert(
+        name: String,
+        address: String,
+        description: String,
+    ) {
+        venueDao.insert(
+            userId = userDataSource.storedUser.value?.id ?: return,
             name = name,
             address = address,
             description = description,
-            created_at = Clock.System.now().toString()
         )
     }
 
@@ -59,20 +47,20 @@ class VenueRepositoryImpl(
         address: String,
         description: String,
     ) {
-        database.venueQueries.update(
-            id = venueId,
+        venueDao.update(
+            userId = userDataSource.storedUser.value?.id ?: return,
+            venueId = venueId,
             name = name,
             address = address,
             description = description,
-            updated_at = nowAsInstant().toString(),
         )
     }
 
     override suspend fun deleteById(venueId: Long) {
-        database.venueQueries.deleteById(venueId)
+        venueDao.deleteById(userId = userDataSource.storedUser.value?.id ?: return, venueId)
     }
 
     override suspend fun deleteAll() {
-        database.venueQueries.deleteAll()
+        venueDao.deleteAll(userId = userDataSource.storedUser.value?.id ?: return)
     }
 }
