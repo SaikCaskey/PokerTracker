@@ -1,4 +1,4 @@
-package com.github.saikcaskey.account.domain.datasource
+package com.github.saikcaskey.pokertracker.domain.datasource
 
 import com.github.saikcaskey.pokertracker.domain.models.AccountSettingsData
 import kotlinx.coroutines.flow.StateFlow

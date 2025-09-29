@@ -1,7 +1,7 @@
 package com.github.saikcaskey.account.data.repository
 
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
-import com.github.saikcaskey.account.domain.datasource.AccountSettingsDataSource
+import com.github.saikcaskey.pokertracker.domain.datasource.AccountSettingsDataSource
 import com.github.saikcaskey.account.domain.repository.AccountSettingsRepository
 
 class AccountSettingsRepositoryImpl(

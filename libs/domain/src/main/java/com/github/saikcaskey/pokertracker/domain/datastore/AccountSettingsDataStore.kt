@@ -1,4 +1,4 @@
-package com.github.saikcaskey.account.domain.datastore
+package com.github.saikcaskey.pokertracker.domain.datastore
 
 import com.github.saikcaskey.pokertracker.domain.models.AccountSettingsData
 import kotlinx.coroutines.flow.Flow
