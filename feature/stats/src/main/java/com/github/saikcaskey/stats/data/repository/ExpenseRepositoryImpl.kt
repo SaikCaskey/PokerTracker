@@ -87,7 +87,7 @@ class ExpenseRepositoryImpl(
         description: String?,
     ) {
         expenseDao.insert(
-            userId = userDataSource.selectedUserId.value ?: return,
+            userId = userDataSource.storedUser.value?.id ?: return,
             eventId = eventId,
             venueId = venueId,
             type = type,
@@ -107,7 +107,7 @@ class ExpenseRepositoryImpl(
         description: String?,
     ) {
         expenseDao.update(
-            userId = userDataSource.selectedUserId.value ?: return,
+            userId = userDataSource.storedUser.value?.id ?: return,
             expenseId = expenseId,
             eventId = eventId,
             venueId = venueId,

@@ -82,7 +82,7 @@ class EventRepositoryImpl(
         val parsedLocalDate = LocalDate.parse(date.orEmpty())
         val parsedTime = LocalTime.parse(time.orEmpty())
         eventDao.insert(
-            userId = userDataSource.selectedUserId.value ?: return,
+            userId = userDataSource.storedUser.value?.id ?: return,
             venueId = venueId,
             name = name,
             date = parsedLocalDate.atTimeInstant(parsedTime).toString(),
