@@ -1,13 +1,11 @@
 package com.github.saikcaskey.stats.data.repository
 
-import com.github.saikcaskey.pokertracker.domain.models.Venue
-import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import com.github.saikcaskey.pokertracker.domain.dao.VenueDao
 import com.github.saikcaskey.pokertracker.domain.datasource.UserDataSource
+import com.github.saikcaskey.pokertracker.domain.models.Venue
+import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import com.github.saikcaskey.stats.ext.flatMapWithUserId
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.emptyFlow
 
 class VenueRepositoryImpl(
     private val venueDao: VenueDao,
