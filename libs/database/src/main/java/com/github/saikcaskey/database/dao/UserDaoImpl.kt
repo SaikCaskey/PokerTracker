@@ -1,6 +1,7 @@
 package com.github.saikcaskey.database.dao
 
 import app.cash.sqldelight.coroutines.asFlow
+import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
@@ -10,7 +11,7 @@ import com.github.saikcaskey.pokertracker.domain.extensions.asInstantOrNull
 import com.github.saikcaskey.pokertracker.domain.models.User
 import com.github.saikcaskey.pokertracker.domain.util.nowAsInstant
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import com.github.saikcaskey.pokertracker.database.User as DatabaseUser
 
 class UserDaoImpl(
@@ -18,11 +19,18 @@ class UserDaoImpl(
     private val dispatchers: CoroutineDispatchers,
 ) : UserDao {
 
+    override fun getAll(): Flow<List<User>> {
+        return database.userQueries.getAll()
+            .asFlow()
+            .mapToList(dispatchers.io)
+            .mapNotNull { users -> users.map(DatabaseUser::toDomain) }
+    }
+
     override fun getById(userId: Long): Flow<User?> {
         return database.userQueries.getById(userId)
             .asFlow()
             .mapToOneOrNull(dispatchers.io)
-            .map { it?.toDomain() }
+            .mapNotNull { it?.toDomain() }
     }
 
     override suspend fun insert(name: String) {

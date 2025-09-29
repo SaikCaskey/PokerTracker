@@ -5,6 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserDao {
 
+    fun getAll(): Flow<List<User>>
+
     fun getById(userId: Long): Flow<User?>
 
     suspend fun insert(name: String)
