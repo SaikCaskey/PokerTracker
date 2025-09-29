@@ -1,6 +1,5 @@
 package com.github.saikcaskey.database.utils
 
-import co.touchlab.kermit.Logger
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.extensions.asLocalDateTime
 import com.github.saikcaskey.pokertracker.domain.extensions.atStartOfDayInstant
@@ -25,7 +24,6 @@ class SampleDataSeederImpl : SampleDataSeeder {
     override fun seedSampleData(database: PokerTrackerDatabase) {
         database.userQueries.insert("Test User", nowAsLocalDateTime().toString())
         val userId = database.userQueries.lastInsertRowId().executeAsOne()
-        Logger.i("asd inserted test user $userId")
         repeat(5) {
             val offset = timeOffsets.random()
             val baseDate = nowAsLocalDateTime().date
@@ -62,7 +60,6 @@ class SampleDataSeederImpl : SampleDataSeeder {
             created_at = baseDate.toString()
         )
         val venueId = database.venueQueries.lastInsertRowId().executeAsOne()
-        Logger.i("asd inserted test venue $venueId")
         val gameType = listOf("CASH", "TOURNAMENT").random()
         database.eventQueries.insert(
             user_id = userId,
@@ -74,7 +71,6 @@ class SampleDataSeederImpl : SampleDataSeeder {
             created_at = baseDate.toString(),
         )
         val eventId = database.eventQueries.lastInsertRowId().executeAsOne()
-        Logger.i("asd inserted test event $eventId")
         insertSimulatedExpenses(database, userId, eventId, venueId, baseDate)
     }
 
@@ -99,8 +95,7 @@ class SampleDataSeederImpl : SampleDataSeeder {
             date = date,
             created_at = createdAt
         )
-        val buyInExpenseId = database.expenseQueries.lastInsertRowId().executeAsOne()
-        Logger.i("asd inserted test buy in $buyInExpenseId")
+        database.expenseQueries.lastInsertRowId().executeAsOne()
 
         // Add some random expenses
         val extraCount = Random.nextInt(3, 15)
@@ -118,8 +113,7 @@ class SampleDataSeederImpl : SampleDataSeeder {
                 date = baseDate.plusMinutes(extraCount).toString(),
                 created_at = createdAt
             )
-            val expenseId = database.expenseQueries.lastInsertRowId().executeAsOne()
-            Logger.i("asd inserted test expense $expenseId")
+            database.expenseQueries.lastInsertRowId().executeAsOne()
         }
 
         val cashOutAmount = Random.nextDouble(0.00, 5_000.0)
@@ -133,9 +127,7 @@ class SampleDataSeederImpl : SampleDataSeeder {
             date = date,
             created_at = createdAt
         )
-        val cashoutExpenseId = database.expenseQueries.lastInsertRowId().executeAsOne()
-        Logger.i("asd inserted test cashout $cashoutExpenseId")
-
+        database.expenseQueries.lastInsertRowId().executeAsOne()
     }
 }
 

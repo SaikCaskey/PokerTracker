@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onEmpty
 import kotlinx.coroutines.flow.stateIn
 
@@ -28,13 +27,9 @@ class UserDataSourceImpl(
 
     override val storedUser: StateFlow<User?> =
         selectedUserId.flatMapLatest { userId ->
-            Logger.i("asd finding User $userId ...")
-            (userId?.let(userDao::getById) ?: emptyFlow())
-                .onEach { Logger.i("asd found: ...$it") }
-                .onEmpty { emit(null) }
+            (userId?.let(userDao::getById) ?: emptyFlow()).onEmpty { emit(null) }
         }.stateIn(coroutineScope, Eagerly, null)
 
-    private val selectedUserId: Flow<Long?> get() = dataStore.data.map { it.userId }.distinctUntilChanged().onEach {
-        Logger.i("asd selectedUserId: $it")
-    }
+    private val selectedUserId: Flow<Long?>
+        get() = dataStore.data.map { it.userId }.distinctUntilChanged()
 }
