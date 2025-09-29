@@ -137,7 +137,7 @@ private fun Int.toPageTitle(): String {
     return when (this) {
         0 -> "Dashboard"
         1 -> "Planner"
-        2 -> "Settings"
+        2 -> "Stats"
         else -> "Settings"
     }
 }
