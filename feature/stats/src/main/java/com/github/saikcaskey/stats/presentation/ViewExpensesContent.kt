@@ -10,7 +10,6 @@ import androidx.compose.ui.unit.dp
 import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopAppBarItemViewer
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDropdownSimple
 import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedExpenseText
-import com.github.saikcaskey.stats.domain.ViewExpensesComponent
 
 @Composable
 fun ViewExpensesContent(component: ViewExpensesComponent) {

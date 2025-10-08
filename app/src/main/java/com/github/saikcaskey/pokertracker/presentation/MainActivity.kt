@@ -6,11 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.arkivanov.decompose.defaultComponentContext
 import com.github.saikcaskey.pokertracker.di.CoroutineDispatchersProvider
-import com.github.saikcaskey.pokertracker.di.EventRepositoryProvider
-import com.github.saikcaskey.pokertracker.di.ExpenseRepositoryProvider
-import com.github.saikcaskey.pokertracker.di.VenueRepositoryProvider
-import com.github.saikcaskey.pokertracker.presentation.root.DefaultRootComponent
-import com.github.saikcaskey.pokertracker.ui.root.RootContent
+import com.github.saikcaskey.stats.di.EventRepositoryProvider
+import com.github.saikcaskey.stats.di.ExpenseRepositoryProvider
+import com.github.saikcaskey.stats.di.VenueRepositoryProvider
 import com.github.saikcaskey.account.di.AccountSettingsRepositoryProvider
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +18,7 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
 
-        val root = DefaultRootComponent(
+        val root = RootComponentImpl(
             componentContext = defaultComponentContext(),
             dispatchers = CoroutineDispatchersProvider.provide(),
             eventRepository = EventRepositoryProvider.provide(),

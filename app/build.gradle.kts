@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
     implementation(project(":libs:ui-compose"))
-    implementation(project(":libs:data"))
+    implementation(project(":libs:database"))
     implementation(project(":libs:domain"))
     implementation(project(":feature:dashboard"))
     implementation(project(":feature:planner"))

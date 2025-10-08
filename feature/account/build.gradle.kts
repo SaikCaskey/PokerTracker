@@ -8,6 +8,7 @@ android {
 
 dependencies {
     implementation(project(":libs:domain"))
+    implementation(project(":libs:database"))
     implementation(project(":libs:ui-compose"))
 
     implementation(compose.ui)

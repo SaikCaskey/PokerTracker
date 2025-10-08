@@ -1,7 +1,7 @@
 package com.github.saikcaskey.account.data.datasource
 
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
-import com.github.saikcaskey.pokertracker.domain.datastore.AccountSettingsDataStore
+import com.github.saikcaskey.account.domain.datastore.AccountSettingsDataStore
 import com.github.saikcaskey.pokertracker.domain.models.AccountSettingsData
 import com.github.saikcaskey.account.domain.datasource.AccountSettingsDataSource
 import kotlinx.coroutines.CoroutineScope
