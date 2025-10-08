@@ -59,12 +59,30 @@ sealed class AccountSettingsItem {
         override val bottomDivider: Boolean = false,
     ) : AccountSettingsItem()
 
-    data class NumberInput(
+    data class IntegerInput(
         val value: Int? = null,
         val maxLength: Int = 20,
         val initialContent: String? = "Start typing...",
         override val title: String? = null,
         override val linkedPreference: UserPreference<Int>,
+        override val linkedAction: AccountSettingsAction? = null,
+        override val bottomDivider: Boolean = false,
+    ) : AccountSettingsItem()
+
+    data class LongInput(
+        val value: Long? = null,
+        val initialContent: String? = "Start typing...",
+        override val title: String? = null,
+        override val linkedPreference: UserPreference<Long>,
+        override val linkedAction: AccountSettingsAction? = null,
+        override val bottomDivider: Boolean = false,
+    ) : AccountSettingsItem()
+
+    data class DropdownInput<T>(
+        val value: T? = null,
+        val suggestions: List<T>,
+        override val title: String? = null,
+        override val linkedPreference: UserPreference<Long>,
         override val linkedAction: AccountSettingsAction? = null,
         override val bottomDivider: Boolean = false,
     ) : AccountSettingsItem()

@@ -1,47 +1,56 @@
 package com.github.saikcaskey.account.presentation
 
+import co.touchlab.kermit.Logger
 import com.arkivanov.decompose.ComponentContext
+import com.github.saikcaskey.account.domain.repository.AccountSettingsRepository
+import com.github.saikcaskey.account.presentation.AccountFeatureComponent.UiState
 import com.github.saikcaskey.database.utils.seedSampleData
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
-import com.github.saikcaskey.account.presentation.AccountFeatureComponent
+import com.github.saikcaskey.pokertracker.domain.models.User
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
-import com.github.saikcaskey.account.domain.repository.AccountSettingsRepository
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference.DefaultBuyIn
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference.UserId
+import com.github.saikcaskey.pokertracker.domain.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-import kotlin.uuid.Uuid
+import kotlin.random.Random
 
 class AccountFeatureComponentImpl(
     private val componentContext: ComponentContext,
     private val database: PokerTrackerDatabase,
     private val accountSettingsRepository: AccountSettingsRepository,
+    userRepository: UserRepository,
     dispatchers: CoroutineDispatchers,
 ) : AccountFeatureComponent, ComponentContext by componentContext {
 
     private val coroutineScope = CoroutineScope(dispatchers.io)
 
-    override val uiState: StateFlow<AccountFeatureComponent.UiState> =
-        accountSettingsRepository.state.map(AccountFeatureComponent::UiState)
-            .stateIn(coroutineScope, SharingStarted.Companion.Eagerly, AccountFeatureComponent.UiState())
+    override val uiState: StateFlow<UiState> = combine(
+        accountSettingsRepository.state,
+        userRepository.getAll().stateIn(coroutineScope, Eagerly, emptyList()),
+    ) { accountSettingsData, userIdSuggestionsData ->
+        UiState(accountSettingsData, userIdSuggestionsData.map(User::id))
+    }
+        .stateIn(coroutineScope, Eagerly, UiState())
 
     override fun updatePreferenceValue(preference: UserPreference<*>, value: Any?) {
-        @Suppress("UNCHECKED_CAST")
-        accountSettingsRepository.setUserPreference(preference as UserPreference<Any>, value)
+        accountSettingsRepository.setUserPreference(preference, value)
     }
 
     override fun setRandomUserId() {
-        accountSettingsRepository.setUserPreference(UserPreference.UserId, Uuid.Companion.random().toString())
+        accountSettingsRepository.setUserPreference(UserId, Random.nextLong(until = 100))
     }
 
     override fun clearDefaultBuyIn() {
-        accountSettingsRepository.setUserPreference(UserPreference.DefaultBuyIn, null)
+        accountSettingsRepository.setUserPreference(DefaultBuyIn, null)
     }
 
     override fun clearUserId() {
-        accountSettingsRepository.setUserPreference(UserPreference.UserId, null)
+        accountSettingsRepository.setUserPreference(UserId, null)
     }
 
     override fun addDummyData() {
@@ -49,8 +58,11 @@ class AccountFeatureComponentImpl(
     }
 
     override fun clearAllData() {
-        database.eventQueries.deleteAll()
-        database.expenseQueries.deleteAll()
-        database.venueQueries.deleteAll()
+        database.transaction {
+            database.eventQueries.deleteAll()
+            database.userQueries.deleteAll()
+            database.venueQueries.deleteAll()
+            database.expenseQueries.deleteAll()
+        }
     }
 }

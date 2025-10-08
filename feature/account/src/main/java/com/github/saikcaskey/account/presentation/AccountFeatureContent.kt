@@ -13,6 +13,7 @@ import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.maxLength
 import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.foundation.text.input.then
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
@@ -32,6 +33,9 @@ import com.github.saikcaskey.account.domain.model.AccountSettingsAction
 import com.github.saikcaskey.account.domain.model.AccountSettingsItem
 import com.github.saikcaskey.account.domain.model.AccountSettingsItem.*
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference.*
+import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputSearchableDropdownField
+import kotlinx.coroutines.flow.collectLatest
 import kotlin.uuid.ExperimentalUuidApi
 
 @OptIn(ExperimentalUuidApi::class)
@@ -40,6 +44,7 @@ fun AccountFeatureContent(
     component: AccountFeatureComponent,
 ) {
     val uiState = component.uiState.collectAsStateWithLifecycle()
+
     AccountSettingsScreenContent(
         uiState = uiState.value,
         clearUserId = component::clearUserId,
@@ -47,9 +52,7 @@ fun AccountFeatureContent(
         setRandomUserId = component::setRandomUserId,
         addDummyData = component::addDummyData,
         clearAllData = component::clearAllData,
-        updatePreferenceValue = { preference, value ->
-            component.updatePreferenceValue(preference, value)
-        }
+        updatePreferenceValue = component::updatePreferenceValue
     )
 }
 
@@ -66,6 +69,7 @@ fun AccountSettingsScreenContent(
     Column(modifier = Modifier.fillMaxSize()) {
         SettingsItemsList(
             settingItems = uiState.accountSettingsItems,
+            updatePreferenceValue = updatePreferenceValue,
             onItemPressed = { settingsItem ->
                 val linkedAction = settingsItem.linkedAction
                 if (linkedAction != null) {
@@ -77,9 +81,6 @@ fun AccountSettingsScreenContent(
                         AccountSettingsAction.ClearAllData -> clearAllData()
                     }
                 }
-            },
-            updatePreferenceValue = { preference, isToggled ->
-                updatePreferenceValue(preference, isToggled)
             },
         )
     }
@@ -99,14 +100,62 @@ fun SettingsItemsList(
                 is Header -> SettingsHeaderItem(item)
                 is InfoText -> SettingsTextItem(item) { onItemPressed?.invoke(item) }
                 is Toggle -> SettingsToggleItem(item, updatePreferenceValue)
-                is NumberInput -> SettingsNumberInputItem(item, updatePreferenceValue)
+                is IntegerInput -> SettingsIntInputItem(item, updatePreferenceValue)
+                is LongInput -> SettingsLongInputItem(item, updatePreferenceValue, onItemPressed)
                 is TextInput -> {
                     SettingsTextInputItem(item, updatePreferenceValue, onItemPressed)
+                }
+
+                is DropdownInput<*> -> {
+                    when (item.linkedPreference) {
+                        DefaultBuyIn -> SettingsDropdownInputItem(
+                            itemData = item,
+                            onItemSelected = { updatePreferenceValue(item.linkedPreference, it) },
+                            label = "DefaultBuyIn",
+                            itemToString = Any?::toString,
+                            onAddEventClicked = {},
+                        )
+
+                        ShowAdvancedSettings -> SettingsDropdownInputItem(
+                            itemData = item,
+                            onItemSelected = { updatePreferenceValue(item.linkedPreference, it) },
+                            label = "ShowAdvancedSettings",
+                            itemToString = Any?::toString,
+                            onAddEventClicked = {},
+                        )
+
+                        UserId -> SettingsDropdownInputItem(
+                            itemData = item,
+                            onItemSelected = { updatePreferenceValue(item.linkedPreference, it) },
+                            label = "UserId",
+                            itemToString = Any?::toString,
+                            onAddEventClicked = {},
+                        )
+                    }
                 }
             }
             if (item.bottomDivider) HorizontalDivider()
         }
     }
+}
+
+@Composable
+fun <T> SettingsDropdownInputItem(
+    label: String = "",
+    itemData: DropdownInput<T>,
+    itemToString: (T) -> String,
+    onItemSelected: (T) -> Unit,
+    onAddEventClicked: () -> Unit,
+) {
+    InputSearchableDropdownField(
+        label = label,
+        items = itemData.suggestions,
+        selectedItem = itemData.value,
+        filterItems = false,
+        itemToString = itemToString,
+        onItemSelected = onItemSelected,
+        onAddNewItemClicked = onAddEventClicked
+    )
 }
 
 @Composable
@@ -162,11 +211,11 @@ fun SettingsTextInputItem(
 }
 
 @Composable
-fun SettingsNumberInputItem(
-    itemData: NumberInput,
-    onValueChange: (UserPreference<Int>, newValue: Int?) -> Unit, // The callback to send updates to the Component
+fun SettingsIntInputItem(
+    itemData: IntegerInput,
+    onValueChange: (UserPreference<Int>, newValue: Int?) -> Unit,
 ) {
-    val state = rememberTextFieldState(initialText = itemData.value.toString())
+    val state = rememberTextFieldState(initialText = itemData.value?.toString().orEmpty())
 
     LaunchedEffect(itemData.value) {
         snapshotFlow(state::text).collect {
@@ -182,6 +231,40 @@ fun SettingsNumberInputItem(
         label = { Text(itemData.title.orEmpty()) },
         inputTransformation = InputTransformation.maxLength(itemData.maxLength)
             .then { if (!asCharSequence().isDigitsOnly()) revertAllChanges() },
+        lineLimits = TextFieldLineLimits.SingleLine,
+        textStyle = MaterialTheme.typography.bodyMedium,
+    )
+}
+
+@Composable
+fun SettingsLongInputItem(
+    itemData: LongInput,
+    onValueChange: (UserPreference<Long>, newValue: Long?) -> Unit,
+    onItemPressed: ((AccountSettingsItem) -> Unit)?,
+) {
+    val state = rememberTextFieldState(initialText = itemData.value?.toString().orEmpty())
+    state.setTextAndPlaceCursorAtEnd(itemData.value?.toString().orEmpty())
+
+    LaunchedEffect(itemData.value) {
+        snapshotFlow(state::text).collectLatest {
+            onValueChange(
+                itemData.linkedPreference,
+                it.toString().ifBlank { null }?.toLongOrNull()
+            )
+        }
+    }
+
+    TextField(
+        state = state,
+        label = {
+            Text(
+                modifier = Modifier.clickable(
+                    enabled = true,
+                    onClick = { onItemPressed?.invoke(itemData) }
+                ),
+                text = itemData.title.orEmpty()
+            )
+        },
         lineLimits = TextFieldLineLimits.SingleLine,
         textStyle = MaterialTheme.typography.bodyMedium,
     )

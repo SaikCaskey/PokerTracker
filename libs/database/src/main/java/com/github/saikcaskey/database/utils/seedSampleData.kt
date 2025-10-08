@@ -22,6 +22,8 @@ fun interface SampleDataSeeder {
 class SampleDataSeederImpl : SampleDataSeeder {
 
     override fun seedSampleData(database: PokerTrackerDatabase) {
+        database.userQueries.insert("Test User", nowAsLocalDateTime().toString())
+        val userId = database.userQueries.lastInsertRowId().executeAsOne()
         repeat(5) {
             val offset = timeOffsets.random()
             val baseDate = nowAsLocalDateTime().date
@@ -31,6 +33,7 @@ class SampleDataSeederImpl : SampleDataSeeder {
 
             insertVenueWithEventAndExpenses(
                 database = database,
+                userId = userId,
                 venueName = venueNames.random(),
                 description = venueDescriptions.random(),
                 eventName = eventNames.random(),
@@ -47,12 +50,19 @@ class SampleDataSeederImpl : SampleDataSeeder {
         eventName: String,
         eventDescription: String,
         baseDate: LocalDateTime,
+        userId: Long,
     ) {
-        database.venueQueries.insert(venueName, "123 Poker Ave", description, baseDate.toString())
+        database.venueQueries.insert(
+            user_id = userId,
+            name = venueName,
+            address = "123 Poker Ave",
+            description = description,
+            created_at = baseDate.toString()
+        )
         val venueId = database.venueQueries.lastInsertRowId().executeAsOne()
-
         val gameType = listOf("CASH", "TOURNAMENT").random()
         database.eventQueries.insert(
+            user_id = userId,
             venue_id = venueId,
             name = eventName,
             date = baseDate.toString(),
@@ -61,12 +71,12 @@ class SampleDataSeederImpl : SampleDataSeeder {
             created_at = baseDate.toString(),
         )
         val eventId = database.eventQueries.lastInsertRowId().executeAsOne()
-
-        insertSimulatedExpenses(database, eventId, venueId, baseDate)
+        insertSimulatedExpenses(database, userId, eventId, venueId, baseDate)
     }
 
     private fun insertSimulatedExpenses(
         database: PokerTrackerDatabase,
+        userId: Long,
         eventId: Long,
         venueId: Long,
         baseDate: LocalDateTime,
@@ -76,6 +86,7 @@ class SampleDataSeederImpl : SampleDataSeeder {
         val buyInAmount = 200.0
         // Start with a BUY_IN
         database.expenseQueries.insert(
+            user_id = userId,
             event_id = eventId,
             venue_id = venueId,
             type = "BUY_IN",
@@ -84,6 +95,8 @@ class SampleDataSeederImpl : SampleDataSeeder {
             date = date,
             created_at = createdAt
         )
+        database.expenseQueries.lastInsertRowId().executeAsOne()
+
         // Add some random expenses
         val extraCount = Random.nextInt(3, 15)
         repeat(extraCount) {
@@ -92,6 +105,7 @@ class SampleDataSeederImpl : SampleDataSeeder {
             val note = expenseDescriptions.random()
             database.expenseQueries.insert(
                 event_id = eventId,
+                user_id = userId,
                 venue_id = venueId,
                 type = type.toString(),
                 amount = amount,
@@ -99,18 +113,21 @@ class SampleDataSeederImpl : SampleDataSeeder {
                 date = baseDate.plusMinutes(extraCount).toString(),
                 created_at = createdAt
             )
+            database.expenseQueries.lastInsertRowId().executeAsOne()
         }
 
         val cashOutAmount = Random.nextDouble(0.00, 5_000.0)
         database.expenseQueries.insert(
             event_id = eventId,
             venue_id = venueId,
+            user_id = userId,
             type = "CASH_OUT",
             amount = cashOutAmount,
             description = "Cashout",
             date = date,
             created_at = createdAt
         )
+        database.expenseQueries.lastInsertRowId().executeAsOne()
     }
 }
 

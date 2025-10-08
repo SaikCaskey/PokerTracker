@@ -1,128 +1,82 @@
 package com.github.saikcaskey.stats.data.repository
 
-import app.cash.sqldelight.coroutines.*
-import com.github.saikcaskey.pokertracker.domain.extensions.atStartOfDayInstant
-import com.github.saikcaskey.pokertracker.domain.util.nowAsInstant
-import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
-import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
-import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
+import com.github.saikcaskey.pokertracker.domain.dao.ExpenseDao
+import com.github.saikcaskey.pokertracker.domain.datasource.UserDataSource
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
-import com.github.saikcaskey.stats.data.mapper.toDomain
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.flow.map
-import kotlinx.datetime.*
-import kotlin.collections.map
-import kotlin.time.Clock
+import com.github.saikcaskey.stats.ext.flatMapWithUserId
+import kotlinx.coroutines.flow.Flow
 
 class ExpenseRepositoryImpl(
-    private val database: PokerTrackerDatabase,
-    private val dispatchers: CoroutineDispatchers,
+    private val expenseDao: ExpenseDao,
+    private val userDataSource: UserDataSource,
 ) : ExpenseRepository {
 
-    override fun getAll(): Flow<List<Expense>> = database.expenseQueries.getAll()
-        .asFlow()
-        .mapToList(dispatchers.io)
-        .map { expenses -> expenses.map { expense -> expense.toDomain() } }
+    override fun getAll(): Flow<List<Expense>> {
+        return userDataSource.storedUser.flatMapWithUserId(expenseDao::getAll)
+    }
 
     override fun getUpcomingCosts(): Flow<Double> {
-        val now = nowAsLocalDateTime()
-        val tomorrow = now.date.plus(DatePeriod(days = 1)).atStartOfDayInstant().toString()
-        return database.expenseQueries.getUpcomingCosts(tomorrow)
-            .asFlow()
-            .mapToOneOrNull(dispatchers.io)
-            .map { it?.balance ?: 0.0 }
+        return userDataSource.storedUser.flatMapWithUserId(expenseDao::getUpcomingCosts)
     }
 
     override fun getRecent(): Flow<List<Expense>> {
-        val now = nowAsLocalDateTime()
-        val tomorrow = now.date.plus(DatePeriod(days = 1)).atStartOfDayInstant().toString()
-
-        return database.expenseQueries.getRecent(tomorrow, 5)
-            .asFlow()
-            .mapToList(dispatchers.io)
-            .map { expenses -> expenses.map { expense -> expense.toDomain() } }
+        return userDataSource.storedUser.flatMapWithUserId(expenseDao::getRecent)
     }
 
-    override fun getById(eventId: Long): Flow<Expense> = database.expenseQueries.getById(eventId)
-        .asFlow()
-        .mapToOneOrNull(dispatchers.io)
-        .mapNotNull { expense -> expense?.toDomain() }
-
+    override fun getById(eventId: Long): Flow<Expense> {
+        return userDataSource.storedUser.flatMapWithUserId { userId ->
+            expenseDao.getById(userId = userId, eventId = eventId)
+        }
+    }
 
     override fun getBalanceAllTime(): Flow<Double> {
-        val now = nowAsLocalDateTime()
-        val then =
-            nowAsLocalDateTime().date.minus(DatePeriod(years = 30))
-        return database.expenseQueries.getBalance(
-            startDate = then.toString(),
-            endDate = now.toString()
-        )
-            .asFlow()
-            .mapToOneOrNull(dispatchers.io)
-            .map { it?.balance ?: 0.0 }
+        return userDataSource.storedUser.flatMapWithUserId(expenseDao::getBalanceAllTime)
     }
 
     override fun getBalanceForYear(): Flow<Double> {
-        val now = nowAsLocalDateTime()
-        val oneYearAgo = now.date.minus(DatePeriod(years = 1)).atStartOfDayInstant().toString()
-        return database.expenseQueries.getBalance(
-            startDate = oneYearAgo,
-            endDate = now.toString(),
-        )
-            .asFlow()
-            .mapToOneOrNull(dispatchers.io)
-            .map { it?.balance ?: 0.0 }
+        return userDataSource.storedUser.flatMapWithUserId(expenseDao::getBalanceForYear)
     }
 
     override fun getBalanceForMonth(): Flow<Double> {
-        val now = nowAsLocalDateTime()
-        val oneMonthAgo = now.date.minus(DatePeriod(months = 1)).atStartOfDayInstant().toString()
-        return database.expenseQueries.getBalance(
-            startDate = oneMonthAgo,
-            endDate = now.toString(),
-        )
-            .asFlow()
-            .mapToOneOrNull(dispatchers.io)
-            .map { it?.balance ?: 0.0 }
+        return userDataSource.storedUser.flatMapWithUserId(expenseDao::getBalanceForMonth)
     }
 
-    override fun getEventBalance(eventId: Long): Flow<Double> =
-        database.expenseQueries.getEventBalance(eventId)
-            .asFlow()
-            .mapToOne(dispatchers.io)
-            .map { it.balance ?: 0.0 }
+    override fun getEventBalance(eventId: Long): Flow<Double> {
+        return userDataSource.storedUser.flatMapWithUserId { userId ->
+            expenseDao.getEventBalance(userId = userId, eventId = eventId)
+        }
+    }
 
-    override fun getEventCostSubtotal(eventId: Long): Flow<Double> =
-        database.expenseQueries.getEventCostsSubtotal(eventId)
-            .asFlow()
-            .mapToOne(dispatchers.io)
-            .map { it.balance ?: 0.0 }
+    override fun getEventCostSubtotal(eventId: Long): Flow<Double> {
+        return userDataSource.storedUser.flatMapWithUserId { userId ->
+            expenseDao.getEventCostSubtotal(userId = userId, eventId = eventId)
+        }
+    }
 
-    override fun getEventCashesSubtotal(eventId: Long): Flow<Double> =
-        database.expenseQueries.getEventCashesSubtotal(eventId)
-            .asFlow()
-            .mapToOne(dispatchers.io)
-            .map { it.balance ?: 0.0 }
+    override fun getEventCashesSubtotal(eventId: Long): Flow<Double> {
+        return userDataSource.storedUser.flatMapWithUserId { userId ->
+            expenseDao.getEventCashesSubtotal(userId = userId, eventId = eventId)
+        }
+    }
 
-    override fun getVenueBalance(venueId: Long): Flow<Double> =
-        database.expenseQueries.getVenueBalance(venueId)
-            .asFlow()
-            .mapToOne(dispatchers.io)
-            .map { it.balance ?: 0.0 }
+    override fun getVenueBalance(venueId: Long): Flow<Double> {
+        return userDataSource.storedUser.flatMapWithUserId { userId ->
+            expenseDao.getVenueBalance(userId = userId, venueId = venueId)
+        }
+    }
 
+    override fun getVenueCostSubtotal(venueId: Long): Flow<Double> {
+        return userDataSource.storedUser.flatMapWithUserId { userId ->
+            expenseDao.getVenueCostSubtotal(userId = userId, venueId = venueId)
+        }
+    }
 
-    override fun getVenueCostSubtotal(venueId: Long): Flow<Double> =
-        database.expenseQueries.getVenueCostsSubtotal(venueId)
-            .asFlow()
-            .mapToOne(dispatchers.io)
-            .map { it.balance ?: 0.0 }
-
-    override fun getVenueCashesSubtotal(venueId: Long): Flow<Double> =
-        database.expenseQueries.getVenueCashesSubtotal(venueId)
-            .asFlow()
-            .mapToOne(dispatchers.io)
-            .map { it.balance ?: 0.0 }
+    override fun getVenueCashesSubtotal(venueId: Long): Flow<Double> {
+        return userDataSource.storedUser.flatMapWithUserId { userId ->
+            expenseDao.getVenueCashesSubtotal(userId = userId, venueId = venueId)
+        }
+    }
 
     override suspend fun insert(
         eventId: Long?,
@@ -132,14 +86,14 @@ class ExpenseRepositoryImpl(
         date: String?,
         description: String?,
     ) {
-        database.expenseQueries.insert(
-            event_id = eventId,
-            venue_id = venueId,
+        expenseDao.insert(
+            userId = userDataSource.storedUser.value?.id ?: return,
+            eventId = eventId,
+            venueId = venueId,
             type = type,
             amount = amount,
             description = description,
             date = date,
-            created_at = Clock.System.now().toString()
         )
     }
 
@@ -152,31 +106,32 @@ class ExpenseRepositoryImpl(
         date: String?,
         description: String?,
     ) {
-        database.expenseQueries.update(
-            id = expenseId,
-            event_id = eventId,
-            venue_id = venueId,
+        expenseDao.update(
+            userId = userDataSource.storedUser.value?.id ?: return,
+            expenseId = expenseId,
+            eventId = eventId,
+            venueId = venueId,
             type = type,
             amount = amount,
             description = description,
             date = date,
-            updated_at = nowAsInstant().toString()
         )
     }
 
     override fun getByEvent(eventId: Long): Flow<List<Expense>> {
-        return database.expenseQueries.getByEvent(eventId)
-            .asFlow()
-            .mapToList(dispatchers.io)
-            .map { expenses -> expenses.map { expense -> expense.toDomain() } }
+        return userDataSource.storedUser.flatMapWithUserId { userId ->
+            expenseDao.getByEvent(userId = userId, eventId = eventId)
+        }
     }
 
-
     override suspend fun deleteById(expenseId: Long) {
-        database.expenseQueries.deleteById(expenseId)
+        expenseDao.deleteById(
+            userId = userDataSource.storedUser.value?.id ?: return,
+            expenseId = expenseId
+        )
     }
 
     override suspend fun deleteAll() {
-        database.expenseQueries.deleteAll()
+        expenseDao.deleteAll(userId = userDataSource.storedUser.value?.id ?: return)
     }
 }
