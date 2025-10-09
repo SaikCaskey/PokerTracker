@@ -97,7 +97,7 @@ fun ExpenseListItem(expense: Expense) {
     Text(expense.prettyName)
     if (!expenseDescription.isNullOrBlank()) Text(expenseDescription)
     Text("At: ${expense.date?.toUiDateTimeOrNull()}")
-    Text("Created:  ${expense.createdAt?.toUiDateTimeOrNull()}")
+    Text("Created: ${expense.createdAt?.toUiDateTimeOrNull()}")
     Text("Updated At: ${expense.updatedAt?.toUiDateTimeOrNull() ?: "Never"}")
 }
 
@@ -114,7 +114,7 @@ fun EventDetailSummary(state: EventDetailComponent.UiState) {
             if (!event?.description.isNullOrBlank()) {
                 Text(event.description.orEmpty())
             }
-            Text("Created:  ${state.event?.createdAt?.toUiDateTimeOrNull()}")
+            Text("Created: ${event?.createdAt?.toUiDateTimeOrNull()}")
             Text("Updated At: ${event?.updatedAt?.toUiDateTimeOrNull() ?: "Never"}")
         },
     )
@@ -131,7 +131,7 @@ fun EventVenueSummary(venue: Venue, onVenueClicked: (Long) -> Unit) {
             Text(venue.name)
             Text("Address: ${venue.address}")
             if (!venue.description.isNullOrBlank()) Text("Description: ${venue.description}")
-            Text("Created:  ${venue.createdAt?.toUiDateTimeOrNull()}")
+            Text("Created: ${venue.createdAt?.toUiDateTimeOrNull()}")
             Text("Updated At: ${venue.updatedAt?.toUiDateTimeOrNull() ?: "Never"}")
         },
     )
