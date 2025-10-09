@@ -23,7 +23,6 @@ interface EventRepository {
         gameType: String,
         venueId: Long? = null,
         date: String? = null,
-        time: String? = null,
         description: String? = null,
     )
 
@@ -33,7 +32,6 @@ interface EventRepository {
         gameType: String,
         venueId: Long? = null,
         date: String? = null,
-        time: String? = null,
         description: String? = null,
     )
 
