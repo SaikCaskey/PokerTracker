@@ -40,7 +40,7 @@ class InsertEventComponentImpl(
 
     private val _selectedVenueId = MutableStateFlow(venueId)
 
-    private val _inputData = MutableStateFlow(InsertEventComponent.InputData(date = startDate))
+    private val _inputData = MutableStateFlow(InsertEventComponent.InputData())
 
     private val _venues: StateFlow<List<Venue>> = venueRepository.getAll()
         .stateIn(coroutineScope, Eagerly, emptyList())
@@ -83,10 +83,11 @@ class InsertEventComponentImpl(
                 eventRepository.getById(existingEventId).collectLatest { event ->
                     _selectedVenueId.value = event?.venueId
                     _inputData.update {
+                        val storedEventDateTime = event?.date?.asLocalDateTime()
                         InsertEventComponent.InputData(
                             name = event?.name.orEmpty(),
-                            date = event?.date?.asLocalDateTime()?.date,
-                            time = event?.date?.asLocalDateTime()?.time,
+                            date = storedEventDateTime?.date ?: it.date,
+                            time = storedEventDateTime?.time ?: it.time,
                             type = event?.gameType ?: GameType.CASH,
                             description = event?.description.orEmpty(),
                         )
@@ -125,15 +126,15 @@ class InsertEventComponentImpl(
         coroutineScope.launch {
             runCatching {
                 val existingEventId = uiState.existingEventId
-                val time = uiState.inputData.time ?: nowAsLocalDateTime().time
-                val date = uiState.inputData.date?.atTimeInstant(time)
+                val inputEventTime = uiState.inputData.time ?: nowAsLocalDateTime().time
+                val inputEventDateTime = uiState.inputData.date?.atTimeInstant(inputEventTime)
 
                 if (existingEventId != null) {
                     eventRepository.update(
                         id = existingEventId,
                         venueId = uiState.venue?.id,
                         name = uiState.inputData.name,
-                        date = date?.toString(),
+                        date = inputEventDateTime?.toString(),
                         gameType = uiState.inputData.type.name,
                         description = uiState.inputData.description,
                     )
@@ -142,7 +143,7 @@ class InsertEventComponentImpl(
                         name = uiState.inputData.name,
                         gameType = uiState.inputData.type.name,
                         venueId = uiState.venue?.id,
-                        date = date?.toString(),
+                        date = inputEventDateTime?.toString(),
                         description = uiState.inputData.description,
                     )
                 }
