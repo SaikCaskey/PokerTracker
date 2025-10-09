@@ -8,9 +8,7 @@ import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.dao.ExpenseDao
 import com.github.saikcaskey.pokertracker.domain.extensions.asInstantOrNull
-import com.github.saikcaskey.pokertracker.domain.extensions.asLocalDateTimeOrNull
 import com.github.saikcaskey.pokertracker.domain.extensions.atStartOfDayInstant
-import com.github.saikcaskey.pokertracker.domain.extensions.toInstant
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.domain.util.nowAsInstant
