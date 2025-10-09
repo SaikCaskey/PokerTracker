@@ -1,5 +1,3 @@
---
--- Expense.sq -- Updated to include user_id and enforce user-specific retrieval in all SELECT queries
 CREATE TABLE Expense (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
 user_id INTEGER NOT NULL REFERENCES User(id) ON DELETE CASCADE, -- NEW
