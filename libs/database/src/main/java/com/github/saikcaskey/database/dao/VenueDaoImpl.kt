@@ -58,7 +58,7 @@ class VenueDaoImpl(
             name = name,
             address = address,
             description = description,
-            created_at = Clock.System.now().toString()
+            created_at = nowAsInstant().toString(),
         )
     }
 

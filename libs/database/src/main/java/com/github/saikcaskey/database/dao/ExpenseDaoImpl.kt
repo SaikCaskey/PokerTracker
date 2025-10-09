@@ -146,7 +146,7 @@ class ExpenseDaoImpl(
             amount = amount,
             description = description,
             date = date,
-            created_at = Clock.System.now().toString(),
+            created_at = nowAsInstant().toString(),
         )
         return result.value
     }
