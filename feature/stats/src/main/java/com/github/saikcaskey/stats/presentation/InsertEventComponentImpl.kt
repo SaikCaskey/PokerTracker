@@ -7,6 +7,8 @@ import com.github.saikcaskey.pokertracker.domain.models.GameType
 import com.github.saikcaskey.pokertracker.domain.models.Venue
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
+import com.github.saikcaskey.pokertracker.domain.util.atTimeInstant
+import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
@@ -119,28 +121,29 @@ class InsertEventComponentImpl(
     }
 
     override fun onSubmitClicked() {
-        val state = uiState.value
+        val uiState = uiState.value
         coroutineScope.launch {
             runCatching {
-                val eventId = uiState.value.existingEventId
-                if (eventId != null) {
+                val existingEventId = uiState.existingEventId
+                val time = uiState.inputData.time ?: nowAsLocalDateTime().time
+                val date = uiState.inputData.date?.atTimeInstant(time)
+
+                if (existingEventId != null) {
                     eventRepository.update(
-                        id = eventId,
-                        venueId = state.venue?.id,
-                        name = state.inputData.name,
-                        date = state.inputData.date?.toString(),
-                        time = state.inputData.time?.toString(),
-                        gameType = state.inputData.type.name,
-                        description = state.inputData.description,
+                        id = existingEventId,
+                        venueId = uiState.venue?.id,
+                        name = uiState.inputData.name,
+                        date = date?.toString(),
+                        gameType = uiState.inputData.type.name,
+                        description = uiState.inputData.description,
                     )
                 } else {
                     eventRepository.insert(
-                        venueId = state.venue?.id,
-                        name = state.inputData.name,
-                        date = state.inputData.date?.toString(),
-                        time = state.inputData.time?.toString(),
-                        gameType = state.inputData.type.name,
-                        description = state.inputData.description,
+                        name = uiState.inputData.name,
+                        gameType = uiState.inputData.type.name,
+                        venueId = uiState.venue?.id,
+                        date = date?.toString(),
+                        description = uiState.inputData.description,
                     )
                 }
             }
