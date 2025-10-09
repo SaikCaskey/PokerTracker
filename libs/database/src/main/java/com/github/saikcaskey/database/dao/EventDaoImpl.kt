@@ -148,16 +148,14 @@ class EventDaoImpl(
         description: String?,
     ) {
         database.eventQueries.transaction {
-            val parsedLocalDate = LocalDate.parse(date.orEmpty())
-            val parsedTime = LocalTime.parse(time.orEmpty())
             database.eventQueries.insert(
                 user_id = userId,
                 venue_id = venueId,
                 name = name,
-                date = parsedLocalDate.atTimeInstant(parsedTime).toString(),
+                date = date,
                 game_type = gameType,
                 description = description,
-                created_at = Clock.System.now().toString(),
+                created_at = nowAsInstant().toString(),
             )
         }
     }
