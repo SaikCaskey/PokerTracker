@@ -13,6 +13,7 @@ import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import com.github.saikcaskey.account.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.planner.presentation.PlannerFeatureComponentImpl
 import com.github.saikcaskey.account.presentation.AccountFeatureComponentImpl
+import com.github.saikcaskey.database.di.SampleDataSeederProvider
 import com.github.saikcaskey.pokertracker.domain.presentation.MainPagerPageComponent
 import com.github.saikcaskey.pokertracker.domain.repository.UserRepository
 import com.github.saikcaskey.stats.presentation.StatsFeatureComponentImpl
@@ -71,6 +72,7 @@ class MainComponentImpl(
                 database = PokerTrackerDatabaseProvider.provide(),
                 accountSettingsRepository = accountSettingsRepository,
                 userRepository = userRepository,
+                seeder = SampleDataSeederProvider.provide(),
                 dispatchers = dispatchers,
             )
 
