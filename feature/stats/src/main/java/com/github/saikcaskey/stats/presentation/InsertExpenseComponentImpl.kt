@@ -142,8 +142,8 @@ class InsertExpenseComponentImpl(
         coroutineScope.launch {
             runCatching {
                 val existingExpenseId = uiState.existingExpenseId
-                val expenseTime = uiState.inputData.time ?: nowAsLocalDateTime().time
-                val expenseDate = uiState.inputData.date?.atTimeInstant(expenseTime)
+                val parsedLocalDateTime = uiState.inputData.time ?: nowAsLocalDateTime().time
+                val parsedLocalDateAtTimeInstant = uiState.inputData.date?.atTimeInstant(parsedLocalDateTime)
 
                 if (existingExpenseId != null) {
                     expenseRepository.update(
@@ -152,9 +152,8 @@ class InsertExpenseComponentImpl(
                         venueId = uiState.venue?.id,
                         amount = amount,
                         type = uiState.inputData.type.name,
-                        date = expenseDate?.toString(),
-                        description = uiState.inputData.description.trim()
-                            .takeIf(String::isNotBlank),
+                        date = parsedLocalDateAtTimeInstant?.toString(),
+                        description = uiState.inputData.description.trim(),
                     )
                 } else {
                     expenseRepository.insert(
@@ -162,9 +161,8 @@ class InsertExpenseComponentImpl(
                         venueId = uiState.venue?.id,
                         amount = amount,
                         type = uiState.inputData.type.name,
-                        date = expenseDate.toString(),
-                        description = uiState.inputData.description.trim()
-                            .takeIf(String::isNotBlank),
+                        date = parsedLocalDateAtTimeInstant.toString(),
+                        description = uiState.inputData.description.trim(),
                     )
                 }
             }
