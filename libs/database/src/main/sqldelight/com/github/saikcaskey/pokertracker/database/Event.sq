@@ -49,7 +49,7 @@ date = ?,
 game_type = ?,
 description = ?,
 updated_at = ?
-WHERE id = ?; -- Note: The update query affects one row by ID, but the business logic should ensure the userId matches before calling this.
+WHERE id = ?;
 
 getById:
 SELECT * FROM Event WHERE user_id = :userId AND id = :eventId;
