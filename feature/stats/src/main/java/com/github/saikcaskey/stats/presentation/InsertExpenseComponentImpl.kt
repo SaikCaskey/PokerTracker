@@ -1,16 +1,16 @@
 package com.github.saikcaskey.stats.presentation
 
 import com.arkivanov.decompose.ComponentContext
-import com.github.saikcaskey.pokertracker.domain.extensions.asLocalDateTime
-import com.github.saikcaskey.pokertracker.domain.util.atTimeInstant
-import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
+import com.github.saikcaskey.pokertracker.domain.extensions.asLocalDateTime
 import com.github.saikcaskey.pokertracker.domain.models.Event
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.domain.models.Venue
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
+import com.github.saikcaskey.pokertracker.domain.util.atTimeInstant
+import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
@@ -39,7 +39,9 @@ class InsertExpenseComponentImpl(
     private val dispatchers: CoroutineDispatchers,
 ) : InsertExpenseComponent, ComponentContext by componentContext {
     private val coroutineScope = CoroutineScope(dispatchers.io)
+
     private val _inputData = MutableStateFlow(InsertExpenseComponent.InputData())
+
     private val _events = eventRepository.getAll()
     private val _venues = venueRepository.getAll()
     private val _selectedVenueId = MutableStateFlow(venueId)
@@ -84,11 +86,11 @@ class InsertExpenseComponentImpl(
                     expense.venueId?.let { _selectedVenueId.value = it }
                     expense.eventId?.let { _selectedEventId.value = it }
                     _inputData.update {
-                        val expenseTime = (expense.date?.asLocalDateTime() ?: nowAsLocalDateTime())
+                        val storedExpenseDateTime = expense.date?.asLocalDateTime()
                         InsertExpenseComponent.InputData(
                             amount = expense.amount,
-                            date = expenseTime.date,
-                            time = expenseTime.time,
+                            date = storedExpenseDateTime?.date ?: it.date,
+                            time = storedExpenseDateTime?.time ?: it.time,
                             type = expense.type,
                             description = expense.description.orEmpty(),
                         )
@@ -142,8 +144,8 @@ class InsertExpenseComponentImpl(
         coroutineScope.launch {
             runCatching {
                 val existingExpenseId = uiState.existingExpenseId
-                val expenseTime = uiState.inputData.time ?: nowAsLocalDateTime().time
-                val expenseDate = uiState.inputData.date?.atTimeInstant(expenseTime)
+                val inputExpenseTime = uiState.inputData.time ?: nowAsLocalDateTime().time
+                val inputExpenseDateTime = uiState.inputData.date?.atTimeInstant(inputExpenseTime)
 
                 if (existingExpenseId != null) {
                     expenseRepository.update(
@@ -152,9 +154,8 @@ class InsertExpenseComponentImpl(
                         venueId = uiState.venue?.id,
                         amount = amount,
                         type = uiState.inputData.type.name,
-                        date = expenseDate?.toString(),
-                        description = uiState.inputData.description.trim()
-                            .takeIf(String::isNotBlank),
+                        date = inputExpenseDateTime?.toString(),
+                        description = uiState.inputData.description.trim(),
                     )
                 } else {
                     expenseRepository.insert(
@@ -162,9 +163,8 @@ class InsertExpenseComponentImpl(
                         venueId = uiState.venue?.id,
                         amount = amount,
                         type = uiState.inputData.type.name,
-                        date = expenseDate.toString(),
-                        description = uiState.inputData.description.trim()
-                            .takeIf(String::isNotBlank),
+                        date = inputExpenseDateTime?.toString(),
+                        description = uiState.inputData.description.trim(),
                     )
                 }
             }

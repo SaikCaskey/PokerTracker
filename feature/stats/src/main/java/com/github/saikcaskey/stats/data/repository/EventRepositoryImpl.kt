@@ -4,11 +4,9 @@ import com.github.saikcaskey.pokertracker.domain.dao.EventDao
 import com.github.saikcaskey.pokertracker.domain.datasource.UserDataSource
 import com.github.saikcaskey.pokertracker.domain.models.Event
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
-import com.github.saikcaskey.pokertracker.domain.util.atTimeInstant
 import com.github.saikcaskey.stats.ext.flatMapWithUserId
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalTime
 
 class EventRepositoryImpl(
     private val eventDao: EventDao,
@@ -76,16 +74,13 @@ class EventRepositoryImpl(
         gameType: String,
         venueId: Long?,
         date: String?,
-        time: String?,
         description: String?,
     ) {
-        val parsedLocalDate = LocalDate.parse(date.orEmpty())
-        val parsedTime = LocalTime.parse(time.orEmpty())
         eventDao.insert(
             userId = userDataSource.storedUser.value?.id ?: return,
             venueId = venueId,
             name = name,
-            date = parsedLocalDate.atTimeInstant(parsedTime).toString(),
+            date = date,
             gameType = gameType,
             description = description,
         )
@@ -97,18 +92,14 @@ class EventRepositoryImpl(
         gameType: String,
         venueId: Long?,
         date: String?,
-        time: String?,
         description: String?,
     ) {
-        val parsedLocalDate = LocalDate.parse(date.orEmpty())
-        val parsedTime = LocalTime.parse(time.orEmpty())
-
         eventDao.update(
             id = id,
             userId = userDataSource.storedUser.value?.id ?: return,
             venueId = venueId,
             name = name,
-            date = parsedLocalDate.atTimeInstant(parsedTime).toString(),
+            date = date,
             gameType = gameType,
             description = description,
         )

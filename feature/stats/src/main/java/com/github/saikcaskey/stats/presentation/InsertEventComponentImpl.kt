@@ -7,6 +7,8 @@ import com.github.saikcaskey.pokertracker.domain.models.GameType
 import com.github.saikcaskey.pokertracker.domain.models.Venue
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
+import com.github.saikcaskey.pokertracker.domain.util.atTimeInstant
+import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
@@ -38,7 +40,7 @@ class InsertEventComponentImpl(
 
     private val _selectedVenueId = MutableStateFlow(venueId)
 
-    private val _inputData = MutableStateFlow(InsertEventComponent.InputData(date = startDate))
+    private val _inputData = MutableStateFlow(InsertEventComponent.InputData())
 
     private val _venues: StateFlow<List<Venue>> = venueRepository.getAll()
         .stateIn(coroutineScope, Eagerly, emptyList())
@@ -81,10 +83,11 @@ class InsertEventComponentImpl(
                 eventRepository.getById(existingEventId).collectLatest { event ->
                     _selectedVenueId.value = event?.venueId
                     _inputData.update {
+                        val storedEventDateTime = event?.date?.asLocalDateTime()
                         InsertEventComponent.InputData(
                             name = event?.name.orEmpty(),
-                            date = event?.date?.asLocalDateTime()?.date,
-                            time = event?.date?.asLocalDateTime()?.time,
+                            date = storedEventDateTime?.date ?: it.date,
+                            time = storedEventDateTime?.time ?: it.time,
                             type = event?.gameType ?: GameType.CASH,
                             description = event?.description.orEmpty(),
                         )
@@ -119,28 +122,29 @@ class InsertEventComponentImpl(
     }
 
     override fun onSubmitClicked() {
-        val state = uiState.value
+        val uiState = uiState.value
         coroutineScope.launch {
             runCatching {
-                val eventId = uiState.value.existingEventId
-                if (eventId != null) {
+                val existingEventId = uiState.existingEventId
+                val inputEventTime = uiState.inputData.time ?: nowAsLocalDateTime().time
+                val inputEventDateTime = uiState.inputData.date?.atTimeInstant(inputEventTime)
+
+                if (existingEventId != null) {
                     eventRepository.update(
-                        id = eventId,
-                        venueId = state.venue?.id,
-                        name = state.inputData.name,
-                        date = state.inputData.date?.toString(),
-                        time = state.inputData.time?.toString(),
-                        gameType = state.inputData.type.name,
-                        description = state.inputData.description,
+                        id = existingEventId,
+                        venueId = uiState.venue?.id,
+                        name = uiState.inputData.name,
+                        date = inputEventDateTime?.toString(),
+                        gameType = uiState.inputData.type.name,
+                        description = uiState.inputData.description,
                     )
                 } else {
                     eventRepository.insert(
-                        venueId = state.venue?.id,
-                        name = state.inputData.name,
-                        date = state.inputData.date?.toString(),
-                        time = state.inputData.time?.toString(),
-                        gameType = state.inputData.type.name,
-                        description = state.inputData.description,
+                        name = uiState.inputData.name,
+                        gameType = uiState.inputData.type.name,
+                        venueId = uiState.venue?.id,
+                        date = inputEventDateTime?.toString(),
+                        description = uiState.inputData.description,
                     )
                 }
             }

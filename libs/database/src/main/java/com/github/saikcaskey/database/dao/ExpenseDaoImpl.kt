@@ -1,20 +1,25 @@
 package com.github.saikcaskey.database.dao
 
-import app.cash.sqldelight.coroutines.*
+import app.cash.sqldelight.coroutines.asFlow
+import app.cash.sqldelight.coroutines.mapToList
+import app.cash.sqldelight.coroutines.mapToOne
+import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.dao.ExpenseDao
-import com.github.saikcaskey.pokertracker.domain.extensions.asInstantOrNow
 import com.github.saikcaskey.pokertracker.domain.extensions.asInstantOrNull
 import com.github.saikcaskey.pokertracker.domain.extensions.atStartOfDayInstant
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.domain.util.nowAsInstant
 import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.datetime.DatePeriod
+import kotlinx.datetime.minus
+import kotlinx.datetime.plus
 import com.github.saikcaskey.pokertracker.database.Expense as DatabaseExpense
-import kotlinx.coroutines.flow.*
-import kotlinx.datetime.*
-import kotlin.time.Clock
 
 class ExpenseDaoImpl(
     private val database: PokerTrackerDatabase,
@@ -146,7 +151,7 @@ class ExpenseDaoImpl(
             amount = amount,
             description = description,
             date = date,
-            created_at = Clock.System.now().toString(),
+            created_at = nowAsInstant().toString(),
         )
         return result.value
     }
@@ -199,8 +204,8 @@ private fun DatabaseExpense.toDomain(): Expense {
         type = ExpenseType.valueOf(type),
         amount = amount,
         description = description,
-        date = date.asInstantOrNow(),
-        createdAt = created_at.asInstantOrNow(),
-        updatedAt = updated_at.asInstantOrNull()
+        date = date.asInstantOrNull(),
+        createdAt = created_at.asInstantOrNull(),
+        updatedAt = updated_at.asInstantOrNull(),
     )
 }

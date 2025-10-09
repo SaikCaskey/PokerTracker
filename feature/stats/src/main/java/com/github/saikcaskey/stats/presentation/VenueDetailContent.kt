@@ -102,9 +102,10 @@ fun VenueDetailSummary(state: VenueDetailComponent.UiState) {
     SectionContainer(modifier = Modifier.fillMaxHeight()) {
         val venue = state.venue
         Text(venue?.name.orEmpty(), style = MaterialTheme.typography.displaySmall)
-        Text("Id: ${state.venue?.id}")
-        Text("Created:  ${state.venue?.createdAt?.toUiDateTimeOrNull()}")
-        if (state.venue?.description != null) {
+        Text("Id: ${venue?.id}")
+        Text("Created: ${venue?.createdAt?.toUiDateTimeOrNull()}")
+        Text("Updated At: ${venue?.updatedAt?.toUiDateTimeOrNull() ?: "Never"}")
+        if (venue?.description != null) {
             Spacer(Modifier.height(4.dp))
             Text(venue.description.orEmpty())
         }
@@ -121,12 +122,13 @@ fun VenueProfitSummary(
     modifier: Modifier = Modifier,
     onVenueClicked: ((Long) -> Unit)? = null,
 ) {
+    val venue = state.venue
     SectionContainer(
         title = "Venue Cashflow",
         modifier = modifier
             .fillMaxSize()
-            .clickable(state.venue?.id != null) {
-                state.venue?.id?.let { onVenueClicked?.invoke(it) }
+            .clickable(venue?.id != null) {
+                venue?.id?.let { onVenueClicked?.invoke(it) }
             }
     ) {
         Text("Expenses:")

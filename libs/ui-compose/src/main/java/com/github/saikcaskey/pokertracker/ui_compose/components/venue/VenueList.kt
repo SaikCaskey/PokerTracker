@@ -23,7 +23,7 @@ fun VenueList(items: List<Venue>, onVenueClicked: (Long) -> Unit) {
             style = MaterialTheme.typography.bodySmall
         )
         Text(
-            text = "Created:  ${venue.createdAt?.toUiDateTimeOrNull()}",
+            text = "Created: ${venue.createdAt?.toUiDateTimeOrNull()}",
             style = MaterialTheme.typography.bodySmall
         )
     }

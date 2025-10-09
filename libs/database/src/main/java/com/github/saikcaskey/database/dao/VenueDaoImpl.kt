@@ -13,7 +13,6 @@ import com.github.saikcaskey.pokertracker.domain.util.nowAsInstant
 import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlin.time.Clock
 import com.github.saikcaskey.pokertracker.database.Venue as DatabaseVenue
 
 class VenueDaoImpl(
@@ -58,7 +57,7 @@ class VenueDaoImpl(
             name = name,
             address = address,
             description = description,
-            created_at = Clock.System.now().toString()
+            created_at = nowAsInstant().toString(),
         )
     }
 
@@ -93,6 +92,6 @@ private fun DatabaseVenue.toDomain() = Venue(
     name = name,
     address = address,
     description = description,
-    createdAt = created_at.asInstantOrNow(),
+    createdAt = created_at.asInstantOrNull(),
     updatedAt = updated_at.asInstantOrNull()
 )

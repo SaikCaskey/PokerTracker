@@ -3,17 +3,14 @@ package com.github.saikcaskey.database.dao
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
-import com.github.saikcaskey.pokertracker.database.Event as DatabaseEvent
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.DEFAULT_LIMIT
 import com.github.saikcaskey.pokertracker.domain.dao.EventDao
-import com.github.saikcaskey.pokertracker.domain.extensions.asInstantOrNow
 import com.github.saikcaskey.pokertracker.domain.extensions.asInstantOrNull
 import com.github.saikcaskey.pokertracker.domain.extensions.atStartOfDayInstant
 import com.github.saikcaskey.pokertracker.domain.models.Event
 import com.github.saikcaskey.pokertracker.domain.models.GameType
-import com.github.saikcaskey.pokertracker.domain.util.atTimeInstant
 import com.github.saikcaskey.pokertracker.domain.util.nowAsInstant
 import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import kotlinx.coroutines.flow.Flow
@@ -21,9 +18,8 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalTime
 import kotlinx.datetime.plus
-import kotlin.time.Clock
+import com.github.saikcaskey.pokertracker.database.Event as DatabaseEvent
 
 class EventDaoImpl(
     private val database: PokerTrackerDatabase,
@@ -148,16 +144,14 @@ class EventDaoImpl(
         description: String?,
     ) {
         database.eventQueries.transaction {
-            val parsedLocalDate = LocalDate.parse(date.orEmpty())
-            val parsedTime = LocalTime.parse(time.orEmpty())
             database.eventQueries.insert(
                 user_id = userId,
                 venue_id = venueId,
                 name = name,
-                date = parsedLocalDate.atTimeInstant(parsedTime).toString(),
+                date = date,
                 game_type = gameType,
                 description = description,
-                created_at = Clock.System.now().toString(),
+                created_at = nowAsInstant().toString(),
             )
         }
     }
@@ -173,15 +167,12 @@ class EventDaoImpl(
         description: String?,
     ) {
         database.eventQueries.transaction {
-            val parsedLocalDate = LocalDate.parse(date.orEmpty())
-            val parsedTime = LocalTime.parse(time.orEmpty())
-
             database.eventQueries.update(
                 id = id,
                 user_id = userId,
                 venue_id = venueId,
                 name = name,
-                date = parsedLocalDate.atTimeInstant(parsedTime).toString(),
+                date = date,
                 game_type = gameType,
                 description = description,
                 updated_at = nowAsInstant().toString()
@@ -203,10 +194,10 @@ private fun DatabaseEvent.toDomain(): Event {
         id = id,
         venueId = venue_id,
         name = name,
-        date = date.asInstantOrNow(),
+        date = date.asInstantOrNull(),
         gameType = GameType.valueOf(game_type),
         description = description,
-        createdAt = created_at.asInstantOrNow(),
+        createdAt = created_at.asInstantOrNull(),
         updatedAt = updated_at.asInstantOrNull(),
     )
 }

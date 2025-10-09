@@ -20,7 +20,7 @@ fun ExpenseList(items: List<Expense>, onExpenseClicked: (Long) -> Unit) {
             style = MaterialTheme.typography.labelSmall
         )
         Text(
-            text = "Created:  ${expense.createdAt?.toUiDateTimeOrNull().orEmpty()}",
+            text = "Created: ${expense.createdAt?.toUiDateTimeOrNull()}",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.primary
         )

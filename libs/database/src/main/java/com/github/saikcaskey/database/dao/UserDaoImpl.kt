@@ -6,7 +6,6 @@ import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.dao.UserDao
-import com.github.saikcaskey.pokertracker.domain.extensions.asInstantOrNow
 import com.github.saikcaskey.pokertracker.domain.extensions.asInstantOrNull
 import com.github.saikcaskey.pokertracker.domain.models.User
 import com.github.saikcaskey.pokertracker.domain.util.nowAsInstant
@@ -58,7 +57,7 @@ private fun DatabaseUser.toDomain(): User {
     return User(
         id = id,
         name = name,
-        createdAt = created_at.asInstantOrNow(),
+        createdAt = created_at.asInstantOrNull(),
         updatedAt = updated_at.asInstantOrNull(),
     )
 }
