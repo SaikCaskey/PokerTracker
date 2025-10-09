@@ -3,7 +3,6 @@ package com.github.saikcaskey.stats.presentation
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.models.Expense
-import com.github.saikcaskey.pokertracker.domain.models.adjustedAmount
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.stats.presentation.ViewExpensesComponent.*
 import com.github.saikcaskey.stats.presentation.ViewExpensesComponent.ExpenseSortOption.*
