@@ -13,13 +13,6 @@ data class Expense(
     val createdAt: Instant? = null,
     val updatedAt: Instant? = null,
 ) {
-
-    val adjustedAmount: Double
-        get() = when (type) {
-            ExpenseType.CASH_OUT, ExpenseType.DEAL -> amount
-            else -> -amount
-        }
-
     val prettyName: String
         get() = type.name
             .replace("_", " ")

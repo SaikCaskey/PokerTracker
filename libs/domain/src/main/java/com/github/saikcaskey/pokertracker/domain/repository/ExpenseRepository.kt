@@ -8,7 +8,7 @@ interface ExpenseRepository {
     fun getRecent(): Flow<List<Expense>>
     fun getById(eventId: Long): Flow<Expense>
     fun getUpcomingCosts(): Flow<Double>
-    fun getBalanceAllTime(): Flow<Double>
+    fun getBalanceNow(): Flow<Double>
     fun getBalanceForYear(): Flow<Double>
     fun getBalanceForMonth(): Flow<Double>
     fun getByEvent(eventId: Long): Flow<List<Expense>>

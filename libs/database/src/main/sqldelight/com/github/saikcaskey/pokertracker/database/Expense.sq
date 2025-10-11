@@ -61,81 +61,35 @@ deleteAll:
 DELETE FROM Expense;
 
 getBalance:
-SELECT
-SUM(
-CASE
-WHEN type IN ('CASH_OUT', 'DEAL') THEN amount
-ELSE -amount
-END
-) AS balance
+SELECT SUM(amount) AS balance
 FROM Expense
 WHERE user_id = :userId AND date(date) BETWEEN :startDate AND :endDate;
 
 getEventBalance:
-SELECT
-SUM(
-CASE
-WHEN type IN ('CASH_OUT', 'DEAL') THEN amount
-ELSE -amount
-END
-) AS balance
+SELECT SUM(amount) AS balance
 FROM Expense
 WHERE user_id = :userId AND event_id = :eventId;
 
 getEventCostsSubtotal:
-SELECT
-SUM(
-CASE
-WHEN type NOT IN ('CASH_OUT', 'DEAL') THEN amount
-END
-) AS balance
-FROM Expense
+SELECT SUM( CASE WHEN type NOT IN ('CASH_OUT', 'DEAL') THEN amount END) AS balance FROM Expense
 WHERE user_id = :userId AND event_id = :eventId;
 
 getEventCashesSubtotal:
-SELECT
-SUM(
-CASE
-WHEN type IN ('CASH_OUT', 'DEAL') THEN amount
-END
-) AS balance
-FROM Expense
+SELECT SUM( CASE WHEN type IN ('CASH_OUT', 'DEAL') THEN amount END) AS balance FROM Expense
 WHERE user_id = :userId AND event_id = :eventId;
 
--- Cashes from all events at a venue
 getVenueCashesSubtotal:
-SELECT
-SUM(
-CASE
-WHEN type IN ('CASH_OUT', 'DEAL') THEN amount
-END
-) AS balance
-FROM Expense
+SELECT SUM( CASE WHEN type IN ('CASH_OUT', 'DEAL') THEN amount END) AS balance FROM Expense
 JOIN Event ON Expense.event_id = Event.id
 WHERE Event.user_id = :userId AND Event.venue_id = :venueId;
 
 getVenueCostsSubtotal:
-SELECT
-SUM(
-CASE
-WHEN type NOT IN ('CASH_OUT', 'DEAL') THEN amount
-END
-) AS balance
-FROM Expense
+SELECT SUM( CASE WHEN type NOT IN ('CASH_OUT', 'DEAL') THEN amount END) AS balance FROM Expense
 JOIN Event ON Expense.event_id = Event.id
 WHERE Event.user_id = :userId AND Event.venue_id = :venueId;
 
 getVenueBalance:
-SELECT
-SUM(
-CASE
-WHEN type IN ('CASH_OUT', 'DEAL') THEN amount
-ELSE -amount
-END
-) AS balance
+SELECT SUM(amount) AS balance
 FROM Expense
 JOIN Event ON Expense.event_id = Event.id
 WHERE Event.user_id = :userId AND Event.venue_id = :venueId;
-
-lastInsertRowId:
-SELECT last_insert_rowid();

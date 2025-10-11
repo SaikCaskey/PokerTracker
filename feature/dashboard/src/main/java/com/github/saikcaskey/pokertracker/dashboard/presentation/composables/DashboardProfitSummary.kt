@@ -12,16 +12,17 @@ fun DashboardProfitSummary(data: DashboardProfitSummaryData) {
     SectionContainer(
         title = "Cashflow",
         content = {
+            Text(text = "Now: ", style = MaterialTheme.typography.bodySmall)
+            AnimatedProfitText(data.nowBalance)
+            Text(text = "Year: ", style = MaterialTheme.typography.bodySmall)
+            AnimatedProfitText(data.yearBalance)
+            Text(text = "Month: ", style = MaterialTheme.typography.bodySmall)
+            AnimatedProfitText(data.monthBalance)
+
             if (data.upcomingCosts < 0) {
                 Text(text = "Upcoming Expenses: ", style = MaterialTheme.typography.bodySmall)
                 AnimatedProfitText(data.upcomingCosts)
             }
-            Text(text = "This Month: ", style = MaterialTheme.typography.bodySmall)
-            AnimatedProfitText(data.monthBalance)
-            Text(text = "This Year: ", style = MaterialTheme.typography.bodySmall)
-            AnimatedProfitText(data.yearBalance)
-            Text(text = "All Time: ", style = MaterialTheme.typography.bodySmall)
-            AnimatedProfitText(data.nowBalance)
         },
     )
 }

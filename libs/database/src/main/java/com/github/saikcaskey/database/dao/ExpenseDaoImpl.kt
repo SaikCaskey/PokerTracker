@@ -57,10 +57,9 @@ class ExpenseDaoImpl(
             .mapNotNull { expense -> expense?.toDomain() }
 
 
-    override fun getBalanceAllTime(userId: Long): Flow<Double> {
+    override fun getBalanceNow(userId: Long): Flow<Double> {
         val now = nowAsLocalDateTime()
-        val then =
-            nowAsLocalDateTime().date.minus(DatePeriod(years = 30))
+        val then = nowAsLocalDateTime().date.minus(DatePeriod(years = 30))
         return database.expenseQueries.getBalance(
             userId = userId,
             startDate = then.toString(),
