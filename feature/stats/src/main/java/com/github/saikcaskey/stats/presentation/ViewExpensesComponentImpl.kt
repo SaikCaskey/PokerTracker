@@ -44,8 +44,8 @@ class ViewExpensesComponentImpl(
                 }
                 .sortedWith(
                     when (searchFilter.sort) {
-                        AMOUNT_ASC -> compareBy(Expense::adjustedAmount)
-                        AMOUNT_DESC -> compareByDescending(Expense::adjustedAmount)
+                        AMOUNT_ASC -> compareBy(Expense::amount)
+                        AMOUNT_DESC -> compareByDescending(Expense::amount)
                         ID_ASC -> compareBy(Expense::id)
                         ID_DESC -> compareByDescending(Expense::id)
                         CREATED_AT_ASC -> compareBy(Expense::createdAt)

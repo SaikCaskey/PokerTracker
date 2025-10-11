@@ -134,7 +134,7 @@ fun VenueProfitSummary(
         Text("Expenses:")
         AnimatedProfitText(
             state.profitSummary.costsSubtotal,
-            forcedColor = (-state.profitSummary.costsSubtotal).toProfitColor(),
+            forcedColor = (state.profitSummary.costsSubtotal).toProfitColor(),
             style = MaterialTheme.typography.titleMedium.copy(fontSize = 26.sp)
         )
         Text("Cashout:")

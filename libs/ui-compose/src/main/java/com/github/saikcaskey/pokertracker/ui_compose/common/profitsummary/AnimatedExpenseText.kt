@@ -7,7 +7,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.text.TextStyle
 import com.github.saikcaskey.pokertracker.domain.extensions.formatAsCurrency
 import com.github.saikcaskey.pokertracker.domain.models.Expense
-import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.ui_compose.extensions.toExpenseColor
 
 @Composable
@@ -27,11 +26,7 @@ fun AnimatedExpenseText(
         label = "ColorAnimation"
     )
 
-    val displayText = if (expense.type != ExpenseType.CASH_OUT && expense.type != ExpenseType.DEAL) {
-        (-animatedBalance).toDouble().formatAsCurrency()
-    } else {
-        animatedBalance.toDouble().formatAsCurrency()
-    }
+    val displayText = animatedBalance.toDouble().formatAsCurrency()
 
     Text(
         text = displayText,

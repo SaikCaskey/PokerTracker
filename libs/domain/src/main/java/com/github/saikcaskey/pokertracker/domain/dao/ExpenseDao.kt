@@ -8,7 +8,7 @@ interface ExpenseDao {
     fun getRecent(userId: Long): Flow<List<Expense>>
     fun getById(userId: Long, eventId: Long): Flow<Expense>
     fun getUpcomingCosts(userId: Long): Flow<Double>
-    fun getBalanceAllTime(userId: Long): Flow<Double>
+    fun getBalanceNow(userId: Long): Flow<Double>
     fun getBalanceForYear(userId: Long): Flow<Double>
     fun getBalanceForMonth(userId: Long): Flow<Double>
     fun getByEvent(userId: Long, eventId: Long): Flow<List<Expense>>

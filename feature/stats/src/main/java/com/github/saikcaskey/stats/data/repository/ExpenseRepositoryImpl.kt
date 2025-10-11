@@ -30,8 +30,8 @@ class ExpenseRepositoryImpl(
         }
     }
 
-    override fun getBalanceAllTime(): Flow<Double> {
-        return userDataSource.storedUser.flatMapWithUserId(expenseDao::getBalanceAllTime)
+    override fun getBalanceNow(): Flow<Double> {
+        return userDataSource.storedUser.flatMapWithUserId(expenseDao::getBalanceNow)
     }
 
     override fun getBalanceForYear(): Flow<Double> {
