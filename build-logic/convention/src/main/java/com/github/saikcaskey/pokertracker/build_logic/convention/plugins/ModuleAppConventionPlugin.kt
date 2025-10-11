@@ -8,7 +8,9 @@ import com.github.saikcaskey.pokertracker.build_logic.convention.extensions.libs
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedBuildFeatures
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedBuildTypes
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedCompileOptions
+import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedDefaultConfig
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedFlavors
+import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedPackaging
 import com.github.saikcaskey.pokertracker.build_logic.convention.utils.gitCommitHash
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -33,7 +35,6 @@ class ModuleAppConventionPlugin : Plugin<Project> {
 
                 defaultConfig {
                     applicationId = "com.github.saikcaskey.pokertracker"
-                    minSdk = libs.getVersionInt("android-minsdk")
                     targetSdk = libs.getVersionInt("android-targetsdk")
                     versionCode = 3
                     versionName = "0.1.2"
@@ -54,6 +55,7 @@ class ModuleAppConventionPlugin : Plugin<Project> {
                 configureSharedPackaging()
                 configureSharedFlavors()
                 configureSharedCompileOptions()
+                configureSharedDefaultConfig(this)
             }
 
             configureExtension<KotlinAndroidExtension> {

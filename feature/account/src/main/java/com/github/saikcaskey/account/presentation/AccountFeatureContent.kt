@@ -50,7 +50,7 @@ fun AccountFeatureContent(
         clearUserId = component::clearUserId,
         clearDefaultBuyIn = component::clearDefaultBuyIn,
         setRandomUserId = component::setRandomUserId,
-        addDummyData = component::addDummyData,
+        addDummyData = component::seed,
         clearAllData = component::clearAllData,
         updatePreferenceValue = component::updatePreferenceValue
     )
@@ -62,7 +62,7 @@ fun AccountSettingsScreenContent(
     clearUserId: () -> Unit,
     clearDefaultBuyIn: () -> Unit,
     setRandomUserId: () -> Unit,
-    addDummyData: () -> Unit,
+    addDummyData: (AccountSettingsAction.SeedData) -> Unit,
     clearAllData: () -> Unit,
     updatePreferenceValue: (UserPreference<*>, Any?) -> Unit,
 ) {
@@ -71,15 +71,17 @@ fun AccountSettingsScreenContent(
             settingItems = uiState.accountSettingsItems,
             updatePreferenceValue = updatePreferenceValue,
             onItemPressed = { settingsItem ->
-                val linkedAction = settingsItem.linkedAction
-                if (linkedAction != null) {
-                    when (linkedAction) {
-                        AccountSettingsAction.ClearDefaultBuyIn -> clearDefaultBuyIn()
-                        AccountSettingsAction.ClearUserId -> clearUserId()
-                        AccountSettingsAction.SetRandomUserId -> setRandomUserId()
-                        AccountSettingsAction.AddDummyData -> addDummyData()
-                        AccountSettingsAction.ClearAllData -> clearAllData()
-                    }
+                val action = settingsItem.linkedAction
+                when (action) {
+                    AccountSettingsAction.ClearDefaultBuyIn -> clearDefaultBuyIn()
+                    AccountSettingsAction.ClearUserId -> clearUserId()
+                    AccountSettingsAction.SetRandomUserId -> setRandomUserId()
+                    is AccountSettingsAction.SeedData.SmokeTest -> addDummyData(action)
+                    is AccountSettingsAction.SeedData.BadDay -> addDummyData(action)
+                    is AccountSettingsAction.SeedData.GoodDay -> addDummyData(action)
+                    is AccountSettingsAction.SeedData.User -> addDummyData(action)
+                    AccountSettingsAction.ClearAllData -> clearAllData()
+                    null -> Unit
                 }
             },
         )

@@ -9,7 +9,9 @@ import com.github.saikcaskey.pokertracker.build_logic.convention.extensions.libs
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedBuildFeatures
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedBuildTypes
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedCompileOptions
+import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedDefaultConfig
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedFlavors
+import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedPackaging
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidExtension
@@ -30,18 +32,11 @@ class ModuleLibraryConventionPlugin : Plugin<Project> {
                 configureSharedPackaging()
                 configureSharedFlavors()
                 configureSharedCompileOptions()
+                configureSharedDefaultConfig(this)
             }
             configureExtension<KotlinAndroidExtension> {
                 jvmToolchain(libs.getVersionInt("jvmTarget"))
             }
-        }
-    }
-}
-
-internal fun CommonExtension<*, *, *, *, *, *>.configureSharedPackaging() {
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
 }

@@ -10,12 +10,12 @@ import kotlinx.coroutines.flow.StateFlow
 interface AccountFeatureComponent : MainPagerPageComponent {
     val uiState: StateFlow<UiState>
 
-    fun  updatePreferenceValue(preference: UserPreference<*>, value: Any?)
+    fun updatePreferenceValue(preference: UserPreference<*>, value: Any?)
 
     fun setRandomUserId()
     fun clearDefaultBuyIn()
     fun clearUserId()
-    fun addDummyData()
+    fun seed(action: AccountSettingsAction.SeedData)
     fun clearAllData()
 
     data class UiState(
@@ -70,8 +70,26 @@ interface AccountFeatureComponent : MainPagerPageComponent {
                 )
                 add(
                     AccountSettingsItem.Button(
-                        title = "Add Dummy Data",
-                        linkedAction = AccountSettingsAction.AddDummyData
+                        title = "Seed - Add User",
+                        linkedAction = AccountSettingsAction.SeedData.User
+                    )
+                )
+                add(
+                    AccountSettingsItem.Button(
+                        title = "Seed - SmokeTest",
+                        linkedAction = AccountSettingsAction.SeedData.SmokeTest
+                    )
+                )
+                add(
+                    AccountSettingsItem.Button(
+                        title = "Seed - GoodDay",
+                        linkedAction = AccountSettingsAction.SeedData.GoodDay
+                    )
+                )
+                add(
+                    AccountSettingsItem.Button(
+                        title = "Seed - BadDay",
+                        linkedAction = AccountSettingsAction.SeedData.BadDay
                     )
                 )
             }

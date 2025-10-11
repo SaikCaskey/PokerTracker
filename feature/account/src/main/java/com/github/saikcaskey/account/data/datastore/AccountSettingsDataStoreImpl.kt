@@ -85,7 +85,7 @@ class AccountSettingsDataStoreImpl(
 
 private fun Preferences.toSettingsData(appInfo: AppInfo): AccountSettingsData {
     return AccountSettingsData(
-        userId = get(UserId.preferenceKey),
+        userId = runCatching { get(UserId.preferenceKey) as Long}.getOrNull(),
         showAdvancedSettings = get(ShowAdvancedSettings.preferenceKey) == true,
         defaultBuyIn = get(DefaultBuyIn.preferenceKey),
         applicationId = appInfo.applicationId,
