@@ -1,6 +1,7 @@
 package com.github.saikcaskey.stats.presentation
 
-import com.github.saikcaskey.pokertracker.domain.models.Event
+import com.github.saikcaskey.pokertracker.domain.models.EventSummary
+import com.github.saikcaskey.pokertracker.domain.models.ExpenseSummary
 import com.github.saikcaskey.pokertracker.domain.models.ProfitSummary
 import com.github.saikcaskey.pokertracker.domain.models.Venue
 import kotlinx.coroutines.flow.StateFlow
@@ -18,9 +19,8 @@ interface VenueDetailComponent {
     data class UiState(
         val id: Long? = null,
         val venue: Venue? = null,
-        val pastEvents: List<Event> = emptyList(),
-        val upcomingEvents: List<Event> = emptyList(),
-        val todayEvents: List<Event> = emptyList(),
+        val eventSummary: EventSummary = EventSummary(),
+        val expenseSummary: ExpenseSummary = ExpenseSummary(),
         val profitSummary: ProfitSummary = ProfitSummary(),
     )
 }

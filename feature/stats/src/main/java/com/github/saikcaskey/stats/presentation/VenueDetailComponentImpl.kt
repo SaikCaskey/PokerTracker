@@ -2,6 +2,8 @@ package com.github.saikcaskey.stats.presentation
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
+import com.github.saikcaskey.pokertracker.domain.models.EventSummary
+import com.github.saikcaskey.pokertracker.domain.models.ExpenseSummary
 import com.github.saikcaskey.pokertracker.domain.models.ProfitSummary
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
@@ -9,9 +11,9 @@ import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import com.github.saikcaskey.stats.presentation.VenueDetailComponent.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -21,7 +23,7 @@ class VenueDetailComponentImpl(
     private val venueId: Long,
     private val venueRepository: VenueRepository,
     eventRepository: EventRepository,
-    expenseRepository: ExpenseRepository,
+    private val expenseRepository: ExpenseRepository,
     private val onShowInsertEvent: () -> Unit,
     private val onShowEventDetail: (Long) -> Unit,
     private val onShowEditVenue: () -> Unit,
@@ -33,6 +35,10 @@ class VenueDetailComponentImpl(
 
     private val venue = venueRepository.getById(venueId)
         .stateIn(coroutineScope, Eagerly, null)
+
+    private val expenseSummary = venue.flatMapLatest { venue ->
+        expenseRepository.getByVenue(venueId).map(::ExpenseSummary)
+    }.stateIn(coroutineScope, Eagerly, ExpenseSummary())
 
     private val profitSummary = venue.flatMapLatest { venue ->
         combine(
@@ -48,22 +54,38 @@ class VenueDetailComponentImpl(
         }
     }.stateIn(coroutineScope, Eagerly, ProfitSummary())
 
-    override val uiState: StateFlow<UiState> = combine(
+    private val eventSummary = venue.flatMapLatest { venue ->
+        combine(
+            eventRepository.getByVenue(venueId),
+            eventRepository.getUpcomingByVenue(venueId),
+            eventRepository.getTodayByVenue(venueId),
+            ::EventSummary,
+        )
+    }.stateIn(coroutineScope, Eagerly, EventSummary())
+
+    override val uiState = combine(
         venue,
-        eventRepository.getUpcomingByVenue(venueId),
-        eventRepository.getByVenue(venueId),
-        eventRepository.getTodayByVenue(venueId),
+        eventSummary,
+        expenseSummary,
         profitSummary
-    ) { venue, upcomingEvents, pastEvents, todayEvents,  profitSummary ->
+    ) { venue, eventSummary, expenseSummary, profitSummary ->
         UiState(
             id = venueId,
             venue = venue,
-            upcomingEvents = upcomingEvents,
-            pastEvents = pastEvents,
-            todayEvents = todayEvents,
+            eventSummary = eventSummary,
+            expenseSummary = expenseSummary,
             profitSummary = profitSummary
         )
-    }.stateIn(coroutineScope, Eagerly, UiState(id = venueId, profitSummary = profitSummary.value))
+    }.stateIn(
+        coroutineScope,
+        Eagerly,
+        UiState(
+            id = venueId,
+            profitSummary = profitSummary.value,
+            eventSummary = eventSummary.value,
+            expenseSummary = expenseSummary.value,
+        )
+    )
 
     override fun onBackClicked() = onFinished()
     override fun onShowInsertEventClicked() = onShowInsertEvent()
