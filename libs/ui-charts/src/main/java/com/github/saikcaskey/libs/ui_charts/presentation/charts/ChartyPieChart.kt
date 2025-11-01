@@ -8,14 +8,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.unit.dp
 import com.github.saikcaskey.libs.ui_charts.domain.model.ChartDataItem
+import com.github.saikcaskey.libs.ui_charts.presentation.extensions.toAdaptiveColor
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.himanshoe.charty.common.asSolidChartColor
 import com.himanshoe.charty.pie.PieChart
 import com.himanshoe.charty.pie.model.PieChartData
-import com.materialkolor.palettes.TonalPalette
 
 @Composable
 fun ChartyPieChart(
@@ -46,14 +45,4 @@ fun ChartyPieChart(
             }
         )
     }
-}
-
-@Composable
-fun ExpenseType.toAdaptiveColor(): Color {
-    val uniqueId = name.hashCode()
-    val hue = (uniqueId % 360 + 360) % 360.0
-    val targetChroma = 48.0
-    val palette = TonalPalette.fromHueAndChroma(hue, targetChroma)
-    val isDarkTheme = MaterialTheme.colorScheme.background.luminance() < 0.5f
-    return if (isDarkTheme) Color(palette.tone(70)) else Color(palette.tone(40))
 }

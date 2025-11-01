@@ -1,4 +1,4 @@
-package com.github.saikcaskey.stats.ext
+package com.github.saikcaskey.stats.extensions
 
 import com.github.saikcaskey.pokertracker.domain.models.User
 import kotlinx.coroutines.flow.Flow

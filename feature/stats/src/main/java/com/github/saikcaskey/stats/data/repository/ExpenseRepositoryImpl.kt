@@ -5,7 +5,7 @@ import com.github.saikcaskey.pokertracker.domain.datasource.UserDataSource
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
-import com.github.saikcaskey.stats.ext.flatMapWithUserId
+import com.github.saikcaskey.stats.extensions.flatMapWithUserId
 import kotlinx.coroutines.flow.Flow
 import kotlin.math.abs
 
