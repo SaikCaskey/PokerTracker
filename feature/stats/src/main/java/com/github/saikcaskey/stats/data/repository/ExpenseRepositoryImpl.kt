@@ -3,9 +3,11 @@ package com.github.saikcaskey.stats.data.repository
 import com.github.saikcaskey.pokertracker.domain.dao.ExpenseDao
 import com.github.saikcaskey.pokertracker.domain.datasource.UserDataSource
 import com.github.saikcaskey.pokertracker.domain.models.Expense
+import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.stats.ext.flatMapWithUserId
 import kotlinx.coroutines.flow.Flow
+import kotlin.math.abs
 
 class ExpenseRepositoryImpl(
     private val expenseDao: ExpenseDao,
@@ -24,9 +26,17 @@ class ExpenseRepositoryImpl(
         return userDataSource.storedUser.flatMapWithUserId(expenseDao::getRecent)
     }
 
+            expenseDao.getByEvent(userId = userId, eventId = eventId)
+        }
+    }
+
     override fun getById(eventId: Long): Flow<Expense> {
         return userDataSource.storedUser.flatMapWithUserId { userId ->
             expenseDao.getById(userId = userId, eventId = eventId)
+        }
+    }
+
+            expenseDao.getByVenue(userId = userId, venueId = venueId)
         }
     }
 
@@ -82,7 +92,7 @@ class ExpenseRepositoryImpl(
         eventId: Long?,
         venueId: Long?,
         amount: Double,
-        type: String,
+        type: ExpenseType,
         date: String?,
         description: String?,
     ) {
@@ -90,8 +100,8 @@ class ExpenseRepositoryImpl(
             userId = userDataSource.storedUser.value?.id ?: return,
             eventId = eventId,
             venueId = venueId,
-            type = type,
-            amount = amount,
+            type = type.name,
+            amount = amount.adjustedForType(type),
             description = description,
             date = date,
         )
@@ -102,7 +112,7 @@ class ExpenseRepositoryImpl(
         eventId: Long?,
         venueId: Long?,
         amount: Double,
-        type: String,
+        type: ExpenseType,
         date: String?,
         description: String?,
     ) {
@@ -111,17 +121,11 @@ class ExpenseRepositoryImpl(
             expenseId = expenseId,
             eventId = eventId,
             venueId = venueId,
-            type = type,
-            amount = amount,
+            type = type.name,
+            amount = amount.adjustedForType(type),
             description = description,
             date = date,
         )
-    }
-
-    override fun getByEvent(eventId: Long): Flow<List<Expense>> {
-        return userDataSource.storedUser.flatMapWithUserId { userId ->
-            expenseDao.getByEvent(userId = userId, eventId = eventId)
-        }
     }
 
     override suspend fun deleteById(expenseId: Long) {
@@ -133,5 +137,13 @@ class ExpenseRepositoryImpl(
 
     override suspend fun deleteAll() {
         expenseDao.deleteAll(userId = userDataSource.storedUser.value?.id ?: return)
+    }
+}
+
+private fun Double.adjustedForType(expenseType: ExpenseType): Double {
+    return if (expenseType == ExpenseType.CASH_OUT || expenseType == ExpenseType.DEAL) {
+        this
+    } else {
+        abs(this) * -1
     }
 }

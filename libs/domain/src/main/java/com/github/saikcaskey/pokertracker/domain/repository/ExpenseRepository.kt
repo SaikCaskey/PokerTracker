@@ -1,6 +1,7 @@
 package com.github.saikcaskey.pokertracker.domain.repository
 
 import com.github.saikcaskey.pokertracker.domain.models.Expense
+import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import kotlinx.coroutines.flow.Flow
 
 interface ExpenseRepository {
@@ -22,7 +23,7 @@ interface ExpenseRepository {
         eventId: Long?,
         venueId: Long?,
         amount: Double,
-        type: String,
+        type: ExpenseType,
         date: String? = null,
         description: String? = null,
     )
@@ -32,7 +33,7 @@ interface ExpenseRepository {
         eventId: Long?,
         venueId: Long?,
         amount: Double,
-        type: String,
+        type: ExpenseType,
         date: String? = null,
         description: String? = null,
     )
