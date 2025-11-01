@@ -147,7 +147,7 @@ class SampleDataSeederImpl(
         cashOutAmount: Double,
     ) {
         val expenseList = mutableListOf<ExpenseSeedData>()
-        val buyInAmount = 200.0
+        val buyInAmount = -200.0
 
         expenseList.add(
             ExpenseSeedData(
@@ -161,7 +161,7 @@ class SampleDataSeederImpl(
         val extraCount = Random.nextInt(3, 8)
         repeat(extraCount) { index ->
             val type = randomExpenseTypes.random()
-            val amount = type.randomExpenseAmount()
+            val amount = type.randomExpenseAmount() * -1
             val note = expenseDescriptions.random()
             expenseList.add(
                 ExpenseSeedData(
