@@ -26,6 +26,8 @@ class ExpenseRepositoryImpl(
         return userDataSource.storedUser.flatMapWithUserId(expenseDao::getRecent)
     }
 
+    override fun getByEvent(eventId: Long): Flow<List<Expense>> {
+        return userDataSource.storedUser.flatMapWithUserId { userId ->
             expenseDao.getByEvent(userId = userId, eventId = eventId)
         }
     }
@@ -36,6 +38,8 @@ class ExpenseRepositoryImpl(
         }
     }
 
+    override fun getByVenue(venueId: Long): Flow<List<Expense>> {
+        return userDataSource.storedUser.flatMapWithUserId { userId ->
             expenseDao.getByVenue(userId = userId, venueId = venueId)
         }
     }

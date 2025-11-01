@@ -7,12 +7,13 @@ import kotlinx.coroutines.flow.Flow
 interface ExpenseRepository {
     fun getAll(): Flow<List<Expense>>
     fun getRecent(): Flow<List<Expense>>
+    fun getByEvent(eventId: Long): Flow<List<Expense>>
     fun getById(eventId: Long): Flow<Expense>
+    fun getByVenue(venueId: Long): Flow<List<Expense>>
     fun getUpcomingCosts(): Flow<Double>
     fun getBalanceNow(): Flow<Double>
     fun getBalanceForYear(): Flow<Double>
     fun getBalanceForMonth(): Flow<Double>
-    fun getByEvent(eventId: Long): Flow<List<Expense>>
     fun getEventBalance(eventId: Long): Flow<Double>
     fun getEventCostSubtotal(eventId: Long): Flow<Double>
     fun getEventCashesSubtotal(eventId: Long): Flow<Double>
