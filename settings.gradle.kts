@@ -3,6 +3,7 @@
 include(":app")
 include(":libs:database")
 include(":libs:domain")
+include(":libs:ui-charts")
 include(":libs:ui-compose")
 include(":feature:dashboard")
 include(":feature:planner")
