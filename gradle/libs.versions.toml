@@ -1,24 +1,23 @@
 [versions]
 
-agp = "8.11.1"
 android-minsdk = "26"
 android-compilesdk = "36"
 android-targetsdk = "36"
+jvmTarget = "21"
+agp = "8.13.0"
 androidDriver = "2.1.0"
-cmpcharts = "2.0.6"
-composeMultiplatform = "2.8.0"
+composeMultiplatform = "2.9.0"
 coroutinesExtensions = "2.1.0"
 datastore = "1.1.7"
 datastorePreferences = "1.1.7"
-jvmTarget = "21"
-kotlin = "2.2.0"
+kotlin = "2.2.21"
 kotlinxDatetime = "0.7.1"
-materialKolor = "3.0.1"
+materialKolor = "5.0.0-alpha02"
 
-androidx-activityCompose = "1.10.1"
-compose-jetbrains = "1.8.2"
+androidx-activityCompose = "1.11.0"
+compose-jetbrains = "1.9.2"
 compose-icons = "1.1.1"
-decompose = "3.3.0"
+decompose = "3.4.0"
 essenty = "2.5.0"
 koin = "4.1.1"
 
@@ -43,6 +42,7 @@ androidx-datastore-preferences = { module = "androidx.datastore:datastore-prefer
 androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
 br-compose-icons-font-awesome = { module = "br.com.devsrsouza.compose.icons:font-awesome", version.ref = "compose-icons" }
 compose-multiplatform-calendar = { module = "com.kizitonwose.calendar:compose-multiplatform", version.ref = "composeMultiplatform" }
+charty = { module = "com.himanshoe:charty", version = "1.9.4" }
 decompose-decompose = { group = "com.arkivanov.decompose", name = "decompose", version.ref = "decompose" }
 decompose-extensionsComposeJetbrains = { group = "com.arkivanov.decompose", name = "extensions-compose", version.ref = "decompose" }
 essenty-lifecycle = { group = "com.arkivanov.essenty", name = "lifecycle", version.ref = "essenty" }
@@ -58,6 +58,5 @@ material-kolor = { module = "com.materialkolor:material-kolor", version.ref = "m
 sqldelight-android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "androidDriver" }
 sqldelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "runtime" }
 sqldelight-coroutines-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "coroutinesExtensions" }
-# Plugin libs that that are used in :build-logic:convention plugins
 android-gradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 jetbrains-kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
