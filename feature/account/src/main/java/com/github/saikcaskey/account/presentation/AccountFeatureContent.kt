@@ -3,6 +3,7 @@
 package com.github.saikcaskey.account.presentation
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,6 +29,7 @@ import androidx.compose.material3.ToggleButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
@@ -77,10 +79,12 @@ fun AccountSettingsScreenContent(
 ) {
     Scaffold { paddingValues ->
         Column(
+            verticalArrangement = Arrangement.Top,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(top = 12.dp)
+                .padding(top = paddingValues.calculateTopPadding() + 12.dp)
+                .padding(horizontal = 12.dp)
         ) {
             SettingsItemsList(
                 settingItems = uiState.accountSettingsItems,
