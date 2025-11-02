@@ -4,10 +4,10 @@ import com.github.saikcaskey.pokertracker.domain.models.DashboardEventsData
 import com.github.saikcaskey.pokertracker.domain.models.DashboardProfitSummaryData
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.models.Venue
-import com.github.saikcaskey.pokertracker.domain.presentation.MainPagerPageComponent
+import com.github.saikcaskey.pokertracker.domain.presentation.component.FeatureComponent
 import kotlinx.coroutines.flow.Flow
 
-interface DashboardFeatureComponent : MainPagerPageComponent {
+interface DashboardFeatureComponent : FeatureComponent {
 
     val uiState: Flow<UiState>
 

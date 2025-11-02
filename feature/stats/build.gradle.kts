@@ -1,5 +1,6 @@
 plugins {
     id("pokertracker.android.composelib")
+    id("kotlinx-serialization")
 }
 
 android {
@@ -25,5 +26,6 @@ dependencies {
     implementation(libs.kermit)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.sqldelight.coroutines.extensions)
 }
