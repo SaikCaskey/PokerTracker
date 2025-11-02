@@ -42,7 +42,6 @@ fun VenueDetailContent(modifier: Modifier = Modifier, component: VenueDetailComp
     val state by component.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
-        modifier = modifier,
         topBar = {
             TopBarItemDetail(
                 title = "Venue Detail",
