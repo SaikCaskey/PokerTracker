@@ -1,5 +1,6 @@
 plugins {
     id("pokertracker.android.lib")
+    id("kotlinx-serialization")
 }
 
 android {
@@ -7,9 +8,10 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.annotation.experimental)
+    implementation(libs.androidx.compose.material3)
     implementation(libs.decompose.decompose)
     implementation(libs.kermit)
-    implementation(libs.androidx.compose.material3)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.datetime)
     implementation(libs.sqldelight.android.driver)
