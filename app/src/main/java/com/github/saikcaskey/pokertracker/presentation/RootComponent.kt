@@ -20,22 +20,8 @@ import com.github.saikcaskey.stats.presentation.ViewVenuesComponent
  */
 interface RootComponent {
 
-    val rootNavigationStack: Value<ChildStack<*, Child>>
+    val rootNavigationStack: Value<ChildStack<*, RootDestination>>
 
     fun onBackClicked(toIndex: Int)
 
-    sealed class Child {
-        class Main(val component: MainComponent) : Child()
-        class EventDetail(val component: EventDetailComponent) : Child()
-        class VenueDetail(val component: VenueDetailComponent) : Child()
-        class ExpenseDetail(val component: ExpenseDetailComponent) : Child()
-        class InsertEvent(val component: InsertEventComponent) : Child()
-        class InsertVenue(val component: InsertVenueComponent) : Child()
-        class InsertExpense(val component: InsertExpenseComponent) : Child()
-        class ViewEvents(val component: ViewEventsComponent) : Child()
-        class ViewVenues(val component: ViewVenuesComponent) : Child()
-        class ViewExpenses(val component: ViewExpensesComponent) : Child()
-        class PlannerDayDetail(val component: PlannerDayDetailComponent) : Child()
-        class Settings(val component: AccountFeatureComponent) : Child()
-    }
 }

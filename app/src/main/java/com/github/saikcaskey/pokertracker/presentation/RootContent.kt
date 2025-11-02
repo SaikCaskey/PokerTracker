@@ -18,6 +18,7 @@ import com.github.saikcaskey.stats.presentation.InsertExpenseContent
 import com.github.saikcaskey.stats.presentation.ViewExpensesContent
 import com.github.saikcaskey.pokertracker.planner.presentation.composables.PlannerDayDetailContent
 import com.github.saikcaskey.account.presentation.AccountFeatureContent
+import com.github.saikcaskey.pokertracker.presentation.RootDestination.*
 
 @Composable
 fun RootContent(
@@ -34,18 +35,18 @@ fun RootContent(
                 animation = stackAnimation(fade() + scale())
             ) {
                 when (val instance = it.instance) {
-                    is RootComponent.Child.Main -> MainContent(component = instance.component)
-                    is RootComponent.Child.ViewExpenses -> ViewExpensesContent(component = instance.component)
-                    is RootComponent.Child.ViewEvents -> ViewEventsContent(component = instance.component)
-                    is RootComponent.Child.ViewVenues -> ViewVenuesContent(component = instance.component)
-                    is RootComponent.Child.EventDetail -> EventDetailContent(component = instance.component)
-                    is RootComponent.Child.ExpenseDetail -> ExpenseDetailContent(component = instance.component)
-                    is RootComponent.Child.VenueDetail -> VenueDetailContent(component = instance.component)
-                    is RootComponent.Child.InsertEvent -> InsertEventContent(component = instance.component)
-                    is RootComponent.Child.InsertExpense -> InsertExpenseContent(component = instance.component)
-                    is RootComponent.Child.InsertVenue -> InsertVenueContent(component = instance.component)
-                    is RootComponent.Child.PlannerDayDetail -> PlannerDayDetailContent(component = instance.component)
-                    is RootComponent.Child.Settings -> AccountFeatureContent(component = instance.component)
+                    is MainDestination -> MainContent(instance.component)
+                    is ViewExpensesDestination -> ViewExpensesContent(instance.component)
+                    is ViewEventsDestination -> ViewEventsContent(instance.component)
+                    is ViewVenuesDestination -> ViewVenuesContent(instance.component)
+                    is EventDetailDestination -> EventDetailContent(instance.component)
+                    is ExpenseDetailDestination -> ExpenseDetailContent(instance.component)
+                    is VenueDetailDestination -> VenueDetailContent(instance.component)
+                    is InsertEventDestination -> InsertEventContent(instance.component)
+                    is InsertExpenseDestination -> InsertExpenseContent(instance.component)
+                    is InsertVenueDestination -> InsertVenueContent(instance.component)
+                    is PlannerDayDetailDestination -> PlannerDayDetailContent(instance.component)
+                    is SettingsDestination -> AccountFeatureContent(instance.component)
                 }
             }
         }
