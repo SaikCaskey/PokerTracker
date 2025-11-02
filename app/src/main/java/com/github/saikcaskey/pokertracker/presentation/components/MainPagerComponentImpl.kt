@@ -18,8 +18,8 @@ import com.github.saikcaskey.pokertracker.di.StatsComponentFactoryProvider
 import com.github.saikcaskey.pokertracker.domain.component.MainComponent
 import com.github.saikcaskey.pokertracker.domain.presentation.component.FeatureComponent
 import com.github.saikcaskey.pokertracker.domain.repository.UserRepository
-import com.github.saikcaskey.pokertracker.presentation.navigation.MainMenuPagerPageDestination
-import com.github.saikcaskey.stats.presentation.components.StatsFeatureComponentImpl
+import com.github.saikcaskey.pokertracker.presentation.navigation.MainPagerPageNavigationRoute
+import com.github.saikcaskey.stats.presentation.components.StatsFeaturePagerComponentImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
@@ -28,7 +28,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.LocalDate
 
-class MainComponentImpl(
+class MainPagerComponentImpl(
     componentContext: ComponentContext,
     private val onShowEventDetail: (Long) -> Unit,
     private val onShowExpenseDetail: (Long) -> Unit,
@@ -49,19 +49,19 @@ class MainComponentImpl(
 ) : MainComponent, ComponentContext by componentContext {
 
     private val coroutineScope = CoroutineScope(dispatchers.io)
-    private val navigation = PagesNavigation<MainMenuPagerPageDestination>()
+    private val navigation = PagesNavigation<MainPagerPageNavigationRoute>()
 
     override val pages: Value<ChildPages<*, FeatureComponent>> = childPages(
         source = navigation,
-        serializer = MainMenuPagerPageDestination.serializer(),
+        serializer = MainPagerPageNavigationRoute.serializer(),
         initialPages = {
             Pages(
                 items = List(MainMenuPagerItemType.entries.size) { index ->
                     when (index) {
-                        3 -> MainMenuPagerPageDestination.Account
-                        2 -> MainMenuPagerPageDestination.Stats
-                        1 -> MainMenuPagerPageDestination.Planner
-                        else -> MainMenuPagerPageDestination.Dashboard
+                        3 -> MainPagerPageNavigationRoute.Account
+                        2 -> MainPagerPageNavigationRoute.Stats
+                        1 -> MainPagerPageNavigationRoute.Planner
+                        else -> MainPagerPageNavigationRoute.Dashboard
                     }
                 },
                 selectedIndex = 0,
@@ -69,7 +69,7 @@ class MainComponentImpl(
         },
     ) { config, childComponentContext ->
         when (config) {
-            MainMenuPagerPageDestination.Account -> AccountFeatureComponentImpl(
+            MainPagerPageNavigationRoute.Account -> AccountFeatureComponentImpl(
                 componentContext = childComponentContext,
                 database = PokerTrackerDatabaseProvider.provide(),
                 accountSettingsRepository = accountSettingsRepository,
@@ -78,14 +78,14 @@ class MainComponentImpl(
                 dispatchers = dispatchers,
             )
 
-            MainMenuPagerPageDestination.Planner -> PlannerFeatureComponentImpl(
+            MainPagerPageNavigationRoute.Planner -> PlannerFeatureComponentImpl(
                 componentContext = childComponentContext,
                 eventsRepository = eventRepository,
                 onCalendarDayClicked = onShowCalendarDayDetail,
                 dispatchers = dispatchers
             )
 
-            MainMenuPagerPageDestination.Dashboard -> DashboardFeatureComponentImpl(
+            MainPagerPageNavigationRoute.Dashboard -> DashboardFeatureComponentImpl(
                 componentContext = childComponentContext,
                 eventRepository = eventRepository,
                 expenseRepository = expenseRepository,
@@ -102,7 +102,7 @@ class MainComponentImpl(
                 onShowAllVenues = onShowAllVenues
             )
 
-            MainMenuPagerPageDestination.Stats -> StatsFeatureComponentImpl(
+            MainPagerPageNavigationRoute.Stats -> StatsFeaturePagerComponentImpl(
                 componentContext = childComponentContext,
                 componentFactory = StatsComponentFactoryProvider.provide()
             )

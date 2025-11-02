@@ -9,16 +9,16 @@ import com.arkivanov.decompose.router.pages.select
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.subscribe
 import com.github.saikcaskey.pokertracker.domain.presentation.component.FeatureComponent
-import com.github.saikcaskey.stats.domain.components.StatsFeatureComponent
+import com.github.saikcaskey.stats.domain.components.StatsFeaturePagerComponent
 import com.github.saikcaskey.stats.factory.StatsComponentFactory
 import com.github.saikcaskey.stats.presentation.navigation.StatsPagerNavigationRoute
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class StatsFeatureComponentImpl(
+class StatsFeaturePagerComponentImpl(
     componentContext: ComponentContext,
     componentFactory: StatsComponentFactory,
-) : StatsFeatureComponent, ComponentContext by componentContext {
+) : StatsFeaturePagerComponent, ComponentContext by componentContext {
 
     private val navigation = PagesNavigation<StatsPagerNavigationRoute>()
 

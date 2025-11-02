@@ -13,7 +13,7 @@ import com.github.saikcaskey.account.presentation.AccountFeatureComponent
 import com.github.saikcaskey.pokertracker.planner.presentation.composables.PlannerFeatureContent
 import com.github.saikcaskey.account.presentation.AccountFeatureContent
 import com.github.saikcaskey.pokertracker.domain.component.MainComponent
-import com.github.saikcaskey.stats.domain.components.StatsFeatureComponent
+import com.github.saikcaskey.stats.domain.components.StatsFeaturePagerComponent
 import com.github.saikcaskey.stats.presentation.composables.StatsFeatureContent
 
 @Composable
@@ -40,7 +40,7 @@ internal fun MainContent(component: MainComponent, modifier: Modifier = Modifier
                     is AccountFeatureComponent -> AccountFeatureContent(pageComponent)
                     is PlannerFeatureComponent -> PlannerFeatureContent(pageComponent)
                     is DashboardFeatureComponent -> DashboardFeatureContent(pageComponent)
-                    is StatsFeatureComponent -> StatsFeatureContent(pageComponent)
+                    is StatsFeaturePagerComponent -> StatsFeatureContent(pageComponent)
                 }
             }
         }

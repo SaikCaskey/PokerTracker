@@ -15,7 +15,7 @@ import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestinatio
 import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNavigationRoute
 import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNavigator
 import com.github.saikcaskey.pokertracker.domain.component.MainComponent
-import com.github.saikcaskey.pokertracker.presentation.components.MainComponentImpl
+import com.github.saikcaskey.pokertracker.presentation.components.MainPagerComponentImpl
 import com.github.saikcaskey.stats.domain.components.EventDetailComponent
 import com.github.saikcaskey.stats.presentation.components.EventDetailComponentImpl
 import com.github.saikcaskey.stats.domain.components.ExpenseDetailComponent
@@ -98,7 +98,7 @@ class RootComponentFactoryImpl(
         componentContext: ComponentContext,
         @Suppress("unused") route: RootNavigationRoute.MainRoute,
     ): MainComponent {
-        return MainComponentImpl(
+        return MainPagerComponentImpl(
             componentContext = componentContext,
             dispatchers = dispatchers,
             eventRepository = eventRepository,

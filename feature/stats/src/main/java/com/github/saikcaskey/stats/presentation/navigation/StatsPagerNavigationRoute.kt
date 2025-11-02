@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 sealed interface StatsPagerNavigationRoute : NavigationRoute {
+
     @Serializable
     data object EventsRoute: StatsPagerNavigationRoute
 
