@@ -12,6 +12,14 @@ interface RootNavigator {
     fun pop(onComplete: (Boolean) -> Unit = {})
     fun popTo(index: Int, onComplete: (Boolean) -> Unit = {})
 
+    fun onShowEventDetail(eventId: Long)
+    fun onShowExpenseDetail(expenseId: Long)
+    fun onShowVenueDetail(venueId: Long)
+
+    fun onShowAllEvents()
+    fun onShowAllExpenses()
+    fun onShowAllVenues()
+
     fun onShowInsertEvent(
         existingEventId: Long? = null,
         venueId: Long? = null,
@@ -25,7 +33,4 @@ interface RootNavigator {
     )
 
     fun onShowInsertVenue(existingVenueId: Long? = null)
-    fun onShowEventDetail(eventId: Long)
-    fun onShowExpenseDetail(expenseId: Long)
-    fun onShowVenueDetail(venueId: Long)
 }

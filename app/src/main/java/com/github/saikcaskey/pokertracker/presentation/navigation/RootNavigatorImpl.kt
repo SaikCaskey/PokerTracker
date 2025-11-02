@@ -62,4 +62,16 @@ class RootNavigatorImpl : RootNavigator {
     override fun onShowVenueDetail(venueId: Long) {
         navigator.push(RootNavigationRoute.VenueDetailRoute(venueId = venueId))
     }
+
+    override fun onShowAllEvents() {
+        navigator.push(RootNavigationRoute.ViewEventsRoute)
+    }
+
+    override fun onShowAllExpenses() {
+        navigator.push(RootNavigationRoute.ViewExpensesRoute)
+    }
+
+    override fun onShowAllVenues() {
+        navigator.push(RootNavigationRoute.ViewVenuesRoute)
+    }
 }

@@ -14,9 +14,11 @@ import com.github.saikcaskey.account.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.planner.presentation.PlannerFeatureComponentImpl
 import com.github.saikcaskey.account.presentation.AccountFeatureComponentImpl
 import com.github.saikcaskey.database.di.SampleDataSeederProvider
+import com.github.saikcaskey.pokertracker.di.RootNavigatorProvider
 import com.github.saikcaskey.pokertracker.di.StatsComponentFactoryProvider
 import com.github.saikcaskey.pokertracker.domain.component.MainComponent
 import com.github.saikcaskey.pokertracker.domain.presentation.component.FeatureComponent
+import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNavigator
 import com.github.saikcaskey.pokertracker.domain.repository.UserRepository
 import com.github.saikcaskey.pokertracker.presentation.navigation.MainPagerPageNavigationRoute
 import com.github.saikcaskey.stats.presentation.components.StatsFeaturePagerComponentImpl
@@ -49,10 +51,10 @@ class MainPagerComponentImpl(
 ) : MainComponent, ComponentContext by componentContext {
 
     private val coroutineScope = CoroutineScope(dispatchers.io)
-    private val navigation = PagesNavigation<MainPagerPageNavigationRoute>()
+    private val pagerNavigation = PagesNavigation<MainPagerPageNavigationRoute>()
 
     override val pages: Value<ChildPages<*, FeatureComponent>> = childPages(
-        source = navigation,
+        source = pagerNavigation,
         serializer = MainPagerPageNavigationRoute.serializer(),
         initialPages = {
             Pages(
@@ -67,8 +69,8 @@ class MainPagerComponentImpl(
                 selectedIndex = 0,
             )
         },
-    ) { config, childComponentContext ->
-        when (config) {
+    ) { route, childComponentContext ->
+        when (route) {
             MainPagerPageNavigationRoute.Account -> AccountFeatureComponentImpl(
                 componentContext = childComponentContext,
                 database = PokerTrackerDatabaseProvider.provide(),
@@ -91,15 +93,7 @@ class MainPagerComponentImpl(
                 expenseRepository = expenseRepository,
                 venueRepository = venueRepository,
                 dispatchers = dispatchers,
-                onShowEventDetail = onShowEventDetail,
-                onShowExpenseDetail = onShowExpenseDetail,
-                onShowVenueDetail = onShowVenueDetail,
-                onShowInsertExpense = { onShowInsertExpense(null, null, null) },
-                onShowInsertEvent = { onShowInsertEvent(null, null, null) },
-                onShowInsertVenue = { onShowInsertVenue(null) },
-                onShowAllEvents = onShowAllEvents,
-                onShowAllExpenses = onShowAllExpenses,
-                onShowAllVenues = onShowAllVenues
+                rootNavigator = RootNavigatorProvider.provide(),
             )
 
             MainPagerPageNavigationRoute.Stats -> StatsFeaturePagerComponentImpl(
@@ -122,7 +116,7 @@ class MainPagerComponentImpl(
         .stateIn(coroutineScope, Eagerly, selectedIndex.value.toPageTitle())
 
     override fun selectPage(index: Int) {
-        navigation.select(index = index)
+        pagerNavigation.select(index = index)
     }
 }
 

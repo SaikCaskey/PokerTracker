@@ -23,6 +23,7 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.br.compose.icons.font.awesome)
     implementation(libs.decompose.decompose)
+    implementation(libs.decompose.extensionsComposeJetbrains)
     implementation(libs.kermit)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.datetime)

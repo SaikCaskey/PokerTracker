@@ -47,7 +47,7 @@ fun RootContent(
                     is InsertExpenseDestination -> InsertExpenseContent(instance.component)
                     is InsertVenueDestination -> InsertVenueContent(instance.component)
                     is PlannerDayDetailDestination -> PlannerDayDetailContent(instance.component)
-                    is SettingsDestination -> AccountFeatureContent(instance.component)
+                    is SettingsDestination -> AccountFeatureContent(instance.component,)
                 }
             }
         }

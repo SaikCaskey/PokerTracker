@@ -24,17 +24,18 @@ fun ViewEventsContent(component: ViewEventsComponent) {
                 onDeleteAllItemsClicked = component::onDeleteAllEventsClicked,
             )
         },
+        contentWindowInsets = WindowInsets(0.dp)
     ) { scaffoldPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(scaffoldPadding)
-                .padding(16.dp)
+                .padding(horizontal = 12.dp)
         ) {
             OutlinedTextField(
                 value = uiState.searchFilter.query.orEmpty(),
                 onValueChange = component::onSearchQueryChanged,
-                label = { Text("Search") },
+                label = { Text("Search Events") },
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(8.dp))

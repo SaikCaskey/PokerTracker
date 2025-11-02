@@ -19,23 +19,24 @@ fun ViewExpensesContent(component: ViewExpensesComponent) {
     Scaffold(
         topBar = {
             TopAppBarItemViewer(
-                "All Expenses",
+                title = "All Expenses",
                 onBackClicked = component::onBackClicked,
                 onShowInsertItemClicked = component::onShowInsertExpenseClicked,
                 onDeleteAllItemsClicked = component::onDeleteAllExpensesClicked,
             )
         },
+        contentWindowInsets = WindowInsets(0.dp)
     ) { scaffoldPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(scaffoldPadding)
-                .padding(16.dp)
+                .padding(horizontal = 12.dp)
         ) {
             OutlinedTextField(
                 value = uiState.searchFilter.query.orEmpty(),
                 onValueChange = component::onSearchQueryChanged,
-                label = { Text("Search") },
+                label = { Text("Search Expenses") },
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(8.dp))

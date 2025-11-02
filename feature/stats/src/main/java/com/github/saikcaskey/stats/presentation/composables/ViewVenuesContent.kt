@@ -14,26 +14,27 @@ import com.github.saikcaskey.stats.domain.components.ViewVenuesComponent
 @Composable
 fun ViewVenuesContent(component: ViewVenuesComponent) {
     val uiState by component.uiState.collectAsState()
-
     Scaffold(
         topBar = {
             TopAppBarItemViewer(
-                "All Venues",
+                title = "All Venues",
                 onBackClicked = component::onBackClicked,
                 onShowInsertItemClicked = component::onShowInsertVenueClicked,
                 onDeleteAllItemsClicked = component::onDeleteAllVenuesClicked,
             )
         },
+        contentWindowInsets = WindowInsets(0.dp)
     ) { scaffoldPadding ->
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
                 .padding(scaffoldPadding)
-                .padding(16.dp)
+                .padding(horizontal = 12.dp)
         ) {
             OutlinedTextField(
                 value = uiState.searchFilter.query.orEmpty(),
                 onValueChange = component::onSearchQueryChanged,
-                label = { Text("Search") },
+                label = { Text("Search Venues") },
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(8.dp))

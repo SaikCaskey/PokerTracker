@@ -27,19 +27,18 @@ class StatsFeaturePagerComponentImpl(
             source = navigation,
             serializer = StatsPagerNavigationRoute.serializer(),
             childFactory = { route, ctx -> componentFactory.buildChildComponent(ctx, route) },
-            initialPages =
-                {
-                    Pages(
-                        items = List(StatsPagerItemType.entries.size) { index ->
-                            when (index) {
-                                2 -> StatsPagerNavigationRoute.ExpensesRoute
-                                1 -> StatsPagerNavigationRoute.EventsRoute
-                                else -> StatsPagerNavigationRoute.VenuesRoute
-                            }
-                        },
-                        selectedIndex = 0,
-                    )
-                },
+            initialPages = {
+                Pages(
+                    items = List(StatsPagerItemType.entries.size) { index ->
+                        when (index) {
+                            2 -> StatsPagerNavigationRoute.ExpensesRoute
+                            1 -> StatsPagerNavigationRoute.EventsRoute
+                            else -> StatsPagerNavigationRoute.VenuesRoute
+                        }
+                    },
+                    selectedIndex = 0,
+                )
+            },
         )
 
     init {

@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.input.InputTransformation
@@ -20,6 +21,7 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.ToggleButton
@@ -27,20 +29,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.saikcaskey.account.domain.model.AccountSettingsAction
 import com.github.saikcaskey.account.domain.model.AccountSettingsItem
-import com.github.saikcaskey.account.domain.model.AccountSettingsItem.*
+import com.github.saikcaskey.account.domain.model.AccountSettingsItem.Button
+import com.github.saikcaskey.account.domain.model.AccountSettingsItem.Check
+import com.github.saikcaskey.account.domain.model.AccountSettingsItem.DropdownInput
+import com.github.saikcaskey.account.domain.model.AccountSettingsItem.Header
+import com.github.saikcaskey.account.domain.model.AccountSettingsItem.InfoText
+import com.github.saikcaskey.account.domain.model.AccountSettingsItem.IntegerInput
+import com.github.saikcaskey.account.domain.model.AccountSettingsItem.LongInput
+import com.github.saikcaskey.account.domain.model.AccountSettingsItem.TextInput
+import com.github.saikcaskey.account.domain.model.AccountSettingsItem.Toggle
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
-import com.github.saikcaskey.pokertracker.domain.models.UserPreference.*
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference.DefaultBuyIn
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference.ShowAdvancedSettings
+import com.github.saikcaskey.pokertracker.domain.models.UserPreference.UserId
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputSearchableDropdownField
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
-fun AccountFeatureContent(
-    component: AccountFeatureComponent,
-) {
+fun AccountFeatureContent(component: AccountFeatureComponent) {
     val uiState = component.uiState.collectAsStateWithLifecycle()
 
     AccountSettingsScreenContent(
@@ -64,25 +75,32 @@ fun AccountSettingsScreenContent(
     clearAllData: () -> Unit,
     updatePreferenceValue: (UserPreference<*>, Any?) -> Unit,
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
-        SettingsItemsList(
-            settingItems = uiState.accountSettingsItems,
-            updatePreferenceValue = updatePreferenceValue,
-            onItemPressed = { settingsItem ->
-                val action = settingsItem.linkedAction
-                when (action) {
-                    AccountSettingsAction.ClearDefaultBuyIn -> clearDefaultBuyIn()
-                    AccountSettingsAction.ClearUserId -> clearUserId()
-                    AccountSettingsAction.SetRandomUserId -> setRandomUserId()
-                    is AccountSettingsAction.SeedData.SmokeTest -> addDummyData(action)
-                    is AccountSettingsAction.SeedData.BadDay -> addDummyData(action)
-                    is AccountSettingsAction.SeedData.GoodDay -> addDummyData(action)
-                    is AccountSettingsAction.SeedData.User -> addDummyData(action)
-                    AccountSettingsAction.ClearAllData -> clearAllData()
-                    null -> Unit
-                }
-            },
-        )
+    Scaffold { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(top = 12.dp)
+        ) {
+            SettingsItemsList(
+                settingItems = uiState.accountSettingsItems,
+                updatePreferenceValue = updatePreferenceValue,
+                onItemPressed = { settingsItem ->
+                    val action = settingsItem.linkedAction
+                    when (action) {
+                        AccountSettingsAction.ClearDefaultBuyIn -> clearDefaultBuyIn()
+                        AccountSettingsAction.ClearUserId -> clearUserId()
+                        AccountSettingsAction.SetRandomUserId -> setRandomUserId()
+                        is AccountSettingsAction.SeedData.SmokeTest -> addDummyData(action)
+                        is AccountSettingsAction.SeedData.BadDay -> addDummyData(action)
+                        is AccountSettingsAction.SeedData.GoodDay -> addDummyData(action)
+                        is AccountSettingsAction.SeedData.User -> addDummyData(action)
+                        AccountSettingsAction.ClearAllData -> clearAllData()
+                        null -> Unit
+                    }
+                },
+            )
+        }
     }
 }
 
