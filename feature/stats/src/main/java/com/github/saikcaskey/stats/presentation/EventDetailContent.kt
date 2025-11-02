@@ -21,11 +21,10 @@ import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.PlusCircle
 
 @Composable
-fun EventDetailContent(modifier: Modifier = Modifier, component: EventDetailComponent) {
+fun EventDetailContent(component: EventDetailComponent) {
     val state by component.uiState.collectAsState()
 
     Scaffold(
-        modifier = modifier,
         topBar = {
             TopBarItemDetail(
                 title = "Event Detail",
