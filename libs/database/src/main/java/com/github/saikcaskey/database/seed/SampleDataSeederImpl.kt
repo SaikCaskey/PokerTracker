@@ -5,6 +5,7 @@ import com.github.saikcaskey.pokertracker.domain.extensions.asLocalDateTime
 import com.github.saikcaskey.pokertracker.domain.extensions.atStartOfDayInstant
 import com.github.saikcaskey.pokertracker.domain.extensions.plusMinutes
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
+import com.github.saikcaskey.pokertracker.domain.util.nowAsInstant
 import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.plus
@@ -154,7 +155,7 @@ class SampleDataSeederImpl(
                 type = ExpenseType.BUY_IN,
                 amount = buyInAmount,
                 description = "Initial Buy-in",
-                date = baseDate
+                date = baseDate,
             )
         )
 
@@ -263,8 +264,6 @@ private fun PokerTrackerDatabase.insertExpenseBatch(
     venueId: Long?,
     expenses: List<ExpenseSeedData>,
 ) {
-    val createdAt = nowAsLocalDateTime().toString()
-
     expenses.forEach { data ->
         expenseQueries.insert(
             user_id = userId,
@@ -274,7 +273,7 @@ private fun PokerTrackerDatabase.insertExpenseBatch(
             amount = data.amount,
             description = data.description,
             date = data.date.toString(),
-            created_at = createdAt
+            created_at = nowAsInstant().toString()
         )
     }
 }
