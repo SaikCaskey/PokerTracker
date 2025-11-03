@@ -36,9 +36,7 @@ import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference.*
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputSearchableDropdownField
 import kotlinx.coroutines.flow.collectLatest
-import kotlin.uuid.ExperimentalUuidApi
 
-@OptIn(ExperimentalUuidApi::class)
 @Composable
 fun AccountFeatureContent(
     component: AccountFeatureComponent,
