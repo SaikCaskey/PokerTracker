@@ -8,8 +8,9 @@ import com.github.saikcaskey.database.di.databaseModule
 import com.github.saikcaskey.database.di.sampleDataSeederModule
 import com.github.saikcaskey.pokertracker.di.dispatchersProvidersModule
 import com.github.saikcaskey.pokertracker.di.appInfoModule
-import com.github.saikcaskey.pokertracker.di.componentFactoryModule
+import com.github.saikcaskey.pokertracker.di.rootComponentFactoryModule
 import com.github.saikcaskey.pokertracker.di.navigationModule
+import com.github.saikcaskey.pokertracker.di.statsComponentFactoryModule
 import com.github.saikcaskey.stats.di.statsRepositoryModule
 import com.github.saikcaskey.stats.di.userDataSourceModule
 import org.koin.android.ext.koin.androidContext
@@ -28,7 +29,8 @@ class PokerTrackerApp : Application() {
                     databaseModule,
                     dispatchersProvidersModule,
                     navigationModule,
-                    componentFactoryModule,
+                    rootComponentFactoryModule,
+                    statsComponentFactoryModule,
                     statsRepositoryModule,
                     userDataSourceModule,
                     sampleDataSeederModule,
