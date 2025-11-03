@@ -39,7 +39,7 @@ import compose.icons.fontawesomeicons.solid.PlusCircle
 import kotlin.math.abs
 
 @Composable
-fun VenueDetailContent(modifier: Modifier = Modifier, component: VenueDetailComponent) {
+fun VenueDetailContent(component: VenueDetailComponent) {
     val state by component.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
