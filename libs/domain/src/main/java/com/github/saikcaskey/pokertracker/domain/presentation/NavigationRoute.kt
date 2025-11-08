@@ -4,7 +4,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed interface NavigationRoute : AppNavigationRoot {
+sealed interface NavigationRoute : AppNavigationRoute {
 
     @Serializable
     data object MainRoute : NavigationRoute
