@@ -13,5 +13,11 @@ enum class ExpenseType {
     DRINKS,
     FINE,
     MISC,
-    OTHER
+    OTHER;
+
+    companion object {
+        fun fromString(value: String): ExpenseType {
+            return entries.firstOrNull { it.name == value } ?: OTHER
+        }
+    }
 }

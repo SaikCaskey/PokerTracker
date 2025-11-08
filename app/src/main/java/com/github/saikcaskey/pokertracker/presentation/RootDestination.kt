@@ -12,6 +12,9 @@ import com.github.saikcaskey.stats.presentation.ViewEventsComponent
 import com.github.saikcaskey.stats.presentation.ViewExpensesComponent
 import com.github.saikcaskey.stats.presentation.ViewVenuesComponent
 
+/**
+ * All of the Destinations that can be pushed onto the root stack
+ */
 sealed class RootDestination {
     class MainDestination(val component: MainComponent) : RootDestination()
     class EventDetailDestination(val component: EventDetailComponent) : RootDestination()

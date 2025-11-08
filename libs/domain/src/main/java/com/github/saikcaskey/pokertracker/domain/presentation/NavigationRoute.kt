@@ -1,10 +1,11 @@
-package com.github.saikcaskey.pokertracker.presentation;
+package com.github.saikcaskey.pokertracker.domain.presentation
 
 import kotlinx.datetime.LocalDate
-import kotlinx.serialization.Serializable;
+import kotlinx.serialization.Serializable
 
 @Serializable
-sealed interface NavigationRoute {
+sealed interface NavigationRoute : AppNavigationRoot {
+
     @Serializable
     data object MainRoute : NavigationRoute
 

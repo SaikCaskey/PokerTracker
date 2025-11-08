@@ -14,6 +14,8 @@ allprojects {
     tasks.withType<KotlinCompile> {
         compilerOptions {
             freeCompilerArgs.addAll(
+                "-opt-in=androidx.compose.material3.ExperimentalMaterial3ExpressiveApi",
+                "-opt-in=kotlinx.serialization.InternalSerializationApi",
                 "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
                 "-opt-in=com.arkivanov.decompose.ExperimentalDecomposeApi",
                 "-opt-in=com.arkivanov.decompose.DelicateDecomposeApi",

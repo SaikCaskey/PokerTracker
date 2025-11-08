@@ -153,7 +153,7 @@ class InsertExpenseComponentImpl(
                         eventId = uiState.event?.id,
                         venueId = uiState.venue?.id,
                         amount = amount,
-                        type = uiState.inputData.type.name,
+                        type = uiState.inputData.type,
                         date = inputExpenseDateTime?.toString(),
                         description = uiState.inputData.description.trim(),
                     )
@@ -162,7 +162,7 @@ class InsertExpenseComponentImpl(
                         eventId = uiState.event?.id,
                         venueId = uiState.venue?.id,
                         amount = amount,
-                        type = uiState.inputData.type.name,
+                        type = uiState.inputData.type,
                         date = inputExpenseDateTime?.toString(),
                         description = uiState.inputData.description.trim(),
                     )

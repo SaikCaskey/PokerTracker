@@ -5,6 +5,7 @@ android-minsdk = "26"
 android-compilesdk = "36"
 android-targetsdk = "36"
 androidDriver = "2.1.0"
+annotationExperimental = "1.5.1"
 cmpcharts = "2.0.6"
 composeMultiplatform = "2.8.0"
 coroutinesExtensions = "2.1.0"
@@ -38,6 +39,7 @@ kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", vers
 
 [libraries]
 androidx-activity-activityCompose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx-activityCompose" }
+androidx-annotation-experimental = { module = "androidx.annotation:annotation-experimental", version.ref = "annotationExperimental" }
 androidx-compose-material3 = { module = "androidx.compose.material3:material3", version = "1.3.2" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
