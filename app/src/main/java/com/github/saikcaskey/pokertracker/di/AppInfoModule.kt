@@ -9,10 +9,9 @@ val appInfoModule = module {
         AppInfo(
             applicationId = BuildConfig.APPLICATION_ID,
             buildType = BuildConfig.BUILD_TYPE,
-            flavor = BuildConfig.FLAVOR,
             versionCode = BuildConfig.VERSION_CODE,
             versionName = BuildConfig.VERSION_NAME,
-            isProd = BuildConfig.isProd,
+            isDebug = BuildConfig.DEBUG,
             gitCommitHash = BuildConfig.GIT_COMMIT_HASH,
         )
     }

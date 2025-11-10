@@ -1,6 +1,5 @@
 package com.github.saikcaskey.pokertracker.build_logic.convention.plugins
 
-import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.LibraryExtension
 import com.github.saikcaskey.pokertracker.build_logic.convention.extensions.configureExtension
 import com.github.saikcaskey.pokertracker.build_logic.convention.extensions.getPluginId
@@ -10,7 +9,6 @@ import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.co
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedBuildTypes
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedCompileOptions
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedDefaultConfig
-import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedFlavors
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedPackaging
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -30,7 +28,6 @@ class ModuleLibraryConventionPlugin : Plugin<Project> {
                 configureSharedBuildTypes()
                 configureSharedBuildFeatures()
                 configureSharedPackaging()
-                configureSharedFlavors()
                 configureSharedCompileOptions()
                 configureSharedDefaultConfig(this)
             }

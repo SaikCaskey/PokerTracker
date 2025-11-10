@@ -9,7 +9,6 @@ import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.co
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedBuildTypes
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedCompileOptions
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedDefaultConfig
-import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedFlavors
 import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.configureSharedPackaging
 import com.github.saikcaskey.pokertracker.build_logic.convention.utils.gitCommitHash
 import org.gradle.api.Plugin
@@ -51,9 +50,8 @@ class ModuleAppConventionPlugin : Plugin<Project> {
                 }
 
                 configureSharedBuildTypes()
-                configureSharedBuildFeatures()
+                configureSharedBuildFeatures(enableCompose = true)
                 configureSharedPackaging()
-                configureSharedFlavors()
                 configureSharedCompileOptions()
                 configureSharedDefaultConfig(this)
             }
