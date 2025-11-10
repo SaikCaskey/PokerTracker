@@ -12,7 +12,7 @@ val appInfoModule = module {
             flavor = BuildConfig.FLAVOR,
             versionCode = BuildConfig.VERSION_CODE,
             versionName = BuildConfig.VERSION_NAME,
-            isProd = BuildConfig.isProd,
+            isDebug = BuildConfig.DEBUG,
             gitCommitHash = BuildConfig.GIT_COMMIT_HASH,
         )
     }

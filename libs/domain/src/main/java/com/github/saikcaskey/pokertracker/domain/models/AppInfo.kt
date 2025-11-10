@@ -7,6 +7,6 @@ data class AppInfo(
     val versionCode: Int? = null,
     val versionName: String? = null,
     val gitCommitHash: String? = null,
-    val isProd: Boolean? = null,
+    val isDebug: Boolean? = null,
 )
 

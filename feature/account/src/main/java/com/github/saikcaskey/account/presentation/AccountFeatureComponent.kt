@@ -48,7 +48,7 @@ interface AccountFeatureComponent : MainPagerPageComponent {
             add(AccountSettingsItem.InfoText("VersionName: ${accountSettingsData.versionName}"))
             add(AccountSettingsItem.InfoText("VersionCode: ${accountSettingsData.versionCode}"))
             add(AccountSettingsItem.InfoText("BuildType: ${accountSettingsData.buildType}"))
-            add(AccountSettingsItem.InfoText("IsProd: ${accountSettingsData.isProd}"))
+            add(AccountSettingsItem.InfoText("IsDebug: ${accountSettingsData.isDebug}"))
             add(
                 AccountSettingsItem.InfoText(
                     "Advanced settings ${if (accountSettingsData.showAdvancedSettings) "" else "NOT "}enabled",
