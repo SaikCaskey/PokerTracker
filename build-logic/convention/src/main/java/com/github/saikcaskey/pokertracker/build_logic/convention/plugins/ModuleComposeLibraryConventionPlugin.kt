@@ -28,7 +28,7 @@ class ModuleComposeLibraryConventionPlugin : Plugin<Project> {
             configureExtension<LibraryExtension> {
                 compileSdk = libs.getVersionInt("android-compilesdk")
                 configureSharedBuildTypes()
-                configureSharedBuildFeatures()
+                configureSharedBuildFeatures(enableCompose = true)
                 configureSharedPackaging()
                 configureSharedFlavors()
                 configureSharedCompileOptions()

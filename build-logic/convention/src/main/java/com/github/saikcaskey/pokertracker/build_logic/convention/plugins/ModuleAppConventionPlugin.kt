@@ -51,7 +51,7 @@ class ModuleAppConventionPlugin : Plugin<Project> {
                 }
 
                 configureSharedBuildTypes()
-                configureSharedBuildFeatures()
+                configureSharedBuildFeatures(enableCompose = true)
                 configureSharedPackaging()
                 configureSharedFlavors()
                 configureSharedCompileOptions()
