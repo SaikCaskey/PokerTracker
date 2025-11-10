@@ -1,5 +1,6 @@
 plugins {
-    id("pokertracker.android.lib")
+    id("pokertracker.android.library")
+    id("kotlinx-serialization")
 }
 
 android {
