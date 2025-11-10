@@ -2,6 +2,7 @@ package com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension
+import org.jetbrains.annotations.Debug
 
 /**
  * Configures the flavor dimensions for this app or library module, creates the flavors and adds
@@ -14,9 +15,8 @@ internal fun CommonExtension<*, *, *, *, *, *>.configureSharedFlavors() {
         create("alpha") {
             dimension = "env"
             buildConfigField("Boolean", "isProd", "false")
-
             if (this is ApplicationExtension) {
-                defaultConfig.applicationIdSuffix = ".beta"
+                defaultConfig.applicationIdSuffix = ".alpha"
             }
         }
         create("beta") {
