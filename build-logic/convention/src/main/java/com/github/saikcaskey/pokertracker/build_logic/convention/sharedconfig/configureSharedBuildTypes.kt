@@ -6,9 +6,15 @@ import com.android.build.api.dsl.CommonExtension
 internal fun CommonExtension<*, *, *, *, *, *>.configureSharedBuildTypes() {
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = true
-            isShrinkResources = this is ApplicationExtension
+            if (this is ApplicationExtension) {
+                isMinifyEnabled = true
+                defaultConfig.proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+                )
+            }
         }
+
         getByName("debug") {
             isMinifyEnabled = false
             isShrinkResources = false
