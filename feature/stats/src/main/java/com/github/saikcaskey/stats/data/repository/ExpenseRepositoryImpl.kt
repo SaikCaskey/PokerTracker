@@ -2,6 +2,7 @@ package com.github.saikcaskey.stats.data.repository
 
 import com.github.saikcaskey.pokertracker.domain.dao.ExpenseDao
 import com.github.saikcaskey.pokertracker.domain.datasource.UserDataSource
+import com.github.saikcaskey.pokertracker.domain.extensions.adjustedForType
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
@@ -141,13 +142,5 @@ class ExpenseRepositoryImpl(
 
     override suspend fun deleteAll() {
         expenseDao.deleteAll(userId = userDataSource.storedUser.value?.id ?: return)
-    }
-}
-
-private fun Double.adjustedForType(expenseType: ExpenseType): Double {
-    return if (expenseType == ExpenseType.CASH_OUT || expenseType == ExpenseType.DEAL) {
-        this
-    } else {
-        abs(this) * -1
     }
 }
