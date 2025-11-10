@@ -4,7 +4,7 @@ data class AccountSettingsData(
     val userId: Long? = null,
     val showAdvancedSettings: Boolean = false,
     val defaultBuyIn: Int? = null,
-    val isProd: Boolean? = null,
+    val isDebug: Boolean? = null,
     val applicationId: String? = null,
     val buildType: String? = null,
     val versionCode: Int? = null,

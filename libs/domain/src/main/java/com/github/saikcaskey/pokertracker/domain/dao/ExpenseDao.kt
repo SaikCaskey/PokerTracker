@@ -6,12 +6,13 @@ import kotlinx.coroutines.flow.Flow
 interface ExpenseDao {
     fun getAll(userId: Long): Flow<List<Expense>>
     fun getRecent(userId: Long): Flow<List<Expense>>
+    fun getByEvent(userId: Long, eventId: Long): Flow<List<Expense>>
     fun getById(userId: Long, eventId: Long): Flow<Expense>
+    fun getByVenue(userId: Long, venueId: Long): Flow<List<Expense>>
     fun getUpcomingCosts(userId: Long): Flow<Double>
     fun getBalanceNow(userId: Long): Flow<Double>
     fun getBalanceForYear(userId: Long): Flow<Double>
     fun getBalanceForMonth(userId: Long): Flow<Double>
-    fun getByEvent(userId: Long, eventId: Long): Flow<List<Expense>>
     fun getEventBalance(userId: Long, eventId: Long): Flow<Double>
     fun getEventCostSubtotal(userId: Long, eventId: Long): Flow<Double>
     fun getEventCashesSubtotal(userId: Long, eventId: Long): Flow<Double>

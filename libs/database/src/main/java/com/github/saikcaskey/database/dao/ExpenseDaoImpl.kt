@@ -50,12 +50,25 @@ class ExpenseDaoImpl(
             .map { expenses -> expenses.map(DatabaseExpense::toDomain) }
     }
 
+    override fun getByEvent(userId: Long, eventId: Long): Flow<List<Expense>> {
+        return database.expenseQueries.getByEvent(userId = userId, eventId)
+            .asFlow()
+            .mapToList(dispatchers.io)
+            .map { expenses -> expenses.map { expense -> expense.toDomain() } }
+    }
+
     override fun getById(userId: Long, eventId: Long): Flow<Expense> =
         database.expenseQueries.getById(userId = userId, eventId)
             .asFlow()
             .mapToOneOrNull(dispatchers.io)
             .mapNotNull { expense -> expense?.toDomain() }
 
+    override fun getByVenue(userId: Long, venueId: Long): Flow<List<Expense>> {
+        return database.expenseQueries.getByVenue(userId = userId, venueId = venueId)
+            .asFlow()
+            .mapToList(dispatchers.io)
+            .map { expenses -> expenses.map(DatabaseExpense::toDomain) }
+    }
 
     override fun getBalanceNow(userId: Long): Flow<Double> {
         val now = nowAsLocalDateTime()
@@ -120,7 +133,6 @@ class ExpenseDaoImpl(
             .mapToOne(dispatchers.io)
             .map { it.balance ?: 0.0 }
 
-
     override fun getVenueCostSubtotal(userId: Long, venueId: Long): Flow<Double> =
         database.expenseQueries.getVenueCostsSubtotal(userId = userId, venueId)
             .asFlow()
@@ -177,13 +189,6 @@ class ExpenseDaoImpl(
             updated_at = nowAsInstant().toString()
         )
         return result.value
-    }
-
-    override fun getByEvent(userId: Long, eventId: Long): Flow<List<Expense>> {
-        return database.expenseQueries.getByEvent(userId = userId, eventId)
-            .asFlow()
-            .mapToList(dispatchers.io)
-            .map { expenses -> expenses.map { expense -> expense.toDomain() } }
     }
 
     override suspend fun deleteById(userId: Long, expenseId: Long) {

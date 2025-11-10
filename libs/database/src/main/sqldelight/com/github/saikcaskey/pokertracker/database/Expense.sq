@@ -1,6 +1,6 @@
 CREATE TABLE Expense (
 id INTEGER PRIMARY KEY AUTOINCREMENT,
-user_id INTEGER NOT NULL REFERENCES User(id) ON DELETE CASCADE, -- NEW
+user_id INTEGER NOT NULL REFERENCES User(id) ON DELETE CASCADE,
 event_id INTEGER REFERENCES Event(id) ON DELETE CASCADE,
 venue_id INTEGER REFERENCES Venue(id) ON DELETE CASCADE,
 type TEXT NOT NULL,
@@ -28,9 +28,6 @@ END
 FROM Expense
 WHERE user_id = :userId AND date(date) >= date(:afterDate);
 
-getByEvent:
-SELECT * FROM Expense WHERE user_id = :userId AND event_id = :eventId ORDER BY id;
-
 insert:
 INSERT INTO Expense(user_id, event_id, venue_id, type, amount, description, date, created_at)
 VALUES (?, ?, ?, ?, ?,  ?,  ?,  ?);
@@ -48,8 +45,14 @@ date = ?,
 updated_at = ?
 WHERE id = ?;
 
+getByEvent:
+SELECT * FROM Expense WHERE user_id = :userId AND event_id = :eventId ORDER BY id;
+
 getById:
 SELECT * FROM Expense WHERE user_id = :userId AND id = :expenseId;
+
+getByVenue:
+SELECT * FROM Expense WHERE user_id = :userId AND venue_id = :venueId ORDER BY id;
 
 deleteById:
 DELETE FROM Expense WHERE user_id = :userId AND id = :id;
@@ -84,7 +87,7 @@ JOIN Event ON Expense.event_id = Event.id
 WHERE Event.user_id = :userId AND Event.venue_id = :venueId;
 
 getVenueCostsSubtotal:
-SELECT SUM( CASE WHEN type NOT IN ('CASH_OUT', 'DEAL') THEN amount END) AS balance FROM Expense
+SELECT SUM(CASE WHEN type NOT IN ('CASH_OUT', 'DEAL') THEN amount END) AS balance FROM Expense
 JOIN Event ON Expense.event_id = Event.id
 WHERE Event.user_id = :userId AND Event.venue_id = :venueId;
 

@@ -1,17 +1,19 @@
 package com.github.saikcaskey.pokertracker.domain.repository
 
 import com.github.saikcaskey.pokertracker.domain.models.Expense
+import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import kotlinx.coroutines.flow.Flow
 
 interface ExpenseRepository {
     fun getAll(): Flow<List<Expense>>
     fun getRecent(): Flow<List<Expense>>
+    fun getByEvent(eventId: Long): Flow<List<Expense>>
     fun getById(eventId: Long): Flow<Expense>
+    fun getByVenue(venueId: Long): Flow<List<Expense>>
     fun getUpcomingCosts(): Flow<Double>
     fun getBalanceNow(): Flow<Double>
     fun getBalanceForYear(): Flow<Double>
     fun getBalanceForMonth(): Flow<Double>
-    fun getByEvent(eventId: Long): Flow<List<Expense>>
     fun getEventBalance(eventId: Long): Flow<Double>
     fun getEventCostSubtotal(eventId: Long): Flow<Double>
     fun getEventCashesSubtotal(eventId: Long): Flow<Double>
@@ -22,7 +24,7 @@ interface ExpenseRepository {
         eventId: Long?,
         venueId: Long?,
         amount: Double,
-        type: String,
+        type: ExpenseType,
         date: String? = null,
         description: String? = null,
     )
@@ -32,7 +34,7 @@ interface ExpenseRepository {
         eventId: Long?,
         venueId: Long?,
         amount: Double,
-        type: String,
+        type: ExpenseType,
         date: String? = null,
         description: String? = null,
     )

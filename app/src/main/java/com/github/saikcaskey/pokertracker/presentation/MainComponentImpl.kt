@@ -14,7 +14,9 @@ import com.github.saikcaskey.account.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.planner.presentation.PlannerFeatureComponentImpl
 import com.github.saikcaskey.account.presentation.AccountFeatureComponentImpl
 import com.github.saikcaskey.database.di.SampleDataSeederProvider
+import com.github.saikcaskey.pokertracker.dashboard.presentation.navigation.DashboardNavigator
 import com.github.saikcaskey.pokertracker.domain.presentation.MainPagerPageComponent
+import com.github.saikcaskey.pokertracker.domain.presentation.RootNavigator
 import com.github.saikcaskey.pokertracker.domain.repository.UserRepository
 import com.github.saikcaskey.stats.presentation.StatsFeatureComponentImpl
 import kotlinx.coroutines.CoroutineScope
@@ -23,21 +25,11 @@ import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.datetime.LocalDate
 import kotlinx.serialization.Serializable
 
 class MainComponentImpl(
     componentContext: ComponentContext,
-    private val onShowEventDetail: (Long) -> Unit,
-    private val onShowExpenseDetail: (Long) -> Unit,
-    private val onShowVenueDetail: (Long) -> Unit,
-    private val onShowCalendarDayDetail: (LocalDate, Boolean) -> Unit,
-    private val onShowInsertExpense: (existingExpenseId: Long?, venueId: Long?, eventId: Long?) -> Unit,
-    private val onShowInsertEvent: (existingExpenseId: Long?, venueId: Long?, LocalDate?) -> Unit,
-    private val onShowInsertVenue: (Long?) -> Unit,
-    private val onShowAllVenues: () -> Unit,
-    private val onShowAllEvents: () -> Unit,
-    private val onShowAllExpenses: () -> Unit,
+    private val rootNavigator: RootNavigator,
     private val eventRepository: EventRepository,
     private val expenseRepository: ExpenseRepository,
     private val venueRepository: VenueRepository,
@@ -79,7 +71,7 @@ class MainComponentImpl(
             MainMenuPagerPageConfig.Planner -> PlannerFeatureComponentImpl(
                 componentContext = childComponentContext,
                 eventsRepository = eventRepository,
-                onCalendarDayClicked = onShowCalendarDayDetail,
+                onCalendarDayClicked = rootNavigator::onShowCalendarDayDetail,
                 dispatchers = dispatchers
             )
 
@@ -89,15 +81,7 @@ class MainComponentImpl(
                 expenseRepository = expenseRepository,
                 venueRepository = venueRepository,
                 dispatchers = dispatchers,
-                onShowEventDetail = onShowEventDetail,
-                onShowExpenseDetail = onShowExpenseDetail,
-                onShowVenueDetail = onShowVenueDetail,
-                onShowInsertExpense = { onShowInsertExpense(null, null, null) },
-                onShowInsertEvent = { onShowInsertEvent(null, null, null) },
-                onShowInsertVenue = { onShowInsertVenue(null) },
-                onShowAllEvents = onShowAllEvents,
-                onShowAllExpenses = onShowAllExpenses,
-                onShowAllVenues = onShowAllVenues
+                navigator = DashboardNavigator.from(rootNavigator)
             )
 
             MainMenuPagerPageConfig.Stats -> StatsFeatureComponentImpl(

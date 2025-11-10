@@ -89,7 +89,7 @@ private fun Preferences.toSettingsData(appInfo: AppInfo): AccountSettingsData {
         showAdvancedSettings = get(ShowAdvancedSettings.preferenceKey) == true,
         defaultBuyIn = get(DefaultBuyIn.preferenceKey),
         applicationId = appInfo.applicationId,
-        isProd = appInfo.isProd,
+        isDebug = appInfo.isDebug,
         buildType = appInfo.buildType,
         versionCode = appInfo.versionCode,
         versionName = appInfo.versionName,
