@@ -105,8 +105,8 @@ class ExpenseRepositoryImpl(
             userId = userDataSource.storedUser.value?.id ?: return,
             eventId = eventId,
             venueId = venueId,
-            type = type.name,
-            amount = amount.adjustedForType(type),
+            type = type,
+            amount = abs(amount),
             description = description,
             date = date,
         )
@@ -126,8 +126,8 @@ class ExpenseRepositoryImpl(
             expenseId = expenseId,
             eventId = eventId,
             venueId = venueId,
-            type = type.name,
-            amount = amount.adjustedForType(type),
+            type = type,
+            amount = abs(amount),
             description = description,
             date = date,
         )

@@ -1,6 +1,7 @@
 package com.github.saikcaskey.pokertracker.domain.dao
 
 import com.github.saikcaskey.pokertracker.domain.models.Expense
+import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import kotlinx.coroutines.flow.Flow
 
 interface ExpenseDao {
@@ -25,7 +26,7 @@ interface ExpenseDao {
         userId: Long,
         venueId: Long?,
         amount: Double,
-        type: String,
+        type: ExpenseType,
         date: String? = null,
         description: String? = null,
     ): Long
@@ -36,7 +37,7 @@ interface ExpenseDao {
         eventId: Long?,
         venueId: Long?,
         amount: Double,
-        type: String,
+        type: ExpenseType,
         date: String? = null,
         description: String? = null,
     ): Long

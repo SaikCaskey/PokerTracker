@@ -1,6 +1,7 @@
 package com.github.saikcaskey.database.seed
 
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
+import com.github.saikcaskey.pokertracker.domain.extensions.adjustedForType
 import com.github.saikcaskey.pokertracker.domain.extensions.asLocalDateTime
 import com.github.saikcaskey.pokertracker.domain.extensions.atStartOfDayInstant
 import com.github.saikcaskey.pokertracker.domain.extensions.plusMinutes
@@ -256,7 +257,9 @@ private data class ExpenseSeedData(
     val amount: Double,
     val description: String,
     val date: Instant,
-)
+) {
+    val adjustedAmount = amount.adjustedForType(type)
+}
 
 private fun PokerTrackerDatabase.insertExpenseBatch(
     userId: Long,
@@ -270,7 +273,7 @@ private fun PokerTrackerDatabase.insertExpenseBatch(
             event_id = eventId,
             venue_id = venueId,
             type = data.type.toString(),
-            amount = data.amount,
+            amount = data.adjustedAmount,
             description = data.description,
             date = data.date.toString(),
             created_at = nowAsInstant().toString()
