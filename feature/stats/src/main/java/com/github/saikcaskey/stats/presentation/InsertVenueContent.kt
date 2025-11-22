@@ -10,6 +10,16 @@ import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputFormS
 fun InsertVenueContent(component: InsertVenueComponent) {
     val state by component.uiState.collectAsState()
 
+    val localNameState = remember(state.inputData.name) {
+        mutableStateOf(state.inputData.name)
+    }
+    val localAddressState = remember(state.inputData.address) {
+        mutableStateOf(state.inputData.address)
+    }
+    val localDescriptionState = remember(state.inputData.description) {
+        mutableStateOf(state.inputData.description)
+    }
+
     InputFormScaffold(
         title = if (state.existingVenueId == null) "Insert Venue" else "Edit Venue",
         onBackClicked = component::onBackClicked,
@@ -17,22 +27,31 @@ fun InsertVenueContent(component: InsertVenueComponent) {
         isSubmitEnabled = state.isSubmitEnabled
     ) {
         OutlinedTextField(
-            value = state.inputData.name,
-            onValueChange = component::onNameChanged,
+            value = localNameState.value,
+            onValueChange = { newValue ->
+                localNameState.value = newValue
+                component.onNameChanged(newValue)
+            },
             label = { Text("Name") },
             modifier = Modifier.fillMaxWidth()
         )
 
         OutlinedTextField(
-            value = state.inputData.address,
-            onValueChange = component::onAddressChanged,
+            value = localAddressState.value,
+            onValueChange = { newValue ->
+                localAddressState.value = newValue
+                component.onAddressChanged(newValue)
+            },
             label = { Text("Address") },
             modifier = Modifier.fillMaxWidth()
         )
 
         OutlinedTextField(
-            value = state.inputData.description,
-            onValueChange = component::onDescriptionChanged,
+            value = localDescriptionState.value,
+            onValueChange = { newValue ->
+                localDescriptionState.value = newValue
+                component.onDescriptionChanged(newValue)
+            },
             label = { Text("Description") },
             modifier = Modifier.fillMaxWidth()
         )
