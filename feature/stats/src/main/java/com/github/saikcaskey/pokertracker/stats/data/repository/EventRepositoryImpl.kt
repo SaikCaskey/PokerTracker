@@ -4,7 +4,7 @@ import com.github.saikcaskey.pokertracker.domain.dao.EventDao
 import com.github.saikcaskey.pokertracker.domain.datasource.UserDataSource
 import com.github.saikcaskey.pokertracker.domain.models.Event
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
-import com.github.saikcaskey.pokertracker.stats.extensions.flatMapWithUserId
+import com.github.saikcaskey.pokertracker.stats.data.extensions.flatMapWithUserId
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.LocalDate
 

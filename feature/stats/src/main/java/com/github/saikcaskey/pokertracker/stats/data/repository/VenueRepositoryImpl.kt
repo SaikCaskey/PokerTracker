@@ -4,7 +4,7 @@ import com.github.saikcaskey.pokertracker.domain.dao.VenueDao
 import com.github.saikcaskey.pokertracker.domain.datasource.UserDataSource
 import com.github.saikcaskey.pokertracker.domain.models.Venue
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
-import com.github.saikcaskey.pokertracker.stats.extensions.flatMapWithUserId
+import com.github.saikcaskey.pokertracker.stats.data.extensions.flatMapWithUserId
 import kotlinx.coroutines.flow.Flow
 
 class VenueRepositoryImpl(
