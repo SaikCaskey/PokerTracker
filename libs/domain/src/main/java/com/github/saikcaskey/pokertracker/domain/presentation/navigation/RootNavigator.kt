@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.domain.presentation
+package com.github.saikcaskey.pokertracker.domain.presentation.navigation
 
 import com.arkivanov.decompose.router.children.NavigationSource
 import com.arkivanov.decompose.router.stack.StackNavigation
@@ -6,7 +6,7 @@ import kotlinx.datetime.LocalDate
 
 interface RootNavigator {
 
-    val navigationSource: NavigationSource<StackNavigation.Event<NavigationRoute>>
+    val navigationSource: NavigationSource<StackNavigation.Event<RootNavigationRoute>>
 
     fun <R : NavigationRoute> push(route: R, onComplete: () -> Unit = {})
     fun pop(onComplete: (Boolean) -> Unit = {})
