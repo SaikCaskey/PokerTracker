@@ -12,9 +12,10 @@ fun Double.formatAsCurrency(symbol: String = ""): String {
 }
 
 fun Double.adjustedForType(expenseType: ExpenseType): Double {
+    val adjustedAmount = abs(this)
     return if (expenseType == ExpenseType.CASH_OUT || expenseType == ExpenseType.DEAL) {
-        this
+        adjustedAmount
     } else {
-        abs(this) * -1
+        -(adjustedAmount)
     }
 }
