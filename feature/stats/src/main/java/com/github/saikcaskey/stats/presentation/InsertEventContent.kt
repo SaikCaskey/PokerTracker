@@ -16,6 +16,13 @@ fun InsertEventContent(component: InsertEventComponent) {
 
     val state by component.uiState.collectAsState()
 
+    val localNameState = remember(state.inputData.name) {
+        mutableStateOf(state.inputData.name)
+    }
+    val localDescriptionState = remember(state.inputData.description) {
+        mutableStateOf(state.inputData.description)
+    }
+
     InputFormScaffold(
         title = if (state.existingEventId == null) "Insert Event" else "Edit Event",
         onBackClicked = component::onBackClicked,
@@ -29,30 +36,41 @@ fun InsertEventContent(component: InsertEventComponent) {
             options = GameType.entries.toList(),
             onSelected = component::onGameTypeChanged,
         )
+
         OutlinedTextField(
-            value = state.inputData.name,
-            onValueChange = component::onNameChanged,
+            value = localNameState.value,
+            onValueChange = { newValue ->
+                localNameState.value = newValue
+                component.onNameChanged(newValue)
+            },
             label = { Text("Event Name") },
             modifier = Modifier.fillMaxWidth()
         )
+
         OutlinedTextField(
-            value = state.inputData.description,
-            onValueChange = component::onDescriptionChanged,
+            value = localDescriptionState.value,
+            onValueChange = { newValue ->
+                localDescriptionState.value = newValue
+                component.onDescriptionChanged(newValue)
+            },
             label = { Text("Description") },
             modifier = Modifier.fillMaxWidth()
         )
+
         InputDropdownVenue(
             venues = state.venues,
             selectedVenue = state.venue,
             onVenueSelected = component::onVenueChanged,
             onAddVenueClicked = component::onShowInsertVenueClicked
         )
+
         InputDateField(
             value = state.inputData.date,
             onValueChange = component::onDateChanged,
             label = "Date",
             modifier = Modifier.fillMaxWidth(),
         )
+
         InputTimeField(
             value = state.inputData.time,
             onValueChange = component::onTimeChanged,
