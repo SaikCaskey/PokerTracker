@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
+import kotlin.math.abs
 import com.github.saikcaskey.pokertracker.database.Expense as DatabaseExpense
 
 class ExpenseDaoImpl(
@@ -207,7 +208,7 @@ private fun DatabaseExpense.toDomain(): Expense {
         eventId = event_id,
         venueId = venue_id,
         type = ExpenseType.valueOf(type),
-        amount = amount,
+        amount = abs(amount),
         description = description,
         date = date.asInstantOrNull(),
         createdAt = created_at.asInstantOrNull(),
