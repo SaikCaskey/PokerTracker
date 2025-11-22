@@ -77,7 +77,7 @@ fun EventExpensesList(expenses: List<Expense>, onExpenseClicked: (Long) -> Unit)
         title = "Expenses at this Event",
         content = {
             SectionListContainer(
-                items = expenses.reversed(),
+                items = expenses,
                 onItemClicked = { onExpenseClicked(it.id) },
                 maxHeight = 350.dp,
                 emptyMessage = "No expenses logged yet",

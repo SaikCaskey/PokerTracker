@@ -11,22 +11,22 @@ updated_at TEXT
 );
 
 getByVenue:
-SELECT * FROM Event WHERE user_id = :userId AND venue_id = :venueId ORDER BY id DESC;
+SELECT * FROM Event WHERE user_id = :userId AND venue_id = :venueId ORDER BY date(date) DESC;
 
 getAll:
-SELECT * FROM Event WHERE user_id = :userId ORDER BY id DESC;
+SELECT * FROM Event WHERE user_id = :userId ORDER BY date(date) DESC;
 
 getUpcoming:
 SELECT * FROM Event WHERE user_id = :userId AND date(date) >= date(:afterDate) ORDER BY date(date) ASC LIMIT :limit;
 
 getUpcomingByVenue:
-SELECT * FROM Event WHERE user_id = :userId AND date(date) >= date(:afterDate) AND venue_id = :id ORDER BY date(date) ASC LIMIT :limit;
+SELECT * FROM Event WHERE user_id = :userId AND date(date) >= date(:afterDate) AND venue_id = :id ORDER BY date(date) DESC LIMIT :limit;
 
 getDay:
-SELECT * FROM Event WHERE user_id = :userId AND date(date) == date(:day) ORDER BY date(date) ASC LIMIT :limit;
+SELECT * FROM Event WHERE user_id = :userId AND date(date) == date(:day) ORDER BY date(date) DESC LIMIT :limit;
 
 getDayByVenue:
-SELECT * FROM Event WHERE user_id = :userId AND date(date) == date(:day) AND venue_id =:id ORDER BY date(date) ASC LIMIT :limit;
+SELECT * FROM Event WHERE user_id = :userId AND date(date) == date(:day) AND venue_id =:id ORDER BY date(date) DESC LIMIT :limit;
 
 getRecent:
 SELECT * FROM Event WHERE user_id = :userId AND date(date) <= date(:beforeDate) ORDER BY date(date) DESC LIMIT :limit;
