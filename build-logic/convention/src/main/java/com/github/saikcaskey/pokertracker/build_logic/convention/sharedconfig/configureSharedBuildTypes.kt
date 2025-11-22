@@ -8,6 +8,8 @@ internal fun CommonExtension<*, *, *, *, *, *>.configureSharedBuildTypes() {
         getByName("release") {
             if (this@configureSharedBuildTypes is BaseAppModuleExtension) {
                 isMinifyEnabled = true
+                isShrinkResources = true
+
                 defaultConfig.proguardFiles(
                     getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro"
