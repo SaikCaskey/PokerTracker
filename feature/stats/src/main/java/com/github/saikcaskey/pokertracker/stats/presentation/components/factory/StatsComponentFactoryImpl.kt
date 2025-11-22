@@ -7,12 +7,12 @@ import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNav
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
-import com.github.saikcaskey.pokertracker.stats.domain.components.ViewEventsComponent
-import com.github.saikcaskey.pokertracker.stats.domain.components.ViewExpensesComponent
-import com.github.saikcaskey.pokertracker.stats.domain.components.ViewVenuesComponent
 import com.github.saikcaskey.pokertracker.stats.domain.components.factory.StatsComponentFactory
+import com.github.saikcaskey.pokertracker.stats.domain.components.ViewEventsComponent
 import com.github.saikcaskey.pokertracker.stats.presentation.components.ViewEventsComponentImpl
+import com.github.saikcaskey.pokertracker.stats.domain.components.ViewExpensesComponent
 import com.github.saikcaskey.pokertracker.stats.presentation.components.ViewExpensesComponentImpl
+import com.github.saikcaskey.pokertracker.stats.domain.components.ViewVenuesComponent
 import com.github.saikcaskey.pokertracker.stats.presentation.components.ViewVenuesComponentImpl
 import com.github.saikcaskey.pokertracker.stats.presentation.navigation.StatsPagerNavigationRoute
 
