@@ -4,10 +4,10 @@ import com.github.saikcaskey.pokertracker.domain.models.AccountSettingsData
 import com.github.saikcaskey.account.domain.model.AccountSettingsItem
 import com.github.saikcaskey.account.domain.model.AccountSettingsAction
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
-import com.github.saikcaskey.pokertracker.domain.presentation.MainPagerPageComponent
+import com.github.saikcaskey.pokertracker.domain.presentation.component.FeatureComponent
 import kotlinx.coroutines.flow.StateFlow
 
-interface AccountFeatureComponent : MainPagerPageComponent {
+interface AccountFeatureComponent : FeatureComponent {
     val uiState: StateFlow<UiState>
 
     fun updatePreferenceValue(preference: UserPreference<*>, value: Any?)

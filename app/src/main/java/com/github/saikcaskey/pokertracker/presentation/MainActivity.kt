@@ -5,8 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.arkivanov.decompose.defaultComponentContext
-import com.github.saikcaskey.pokertracker.di.ComponentFactoryProvider
+import com.github.saikcaskey.pokertracker.di.RootComponentFactoryProvider
 import com.github.saikcaskey.pokertracker.di.RootNavigatorProvider
+import com.github.saikcaskey.pokertracker.presentation.components.RootComponentImpl
+import com.github.saikcaskey.pokertracker.presentation.composables.RootContent
 
 class MainActivity : ComponentActivity() {
 
@@ -18,7 +20,7 @@ class MainActivity : ComponentActivity() {
         val root = RootComponentImpl(
             componentContext = defaultComponentContext(),
             rootNavigator = RootNavigatorProvider.provide(),
-            componentFactory = ComponentFactoryProvider.provide(),
+            componentFactory = RootComponentFactoryProvider.provide(),
         )
 
         setContent {

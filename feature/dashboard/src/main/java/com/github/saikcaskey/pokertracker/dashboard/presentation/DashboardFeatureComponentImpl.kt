@@ -1,10 +1,10 @@
 package com.github.saikcaskey.pokertracker.dashboard.presentation
 
 import com.arkivanov.decompose.ComponentContext
-import com.github.saikcaskey.pokertracker.dashboard.presentation.navigation.DashboardNavigator
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.models.DashboardEventsData
 import com.github.saikcaskey.pokertracker.domain.models.DashboardProfitSummaryData
+import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNavigator
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
@@ -19,7 +19,7 @@ class DashboardFeatureComponentImpl(
     expenseRepository: ExpenseRepository,
     venueRepository: VenueRepository,
     dispatchers: CoroutineDispatchers,
-    private val navigator: DashboardNavigator,
+    private val rootNavigator: RootNavigator,
 ) : DashboardFeatureComponent, ComponentContext by componentContext {
     private val coroutineScope = CoroutineScope(dispatchers.io)
 
@@ -46,14 +46,14 @@ class DashboardFeatureComponentImpl(
         DashboardFeatureComponent::UiState
     ).stateIn(coroutineScope, SharingStarted.Companion.Eagerly, DashboardFeatureComponent.UiState())
 
-    override fun onShowEventDetailClicked(id: Long) = navigator.onShowEventDetail(id)
-    override fun onShowExpenseDetailClicked(id: Long) = navigator.onShowExpenseDetail(id)
-    override fun onShowVenueDetailClicked(id: Long) = navigator.onShowVenueDetail(id)
-    override fun onShowInsertEventClicked() = navigator.onShowInsertEvent()
-    override fun onShowInsertExpenseClicked() = navigator.onShowInsertExpense()
-    override fun onShowInsertVenueClicked() = navigator.onShowInsertVenue()
-    override fun onShowAllExpensesClicked() = navigator.onShowAllExpenses()
-    override fun onShowAllEventsClicked() = navigator.onShowAllEvents()
-    override fun onShowAllVenuesClicked() = navigator.onShowAllVenues()
+    override fun onShowEventDetailClicked(id: Long) = rootNavigator.onShowEventDetail(id)
+    override fun onShowExpenseDetailClicked(id: Long) = rootNavigator.onShowExpenseDetail(id)
+    override fun onShowInsertEventClicked() = rootNavigator.onShowInsertEvent()
+    override fun onShowInsertVenueClicked() = rootNavigator.onShowInsertVenue()
+    override fun onShowInsertExpenseClicked() = rootNavigator.onShowInsertExpense()
+    override fun onShowVenueDetailClicked(id: Long) = rootNavigator.onShowVenueDetail(id)
+    override fun onShowAllExpensesClicked() = rootNavigator.onShowAllExpenses()
+    override fun onShowAllEventsClicked() = rootNavigator.onShowAllEvents()
+    override fun onShowAllVenuesClicked() = rootNavigator.onShowAllVenues()
 }
 

@@ -1,0 +1,6 @@
+package com.github.saikcaskey.pokertracker.domain.factory
+
+import com.github.saikcaskey.pokertracker.domain.presentation.component.factory.ChildComponentFactory
+import com.github.saikcaskey.pokertracker.presentation.navigation.MainPagerPageNavigationRoute
+
+interface MainPagerComponentFactory : ChildComponentFactory<MainPagerPageNavigationRoute>
