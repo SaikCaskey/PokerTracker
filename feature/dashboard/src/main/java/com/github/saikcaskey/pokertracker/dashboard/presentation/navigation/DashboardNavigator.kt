@@ -1,6 +1,6 @@
 package com.github.saikcaskey.pokertracker.dashboard.presentation.navigation
 
-import com.github.saikcaskey.pokertracker.domain.presentation.RootNavigator
+import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNavigator
 
 interface DashboardNavigator {
     fun onShowEventDetail(id: Long)
