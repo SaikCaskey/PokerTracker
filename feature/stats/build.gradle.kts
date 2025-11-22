@@ -10,6 +10,7 @@ android {
 dependencies {
     implementation(project(":libs:domain"))
     implementation(project(":libs:ui-compose"))
+    implementation(project(":libs:ui-charts"))
 
     implementation(compose.ui)
     implementation(compose.foundation)
