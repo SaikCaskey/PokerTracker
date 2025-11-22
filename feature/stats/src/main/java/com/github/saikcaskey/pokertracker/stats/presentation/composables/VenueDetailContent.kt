@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -20,17 +21,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.github.saikcaskey.libs.ui_charts.domain.model.ChartDataItem
+import com.github.saikcaskey.libs.ui_charts.domain.model.ChartType
+import com.github.saikcaskey.libs.ui_charts.presentation.ChartyWidget
+import com.github.saikcaskey.pokertracker.domain.extensions.asLocalDateTime
 import com.github.saikcaskey.pokertracker.domain.extensions.toUiDateTimeOrNull
 import com.github.saikcaskey.pokertracker.domain.models.EventSummary
+import com.github.saikcaskey.pokertracker.stats.domain.components.VenueDetailComponent
 import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopBarItemDetail
 import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedProfitText
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
 import com.github.saikcaskey.pokertracker.ui_compose.components.event.EventsList
 import com.github.saikcaskey.pokertracker.ui_compose.extensions.toProfitColor
-import com.github.saikcaskey.pokertracker.stats.domain.components.VenueDetailComponent
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.PlusCircle
+import kotlin.math.abs
 
 @Composable
 fun VenueDetailContent(component: VenueDetailComponent) {
@@ -65,6 +71,7 @@ fun VenueDetailContent(component: VenueDetailComponent) {
         ) {
             item { VenueDetailSummary(state) }
             item { VenueProfitSummary(state) }
+            item { VenueExpenseSummary(state) }
             item {
                 VenueEventsSummary(
                     eventSummary = state.eventSummary,
@@ -153,5 +160,59 @@ fun VenueProfitSummary(
         )
         Text("Total:", style = MaterialTheme.typography.titleMedium)
         AnimatedProfitText(state.profitSummary.balance)
+    }
+}
+
+@Composable
+fun VenueExpenseSummary(
+    state: VenueDetailComponent.UiState,
+    modifier: Modifier = Modifier,
+    onVenueClicked: ((Long) -> Unit)? = null,
+) {
+    if (state.expenseSummary.all.isEmpty()) return
+    
+    val venue = state.venue
+    SectionContainer(
+        title = "Expense Summary",
+        modifier = modifier
+            .fillMaxSize()
+            .clickable(venue?.id != null) {
+                venue?.id?.let { onVenueClicked?.invoke(it) }
+            }
+    ) {
+        val expenseCountData = state.expenseSummary.all.map {
+            ChartDataItem(
+                y = it.amount,
+                x = it.date?.asLocalDateTime()?.dayOfYear ?: 0
+            )
+        }
+        if (expenseCountData.isNotEmpty()) {
+            HorizontalDivider()
+            Text("Recent Expenses", style = MaterialTheme.typography.labelSmall)
+            HorizontalDivider()
+            ChartyWidget(dataPoints = expenseCountData, type = ChartType.Line)
+            HorizontalDivider()
+            ChartyWidget(dataPoints = expenseCountData, type = ChartType.Point)
+            HorizontalDivider()
+        }
+        val expenseTypeData = state.expenseSummary.all.associateBy { it.type }
+            .map {
+                ChartDataItem(
+                    label = it.key.name,
+                    y = it.value.amount,
+                )
+            }
+
+        if (expenseTypeData.isNotEmpty()) {
+            Text("Breakdown", style = MaterialTheme.typography.labelSmall)
+            HorizontalDivider()
+            ChartyWidget(
+                dataPoints = expenseTypeData.map { it.copy(y = abs(it.y.toDouble())) },
+                type = ChartType.Pie
+            )
+            HorizontalDivider()
+            ChartyWidget(dataPoints = expenseTypeData, type = ChartType.Bar)
+
+        }
     }
 }
