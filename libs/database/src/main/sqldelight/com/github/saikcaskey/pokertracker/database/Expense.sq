@@ -52,7 +52,7 @@ getById:
 SELECT * FROM Expense WHERE user_id = :userId AND id = :expenseId;
 
 getByVenue:
-SELECT * FROM Expense WHERE user_id = :userId AND venue_id = :venueId ORDER BY id;
+SELECT * FROM Expense WHERE user_id = :userId AND venue_id = :venueId ORDER BY date(date) DESC;
 
 deleteById:
 DELETE FROM Expense WHERE user_id = :userId AND id = :id;
