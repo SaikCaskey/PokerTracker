@@ -34,23 +34,26 @@ class MainPagerComponentFactoryImpl(
         ctx: ComponentContext,
         route: MainPagerPageNavigationRoute,
     ): FeatureComponent = when (route) {
-        MainPagerPageNavigationRoute.Account -> accountFeatureComponent(ctx)
-
-        MainPagerPageNavigationRoute.Planner -> plannerFeatureComponentImpl(ctx)
-
-        MainPagerPageNavigationRoute.Dashboard -> dashboardFeatureComponentImpl(ctx)
-
-        MainPagerPageNavigationRoute.Stats -> statsFeatureComponentImpl(ctx)
+        MainPagerPageNavigationRoute.Account -> accountFeatureComponent(ctx, route)
+        MainPagerPageNavigationRoute.Planner -> plannerFeatureComponentImpl(ctx, route)
+        MainPagerPageNavigationRoute.Dashboard -> dashboardFeatureComponentImpl(ctx, route)
+        MainPagerPageNavigationRoute.Stats -> statsFeatureComponentImpl(ctx, route)
     }
 
-    private fun statsFeatureComponentImpl(ctx: ComponentContext): FeatureComponent {
+    private fun statsFeatureComponentImpl(
+        ctx: ComponentContext,
+        @Suppress("unused") route: MainPagerPageNavigationRoute,
+    ): FeatureComponent {
         return StatsFeaturePagerComponentImpl(
             componentContext = ctx,
             componentFactory = StatsComponentFactoryProvider.provide()
         )
     }
 
-    private fun dashboardFeatureComponentImpl(ctx: ComponentContext): FeatureComponent {
+    private fun dashboardFeatureComponentImpl(
+        ctx: ComponentContext,
+        @Suppress("unused") route: MainPagerPageNavigationRoute,
+    ): FeatureComponent {
         return DashboardFeatureComponentImpl(
             componentContext = ctx,
             eventRepository = eventRepository,
@@ -61,7 +64,10 @@ class MainPagerComponentFactoryImpl(
         )
     }
 
-    private fun plannerFeatureComponentImpl(ctx: ComponentContext): FeatureComponent {
+    private fun plannerFeatureComponentImpl(
+        ctx: ComponentContext,
+        @Suppress("unused") route: MainPagerPageNavigationRoute,
+    ): FeatureComponent {
         return PlannerFeatureComponentImpl(
             componentContext = ctx,
             eventsRepository = eventRepository,
@@ -70,7 +76,10 @@ class MainPagerComponentFactoryImpl(
         )
     }
 
-    private fun accountFeatureComponent(ctx: ComponentContext): FeatureComponent {
+    private fun accountFeatureComponent(
+        ctx: ComponentContext,
+        @Suppress("unused") route: MainPagerPageNavigationRoute,
+    ): FeatureComponent {
         return AccountFeatureComponentImpl(
             componentContext = ctx,
             database = PokerTrackerDatabaseProvider.provide(),
