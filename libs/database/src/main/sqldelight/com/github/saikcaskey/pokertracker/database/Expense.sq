@@ -46,7 +46,7 @@ updated_at = ?
 WHERE id = ?;
 
 getByEvent:
-SELECT * FROM Expense WHERE user_id = :userId AND event_id = :eventId ORDER BY id;
+SELECT * FROM Expense WHERE user_id = :userId AND event_id = :eventId ORDER BY date(date) DESC;
 
 getById:
 SELECT * FROM Expense WHERE user_id = :userId AND id = :expenseId;
