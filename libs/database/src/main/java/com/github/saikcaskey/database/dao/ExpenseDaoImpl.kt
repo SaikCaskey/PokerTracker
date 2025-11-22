@@ -7,6 +7,7 @@ import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.dao.ExpenseDao
+import com.github.saikcaskey.pokertracker.domain.extensions.adjustedForType
 import com.github.saikcaskey.pokertracker.domain.extensions.asInstantOrNull
 import com.github.saikcaskey.pokertracker.domain.extensions.atStartOfDayInstant
 import com.github.saikcaskey.pokertracker.domain.models.Expense
@@ -150,7 +151,7 @@ class ExpenseDaoImpl(
         userId: Long,
         venueId: Long?,
         amount: Double,
-        type: String,
+        type: ExpenseType,
         date: String?,
         description: String?,
     ): Long {
@@ -158,8 +159,8 @@ class ExpenseDaoImpl(
             event_id = eventId,
             user_id = userId,
             venue_id = venueId,
-            type = type,
-            amount = amount,
+            type = type.name,
+            amount = amount.adjustedForType(type),
             description = description,
             date = date,
             created_at = nowAsInstant().toString(),
@@ -173,7 +174,7 @@ class ExpenseDaoImpl(
         eventId: Long?,
         venueId: Long?,
         amount: Double,
-        type: String,
+        type: ExpenseType,
         date: String?,
         description: String?,
     ): Long {
@@ -182,8 +183,8 @@ class ExpenseDaoImpl(
             event_id = eventId,
             user_id = userId,
             venue_id = venueId,
-            type = type,
-            amount = amount,
+            type = type.name,
+            amount = amount.adjustedForType(type),
             description = description,
             date = date,
             updated_at = nowAsInstant().toString()
@@ -201,12 +202,13 @@ class ExpenseDaoImpl(
 }
 
 private fun DatabaseExpense.toDomain(): Expense {
+    val type = ExpenseType.valueOf(type)
     return Expense(
         id = id,
         eventId = event_id,
         venueId = venue_id,
-        type = ExpenseType.valueOf(type),
-        amount = amount,
+        type = type,
+        amount = amount.adjustedForType(type),
         description = description,
         date = date.asInstantOrNull(),
         createdAt = created_at.asInstantOrNull(),
