@@ -2,6 +2,7 @@ package com.github.saikcaskey.pokertracker.presentation.components.factory
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.account.domain.repository.AccountSettingsRepository
+import com.github.saikcaskey.pokertracker.di.MainPagerComponentFactoryProvider
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.component.MainComponent
 import com.github.saikcaskey.pokertracker.domain.factory.RootComponentFactory
@@ -101,20 +102,15 @@ class RootComponentFactoryImpl(
         return MainPagerComponentImpl(
             componentContext = componentContext,
             dispatchers = dispatchers,
-            eventRepository = eventRepository,
-            venueRepository = venueRepository,
-            expenseRepository = expenseRepository,
-            accountSettingsRepository = accountSettingsRepository,
-            userRepository = userRepository,
-            rootNavigator = navigator
+            componentFactory = MainPagerComponentFactoryProvider.provide()
         )
     }
 
     private fun eventDetailComponent(
         componentContext: ComponentContext,
         route: RootNavigationRoute.EventDetailRoute,
-    ): EventDetailComponent =
-        EventDetailComponentImpl(
+    ): EventDetailComponent {
+        return EventDetailComponentImpl(
             componentContext = componentContext,
             eventId = route.eventId,
             dispatchers = dispatchers,
@@ -147,6 +143,7 @@ class RootComponentFactoryImpl(
             expenseRepository = expenseRepository,
             venueRepository = venueRepository,
         )
+    }
 
     private fun dayDetailComponent(
         componentContext: ComponentContext,
