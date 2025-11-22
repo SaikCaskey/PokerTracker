@@ -34,23 +34,24 @@ class MainPagerComponentFactoryImpl(
         ctx: ComponentContext,
         route: MainPagerPageNavigationRoute,
     ): FeatureComponent = when (route) {
-        MainPagerPageNavigationRoute.Account -> AccountFeatureComponentImpl(
-            componentContext = ctx,
-            database = PokerTrackerDatabaseProvider.provide(),
-            accountSettingsRepository = accountSettingsRepository,
-            userRepository = userRepository,
-            seeder = SampleDataSeederProvider.provide(),
-            dispatchers = dispatchers,
-        )
+        MainPagerPageNavigationRoute.Account -> accountFeatureComponent(ctx)
 
-        MainPagerPageNavigationRoute.Planner -> PlannerFeatureComponentImpl(
-            componentContext = ctx,
-            eventsRepository = eventRepository,
-            onCalendarDayClicked = navigator::onShowCalendarDayDetail,
-            dispatchers = dispatchers
-        )
+        MainPagerPageNavigationRoute.Planner -> plannerFeatureComponentImpl(ctx)
 
-        MainPagerPageNavigationRoute.Dashboard -> DashboardFeatureComponentImpl(
+        MainPagerPageNavigationRoute.Dashboard -> dashboardFeatureComponentImpl(ctx)
+
+        MainPagerPageNavigationRoute.Stats -> statsFeatureComponentImpl(ctx)
+    }
+
+    private fun statsFeatureComponentImpl(ctx: ComponentContext): FeatureComponent {
+        return StatsFeaturePagerComponentImpl(
+            componentContext = ctx,
+            componentFactory = StatsComponentFactoryProvider.provide()
+        )
+    }
+
+    private fun dashboardFeatureComponentImpl(ctx: ComponentContext): FeatureComponent {
+        return DashboardFeatureComponentImpl(
             componentContext = ctx,
             eventRepository = eventRepository,
             expenseRepository = expenseRepository,
@@ -58,10 +59,25 @@ class MainPagerComponentFactoryImpl(
             dispatchers = dispatchers,
             rootNavigator = RootNavigatorProvider.provide(),
         )
+    }
 
-        MainPagerPageNavigationRoute.Stats -> StatsFeaturePagerComponentImpl(
+    private fun plannerFeatureComponentImpl(ctx: ComponentContext): FeatureComponent {
+        return PlannerFeatureComponentImpl(
             componentContext = ctx,
-            componentFactory = StatsComponentFactoryProvider.provide()
+            eventsRepository = eventRepository,
+            onCalendarDayClicked = navigator::onShowCalendarDayDetail,
+            dispatchers = dispatchers
+        )
+    }
+
+    private fun accountFeatureComponent(ctx: ComponentContext): FeatureComponent {
+        return AccountFeatureComponentImpl(
+            componentContext = ctx,
+            database = PokerTrackerDatabaseProvider.provide(),
+            accountSettingsRepository = accountSettingsRepository,
+            userRepository = userRepository,
+            seeder = SampleDataSeederProvider.provide(),
+            dispatchers = dispatchers,
         )
     }
 }
