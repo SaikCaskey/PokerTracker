@@ -6,9 +6,8 @@ import com.github.saikcaskey.pokertracker.domain.extensions.adjustedForType
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
-import com.github.saikcaskey.stats.ext.flatMapWithUserId
+import com.github.saikcaskey.stats.extensions.flatMapWithUserId
 import kotlinx.coroutines.flow.Flow
-import kotlin.math.abs
 
 class ExpenseRepositoryImpl(
     private val expenseDao: ExpenseDao,
@@ -127,7 +126,7 @@ class ExpenseRepositoryImpl(
             eventId = eventId,
             venueId = venueId,
             type = type,
-            amount = abs(amount),
+            amount = amount.adjustedForType(type),
             description = description,
             date = date,
         )
