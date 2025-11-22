@@ -9,7 +9,6 @@ import org.gradle.api.Project
 internal fun Project.configureSharedDefaultConfig(
     commonExtension: CommonExtension<*, *, *, *, *, *>,
 ) {
-
     commonExtension.apply {
         compileSdk = libs.getVersionInt("android-compilesdk")
 

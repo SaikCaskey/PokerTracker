@@ -13,7 +13,6 @@ import com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig.co
 import com.github.saikcaskey.pokertracker.build_logic.convention.utils.gitCommitHash
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidExtension
 
 class ModuleAppConventionPlugin : Plugin<Project> {
 
@@ -50,14 +49,10 @@ class ModuleAppConventionPlugin : Plugin<Project> {
                 }
 
                 configureSharedBuildTypes()
-                configureSharedBuildFeatures(enableCompose = true)
+                configureSharedBuildFeatures(enableCompose = true, enableBuildConfig = true)
                 configureSharedPackaging()
                 configureSharedCompileOptions()
                 configureSharedDefaultConfig(this)
-            }
-
-            configureExtension<KotlinAndroidExtension> {
-                jvmToolchain(libs.getVersionInt("jvmTarget"))
             }
         }
     }
