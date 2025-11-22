@@ -15,13 +15,13 @@ getAll:
 SELECT * FROM Expense WHERE user_id = :userId ORDER BY id DESC;
 
 getRecent:
-SELECT * FROM Expense WHERE user_id = :userId AND date(created_at) <= date(:beforeDate) ORDER BY date(created_at) DESC LIMIT :limit;
+SELECT * FROM Expense WHERE user_id = :userId AND date(date) <= date(:beforeDate) ORDER BY date(date) DESC LIMIT :limit;
 
 getUpcomingCosts:
 SELECT
 SUM(
 CASE
-WHEN type NOT IN ('CASH_OUT', 'DEAL') THEN -amount
+WHEN type NOT IN ('CASH_OUT', 'DEAL') THEN amount
 ELSE 0
 END
 ) AS balance
