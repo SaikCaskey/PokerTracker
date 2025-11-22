@@ -106,7 +106,7 @@ class ExpenseRepositoryImpl(
             eventId = eventId,
             venueId = venueId,
             type = type,
-            amount = abs(amount),
+            amount = amount.adjustedForType(type),
             description = description,
             date = date,
         )
