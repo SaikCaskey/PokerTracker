@@ -1,13 +1,13 @@
-package com.github.saikcaskey.pokertracker.presentation
+package com.github.saikcaskey.pokertracker.domain.component
 
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
+import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination
 
-/**
- * The navigation "Root" for the app's decompose structure.
- * All of these children can be pushed onto the Root navigator's Stack.
- */
 interface RootComponent {
+
     val rootNavigationStack: Value<ChildStack<*, RootDestination>>
+
     fun onBackClicked(toIndex: Int)
+
 }

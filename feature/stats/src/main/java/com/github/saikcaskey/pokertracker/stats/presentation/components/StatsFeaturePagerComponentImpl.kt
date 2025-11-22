@@ -11,7 +11,7 @@ import com.arkivanov.decompose.value.subscribe
 import com.github.saikcaskey.pokertracker.domain.presentation.component.FeatureComponent
 import com.github.saikcaskey.stats.domain.components.StatsFeaturePagerComponent
 import com.github.saikcaskey.stats.factory.StatsComponentFactory
-import com.github.saikcaskey.stats.presentation.navigation.StatsPagerNavigationRoute
+import com.github.saikcaskey.pokertracker.stats.presentation.navigation.StatsPagerNavigationRoute
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 

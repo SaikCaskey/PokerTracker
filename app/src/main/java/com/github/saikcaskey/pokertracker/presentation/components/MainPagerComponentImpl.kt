@@ -1,33 +1,39 @@
-package com.github.saikcaskey.pokertracker.presentation
+package com.github.saikcaskey.pokertracker.presentation.components
 
 import com.arkivanov.decompose.ComponentContext
-import com.arkivanov.decompose.router.pages.*
+import com.arkivanov.decompose.router.pages.ChildPages
+import com.arkivanov.decompose.router.pages.Pages
+import com.arkivanov.decompose.router.pages.PagesNavigation
+import com.arkivanov.decompose.router.pages.childPages
+import com.arkivanov.decompose.router.pages.select
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.subscribe
-import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponentImpl
+import com.github.saikcaskey.account.domain.repository.AccountSettingsRepository
+import com.github.saikcaskey.account.presentation.AccountFeatureComponentImpl
 import com.github.saikcaskey.database.di.PokerTrackerDatabaseProvider
+import com.github.saikcaskey.database.di.SampleDataSeederProvider
+import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponentImpl
+import com.github.saikcaskey.pokertracker.di.RootNavigatorProvider
+import com.github.saikcaskey.pokertracker.di.StatsComponentFactoryProvider
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
+import com.github.saikcaskey.pokertracker.domain.component.MainComponent
+import com.github.saikcaskey.pokertracker.domain.presentation.component.FeatureComponent
+import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNavigator
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
-import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
-import com.github.saikcaskey.account.domain.repository.AccountSettingsRepository
-import com.github.saikcaskey.pokertracker.planner.presentation.PlannerFeatureComponentImpl
-import com.github.saikcaskey.account.presentation.AccountFeatureComponentImpl
-import com.github.saikcaskey.database.di.SampleDataSeederProvider
-import com.github.saikcaskey.pokertracker.dashboard.presentation.navigation.DashboardNavigator
-import com.github.saikcaskey.pokertracker.domain.presentation.MainPagerPageComponent
-import com.github.saikcaskey.pokertracker.domain.presentation.RootNavigator
 import com.github.saikcaskey.pokertracker.domain.repository.UserRepository
-import com.github.saikcaskey.stats.presentation.StatsFeatureComponentImpl
+import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
+import com.github.saikcaskey.pokertracker.planner.presentation.PlannerFeatureComponentImpl
+import com.github.saikcaskey.pokertracker.presentation.navigation.MainPagerPageNavigationRoute
+import com.github.saikcaskey.pokertracker.stats.presentation.components.StatsFeaturePagerComponentImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.serialization.Serializable
 
-class MainComponentImpl(
+class MainPagerComponentImpl(
     componentContext: ComponentContext,
     private val rootNavigator: RootNavigator,
     private val eventRepository: EventRepository,
@@ -39,27 +45,27 @@ class MainComponentImpl(
 ) : MainComponent, ComponentContext by componentContext {
 
     private val coroutineScope = CoroutineScope(dispatchers.io)
-    private val navigation = PagesNavigation<MainMenuPagerPageConfig>()
+    private val pagerNavigation = PagesNavigation<MainPagerPageNavigationRoute>()
 
-    override val pages: Value<ChildPages<*, MainPagerPageComponent>> = childPages(
-        source = navigation,
-        serializer = MainMenuPagerPageConfig.serializer(),
+    override val pages: Value<ChildPages<*, FeatureComponent>> = childPages(
+        source = pagerNavigation,
+        serializer = MainPagerPageNavigationRoute.serializer(),
         initialPages = {
             Pages(
                 items = List(MainMenuPagerItemType.entries.size) { index ->
                     when (index) {
-                        3 -> MainMenuPagerPageConfig.Account
-                        2 -> MainMenuPagerPageConfig.Stats
-                        1 -> MainMenuPagerPageConfig.Planner
-                        else -> MainMenuPagerPageConfig.Dashboard
+                        3 -> MainPagerPageNavigationRoute.Account
+                        2 -> MainPagerPageNavigationRoute.Stats
+                        1 -> MainPagerPageNavigationRoute.Planner
+                        else -> MainPagerPageNavigationRoute.Dashboard
                     }
                 },
                 selectedIndex = 0,
             )
         },
-    ) { config, childComponentContext ->
-        when (config) {
-            MainMenuPagerPageConfig.Account -> AccountFeatureComponentImpl(
+    ) { route, childComponentContext ->
+        when (route) {
+            MainPagerPageNavigationRoute.Account -> AccountFeatureComponentImpl(
                 componentContext = childComponentContext,
                 database = PokerTrackerDatabaseProvider.provide(),
                 accountSettingsRepository = accountSettingsRepository,
@@ -68,24 +74,25 @@ class MainComponentImpl(
                 dispatchers = dispatchers,
             )
 
-            MainMenuPagerPageConfig.Planner -> PlannerFeatureComponentImpl(
+            MainPagerPageNavigationRoute.Planner -> PlannerFeatureComponentImpl(
                 componentContext = childComponentContext,
                 eventsRepository = eventRepository,
                 onCalendarDayClicked = rootNavigator::onShowCalendarDayDetail,
                 dispatchers = dispatchers
             )
 
-            MainMenuPagerPageConfig.Dashboard -> DashboardFeatureComponentImpl(
+            MainPagerPageNavigationRoute.Dashboard -> DashboardFeatureComponentImpl(
                 componentContext = childComponentContext,
                 eventRepository = eventRepository,
                 expenseRepository = expenseRepository,
                 venueRepository = venueRepository,
                 dispatchers = dispatchers,
-                navigator = DashboardNavigator.from(rootNavigator)
+                rootNavigator = RootNavigatorProvider.provide(),
             )
 
-            MainMenuPagerPageConfig.Stats -> StatsFeatureComponentImpl(
+            MainPagerPageNavigationRoute.Stats -> StatsFeaturePagerComponentImpl(
                 componentContext = childComponentContext,
+                componentFactory = StatsComponentFactoryProvider.provide()
             )
         }
     }
@@ -103,22 +110,7 @@ class MainComponentImpl(
         .stateIn(coroutineScope, Eagerly, selectedIndex.value.toPageTitle())
 
     override fun selectPage(index: Int) {
-        navigation.select(index = index)
-    }
-
-    @Serializable
-    sealed class MainMenuPagerPageConfig {
-        @Serializable
-        data object Dashboard : MainMenuPagerPageConfig()
-
-        @Serializable
-        data object Planner : MainMenuPagerPageConfig()
-
-        @Serializable
-        data object Stats : MainMenuPagerPageConfig()
-
-        @Serializable
-        data object Account : MainMenuPagerPageConfig()
+        pagerNavigation.select(index = index)
     }
 }
 

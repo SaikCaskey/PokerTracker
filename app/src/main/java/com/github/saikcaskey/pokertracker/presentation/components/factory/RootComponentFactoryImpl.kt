@@ -25,15 +25,15 @@ import com.github.saikcaskey.stats.domain.components.VenueDetailComponent
 import com.github.saikcaskey.stats.domain.components.ViewEventsComponent
 import com.github.saikcaskey.stats.domain.components.ViewExpensesComponent
 import com.github.saikcaskey.stats.domain.components.ViewVenuesComponent
-import com.github.saikcaskey.stats.presentation.components.EventDetailComponentImpl
-import com.github.saikcaskey.stats.presentation.components.ExpenseDetailComponentImpl
-import com.github.saikcaskey.stats.presentation.components.InsertEventComponentImpl
-import com.github.saikcaskey.stats.presentation.components.InsertExpenseComponentImpl
-import com.github.saikcaskey.stats.presentation.components.InsertVenueComponentImpl
-import com.github.saikcaskey.stats.presentation.components.VenueDetailComponentImpl
-import com.github.saikcaskey.stats.presentation.components.ViewEventsComponentImpl
-import com.github.saikcaskey.stats.presentation.components.ViewExpensesComponentImpl
-import com.github.saikcaskey.stats.presentation.components.ViewVenuesComponentImpl
+import com.github.saikcaskey.pokertracker.stats.presentation.components.EventDetailComponentImpl
+import com.github.saikcaskey.pokertracker.stats.presentation.components.ExpenseDetailComponentImpl
+import com.github.saikcaskey.pokertracker.stats.presentation.components.InsertEventComponentImpl
+import com.github.saikcaskey.pokertracker.stats.presentation.components.InsertExpenseComponentImpl
+import com.github.saikcaskey.pokertracker.stats.presentation.components.InsertVenueComponentImpl
+import com.github.saikcaskey.pokertracker.stats.presentation.components.VenueDetailComponentImpl
+import com.github.saikcaskey.pokertracker.stats.presentation.components.ViewEventsComponentImpl
+import com.github.saikcaskey.pokertracker.stats.presentation.components.ViewExpensesComponentImpl
+import com.github.saikcaskey.pokertracker.stats.presentation.components.ViewVenuesComponentImpl
 
 class RootComponentFactoryImpl(
     private val dispatchers: CoroutineDispatchers,
