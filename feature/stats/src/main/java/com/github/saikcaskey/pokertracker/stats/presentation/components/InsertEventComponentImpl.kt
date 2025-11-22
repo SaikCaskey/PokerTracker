@@ -29,7 +29,6 @@ class InsertEventComponentImpl(
     private val componentContext: ComponentContext,
     existingEventId: Long? = null,
     venueId: Long? = null,
-    startDate: LocalDate? = null,
     private val eventRepository: EventRepository,
     venueRepository: VenueRepository,
     private val dispatchers: CoroutineDispatchers,

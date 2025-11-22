@@ -1,10 +1,8 @@
 package com.github.saikcaskey.pokertracker.stats.presentation.composables
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.pages.ChildPages
 import com.arkivanov.decompose.extensions.compose.pages.PagesScrollAnimation
 import com.github.saikcaskey.pokertracker.stats.domain.components.StatsFeaturePagerComponent

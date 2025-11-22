@@ -1,7 +1,6 @@
 package com.github.saikcaskey.pokertracker.presentation.components.factory
 
 import com.arkivanov.decompose.ComponentContext
-import com.github.saikcaskey.account.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.di.MainPagerComponentFactoryProvider
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.component.MainComponent
@@ -10,9 +9,7 @@ import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNav
 import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNavigator
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
-import com.github.saikcaskey.pokertracker.domain.repository.UserRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
-import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
 import com.github.saikcaskey.pokertracker.planner.presentation.PlannerDayDetailComponent
 import com.github.saikcaskey.pokertracker.planner.presentation.PlannerDayDetailComponentImpl
 import com.github.saikcaskey.pokertracker.presentation.components.MainPagerComponentImpl
@@ -42,8 +39,6 @@ class RootComponentFactoryImpl(
     private val eventRepository: EventRepository,
     private val expenseRepository: ExpenseRepository,
     private val venueRepository: VenueRepository,
-    private val accountSettingsRepository: AccountSettingsRepository,
-    private val userRepository: UserRepository,
 ) : RootComponentFactory {
 
     override fun buildComponent(
@@ -102,7 +97,7 @@ class RootComponentFactoryImpl(
         return MainPagerComponentImpl(
             componentContext = componentContext,
             dispatchers = dispatchers,
-            componentFactory = MainPagerComponentFactoryProvider.provide()
+            componentFactory = MainPagerComponentFactoryProvider.provide(),
         )
     }
 
@@ -264,7 +259,6 @@ class RootComponentFactoryImpl(
     ): InsertEventComponent {
         return InsertEventComponentImpl(
             componentContext = componentContext,
-            startDate = config.startDate ?: nowAsLocalDateTime().date,
             existingEventId = config.existingEventId,
             venueId = config.venueId,
             dispatchers = dispatchers,

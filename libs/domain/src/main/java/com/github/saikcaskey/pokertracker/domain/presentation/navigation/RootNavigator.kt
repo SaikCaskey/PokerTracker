@@ -8,11 +8,10 @@ interface RootNavigator {
 
     val navigationSource: NavigationSource<StackNavigation.Event<RootNavigationRoute>>
 
-    fun <R : NavigationRoute> push(route: R, onComplete: () -> Unit = {})
+    fun <R : RootNavigationRoute> push(route: R, onComplete: () -> Unit = {})
     fun pop(onComplete: (Boolean) -> Unit = {})
     fun popTo(index: Int, onComplete: (Boolean) -> Unit = {})
 
-    fun onShowCalendarDayDetail(date: LocalDate, hasEvent: Boolean)
     fun onShowEventDetail(eventId: Long)
     fun onShowExpenseDetail(expenseId: Long)
     fun onShowVenueDetail(venueId: Long)
@@ -34,4 +33,5 @@ interface RootNavigator {
     )
 
     fun onShowInsertVenue(existingVenueId: Long? = null)
+    fun onShowCalendarDayDetail(date: LocalDate, hasEvent: Boolean)
 }

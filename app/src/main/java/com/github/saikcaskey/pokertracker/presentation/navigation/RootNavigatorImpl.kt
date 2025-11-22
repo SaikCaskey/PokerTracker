@@ -5,7 +5,6 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.popTo
 import com.arkivanov.decompose.router.stack.push
-import com.github.saikcaskey.pokertracker.domain.presentation.navigation.NavigationRoute
 import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNavigationRoute
 import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNavigator
 import kotlinx.datetime.LocalDate
@@ -16,8 +15,8 @@ class RootNavigatorImpl : RootNavigator {
 
     override val navigationSource: NavigationSource<StackNavigation.Event<RootNavigationRoute>> get() = navigator
 
-    override fun <R : NavigationRoute> push(route: R, onComplete: () -> Unit) {
-        navigator.push(route as RootNavigationRoute, onComplete)
+    override fun <R : RootNavigationRoute> push(route: R, onComplete: () -> Unit) {
+        navigator.push(route, onComplete)
     }
 
     override fun pop(onComplete: (Boolean) -> Unit) {
