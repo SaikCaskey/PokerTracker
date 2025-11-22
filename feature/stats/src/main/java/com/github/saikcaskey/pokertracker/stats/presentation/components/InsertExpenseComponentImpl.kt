@@ -11,7 +11,7 @@ import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import com.github.saikcaskey.pokertracker.domain.util.atTimeInstant
 import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
-import com.github.saikcaskey.stats.domain.components.InsertExpenseComponent
+import com.github.saikcaskey.pokertracker.stats.domain.components.InsertExpenseComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly

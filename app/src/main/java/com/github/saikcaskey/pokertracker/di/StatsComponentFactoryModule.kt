@@ -1,6 +1,6 @@
 package com.github.saikcaskey.pokertracker.di
 
-import com.github.saikcaskey.stats.factory.StatsComponentFactory
+import com.github.saikcaskey.pokertracker.stats.factory.StatsComponentFactory
 import com.github.saikcaskey.pokertracker.stats.presentation.components.factory.StatsComponentFactoryImpl
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get

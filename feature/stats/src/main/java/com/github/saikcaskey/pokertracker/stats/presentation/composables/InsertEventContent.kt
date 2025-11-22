@@ -10,7 +10,7 @@ import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDropd
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDropdownVenue
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputFormScaffold
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputTimeField
-import com.github.saikcaskey.stats.domain.components.InsertEventComponent
+import com.github.saikcaskey.pokertracker.stats.domain.components.InsertEventComponent
 
 @Composable
 fun InsertEventContent(component: InsertEventComponent) {

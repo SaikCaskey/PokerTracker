@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopAppBarItemViewer
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDropdownSimple
-import com.github.saikcaskey.stats.domain.components.ViewEventsComponent
+import com.github.saikcaskey.pokertracker.stats.domain.components.ViewEventsComponent
 
 @Composable
 fun ViewEventsContent(component: ViewEventsComponent) {

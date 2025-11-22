@@ -4,7 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.models.Venue
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
-import com.github.saikcaskey.stats.domain.components.ViewVenuesComponent
+import com.github.saikcaskey.pokertracker.stats.domain.components.ViewVenuesComponent
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly

@@ -7,10 +7,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.pages.ChildPages
 import com.arkivanov.decompose.extensions.compose.pages.PagesScrollAnimation
-import com.github.saikcaskey.stats.domain.components.StatsFeaturePagerComponent
-import com.github.saikcaskey.stats.domain.components.ViewEventsComponent
-import com.github.saikcaskey.stats.domain.components.ViewExpensesComponent
-import com.github.saikcaskey.stats.domain.components.ViewVenuesComponent
+import com.github.saikcaskey.pokertracker.stats.domain.components.StatsFeaturePagerComponent
+import com.github.saikcaskey.pokertracker.stats.domain.components.ViewEventsComponent
+import com.github.saikcaskey.pokertracker.stats.domain.components.ViewExpensesComponent
+import com.github.saikcaskey.pokertracker.stats.domain.components.ViewVenuesComponent
 
 @Composable
 fun StatsFeatureContent(component: StatsFeaturePagerComponent) {

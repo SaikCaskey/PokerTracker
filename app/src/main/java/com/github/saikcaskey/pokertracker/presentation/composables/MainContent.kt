@@ -14,7 +14,7 @@ import com.github.saikcaskey.account.presentation.AccountFeatureComponent
 import com.github.saikcaskey.pokertracker.planner.presentation.composables.PlannerFeatureContent
 import com.github.saikcaskey.account.presentation.AccountFeatureContent
 import com.github.saikcaskey.pokertracker.domain.component.MainComponent
-import com.github.saikcaskey.stats.domain.components.StatsFeaturePagerComponent
+import com.github.saikcaskey.pokertracker.stats.domain.components.StatsFeaturePagerComponent
 import com.github.saikcaskey.pokertracker.stats.presentation.composables.StatsFeatureContent
 
 @Composable

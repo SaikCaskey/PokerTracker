@@ -4,7 +4,7 @@ import com.github.saikcaskey.pokertracker.domain.dao.UserDao
 import com.github.saikcaskey.pokertracker.domain.datasource.UserDataSource
 import com.github.saikcaskey.pokertracker.domain.models.User
 import com.github.saikcaskey.pokertracker.domain.repository.UserRepository
-import com.github.saikcaskey.stats.extensions.flatMapWithUserId
+import com.github.saikcaskey.pokertracker.stats.extensions.flatMapWithUserId
 import kotlinx.coroutines.flow.Flow
 
 class UserRepositoryImpl(

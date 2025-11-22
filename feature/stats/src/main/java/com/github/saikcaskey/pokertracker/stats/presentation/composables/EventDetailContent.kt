@@ -16,7 +16,7 @@ import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.Animat
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionListContainer
 import com.github.saikcaskey.pokertracker.ui_compose.extensions.toProfitColor
-import com.github.saikcaskey.stats.domain.components.EventDetailComponent
+import com.github.saikcaskey.pokertracker.stats.domain.components.EventDetailComponent
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.PlusCircle

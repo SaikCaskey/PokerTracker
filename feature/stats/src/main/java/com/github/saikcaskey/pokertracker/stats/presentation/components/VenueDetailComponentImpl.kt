@@ -8,7 +8,7 @@ import com.github.saikcaskey.pokertracker.domain.models.ProfitSummary
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
-import com.github.saikcaskey.stats.domain.components.VenueDetailComponent
+import com.github.saikcaskey.pokertracker.stats.domain.components.VenueDetailComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 import kotlinx.coroutines.flow.StateFlow

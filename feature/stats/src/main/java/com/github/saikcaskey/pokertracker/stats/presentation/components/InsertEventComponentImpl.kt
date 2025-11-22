@@ -9,7 +9,7 @@ import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import com.github.saikcaskey.pokertracker.domain.util.atTimeInstant
 import com.github.saikcaskey.pokertracker.domain.util.nowAsLocalDateTime
-import com.github.saikcaskey.stats.domain.components.InsertEventComponent
+import com.github.saikcaskey.pokertracker.stats.domain.components.InsertEventComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly

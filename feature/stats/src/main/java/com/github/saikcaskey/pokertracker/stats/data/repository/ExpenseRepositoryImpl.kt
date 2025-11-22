@@ -6,7 +6,7 @@ import com.github.saikcaskey.pokertracker.domain.extensions.adjustedForType
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
-import com.github.saikcaskey.stats.extensions.flatMapWithUserId
+import com.github.saikcaskey.pokertracker.stats.extensions.flatMapWithUserId
 import kotlinx.coroutines.flow.Flow
 
 class ExpenseRepositoryImpl(

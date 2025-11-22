@@ -4,10 +4,10 @@ import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.domain.repository.UserRepository
-import com.github.saikcaskey.stats.data.repository.EventRepositoryImpl
-import com.github.saikcaskey.stats.data.repository.ExpenseRepositoryImpl
-import com.github.saikcaskey.stats.data.repository.UserRepositoryImpl
-import com.github.saikcaskey.stats.data.repository.VenueRepositoryImpl
+import com.github.saikcaskey.pokertracker.stats.data.repository.EventRepositoryImpl
+import com.github.saikcaskey.pokertracker.stats.data.repository.ExpenseRepositoryImpl
+import com.github.saikcaskey.pokertracker.stats.data.repository.UserRepositoryImpl
+import com.github.saikcaskey.pokertracker.stats.data.repository.VenueRepositoryImpl
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.koin.dsl.module
