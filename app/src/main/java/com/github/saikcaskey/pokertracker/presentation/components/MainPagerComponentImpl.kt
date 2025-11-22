@@ -47,7 +47,7 @@ class MainPagerComponentImpl(
         },
         childFactory = { route, ctx -> componentFactory.buildChildComponent(ctx, route) },
     )
-    
+
     init {
         pages.subscribe(lifecycle) {
             _selectedIndex.value = it.selectedIndex
