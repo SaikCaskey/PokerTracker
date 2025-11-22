@@ -28,7 +28,6 @@ sealed interface NavigationRoute : AppNavigationRoute {
     data class InsertEventRoute(
         val existingEventId: Long? = null,
         val venueId: Long? = null,
-        val startDate: LocalDate? = null,
     ) : NavigationRoute
 
     @Serializable

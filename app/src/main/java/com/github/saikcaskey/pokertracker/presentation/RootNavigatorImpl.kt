@@ -39,7 +39,6 @@ class RootNavigatorImpl : RootNavigator {
             NavigationRoute.InsertEventRoute(
                 existingEventId = existingEventId,
                 venueId = venueId,
-                startDate = startDate
             )
         )
     }

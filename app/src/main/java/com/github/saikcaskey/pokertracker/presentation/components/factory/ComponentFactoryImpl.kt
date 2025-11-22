@@ -159,7 +159,6 @@ class ComponentFactoryImpl(
                     NavigationRoute.InsertEventRoute(
                         existingEventId = null,
                         venueId = null,
-                        startDate = route.date
                     )
                 )
             },
@@ -266,7 +265,6 @@ class ComponentFactoryImpl(
     ): InsertEventComponent {
         return InsertEventComponentImpl(
             componentContext = componentContext,
-            startDate = config.startDate ?: nowAsLocalDateTime().date,
             existingEventId = config.existingEventId,
             venueId = config.venueId,
             dispatchers = dispatchers,
