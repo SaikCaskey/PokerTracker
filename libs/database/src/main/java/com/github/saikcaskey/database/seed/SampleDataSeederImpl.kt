@@ -40,7 +40,7 @@ class SampleDataSeederImpl(
             val baseDate = dateWithRandomOffset()
 
             runCatching {
-                insertVenueWithEventAndExpenses(
+                insertOrAddToVenueWithEventAndExpenses(
                     userId = selectedUser ?: database.userQueries.lastInsertRowId().executeAsOne(),
                     venueName = venueName,
                     address = address,
@@ -62,9 +62,9 @@ class SampleDataSeederImpl(
         val (venueName, description, address) = fixedVenues.random()
         val (eventName, eventDescription) = fixedEvents.random()
 
-        insertVenueWithEventAndExpenses(
+        insertOrAddToVenueWithEventAndExpenses(
             userId = selectedUser,
-            venueName = "$venueName (Good Day)",
+            venueName = venueName,
             address = address,
             description = description,
             eventName = "$eventName - Big Win",
@@ -82,9 +82,9 @@ class SampleDataSeederImpl(
         val (venueName, description, address) = fixedVenues.random()
         val (eventName, eventDescription) = fixedEvents.random()
 
-        insertVenueWithEventAndExpenses(
+        insertOrAddToVenueWithEventAndExpenses(
             userId = selectedUser,
-            venueName = "$venueName (Bad Day)",
+            venueName = venueName,
             address = address,
             description = description,
             eventName = "$eventName - Big Loss",
@@ -106,7 +106,7 @@ class SampleDataSeederImpl(
     /**
      * Inserts a venue, an event, and then calls the expense simulation.
      */
-    private fun insertVenueWithEventAndExpenses(
+    private fun insertOrAddToVenueWithEventAndExpenses(
         userId: Long,
         venueName: String,
         address: String,
@@ -116,15 +116,22 @@ class SampleDataSeederImpl(
         baseDate: Instant,
         cashOutAmount: Double,
     ) {
-        database.venueQueries.insert(
-            user_id = userId,
-            name = venueName,
-            address = address,
-            description = description,
-            created_at = baseDate.toString()
-        )
-        val venueId = database.venueQueries.lastInsertRowId().executeAsOne()
+        val venues = database.venueQueries.getAll(userId).executeAsList()
+        val venueId = if (venues.isEmpty()) {
+            database.venueQueries.insert(
+                user_id = userId,
+                name = venueName,
+                address = address,
+                description = description,
+                created_at = baseDate.toString()
+            )
+            database.venueQueries.lastInsertRowId().executeAsOne()
+        } else {
+            venues.random().id
+        }
+
         val gameType = listOf("CASH", "TOURNAMENT").random()
+
         database.eventQueries.insert(
             user_id = userId,
             venue_id = venueId,
