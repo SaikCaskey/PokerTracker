@@ -1,6 +1,5 @@
 package com.github.saikcaskey.libs.ui_charts.presentation.charts
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -35,7 +34,6 @@ fun ChartyPieChart(
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.secondaryContainer)
                 .requiredHeight(200.dp),
             data = {
                 data.map {

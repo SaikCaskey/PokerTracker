@@ -28,6 +28,7 @@ class VenueDetailComponentImpl(
     private val onShowEventDetail: (Long) -> Unit,
     private val onShowExpenseDetail: (Long) -> Unit,
     private val onShowEditVenue: () -> Unit,
+    private val onShowAllExpenses: () -> Unit,
     private val onShowAllEvents: () -> Unit,
     private val onFinished: () -> Unit,
     private val dispatchers: CoroutineDispatchers,
@@ -42,10 +43,9 @@ class VenueDetailComponentImpl(
         combine(
             expenseRepository.getByVenue(venueId),
             expenseRepository.getCashesByVenue(venueId),
-            expenseRepository.getCostsByVenue(venueId)
-        ) { all, cashes, costs ->
-            ExpenseSummary(all, cashes, costs)
-        }
+            expenseRepository.getCostsByVenue(venueId),
+            ::ExpenseSummary
+        )
     }.stateIn(coroutineScope, Eagerly, ExpenseSummary())
 
     private val profitSummary = venue.flatMapLatest { venue ->
@@ -100,6 +100,8 @@ class VenueDetailComponentImpl(
     override fun onShowInsertEventClicked() = onShowInsertEvent()
     override fun onShowEditVenueClicked() = onShowEditVenue()
     override fun onShowAllEventsClicked() = onShowAllEvents()
+    override fun onShowAllExpensesClicked() = onShowAllExpenses()
+
     override fun onShowEventDetailClicked(eventId: Long) = onShowEventDetail(eventId)
     override fun onShowExpenseDetailClicked(expenseId: Long) = onShowExpenseDetail(expenseId)
     override fun onDeleteVenueClicked() {

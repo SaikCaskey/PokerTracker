@@ -207,6 +207,8 @@ class RootComponentFactoryImpl(
             onShowExpenseDetail = { navigator.push(RootNavigationRoute.ExpenseDetailRoute(expenseId = it)) },
             onShowInsertEvent = { navigator.push(RootNavigationRoute.InsertEventRoute(venueId = venueId)) },
             onShowEditVenue = { navigator.push(RootNavigationRoute.InsertVenueRoute(venueId = venueId)) },
+            // TODO show / open to expenses for a given venueId
+            onShowAllExpenses = { navigator.push(RootNavigationRoute.ViewExpensesRoute) },
             // TODO show / open to events for a given venueId
             onShowAllEvents = { navigator.push(RootNavigationRoute.ViewEventsRoute) },
             onFinished = navigator::pop,

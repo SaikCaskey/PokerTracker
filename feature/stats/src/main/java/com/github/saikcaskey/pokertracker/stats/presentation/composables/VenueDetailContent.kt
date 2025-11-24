@@ -6,11 +6,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -86,7 +86,8 @@ fun VenueDetailContent(component: VenueDetailComponent) {
             item {
                 VenueExpenseSummary(
                     state = state,
-                    onShowExpenseDetail = component::onShowExpenseDetailClicked
+                    onShowExpenseDetail = component::onShowExpenseDetailClicked,
+                    onShowAllExpenses = component::onShowAllExpensesClicked,
                 )
             }
         }
@@ -184,107 +185,135 @@ fun VenueProfitSummary(
         )
         Text("Total Profit", style = MaterialTheme.typography.titleMedium)
         AnimatedProfitText(state.profitSummary.balance)
-        VenueBalanceChart(calculateEventBalanceChartData(state.expenseSummary.all))
+        ChartyWidget(
+            dataPoints = calculateEventBalanceChartData(state.expenseSummary.all),
+            type = ChartType.Line
+        )
     }
 }
 
 @Composable
 fun VenueExpenseSummary(
     state: VenueDetailComponent.UiState,
-    modifier: Modifier = Modifier,
-    onShowExpenseDetail: (Long) -> Unit = {},
+    onShowExpenseDetail: (Long) -> Unit,
+    onShowAllExpenses: () -> Unit,
 ) {
     Column {
-        SectionContainer(
-            title = "Cashes",
-            modifier = modifier
-                .fillMaxSize()
-        ) {
-            if (state.expenseSummary.cashes.isEmpty()) return@SectionContainer
-            VenueCashesChart(calculateEventBalanceChartData(state.expenseSummary.cashes))
-            ExpenseList(
-                items = state.expenseSummary.cashes,
-                onExpenseClicked = onShowExpenseDetail,
+        VenueCashesSection(state.expenseSummary.cashes)
+        VenueCostsSection(state.expenseSummary.costs)
+        VenueExpenseFeedSection(state, onShowExpenseDetail, onShowAllExpenses)
+    }
+}
+
+@Composable
+private fun VenueExpenseFeedSection(
+    state: VenueDetailComponent.UiState,
+    onShowExpenseDetail: (Long) -> Unit,
+    onShowAllExpenses: () -> Unit,
+) {
+
+    SectionContainer(title = "Feed", onShowAllClick = onShowAllExpenses) {
+        ExpenseList(
+            // TODO
+            items = state.expenseSummary.all.sortedByDescending(Expense::date),
+            onExpenseClicked = onShowExpenseDetail,
+        )
+    }
+}
+
+@Composable
+private fun VenueCostsSection(
+    expenses: List<Expense>,
+    modifier: Modifier = Modifier,
+) {
+    SectionContainer(
+        title = "Expenses",
+        modifier = modifier.fillMaxSize()
+    ) {
+        if (expenses.isEmpty()) return@SectionContainer
+        Text("Breakdown", style = MaterialTheme.typography.titleMedium)
+        VenueExpenseTopExpensesBreakdownChart(expenses)
+        Text("Distribution", style = MaterialTheme.typography.titleMedium)
+        VenueCostsDistributionChart(expenses)
+    }
+}
+
+@Composable
+fun VenueExpenseTopExpensesBreakdownChart(
+    expenses: List<Expense>,
+) {
+    ChartyWidget(
+        type = ChartType.Bar,
+        dataPoints = expenses
+            .groupBy { it.type }
+            .map {
+                ChartDataItem(
+                    y = it.value.size,
+                    label = it.key.name
+                )
+            }
+    )
+}
+
+@Composable
+fun VenueCostsDistributionChart(
+    expenses: List<Expense>,
+) {
+    ChartyWidget(
+        type = ChartType.Pie,
+        // TODO
+        dataPoints = expenses
+            .associateBy { it.type }
+            .map {
+                ChartDataItem(
+                    label = it.key.name,
+                    y = abs(it.value.amount),
+                )
+            }
+            .sortedByDescending { it.y.toDouble() }
+    )
+}
+
+@Composable
+private fun VenueCashesSection(
+    expenses: List<Expense>,
+    modifier: Modifier = Modifier,
+) {
+    SectionContainer(
+        title = "Cashes",
+        modifier = modifier.fillMaxWidth()
+    ) {
+        if (expenses.isEmpty()) return@SectionContainer
+        VenueCashesChart(expenses)
+    }
+}
+
+@Composable
+private fun VenueCashesChart(
+    expenses: List<Expense>,
+) {
+    val chartData = expenses
+        .associateBy { it.eventId }
+        .map { entry ->
+            ChartDataItem(
+                label = entry.key.toString(),
+                x = entry.key,
+                y = abs(entry.value.amount),
             )
         }
-        SectionContainer(
-            title = "Costs",
-            modifier = modifier.fillMaxSize()
-        ) {
-            if (state.expenseSummary.costs.isEmpty()) return@SectionContainer
+        .sortedByDescending { it.y.toDouble() }
 
-            calculateExpenseCountChartData(state.expenseSummary.costs)
-                .also { expenseCountData ->
-                    ChartyWidget(
-                        type = ChartType.Bar,
-                        dataPoints = expenseCountData
-                    )
-                }
-
-            calculateExpenseTypeChartData(state.expenseSummary.costs)
-                .also { expenseTypeData ->
-                    ChartyWidget(
-                        type = ChartType.Pie,
-                        dataPoints = expenseTypeData.map { expense ->
-                            expense.copy(y = abs(expense.y.toDouble()))
-                        },
-                    )
-
-                    ExpenseList(
-                        items = state.expenseSummary.costs,
-                        onExpenseClicked = onShowExpenseDetail,
-                    )
-                }
-
-        }
-    }
-}
-
-@Composable
-fun VenueExpenseTypeChart(expenseTypeData: List<ChartDataItem>) {
-    if (expenseTypeData.isNotEmpty()) {
-        HorizontalDivider()
-        Text("Breakdown", style = MaterialTheme.typography.labelSmall)
-        HorizontalDivider()
-
-        HorizontalDivider()
-    }
-}
-
-
-@Composable
-fun VenueExpenseCountChart(expenseCountData: List<ChartDataItem>) {
-    if (expenseCountData.isNotEmpty()) {
-
-    }
-}
-
-@Composable
-fun VenueBalanceChart(chartData: List<ChartDataItem>) {
     if (chartData.isNotEmpty()) {
         Column {
-            HorizontalDivider()
-            Text("Balance Delta", style = MaterialTheme.typography.labelSmall)
-            HorizontalDivider()
-            ChartyWidget(dataPoints = chartData, type = ChartType.Line)
-        }
-    }
-}
-
-@Composable
-fun VenueCashesChart(chartData: List<ChartDataItem>) {
-    if (chartData.isNotEmpty()) {
-        Column {
-            HorizontalDivider()
-            Text("Venue Cashes", style = MaterialTheme.typography.labelSmall)
-            HorizontalDivider()
             ChartyWidget(dataPoints = chartData, type = ChartType.Point)
         }
     }
 }
 
-private fun calculateExpenseTypeChartData(venueExpenses: List<Expense>): List<ChartDataItem> {
-    return venueExpenses.associateBy { it.type }
+private fun calculateExpenseTypeChartData(
+    expenses: List<Expense>,
+): List<ChartDataItem> {
+    return expenses.associateBy { it.type }
         .map {
             ChartDataItem(
                 label = it.key.name,
@@ -293,8 +322,10 @@ private fun calculateExpenseTypeChartData(venueExpenses: List<Expense>): List<Ch
         }.sortedByDescending { it.y.toDouble() }
 }
 
-private fun calculateExpenseCountChartData(venueExpenses: List<Expense>): List<ChartDataItem> {
-    return venueExpenses
+private fun calculateExpenseCountChartData(
+    expenses: List<Expense>,
+): List<ChartDataItem> {
+    return expenses
         .groupBy { it.type }
         .map {
             ChartDataItem(
@@ -304,7 +335,7 @@ private fun calculateExpenseCountChartData(venueExpenses: List<Expense>): List<C
         }
 }
 
-fun calculateEventBalanceChartData(expenses: List<Expense>): List<ChartDataItem> {
+private fun calculateEventBalanceChartData(expenses: List<Expense>): List<ChartDataItem> {
     return buildList {
         // Count up the total balance each time we add an event to the chart data
         // This won't include Expenses for a Venue if they aren't associated with an event
