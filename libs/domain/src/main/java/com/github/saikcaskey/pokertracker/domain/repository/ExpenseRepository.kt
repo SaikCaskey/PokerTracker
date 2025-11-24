@@ -10,6 +10,8 @@ interface ExpenseRepository {
     fun getByEvent(eventId: Long): Flow<List<Expense>>
     fun getById(eventId: Long): Flow<Expense>
     fun getByVenue(venueId: Long): Flow<List<Expense>>
+    fun getCashesByVenue(venueId: Long): Flow<List<Expense>>
+    fun getCostsByVenue(venueId: Long): Flow<List<Expense>>
     fun getUpcomingCosts(): Flow<Double>
     fun getBalanceNow(): Flow<Double>
     fun getBalanceForYear(): Flow<Double>

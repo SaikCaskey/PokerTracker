@@ -71,6 +71,20 @@ class ExpenseDaoImpl(
             .map { expenses -> expenses.map(DatabaseExpense::toDomain) }
     }
 
+    override fun getCashesByVenue(userId: Long, venueId: Long): Flow<List<Expense>> {
+        return database.expenseQueries.getCashesByVenue(userId = userId, venueId = venueId)
+            .asFlow()
+            .mapToList(dispatchers.io)
+            .map { expenses -> expenses.map(DatabaseExpense::toDomain) }
+    }
+
+    override fun getCostsByVenue(userId: Long, venueId: Long): Flow<List<Expense>> {
+        return database.expenseQueries.getCostsByVenue(userId = userId, venueId = venueId)
+            .asFlow()
+            .mapToList(dispatchers.io)
+            .map { expenses -> expenses.map(DatabaseExpense::toDomain) }
+    }
+
     override fun getBalanceNow(userId: Long): Flow<Double> {
         val now = nowAsLocalDateTime()
         val then = nowAsLocalDateTime().date.minus(DatePeriod(years = 30))

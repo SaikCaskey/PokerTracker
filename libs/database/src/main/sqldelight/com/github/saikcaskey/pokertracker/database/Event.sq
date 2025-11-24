@@ -17,7 +17,7 @@ getAll:
 SELECT * FROM Event WHERE user_id = :userId ORDER BY date(date) DESC;
 
 getUpcoming:
-SELECT * FROM Event WHERE user_id = :userId AND date(date) >= date(:afterDate) ORDER BY date(date) ASC LIMIT :limit;
+SELECT * FROM Event WHERE user_id = :userId AND date(date) >= date(:afterDate) ORDER BY date(date) DESC LIMIT :limit;
 
 getUpcomingByVenue:
 SELECT * FROM Event WHERE user_id = :userId AND date(date) >= date(:afterDate) AND venue_id = :id ORDER BY date(date) DESC LIMIT :limit;

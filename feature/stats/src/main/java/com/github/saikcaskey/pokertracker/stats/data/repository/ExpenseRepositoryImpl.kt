@@ -44,6 +44,17 @@ class ExpenseRepositoryImpl(
         }
     }
 
+    override fun getCashesByVenue(venueId: Long): Flow<List<Expense>> {
+        return userDataSource.storedUser.flatMapWithUserId { userId ->
+            expenseDao.getCashesByVenue(userId = userId, venueId = venueId)
+        }
+    }
+    override fun getCostsByVenue(venueId: Long): Flow<List<Expense>> {
+        return userDataSource.storedUser.flatMapWithUserId { userId ->
+            expenseDao.getCostsByVenue(userId = userId, venueId = venueId)
+        }
+    }
+
     override fun getBalanceNow(): Flow<Double> {
         return userDataSource.storedUser.flatMapWithUserId(expenseDao::getBalanceNow)
     }

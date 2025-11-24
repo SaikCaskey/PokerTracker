@@ -13,8 +13,10 @@ interface VenueDetailComponent {
     fun onBackClicked()
     fun onShowInsertEventClicked()
     fun onShowEditVenueClicked()
+    fun onShowAllEventsClicked()
     fun onDeleteVenueClicked()
     fun onShowEventDetailClicked(eventId: Long)
+    fun onShowExpenseDetailClicked(expenseId: Long)
 
     data class UiState(
         val id: Long? = null,

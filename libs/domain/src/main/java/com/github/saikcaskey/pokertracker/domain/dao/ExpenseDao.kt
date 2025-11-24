@@ -10,6 +10,8 @@ interface ExpenseDao {
     fun getByEvent(userId: Long, eventId: Long): Flow<List<Expense>>
     fun getById(userId: Long, eventId: Long): Flow<Expense>
     fun getByVenue(userId: Long, venueId: Long): Flow<List<Expense>>
+    fun getCashesByVenue(userId: Long, venueId: Long): Flow<List<Expense>>
+    fun getCostsByVenue(userId: Long, venueId: Long): Flow<List<Expense>>
     fun getUpcomingCosts(userId: Long): Flow<Double>
     fun getBalanceNow(userId: Long): Flow<Double>
     fun getBalanceForYear(userId: Long): Flow<Double>
