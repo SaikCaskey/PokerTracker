@@ -66,6 +66,7 @@ class VenueDetailComponentImpl(
         combine(
             eventRepository.getByVenue(venueId),
             eventRepository.getUpcomingByVenue(venueId),
+            eventRepository.getRecentByVenue(venueId),
             eventRepository.getTodayByVenue(venueId),
             ::EventSummary,
         )

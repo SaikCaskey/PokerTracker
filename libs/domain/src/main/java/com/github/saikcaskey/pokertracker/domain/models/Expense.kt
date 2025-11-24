@@ -1,5 +1,6 @@
 package com.github.saikcaskey.pokertracker.domain.models
 
+import com.github.saikcaskey.pokertracker.domain.extensions.adjustedForType
 import kotlin.time.Instant
 
 data class Expense(
@@ -18,4 +19,6 @@ data class Expense(
             .replace("_", " ")
             .lowercase()
             .replaceFirstChar(Char::uppercase)
+
+    val adjustedAmount get() = amount.adjustedForType(type)
 }
