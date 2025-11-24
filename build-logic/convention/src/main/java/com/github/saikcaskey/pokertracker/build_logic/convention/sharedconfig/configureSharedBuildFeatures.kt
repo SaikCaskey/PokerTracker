@@ -2,9 +2,12 @@ package com.github.saikcaskey.pokertracker.build_logic.convention.sharedconfig
 
 import com.android.build.api.dsl.CommonExtension
 
-internal fun CommonExtension<*, *, *, *, *, *>.configureSharedBuildFeatures(enableCompose: Boolean = false) {
+internal fun CommonExtension<*, *, *, *, *, *>.configureSharedBuildFeatures(
+    enableCompose: Boolean = false,
+    enableBuildConfig: Boolean = false,
+) {
     buildFeatures {
-        buildConfig = true
+        buildConfig = enableBuildConfig
         compose = enableCompose
     }
 }
