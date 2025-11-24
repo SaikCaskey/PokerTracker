@@ -4,5 +4,6 @@ enum class ChartType {
     Point,
     Line,
     Pie,
+    Donut,
     Bar,
 }
