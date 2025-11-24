@@ -41,7 +41,7 @@ class DashboardFeatureComponentImpl(
     override val uiState = combine(
         dashboardEventsData,
         dashboardProfitSummary,
-        venueRepository.getRecent(),
+        venueRepository.getAll(),
         expenseRepository.getRecent(),
         DashboardFeatureComponent::UiState
     ).stateIn(coroutineScope, SharingStarted.Companion.Eagerly, DashboardFeatureComponent.UiState())
