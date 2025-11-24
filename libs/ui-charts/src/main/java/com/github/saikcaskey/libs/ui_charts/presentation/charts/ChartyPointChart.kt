@@ -10,12 +10,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.unit.dp
+import com.github.saikcaskey.libs.ui_charts.domain.model.ChartDataItem
 import com.himanshoe.charty.common.ChartColor
+import com.himanshoe.charty.common.LabelConfig
+import com.himanshoe.charty.common.TargetConfig
+import com.himanshoe.charty.common.asSolidChartColor
 import com.himanshoe.charty.point.PointChart
 import com.himanshoe.charty.point.model.PointChartColorConfig
 import com.himanshoe.charty.point.model.PointChartConfig
 import com.himanshoe.charty.point.model.PointData
-import com.github.saikcaskey.libs.ui_charts.domain.model.ChartDataItem
 
 @Composable
 fun ChartyPointChart(
@@ -30,6 +33,14 @@ fun ChartyPointChart(
     strokeColor: Color = MaterialTheme.colorScheme.onSurface,
     selectionBarColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
 ) {
+    val defaultGradient = ChartColor.Gradient(
+        listOf(
+            MaterialTheme.colorScheme.primary.copy(0.5f),
+            MaterialTheme.colorScheme.secondary.copy(0.3f),
+            MaterialTheme.colorScheme.tertiary.copy(0.2f),
+        )
+    )
+    val labelTextColor = MaterialTheme.colorScheme.onSurface.asSolidChartColor()
     Box(modifier = modifier) {
         PointChart(
             modifier = Modifier
@@ -48,7 +59,21 @@ fun ChartyPointChart(
                 showClickedBar = showClickedBar,
                 animatePoints = animatePoints,
                 gridLinePathEffect = gridLinePathEffect
-            )
+            ),
+            labelConfig = LabelConfig(
+                textColor = labelTextColor,
+                showXLabel = true,
+                showYLabel = true,
+                xAxisCharCount = 5,
+                labelTextStyle = MaterialTheme.typography.labelSmall
+            ),
+            target = 0f,
+            targetConfig = TargetConfig(
+                targetLineBarColors = defaultGradient,
+                targetStrokeWidth = 1.2f,
+                pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
+            ),
+            onPointClick = { _, _ -> },
         )
     }
 }

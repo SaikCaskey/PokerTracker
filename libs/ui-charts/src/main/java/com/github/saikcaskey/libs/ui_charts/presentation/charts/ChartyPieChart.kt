@@ -1,5 +1,6 @@
 package com.github.saikcaskey.libs.ui_charts.presentation.charts
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,17 +21,21 @@ import com.himanshoe.charty.pie.model.PieChartData
 fun ChartyPieChart(
     data: List<ChartDataItem>,
     modifier: Modifier = Modifier,
+    isDonut: Boolean = false,
     labelColor: Color = MaterialTheme.colorScheme.onSurface,
 ) {
     val segmentColors: Map<String, Color> = data.mapIndexed { index, item ->
-        item.label.orEmpty() to ExpenseType.fromString(item.label.orEmpty()).toPieChartSegmentColor()
+        item.label.orEmpty() to ExpenseType.fromString(item.label.orEmpty())
+            .toPieChartSegmentColor()
     }.toMap()
 
     Box(modifier = modifier) {
         PieChart(
+            isDonutChart = isDonut,
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.secondaryContainer)
                 .requiredHeight(200.dp),
             data = {
                 data.map {
