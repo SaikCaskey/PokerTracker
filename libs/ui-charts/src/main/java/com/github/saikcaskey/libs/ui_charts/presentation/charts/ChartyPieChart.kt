@@ -10,8 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.github.saikcaskey.libs.ui_charts.domain.model.ChartDataItem
-import com.github.saikcaskey.libs.ui_charts.presentation.extensions.toPieChartSegmentColor
-import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.himanshoe.charty.common.asSolidChartColor
 import com.himanshoe.charty.pie.PieChart
 import com.himanshoe.charty.pie.model.PieChartData
@@ -21,23 +19,15 @@ fun ChartyPieChart(
     data: List<ChartDataItem>,
     modifier: Modifier = Modifier,
     isDonut: Boolean = false,
-    labelColor: Color = MaterialTheme.colorScheme.onSurface,
+    segmentColors: Map<String, Color>,
+    labelColor: Color = MaterialTheme.colorScheme.onPrimary,
+    onPieSliceClick: (PieChartData) -> Unit = {},
 ) {
-    val segmentColors: Map<String, Color> = data.mapIndexed { index, item ->
-        item.label.orEmpty() to ExpenseType.fromString(item.label.orEmpty())
-            .toPieChartSegmentColor()
-    }.toMap()
-
     Box(modifier = modifier) {
         PieChart(
-            isDonutChart = isDonut,
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth()
-                .requiredHeight(200.dp),
             data = {
                 data.map {
-                    val itemColor = (segmentColors[it.label] ?: Color.Gray).asSolidChartColor()
+                    val itemColor = (segmentColors[it.label] ?: labelColor).asSolidChartColor()
                     PieChartData(
                         value = it.y.toFloat(),
                         color = itemColor,
@@ -45,7 +35,13 @@ fun ChartyPieChart(
                         label = it.label.orEmpty()
                     )
                 }
-            }
+            },
+            isDonutChart = isDonut,
+            onPieChartSliceClick = onPieSliceClick,
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth()
+                .requiredHeight(200.dp),
         )
     }
 }

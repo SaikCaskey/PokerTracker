@@ -23,13 +23,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.saikcaskey.libs.ui_charts.domain.model.ChartDataItem
-import com.github.saikcaskey.libs.ui_charts.domain.model.ChartType
-import com.github.saikcaskey.libs.ui_charts.presentation.ChartyWidget
+import com.github.saikcaskey.libs.ui_charts.presentation.charts.ChartyBarChart
+import com.github.saikcaskey.libs.ui_charts.presentation.charts.ChartyLineChart
+import com.github.saikcaskey.libs.ui_charts.presentation.charts.ChartyPieChart
+import com.github.saikcaskey.libs.ui_charts.presentation.charts.ChartyPointChart
+import com.github.saikcaskey.libs.ui_charts.presentation.extensions.toPieChartSegmentColor
 import com.github.saikcaskey.pokertracker.domain.extensions.asLocalDateTime
 import com.github.saikcaskey.pokertracker.domain.extensions.formatAsCurrency
 import com.github.saikcaskey.pokertracker.domain.extensions.toUiDateTimeOrNull
 import com.github.saikcaskey.pokertracker.domain.models.EventSummary
 import com.github.saikcaskey.pokertracker.domain.models.Expense
+import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.stats.domain.components.VenueDetailComponent
 import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopBarItemDetail
 import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedProfitText
@@ -185,10 +189,7 @@ fun VenueProfitSummary(
         )
         Text("Total Profit", style = MaterialTheme.typography.titleMedium)
         AnimatedProfitText(state.profitSummary.balance)
-        ChartyWidget(
-            dataPoints = calculateEventBalanceChartData(state.expenseSummary.all),
-            type = ChartType.Line
-        )
+        ChartyLineChart(data = calculateEventBalanceChartData(state.expenseSummary.all))
     }
 }
 
@@ -214,7 +215,6 @@ private fun VenueExpenseFeedSection(
 
     SectionContainer(title = "Feed", onShowAllClick = onShowAllExpenses) {
         ExpenseList(
-            // TODO
             items = state.expenseSummary.all.sortedByDescending(Expense::date),
             onExpenseClicked = onShowExpenseDetail,
         )
@@ -242,10 +242,9 @@ private fun VenueCostsSection(
 fun VenueExpenseTopExpensesBreakdownChart(
     expenses: List<Expense>,
 ) {
-    ChartyWidget(
-        type = ChartType.Bar,
-        dataPoints = expenses
-            .groupBy { it.type }
+    ChartyBarChart(
+        chartData = expenses
+            .groupBy(Expense::type)
             .map {
                 ChartDataItem(
                     y = it.value.size,
@@ -259,18 +258,25 @@ fun VenueExpenseTopExpensesBreakdownChart(
 fun VenueCostsDistributionChart(
     expenses: List<Expense>,
 ) {
-    ChartyWidget(
-        type = ChartType.Pie,
-        // TODO
-        dataPoints = expenses
-            .associateBy { it.type }
-            .map {
-                ChartDataItem(
-                    label = it.key.name,
-                    y = abs(it.value.amount),
-                )
-            }
-            .sortedByDescending { it.y.toDouble() }
+    val data = expenses
+        .associateBy { it.type }
+        .map {
+            ChartDataItem(
+                label = it.key.name,
+                y = abs(it.value.amount),
+            )
+        }
+        .sortedByDescending { it.y.toDouble() }
+    ChartyPieChart(
+        data = data,
+        segmentColors = data.mapIndexed { index, item ->
+            // Map some colors from expense types of the incoming segments
+            // Since this one relates to expense types, we'll use the label as
+            // the type
+            // TODO employ an 'official' set of colors and ensure it's fixed for given items
+            item.label.orEmpty() to ExpenseType.fromString(item.label.orEmpty())
+                .toPieChartSegmentColor()
+        }.toMap()
     )
 }
 
@@ -293,7 +299,7 @@ private fun VenueCashesChart(
     expenses: List<Expense>,
 ) {
     val chartData = expenses
-        .associateBy { it.eventId }
+        .associateBy(Expense::eventId)
         .map { entry ->
             ChartDataItem(
                 label = entry.key.toString(),
@@ -301,38 +307,12 @@ private fun VenueCashesChart(
                 y = abs(entry.value.amount),
             )
         }
-        .sortedByDescending { it.y.toDouble() }
 
     if (chartData.isNotEmpty()) {
         Column {
-            ChartyWidget(dataPoints = chartData, type = ChartType.Point)
+            ChartyPointChart(data = chartData)
         }
     }
-}
-
-private fun calculateExpenseTypeChartData(
-    expenses: List<Expense>,
-): List<ChartDataItem> {
-    return expenses.associateBy { it.type }
-        .map {
-            ChartDataItem(
-                label = it.key.name,
-                y = abs(it.value.amount),
-            )
-        }.sortedByDescending { it.y.toDouble() }
-}
-
-private fun calculateExpenseCountChartData(
-    expenses: List<Expense>,
-): List<ChartDataItem> {
-    return expenses
-        .groupBy { it.type }
-        .map {
-            ChartDataItem(
-                y = it.value.size,
-                label = it.key.name
-            )
-        }
 }
 
 private fun calculateEventBalanceChartData(expenses: List<Expense>): List<ChartDataItem> {

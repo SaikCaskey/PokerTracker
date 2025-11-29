@@ -25,10 +25,9 @@ import com.himanshoe.charty.line.config.LineChartGridConfig
 import com.himanshoe.charty.line.config.LineConfig
 import com.himanshoe.charty.line.model.LineData
 
-
 @Composable
 fun ChartyLineChart(
-    dataPoints: List<ChartDataItem>,
+    data: List<ChartDataItem>,
     modifier: Modifier = Modifier,
     target: Float? = null,
     lineColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -50,7 +49,7 @@ fun ChartyLineChart(
     Box(modifier = modifier) {
         LineChart(
             data = {
-                dataPoints.map {
+                data.map {
                     LineData(
                         xValue = it.label.orEmpty(),
                         yValue = it.y.toFloat()

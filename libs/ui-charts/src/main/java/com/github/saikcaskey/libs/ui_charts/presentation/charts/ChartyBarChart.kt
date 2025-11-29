@@ -23,36 +23,39 @@ import com.himanshoe.charty.common.asSolidChartColor
 fun ChartyBarChart(
     chartData: List<ChartDataItem>,
     modifier: Modifier = Modifier,
+    height: Int = 200,
+    target: Float? = null,
 ) {
+    val labelConfig = LabelConfig(
+        textColor = MaterialTheme.colorScheme.onSurface.asSolidChartColor(),
+        showXLabel = true,
+        showYLabel = true,
+        xAxisCharCount = 5,
+        labelTextStyle = MaterialTheme.typography.labelSmall
+    )
+    val barChartConfig = BarChartConfig(
+        showAxisLines = true,
+        showGridLines = true,
+        drawNegativeValueChart = true,
+        showCurvedBar = true,
+        minimumBarCount = 1,
+        cornerRadius = CornerRadius(12f, 12f)
+    )
+    val targetConfig = TargetConfig(
+        targetLineBarColors = MaterialTheme.colorScheme.onSurfaceVariant
+            .asSolidChartColor(),
+        targetStrokeWidth = 0.9f,
+        pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
+    )
+    val chartConfig = BarChartColorConfig(
+        fillBarColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
+            .asSolidChartColor(),
+        negativeBarColors = MaterialTheme.colorScheme.error.copy(alpha = 0.8f)
+            .asSolidChartColor()
+    )
+
     Box(modifier = modifier) {
         BarChart(
-            targetConfig = TargetConfig(
-                targetLineBarColors = MaterialTheme.colorScheme.onSurfaceVariant
-                    .asSolidChartColor(),
-                targetStrokeWidth = 0.9f,
-                pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
-            ),
-            labelConfig = LabelConfig(
-                textColor = MaterialTheme.colorScheme.onSurface.asSolidChartColor(),
-                showXLabel = true,
-                showYLabel = true,
-                xAxisCharCount = 5,
-                labelTextStyle = MaterialTheme.typography.labelSmall
-            ),
-            barChartConfig = BarChartConfig(
-                showAxisLines = true,
-                showGridLines = true,
-                drawNegativeValueChart = true,
-                showCurvedBar = true,
-                minimumBarCount = 1,
-                cornerRadius = CornerRadius(12f, 12f)
-            ),
-            barChartColorConfig = BarChartColorConfig(
-                fillBarColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f)
-                    .asSolidChartColor(),
-                negativeBarColors = MaterialTheme.colorScheme.error.copy(alpha = 0.8f)
-                    .asSolidChartColor()
-            ),
             data = {
                 chartData.map {
                     BarData(
@@ -61,10 +64,15 @@ fun ChartyBarChart(
                     )
                 }
             },
+            target = target,
+            targetConfig = targetConfig,
+            labelConfig = labelConfig,
+            barChartConfig = barChartConfig,
+            barChartColorConfig = chartConfig,
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth()
-                .requiredHeight(200.dp),
+                .requiredHeight(height.dp),
         )
     }
 }
