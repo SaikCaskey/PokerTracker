@@ -6,7 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface ExpenseDao {
     fun getAll(userId: Long): Flow<List<Expense>>
-    fun getRecent(userId: Long): Flow<List<Expense>>
+    fun getTomorrow(userId: Long): Flow<List<Expense>>
+    fun getMostRecent(userId: Long): Flow<List<Expense>>
     fun getByEvent(userId: Long, eventId: Long): Flow<List<Expense>>
     fun getById(userId: Long, eventId: Long): Flow<Expense>
     fun getByVenue(userId: Long, venueId: Long): Flow<List<Expense>>

@@ -22,8 +22,12 @@ class ExpenseRepositoryImpl(
         return userDataSource.storedUser.flatMapWithUserId(expenseDao::getUpcomingCosts)
     }
 
-    override fun getRecent(): Flow<List<Expense>> {
-        return userDataSource.storedUser.flatMapWithUserId(expenseDao::getRecent)
+    override fun getMostRecent(): Flow<List<Expense>> {
+        return userDataSource.storedUser.flatMapWithUserId(expenseDao::getMostRecent)
+    }
+
+    override fun getTomorrow(): Flow<List<Expense>> {
+        return userDataSource.storedUser.flatMapWithUserId(expenseDao::getTomorrow)
     }
 
     override fun getByEvent(eventId: Long): Flow<List<Expense>> {
@@ -49,6 +53,7 @@ class ExpenseRepositoryImpl(
             expenseDao.getCashesByVenue(userId = userId, venueId = venueId)
         }
     }
+
     override fun getCostsByVenue(venueId: Long): Flow<List<Expense>> {
         return userDataSource.storedUser.flatMapWithUserId { userId ->
             expenseDao.getCostsByVenue(userId = userId, venueId = venueId)

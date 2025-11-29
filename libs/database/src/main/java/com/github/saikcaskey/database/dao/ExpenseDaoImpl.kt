@@ -27,10 +27,12 @@ class ExpenseDaoImpl(
     private val dispatchers: CoroutineDispatchers,
 ) : ExpenseDao {
 
-    override fun getAll(userId: Long): Flow<List<Expense>> = database.expenseQueries.getAll(userId)
-        .asFlow()
-        .mapToList(dispatchers.io)
-        .map { expenses -> expenses.map(DatabaseExpense::toDomain) }
+    override fun getAll(userId: Long): Flow<List<Expense>> {
+        return database.expenseQueries.getAll(userId)
+            .asFlow()
+            .mapToList(dispatchers.io)
+            .map { expenses -> expenses.map(DatabaseExpense::toDomain) }
+    }
 
     override fun getUpcomingCosts(userId: Long): Flow<Double> {
         val now = nowAsLocalDateTime()
@@ -41,11 +43,22 @@ class ExpenseDaoImpl(
             .map { it?.balance ?: 0.0 }
     }
 
-    override fun getRecent(userId: Long): Flow<List<Expense>> {
+    override fun getMostRecent(userId: Long): Flow<List<Expense>> {
+        return database.expenseQueries.getBeforeDate(
+            userId = userId,
+            beforeDate = nowAsLocalDateTime().toString(),
+            limit = 12,
+        )
+            .asFlow()
+            .mapToList(dispatchers.io)
+            .map { expenses -> expenses.map(DatabaseExpense::toDomain) }
+    }
+
+    override fun getTomorrow(userId: Long): Flow<List<Expense>> {
         val now = nowAsLocalDateTime()
         val tomorrow = now.date.plus(DatePeriod(days = 1)).atStartOfDayInstant().toString()
 
-        return database.expenseQueries.getRecent(userId = userId, tomorrow, 5)
+        return database.expenseQueries.getBeforeDate(userId = userId, tomorrow, 5)
             .asFlow()
             .mapToList(dispatchers.io)
             .map { expenses -> expenses.map(DatabaseExpense::toDomain) }

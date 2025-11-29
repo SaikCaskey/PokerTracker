@@ -6,7 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface ExpenseRepository {
     fun getAll(): Flow<List<Expense>>
-    fun getRecent(): Flow<List<Expense>>
+    fun getMostRecent(): Flow<List<Expense>>
+    fun getTomorrow(): Flow<List<Expense>>
     fun getByEvent(eventId: Long): Flow<List<Expense>>
     fun getById(eventId: Long): Flow<Expense>
     fun getByVenue(venueId: Long): Flow<List<Expense>>

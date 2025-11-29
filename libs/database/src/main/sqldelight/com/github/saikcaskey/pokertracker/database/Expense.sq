@@ -14,7 +14,7 @@ updated_at TEXT
 getAll:
 SELECT * FROM Expense WHERE user_id = :userId ORDER BY id DESC;
 
-getRecent:
+getBeforeDate:
 SELECT * FROM Expense WHERE user_id = :userId AND date(date) <= date(:beforeDate) ORDER BY date(date) DESC LIMIT :limit;
 
 getUpcomingCosts:
