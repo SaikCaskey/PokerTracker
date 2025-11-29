@@ -17,12 +17,11 @@ internal fun CommonExtension<*, *, *, *, *, *>.configureSharedBuildTypes() {
             }
         }
 
-        getByName("debug") {
+        getByName<ApplicationBuildType>("debug") {
             isMinifyEnabled = false
             isShrinkResources = false
-
             if (this@configureSharedBuildTypes is BaseAppModuleExtension) {
-                defaultConfig.applicationIdSuffix = ".debug"
+                applicationIdSuffix = ".debug"
             }
         }
     }
