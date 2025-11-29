@@ -43,7 +43,7 @@ class ExpenseDaoImpl(
             .map { it?.balance ?: 0.0 }
     }
 
-    override fun getMostRecent(userId: Long): Flow<List<Expense>> {
+    override fun getBeforeNow(userId: Long): Flow<List<Expense>> {
         return database.expenseQueries.getBeforeDate(
             userId = userId,
             beforeDate = nowAsLocalDateTime().toString(),

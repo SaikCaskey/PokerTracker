@@ -22,8 +22,8 @@ class ExpenseRepositoryImpl(
         return userDataSource.storedUser.flatMapWithUserId(expenseDao::getUpcomingCosts)
     }
 
-    override fun getMostRecent(): Flow<List<Expense>> {
-        return userDataSource.storedUser.flatMapWithUserId(expenseDao::getMostRecent)
+    override fun getBeforeNow(): Flow<List<Expense>> {
+        return userDataSource.storedUser.flatMapWithUserId(expenseDao::getBeforeNow)
     }
 
     override fun getTomorrow(): Flow<List<Expense>> {
