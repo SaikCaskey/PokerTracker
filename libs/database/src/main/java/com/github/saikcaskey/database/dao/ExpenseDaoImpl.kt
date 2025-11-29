@@ -47,7 +47,7 @@ class ExpenseDaoImpl(
         return database.expenseQueries.getBeforeDate(
             userId = userId,
             beforeDate = nowAsLocalDateTime().toString(),
-            limit = 12,
+            limit = 10000,
         )
             .asFlow()
             .mapToList(dispatchers.io)

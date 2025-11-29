@@ -3,7 +3,6 @@ package com.github.saikcaskey.pokertracker.dashboard.presentation.composables
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -35,6 +34,15 @@ fun DashboardFeatureContent(component: DashboardFeatureComponent) {
             }
 
             item {
+                DashboardExpensesSummary(
+                    uiState.value.recentExpenses,
+                    onShowAllExpensesClicked = component::onShowAllExpensesClicked,
+                    onShowInsertExpenseClicked = component::onShowInsertExpenseClicked,
+                    onShowExpenseDetailClicked = component::onShowExpenseDetailClicked,
+                )
+            }
+
+            item {
                 DashboardEventSummary(
                     uiState.value.eventsData,
                     onShowAllEventsClicked = component::onShowAllEventsClicked,
@@ -43,14 +51,6 @@ fun DashboardFeatureContent(component: DashboardFeatureComponent) {
                 )
             }
 
-            item {
-                DashboardExpensesSummary(
-                    uiState.value.recentExpenses,
-                    onShowAllExpensesClicked = component::onShowAllExpensesClicked,
-                    onShowInsertExpenseClicked = component::onShowInsertExpenseClicked,
-                    onShowExpenseDetailClicked = component::onShowExpenseDetailClicked,
-                )
-            }
             item {
                 DashboardVenuesSummary(
                     uiState.value.recentVenues,

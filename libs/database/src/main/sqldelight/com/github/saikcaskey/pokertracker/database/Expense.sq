@@ -15,7 +15,7 @@ getAll:
 SELECT * FROM Expense WHERE user_id = :userId ORDER BY id DESC;
 
 getBeforeDate:
-SELECT * FROM Expense WHERE user_id = :userId AND date(date) <= date(:beforeDate) ORDER BY date(date) DESC LIMIT :limit;
+SELECT * FROM Expense WHERE user_id = :userId AND date <= :beforeDate ORDER BY date DESC LIMIT :limit;
 
 getUpcomingCosts:
 SELECT
@@ -26,7 +26,7 @@ ELSE 0
 END
 ) AS balance
 FROM Expense
-WHERE user_id = :userId AND date(date) >= date(:afterDate);
+WHERE user_id = :userId AND date >= :afterDate;
 
 insert:
 INSERT INTO Expense(user_id, event_id, venue_id, type, amount, description, date, created_at)

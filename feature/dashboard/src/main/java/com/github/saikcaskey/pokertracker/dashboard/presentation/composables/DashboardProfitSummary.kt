@@ -9,13 +9,15 @@ import com.github.saikcaskey.pokertracker.domain.extensions.asLocalDateTime
 import com.github.saikcaskey.pokertracker.domain.extensions.formatAsCurrency
 import com.github.saikcaskey.pokertracker.domain.models.DashboardProfitSummaryData
 import com.github.saikcaskey.pokertracker.domain.models.Expense
+import com.github.saikcaskey.pokertracker.domain.util.nowAsUiDateOrNull
 import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedProfitText
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
 
 @Composable
 fun DashboardProfitSummary(data: DashboardProfitSummaryData) {
+    val refreshedAtTime = nowAsUiDateOrNull()
     SectionContainer(
-        title = "Cashflow",
+        title = "Balance",
         content = {
             if (data.expensesBeforeNow.isEmpty()) {
                 Text(
@@ -24,6 +26,10 @@ fun DashboardProfitSummary(data: DashboardProfitSummaryData) {
                 )
             } else {
                 AnimatedProfitText(data.nowBalance)
+                Text(
+                    text = "Refreshed at: $refreshedAtTime",
+                    style = MaterialTheme.typography.bodySmall
+                )
                 ChartyLineChart(data = calculateDashboardBalanceChartData(data.expensesBeforeNow))
             }
         },
@@ -31,7 +37,8 @@ fun DashboardProfitSummary(data: DashboardProfitSummaryData) {
 }
 
 /**
- * TODO -  This chart shows the balance change in the last X Events.
+ * TODO -  This chart currently shows the balance change in the last X Events by figuring out the deltas,
+ *         just like I use for the venue profit summary / history.
  *         I want this chart to essentially show the path to the current balance.
  *         That will include things like deposits/gifts, so I'll need to add them here as separate items
  *         when they are supported. These won't always relate to events necessarily so they'll need to be
