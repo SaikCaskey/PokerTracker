@@ -23,10 +23,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.saikcaskey.libs.ui_charts.domain.model.ChartDataItem
-import com.github.saikcaskey.libs.ui_charts.presentation.charts.ChartyBarChart
-import com.github.saikcaskey.libs.ui_charts.presentation.charts.ChartyLineChart
-import com.github.saikcaskey.libs.ui_charts.presentation.charts.ChartyPieChart
-import com.github.saikcaskey.libs.ui_charts.presentation.charts.ChartyPointChart
+import com.github.saikcaskey.libs.ui_charts.presentation.charts.charty.ChartyBarChart
+import com.github.saikcaskey.libs.ui_charts.presentation.charts.charty.ChartyLineChart
+import com.github.saikcaskey.libs.ui_charts.presentation.charts.charty.ChartyPieChart
+import com.github.saikcaskey.libs.ui_charts.presentation.charts.charty.ChartyPointChart
 import com.github.saikcaskey.libs.ui_charts.presentation.extensions.toPieChartSegmentColor
 import com.github.saikcaskey.pokertracker.domain.extensions.asLocalDateTime
 import com.github.saikcaskey.pokertracker.domain.extensions.formatAsCurrency

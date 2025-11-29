@@ -1,4 +1,4 @@
-package com.github.saikcaskey.libs.ui_charts.presentation.charts
+package com.github.saikcaskey.libs.ui_charts.presentation.charts.charty
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

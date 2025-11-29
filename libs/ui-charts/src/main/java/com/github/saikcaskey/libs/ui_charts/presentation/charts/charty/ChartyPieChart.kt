@@ -1,4 +1,4 @@
-package com.github.saikcaskey.libs.ui_charts.presentation.charts
+package com.github.saikcaskey.libs.ui_charts.presentation.charts.charty
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,6 +13,7 @@ import com.github.saikcaskey.libs.ui_charts.domain.model.ChartDataItem
 import com.himanshoe.charty.common.asSolidChartColor
 import com.himanshoe.charty.pie.PieChart
 import com.himanshoe.charty.pie.model.PieChartData
+import kotlin.collections.get
 
 @Composable
 fun ChartyPieChart(
