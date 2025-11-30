@@ -3,36 +3,43 @@ package com.github.saikcaskey.pokertracker.dashboard.presentation.composables
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import com.github.saikcaskey.libs.ui_charts.domain.model.ChartDataItem
 import com.github.saikcaskey.libs.ui_charts.presentation.charts.charty.ChartyLineChart
+import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponent
 import com.github.saikcaskey.pokertracker.domain.extensions.asLocalDateTime
 import com.github.saikcaskey.pokertracker.domain.extensions.formatAsCurrency
-import com.github.saikcaskey.pokertracker.domain.models.DashboardProfitSummaryData
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.util.nowAsUiDateOrNull
 import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedProfitText
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
 
 @Composable
-fun DashboardProfitSummary(data: DashboardProfitSummaryData) {
+fun DashboardProfitSummary(
+    state: State<DashboardFeatureComponent.UiState>,
+    onShowViewStatsClicked: () -> Unit,
+) {
     val refreshedAtTime = nowAsUiDateOrNull()
+    val data = state.value.profitSummaryData
     SectionContainer(
         title = "Balance",
         content = {
-            if (data.expensesBeforeNow.isEmpty()) {
+            if (state.value.profitSummaryData.expensesBeforeNow.isEmpty()) {
                 Text(
                     text = "Add some expenses to see data here ",
-                    style = MaterialTheme.typography.bodySmall
+                    style = MaterialTheme.typography.labelLarge
                 )
             } else {
                 AnimatedProfitText(data.nowBalance)
+                ChartyLineChart(data = calculateDashboardBalanceChartData(data.expensesBeforeNow))
                 Text(
                     text = "Refreshed at: $refreshedAtTime",
-                    style = MaterialTheme.typography.bodySmall
+                    style = MaterialTheme.typography.labelSmallEmphasized
                 )
-                ChartyLineChart(data = calculateDashboardBalanceChartData(data.expensesBeforeNow))
             }
         },
+        action1Label = "View Stats",
+        onAction1Click = onShowViewStatsClicked,
     )
 }
 

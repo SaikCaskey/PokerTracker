@@ -32,6 +32,10 @@ interface RootNavigator {
         venueId: Long? = null,
     )
 
+    fun onShowAccount()
+    fun onShowStats()
+    fun onShowPlanner()
+
     fun onShowInsertVenue(existingVenueId: Long? = null)
     fun onShowCalendarDayDetail(date: LocalDate, hasEvent: Boolean)
 }

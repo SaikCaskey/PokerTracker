@@ -25,7 +25,7 @@ class RootComponentImpl(
     override val rootNavigationStack: Value<ChildStack<*, RootDestination>> = childStack(
         source = rootNavigator.navigationSource,
         serializer = RootNavigationRoute.serializer(),
-        initialConfiguration = RootNavigationRoute.MainRoute,
+        initialConfiguration = RootNavigationRoute.DashboardRoute,
         handleBackButton = true,
         childFactory = { r, ctx -> componentFactory.buildComponent(ctx,r) },
     )

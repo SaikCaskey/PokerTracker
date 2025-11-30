@@ -8,6 +8,7 @@ interface PlannerFeatureComponent : FeatureComponent {
     val uiState: StateFlow<UiState>
 
     fun onShowDayDetail(day: LocalDate, hasEvent: Boolean)
+    fun onBackClicked()
 
     data class UiState(
         val datesWithEvents: List<LocalDate> = emptyList(),

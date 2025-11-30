@@ -107,8 +107,10 @@ fun VenueEventsSummary(
 ) {
     SectionContainer(
         title = "Events",
-        onAddClick = onShowInsertEventClicked,
-        onShowAllClick = onShowAllEventsClicked,
+        action1Label = "Add",
+        action2Label = "Show All",
+        onAction1Click = onShowInsertEventClicked,
+        onAction2Click = onShowAllEventsClicked,
     ) {
         if (eventSummary.today.isNotEmpty()) {
             Spacer(Modifier.height(8.dp))
@@ -213,7 +215,7 @@ private fun VenueExpenseFeedSection(
     onShowAllExpenses: () -> Unit,
 ) {
 
-    SectionContainer(title = "Feed", onShowAllClick = onShowAllExpenses) {
+    SectionContainer(title = "Feed", onAction2Click = onShowAllExpenses) {
         ExpenseList(
             items = state.expenseSummary.all.sortedByDescending(Expense::date),
             onExpenseClicked = onShowExpenseDetail,
