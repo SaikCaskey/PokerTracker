@@ -3,6 +3,7 @@ package com.github.saikcaskey.pokertracker.stats.presentation.composables
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,6 +35,7 @@ import com.github.saikcaskey.pokertracker.domain.extensions.toUiDateTimeOrNull
 import com.github.saikcaskey.pokertracker.domain.models.EventSummary
 import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
+import com.github.saikcaskey.pokertracker.domain.util.nowAsUiDateOrNull
 import com.github.saikcaskey.pokertracker.stats.domain.components.VenueDetailComponent
 import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopBarItemDetail
 import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedProfitText
@@ -167,7 +169,9 @@ fun VenueProfitSummary(
     modifier: Modifier = Modifier,
     onVenueClicked: ((Long) -> Unit)? = null,
 ) {
+    val refreshedAtTime = nowAsUiDateOrNull()
     val venue = state.venue
+
     SectionContainer(
         title = "Profit Summary",
         modifier = modifier
@@ -190,6 +194,15 @@ fun VenueProfitSummary(
         Text("Total Profit", style = MaterialTheme.typography.titleMedium)
         AnimatedProfitText(state.profitSummary.balance)
         ChartyLineChart(data = calculateEventBalanceChartData(state.expenseSummary.all))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
+            Text(
+                text = "Last updated at: $refreshedAtTime",
+                style = MaterialTheme.typography.labelSmallEmphasized,
+            )
+        }
     }
 }
 
@@ -226,6 +239,7 @@ private fun VenueCostsSection(
     expenses: List<Expense>,
     modifier: Modifier = Modifier,
 ) {
+    val refreshedAtTime = nowAsUiDateOrNull()
     SectionContainer(
         title = "Expenses",
         modifier = modifier.fillMaxSize()
@@ -235,6 +249,15 @@ private fun VenueCostsSection(
         VenueExpenseTopExpensesBreakdownChart(expenses)
         Text("Distribution", style = MaterialTheme.typography.titleMedium)
         VenueCostsDistributionChart(expenses)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
+            Text(
+                text = "Last updated at: $refreshedAtTime",
+                style = MaterialTheme.typography.labelSmallEmphasized,
+            )
+        }
     }
 }
 
@@ -298,7 +321,9 @@ private fun VenueCashesSection(
 private fun VenueCashesChart(
     expenses: List<Expense>,
 ) {
+
     val chartData = expenses
+        .sortedBy(Expense::date)
         .associateBy(Expense::eventId)
         .map { entry ->
             ChartDataItem(
@@ -324,13 +349,16 @@ private fun calculateEventBalanceChartData(expenses: List<Expense>): List<ChartD
         // Group expenses by their eventIds, figure out the balance for each event, and then add a
         // data point with this date and balance
         expenses
-            .filter { it.eventId != null && it.date != null }
-            .groupBy { requireNotNull(it.eventId) }
+            .filter { it.date != null }
+            // Sort by date ascending
+            .sortedBy(Expense::date)
+            // Group by eventId (or use day of year)
+            .groupBy { it.eventId ?: it.date?.asLocalDateTime()?.dayOfYear }
             .map { (_, expenses) ->
-                val eventDate = requireNotNull(expenses.maxBy { requireNotNull(it.date) }.date)
-                val balance = expenses.sumOf { expense -> expense.adjustedAmount }
+                val eventDate = requireNotNull(expenses.minBy { requireNotNull(it.date) }.date)
+                val balance = expenses.sumOf(Expense::adjustedAmount)
 
-                // keep track of the balance from this event for the total TODO
+                // keep track of the balance from this event for the total TODO running fold
                 eventsBalance += balance
 
                 add(
