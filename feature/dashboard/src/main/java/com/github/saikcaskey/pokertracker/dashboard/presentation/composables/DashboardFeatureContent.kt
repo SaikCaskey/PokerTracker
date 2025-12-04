@@ -4,15 +4,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponent
+import com.github.saikcaskey.pokertracker.ui_compose.extensions.asIcon
+import compose.icons.FontAwesomeIcons
+import compose.icons.fontawesomeicons.Solid
+import compose.icons.fontawesomeicons.solid.User
 
 @Composable
 fun DashboardFeatureContent(
@@ -25,8 +30,8 @@ fun DashboardFeatureContent(
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("PokerTracker") }, actions = {
-                TextButton(onClick = component::onShowAccountClicked) {
-                    Text("Account")
+                IconButton(onClick = component::onShowAccountClicked) {
+                    FontAwesomeIcons.Solid.User.asIcon(24.dp, "Go To Account")
                 }
             })
         }
