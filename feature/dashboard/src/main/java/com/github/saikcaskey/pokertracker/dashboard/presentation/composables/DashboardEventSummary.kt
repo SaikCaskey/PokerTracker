@@ -3,48 +3,51 @@ package com.github.saikcaskey.pokertracker.dashboard.presentation.composables
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.github.saikcaskey.pokertracker.domain.models.DashboardEventsData
+import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponent
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
 import com.github.saikcaskey.pokertracker.ui_compose.components.event.EventsList
 
 @Composable
 fun DashboardEventSummary(
-    data: DashboardEventsData,
+    state: DashboardFeatureComponent.UiState,
     onShowAllEventsClicked: () -> Unit,
-    onShowInsertEventClicked: () -> Unit,
+    onShowPlannerClicked: () -> Unit,
     onShowEventDetailClicked: (Long) -> Unit,
 ) {
     SectionContainer(
         title = "Events",
-        onAddClick = onShowInsertEventClicked,
-        onShowAllClick = onShowAllEventsClicked,
+        action1Label = "Viewer",
+        action2Label = "Planner",
+        onAction1Click = onShowAllEventsClicked,
+        onAction2Click = onShowPlannerClicked,
     ) {
-        if (data.isEmpty) {
+        val eventsData = state.eventsData
+        if (eventsData.isEmpty) {
             Text(
                 text = "Add some Events to see data here.",
                 style = MaterialTheme.typography.labelLarge
             )
         } else {
-            if (data.upcomingEvents.isNotEmpty()) {
+            if (eventsData.upcomingEvents.isNotEmpty()) {
                 Text(text = "Upcoming", style = MaterialTheme.typography.labelLarge)
                 EventsList(
-                    items = data.upcomingEvents,
+                    items = eventsData.upcomingEvents,
                     emptyMessage = "No Upcoming events",
                     onEventClicked = onShowEventDetailClicked,
                 )
             }
-            if (data.todayEvents.isNotEmpty()) {
+            if (eventsData.todayEvents.isNotEmpty()) {
                 Text(text = "Today", style = MaterialTheme.typography.labelLarge)
                 EventsList(
-                    items = data.todayEvents,
+                    items = eventsData.todayEvents,
                     emptyMessage = "No more events today",
                     onEventClicked = onShowEventDetailClicked,
                 )
             }
-            if (data.recentEvents.isNotEmpty()) {
+            if (eventsData.recentEvents.isNotEmpty()) {
                 Text(text = "Recent", style = MaterialTheme.typography.labelLarge)
                 EventsList(
-                    items = data.recentEvents,
+                    items = eventsData.recentEvents,
                     emptyMessage = "No Recent events",
                     onEventClicked = onShowEventDetailClicked,
                 )

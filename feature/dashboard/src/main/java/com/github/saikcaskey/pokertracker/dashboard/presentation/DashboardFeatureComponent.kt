@@ -20,6 +20,9 @@ interface DashboardFeatureComponent : FeatureComponent {
     fun onShowAllExpensesClicked()
     fun onShowAllEventsClicked()
     fun onShowAllVenuesClicked()
+    fun onShowAccountClicked()
+    fun onShowStatsClicked()
+    fun onShowPlannerClicked()
 
     data class UiState(
         val eventsData: DashboardEventsData = DashboardEventsData(),

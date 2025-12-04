@@ -4,38 +4,56 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponent
+import com.github.saikcaskey.pokertracker.ui_compose.extensions.asIcon
+import compose.icons.FontAwesomeIcons
+import compose.icons.fontawesomeicons.Solid
+import compose.icons.fontawesomeicons.solid.User
 
 @Composable
-fun DashboardFeatureContent(component: DashboardFeatureComponent) {
-    val uiState = component.uiState.collectAsStateWithLifecycle(
+fun DashboardFeatureContent(
+    component: DashboardFeatureComponent,
+) {
+    val uiState by component.uiState.collectAsStateWithLifecycle(
         initialValue = DashboardFeatureComponent.UiState(),
-        minActiveState = Lifecycle.State.RESUMED
     )
-    Scaffold { paddingValues ->
+
+    Scaffold(
+        topBar = {
+            TopAppBar(title = { Text("PokerTracker") }, actions = {
+                IconButton(onClick = component::onShowAccountClicked) {
+                    FontAwesomeIcons.Solid.User.asIcon(24.dp, "Go To Account")
+                }
+            })
+        }
+    ) { paddingValues ->
+
         LazyColumn(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(top = 12.dp)
         ) {
-
             item {
-                DashboardProfitSummary(uiState.value.profitSummaryData)
+                DashboardBalanceSummary(
+                    state = uiState,
+                    onShowViewStatsClicked = { component.onShowStatsClicked() })
             }
 
             item {
                 DashboardExpensesSummary(
-                    uiState.value.recentExpenses,
+                    state = uiState,
                     onShowAllExpensesClicked = component::onShowAllExpensesClicked,
                     onShowInsertExpenseClicked = component::onShowInsertExpenseClicked,
                     onShowExpenseDetailClicked = component::onShowExpenseDetailClicked,
@@ -44,18 +62,17 @@ fun DashboardFeatureContent(component: DashboardFeatureComponent) {
 
             item {
                 DashboardEventSummary(
-                    uiState.value.eventsData,
+                    state = uiState,
                     onShowAllEventsClicked = component::onShowAllEventsClicked,
-                    onShowInsertEventClicked = component::onShowInsertEventClicked,
+                    onShowPlannerClicked = component::onShowPlannerClicked,
                     onShowEventDetailClicked = component::onShowEventDetailClicked,
                 )
             }
 
             item {
                 DashboardVenuesSummary(
-                    uiState.value.recentVenues,
+                    state = uiState,
                     onShowAllVenuesClicked = component::onShowAllVenuesClicked,
-                    onShowInsertVenueClicked = component::onShowInsertVenueClicked,
                     onShowVenueDetailClicked = component::onShowVenueDetailClicked,
                 )
             }

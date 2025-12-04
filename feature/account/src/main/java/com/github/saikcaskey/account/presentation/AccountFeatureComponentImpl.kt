@@ -1,7 +1,7 @@
 package com.github.saikcaskey.account.presentation
 
 import com.arkivanov.decompose.ComponentContext
-import com.github.saikcaskey.account.domain.model.AccountSettingsAction.*
+import com.github.saikcaskey.account.domain.model.AccountSettingsAction.SeedData
 import com.github.saikcaskey.account.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.account.presentation.AccountFeatureComponent.UiState
 import com.github.saikcaskey.database.seed.SampleDataSeeder
@@ -26,6 +26,7 @@ class AccountFeatureComponentImpl(
     private val seeder: SampleDataSeeder,
     userRepository: UserRepository,
     dispatchers: CoroutineDispatchers,
+    private val onFinished: () -> Unit,
 ) : AccountFeatureComponent, ComponentContext by componentContext {
 
     private val coroutineScope = CoroutineScope(dispatchers.io)
@@ -77,5 +78,9 @@ class AccountFeatureComponentImpl(
             database.venueQueries.deleteAll()
             database.expenseQueries.deleteAll()
         }
+    }
+
+    override fun onBackClicked() {
+        onFinished()
     }
 }

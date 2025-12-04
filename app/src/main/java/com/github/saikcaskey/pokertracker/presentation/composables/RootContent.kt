@@ -1,25 +1,43 @@
 package com.github.saikcaskey.pokertracker.presentation.composables
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.stack.Children
-import com.arkivanov.decompose.extensions.compose.stack.animation.*
+import com.arkivanov.decompose.extensions.compose.stack.animation.fade
+import com.arkivanov.decompose.extensions.compose.stack.animation.plus
+import com.arkivanov.decompose.extensions.compose.stack.animation.scale
+import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
+import com.github.saikcaskey.account.presentation.AccountFeatureContent
+import com.github.saikcaskey.pokertracker.dashboard.presentation.composables.DashboardFeatureContent
+import com.github.saikcaskey.pokertracker.domain.component.RootComponent
+import com.github.saikcaskey.pokertracker.planner.presentation.composables.PlannerDayDetailContent
+import com.github.saikcaskey.pokertracker.planner.presentation.composables.PlannerFeatureContent
+import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination
+import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination.AccountDestination
+import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination.DashboardDestination
+import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination.EventDetailDestination
+import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination.ExpenseDetailDestination
+import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination.InsertEventDestination
+import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination.InsertExpenseDestination
+import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination.InsertVenueDestination
+import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination.PlannerDayDetailDestination
+import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination.VenueDetailDestination
+import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination.ViewEventsDestination
+import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination.ViewExpensesDestination
+import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination.ViewVenuesDestination
+import com.github.saikcaskey.pokertracker.stats.presentation.composables.EventDetailContent
+import com.github.saikcaskey.pokertracker.stats.presentation.composables.ExpenseDetailContent
+import com.github.saikcaskey.pokertracker.stats.presentation.composables.InsertEventContent
+import com.github.saikcaskey.pokertracker.stats.presentation.composables.InsertExpenseContent
 import com.github.saikcaskey.pokertracker.stats.presentation.composables.InsertVenueContent
+import com.github.saikcaskey.pokertracker.stats.presentation.composables.StatsFeatureContent
 import com.github.saikcaskey.pokertracker.stats.presentation.composables.VenueDetailContent
+import com.github.saikcaskey.pokertracker.stats.presentation.composables.ViewEventsContent
+import com.github.saikcaskey.pokertracker.stats.presentation.composables.ViewExpensesContent
 import com.github.saikcaskey.pokertracker.stats.presentation.composables.ViewVenuesContent
 import com.github.saikcaskey.pokertracker.ui_compose.common.theme.AppTheme
-import com.github.saikcaskey.pokertracker.stats.presentation.composables.EventDetailContent
-import com.github.saikcaskey.pokertracker.stats.presentation.composables.InsertEventContent
-import com.github.saikcaskey.pokertracker.stats.presentation.composables.ViewEventsContent
-import com.github.saikcaskey.pokertracker.stats.presentation.composables.ExpenseDetailContent
-import com.github.saikcaskey.pokertracker.stats.presentation.composables.InsertExpenseContent
-import com.github.saikcaskey.pokertracker.stats.presentation.composables.ViewExpensesContent
-import com.github.saikcaskey.pokertracker.planner.presentation.composables.PlannerDayDetailContent
-import com.github.saikcaskey.account.presentation.AccountFeatureContent
-import com.github.saikcaskey.pokertracker.domain.component.RootComponent
-import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination.*
 
 @Composable
 fun RootContent(
@@ -36,7 +54,7 @@ fun RootContent(
                 animation = stackAnimation(fade() + scale())
             ) {
                 when (val instance = it.instance) {
-                    is MainDestination -> MainContent(instance.component)
+                    is DashboardDestination -> DashboardFeatureContent(instance.component)
                     is ViewExpensesDestination -> ViewExpensesContent(instance.component)
                     is ViewEventsDestination -> ViewEventsContent(instance.component)
                     is ViewVenuesDestination -> ViewVenuesContent(instance.component)
@@ -47,7 +65,9 @@ fun RootContent(
                     is InsertExpenseDestination -> InsertExpenseContent(instance.component)
                     is InsertVenueDestination -> InsertVenueContent(instance.component)
                     is PlannerDayDetailDestination -> PlannerDayDetailContent(instance.component)
-                    is SettingsDestination -> AccountFeatureContent(instance.component,)
+                    is AccountDestination -> AccountFeatureContent(instance.component)
+                    is RootDestination.PlannerDestination -> PlannerFeatureContent(instance.component)
+                    is RootDestination.StatsDestination -> StatsFeatureContent(instance.component)
                 }
             }
         }

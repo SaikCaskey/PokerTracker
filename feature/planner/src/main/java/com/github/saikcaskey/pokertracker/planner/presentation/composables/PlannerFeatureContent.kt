@@ -1,6 +1,5 @@
 package com.github.saikcaskey.pokertracker.planner.presentation.composables
 
-import android.R.attr.top
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -20,11 +19,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.saikcaskey.pokertracker.planner.presentation.PlannerFeatureComponent
+import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopAppBarPlanner
 import com.kizitonwose.calendar.compose.VerticalCalendar
 import com.kizitonwose.calendar.compose.rememberCalendarState
 import com.kizitonwose.calendar.core.daysOfWeek
@@ -38,12 +36,13 @@ import kotlinx.datetime.YearMonth
 fun PlannerFeatureContent(component: PlannerFeatureComponent) {
     val uiState = component.uiState.collectAsState()
     val datesWithEvents = uiState.value.datesWithEvents
-    Scaffold { paddingValues ->
+    Scaffold(
+        topBar = { TopAppBarPlanner(component::onBackClicked) }
+    ) { paddingValues ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(top = paddingValues.calculateTopPadding())
                 .padding(horizontal = 12.dp)
         ) {
             val daysOfWeek = remember { daysOfWeek() }

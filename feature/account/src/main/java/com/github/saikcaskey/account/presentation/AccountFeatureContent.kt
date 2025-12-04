@@ -29,7 +29,6 @@ import androidx.compose.material3.ToggleButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
@@ -49,6 +48,7 @@ import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference.DefaultBuyIn
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference.ShowAdvancedSettings
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference.UserId
+import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopAppBarAccount
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputSearchableDropdownField
 import kotlinx.coroutines.flow.collectLatest
 
@@ -63,6 +63,7 @@ fun AccountFeatureContent(component: AccountFeatureComponent) {
         setRandomUserId = component::setRandomUserId,
         addDummyData = component::seed,
         clearAllData = component::clearAllData,
+        onBackClicked = component::onBackClicked,
         updatePreferenceValue = component::updatePreferenceValue
     )
 }
@@ -75,15 +76,18 @@ fun AccountSettingsScreenContent(
     setRandomUserId: () -> Unit,
     addDummyData: (AccountSettingsAction.SeedData) -> Unit,
     clearAllData: () -> Unit,
+    onBackClicked: () -> Unit,
     updatePreferenceValue: (UserPreference<*>, Any?) -> Unit,
 ) {
-    Scaffold { paddingValues ->
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = { TopAppBarAccount { onBackClicked() } }
+    ) { paddingValues ->
         Column(
             verticalArrangement = Arrangement.Top,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(top = paddingValues.calculateTopPadding() + 12.dp)
                 .padding(horizontal = 12.dp)
         ) {
             SettingsItemsList(
@@ -92,14 +96,14 @@ fun AccountSettingsScreenContent(
                 onItemPressed = { settingsItem ->
                     val action = settingsItem.linkedAction
                     when (action) {
-                        AccountSettingsAction.ClearDefaultBuyIn -> clearDefaultBuyIn()
-                        AccountSettingsAction.ClearUserId -> clearUserId()
-                        AccountSettingsAction.SetRandomUserId -> setRandomUserId()
+                        is AccountSettingsAction.ClearDefaultBuyIn -> clearDefaultBuyIn()
+                        is AccountSettingsAction.ClearUserId -> clearUserId()
+                        is AccountSettingsAction.SetRandomUserId -> setRandomUserId()
                         is AccountSettingsAction.SeedData.SmokeTest -> addDummyData(action)
                         is AccountSettingsAction.SeedData.BadDay -> addDummyData(action)
                         is AccountSettingsAction.SeedData.GoodDay -> addDummyData(action)
                         is AccountSettingsAction.SeedData.User -> addDummyData(action)
-                        AccountSettingsAction.ClearAllData -> clearAllData()
+                        is AccountSettingsAction.ClearAllData -> clearAllData()
                         null -> Unit
                     }
                 },

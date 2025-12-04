@@ -25,9 +25,12 @@ import androidx.compose.ui.unit.sp
 fun SectionContainer(
     modifier: Modifier = Modifier,
     title: String? = null,
-    onAddClick: (() -> Unit)? = null,
-    onShowAllClick: (() -> Unit)? = null,
-    onDeleteAllClick: (() -> Unit)? = null,
+    action1Label: String = "",
+    action2Label: String = "",
+    action3Label: String = "",
+    onAction1Click: (() -> Unit)? = null,
+    onAction2Click: (() -> Unit)? = null,
+    onAction3Click: (() -> Unit)? = null,
     horizontalPadding: Dp = 12.dp,
     verticalPadding: Dp = 8.dp,
     content: @Composable ColumnScope.() -> Unit,
@@ -57,14 +60,14 @@ fun SectionContainer(
             }
             Spacer(Modifier.weight(1f))
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End)) {
-                onShowAllClick?.let {
-                    TextButton(onClick = onShowAllClick) { Text("Show All") }
+                onAction1Click?.let {
+                    TextButton(onClick = onAction1Click) { Text(action1Label) }
                 }
-                onAddClick?.let {
-                    TextButton(onClick = onAddClick) { Text("Add") }
+                onAction2Click?.let {
+                    TextButton(onClick = onAction2Click) { Text(action2Label) }
                 }
-                onDeleteAllClick?.let {
-                    TextButton(onClick = onDeleteAllClick) { Text("Clear") }
+                onAction3Click?.let {
+                    TextButton(onClick = onAction3Click) { Text(action3Label) }
                 }
             }
         }

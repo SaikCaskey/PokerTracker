@@ -14,6 +14,8 @@ val rootComponentFactoryModule = module {
             eventRepository = get(),
             expenseRepository = get(),
             venueRepository = get(),
+            userRepository = get(),
+            accountSettingsRepository = get(),
         )
     }
 }

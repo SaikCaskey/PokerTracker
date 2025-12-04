@@ -33,9 +33,6 @@ class DashboardFeatureComponentImpl(
     private val dashboardProfitSummary = combine(
         expenseRepository.getBeforeNow(),
         expenseRepository.getBalanceNow(),
-        expenseRepository.getBalanceForMonth(),
-        expenseRepository.getBalanceForYear(),
-        expenseRepository.getUpcomingCosts(),
         ::DashboardProfitSummaryData
     ).stateIn(coroutineScope, SharingStarted.Companion.Eagerly, DashboardProfitSummaryData())
 
@@ -56,6 +53,9 @@ class DashboardFeatureComponentImpl(
     override fun onShowAllExpensesClicked() = rootNavigator.onShowAllExpenses()
     override fun onShowAllEventsClicked() = rootNavigator.onShowAllEvents()
     override fun onShowAllVenuesClicked() = rootNavigator.onShowAllVenues()
+    override fun onShowAccountClicked() = rootNavigator.onShowAccount()
+    override fun onShowStatsClicked() = rootNavigator.onShowStats()
+    override fun onShowPlannerClicked() = rootNavigator.onShowPlanner()
 }
 
 

@@ -1,24 +1,33 @@
 package com.github.saikcaskey.pokertracker.presentation.components.factory
 
 import com.arkivanov.decompose.ComponentContext
-import com.github.saikcaskey.pokertracker.di.MainPagerComponentFactoryProvider
+import com.github.saikcaskey.account.domain.repository.AccountSettingsRepository
+import com.github.saikcaskey.account.presentation.AccountFeatureComponent
+import com.github.saikcaskey.account.presentation.AccountFeatureComponentImpl
+import com.github.saikcaskey.database.di.PokerTrackerDatabaseProvider
+import com.github.saikcaskey.database.di.SampleDataSeederProvider
+import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponent
+import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponentImpl
+import com.github.saikcaskey.pokertracker.di.StatsComponentFactoryProvider
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
-import com.github.saikcaskey.pokertracker.domain.component.MainComponent
 import com.github.saikcaskey.pokertracker.domain.factory.RootComponentFactory
 import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNavigationRoute
 import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNavigator
 import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
+import com.github.saikcaskey.pokertracker.domain.repository.UserRepository
 import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
 import com.github.saikcaskey.pokertracker.planner.presentation.PlannerDayDetailComponent
 import com.github.saikcaskey.pokertracker.planner.presentation.PlannerDayDetailComponentImpl
-import com.github.saikcaskey.pokertracker.presentation.components.MainPagerComponentImpl
+import com.github.saikcaskey.pokertracker.planner.presentation.PlannerFeatureComponent
+import com.github.saikcaskey.pokertracker.planner.presentation.PlannerFeatureComponentImpl
 import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination
 import com.github.saikcaskey.pokertracker.stats.domain.components.EventDetailComponent
 import com.github.saikcaskey.pokertracker.stats.domain.components.ExpenseDetailComponent
 import com.github.saikcaskey.pokertracker.stats.domain.components.InsertEventComponent
 import com.github.saikcaskey.pokertracker.stats.domain.components.InsertExpenseComponent
 import com.github.saikcaskey.pokertracker.stats.domain.components.InsertVenueComponent
+import com.github.saikcaskey.pokertracker.stats.domain.components.StatsFeaturePagerComponent
 import com.github.saikcaskey.pokertracker.stats.domain.components.VenueDetailComponent
 import com.github.saikcaskey.pokertracker.stats.domain.components.ViewEventsComponent
 import com.github.saikcaskey.pokertracker.stats.domain.components.ViewExpensesComponent
@@ -28,6 +37,7 @@ import com.github.saikcaskey.pokertracker.stats.presentation.components.ExpenseD
 import com.github.saikcaskey.pokertracker.stats.presentation.components.InsertEventComponentImpl
 import com.github.saikcaskey.pokertracker.stats.presentation.components.InsertExpenseComponentImpl
 import com.github.saikcaskey.pokertracker.stats.presentation.components.InsertVenueComponentImpl
+import com.github.saikcaskey.pokertracker.stats.presentation.components.StatsFeaturePagerComponentImpl
 import com.github.saikcaskey.pokertracker.stats.presentation.components.VenueDetailComponentImpl
 import com.github.saikcaskey.pokertracker.stats.presentation.components.ViewEventsComponentImpl
 import com.github.saikcaskey.pokertracker.stats.presentation.components.ViewExpensesComponentImpl
@@ -39,14 +49,28 @@ class RootComponentFactoryImpl(
     private val eventRepository: EventRepository,
     private val expenseRepository: ExpenseRepository,
     private val venueRepository: VenueRepository,
+    private val userRepository: UserRepository,
+    private val accountSettingsRepository: AccountSettingsRepository,
 ) : RootComponentFactory {
 
     override fun buildComponent(
         ctx: ComponentContext,
         route: RootNavigationRoute,
     ): RootDestination = when (route) {
-        is RootNavigationRoute.MainRoute -> RootDestination.MainDestination(
-            mainComponent(ctx, route)
+        is RootNavigationRoute.DashboardRoute -> RootDestination.DashboardDestination(
+            dashboardFeatureComponent(ctx, route)
+        )
+
+        is RootNavigationRoute.PlannerRoute -> RootDestination.PlannerDestination(
+            plannerFeatureComponent(ctx, route)
+        )
+
+        is RootNavigationRoute.StatsRoute -> RootDestination.StatsDestination(
+            statsFeatureComponent(ctx, route)
+        )
+
+        is RootNavigationRoute.AccountRoute -> RootDestination.AccountDestination(
+            accountFeatureComponent(ctx, route)
         )
 
         is RootNavigationRoute.DayDetailRoute -> RootDestination.PlannerDayDetailDestination(
@@ -90,14 +114,17 @@ class RootComponentFactoryImpl(
         )
     }
 
-    private fun mainComponent(
+    private fun dashboardFeatureComponent(
         componentContext: ComponentContext,
-        @Suppress("unused") route: RootNavigationRoute.MainRoute,
-    ): MainComponent {
-        return MainPagerComponentImpl(
+        @Suppress("unused") route: RootNavigationRoute.DashboardRoute,
+    ): DashboardFeatureComponent {
+        return DashboardFeatureComponentImpl(
             componentContext = componentContext,
             dispatchers = dispatchers,
-            componentFactory = MainPagerComponentFactoryProvider.provide(),
+            rootNavigator = navigator,
+            eventRepository = eventRepository,
+            expenseRepository = expenseRepository,
+            venueRepository = venueRepository
         )
     }
 
@@ -120,18 +147,10 @@ class RootComponentFactoryImpl(
                 )
             },
             onShowVenueDetail = { venueId ->
-                navigator.push(
-                    RootNavigationRoute.VenueDetailRoute(
-                        venueId
-                    )
-                )
+                navigator.push(RootNavigationRoute.VenueDetailRoute(venueId))
             },
             onShowEditEvent = { eventId ->
-                navigator.push(
-                    RootNavigationRoute.InsertEventRoute(
-                        eventId
-                    )
-                )
+                navigator.push(RootNavigationRoute.InsertEventRoute(eventId))
             },
             onFinished = navigator::pop,
             eventRepository = eventRepository,
@@ -150,13 +169,7 @@ class RootComponentFactoryImpl(
             dispatchers = dispatchers,
             onShowEventDetail = { navigator.push(RootNavigationRoute.EventDetailRoute(it)) },
             onShowInsertEvent = {
-                navigator.push(
-                    RootNavigationRoute.InsertEventRoute(
-                        existingEventId = null,
-                        venueId = null,
-                        startDate = route.date
-                    )
-                )
+                navigator.push(RootNavigationRoute.InsertEventRoute(startDate = route.date))
             },
             onFinished = navigator::pop,
             eventRepository = eventRepository,
@@ -172,20 +185,14 @@ class RootComponentFactoryImpl(
             componentContext = componentContext,
             expenseId = expenseId,
             dispatchers = dispatchers,
-            onShowEditExpense = { navigator.push(RootNavigationRoute.InsertExpenseRoute(expenseId)) },
+            onShowEditExpense = {
+                navigator.push(RootNavigationRoute.InsertExpenseRoute(expenseId))
+            },
             onShowEventDetail = { eventId ->
-                navigator.push(
-                    RootNavigationRoute.EventDetailRoute(
-                        eventId
-                    )
-                )
+                navigator.push(RootNavigationRoute.EventDetailRoute(eventId))
             },
             onShowVenueDetail = { venueId ->
-                navigator.push(
-                    RootNavigationRoute.VenueDetailRoute(
-                        venueId
-                    )
-                )
+                navigator.push(RootNavigationRoute.VenueDetailRoute(venueId))
             },
             onFinished = navigator::pop,
             venueRepository = venueRepository,
@@ -303,6 +310,44 @@ class RootComponentFactoryImpl(
             dispatchers = dispatchers,
             onFinished = navigator::pop,
             venueRepository = venueRepository,
+        )
+    }
+
+    private fun accountFeatureComponent(
+        ctx: ComponentContext,
+        @Suppress("unused") route: RootNavigationRoute.AccountRoute,
+    ): AccountFeatureComponent {
+        return AccountFeatureComponentImpl(
+            componentContext = ctx,
+            database = PokerTrackerDatabaseProvider.provide(),
+            accountSettingsRepository = accountSettingsRepository,
+            userRepository = userRepository,
+            seeder = SampleDataSeederProvider.provide(),
+            dispatchers = dispatchers,
+            onFinished = navigator::pop,
+        )
+    }
+
+    private fun statsFeatureComponent(
+        ctx: ComponentContext,
+        @Suppress("unused") route: RootNavigationRoute.StatsRoute,
+    ): StatsFeaturePagerComponent {
+        return StatsFeaturePagerComponentImpl(
+            componentContext = ctx,
+            componentFactory = StatsComponentFactoryProvider.provide()
+        )
+    }
+
+    private fun plannerFeatureComponent(
+        ctx: ComponentContext,
+        @Suppress("unused") route: RootNavigationRoute.PlannerRoute,
+    ): PlannerFeatureComponent {
+        return PlannerFeatureComponentImpl(
+            componentContext = ctx,
+            eventsRepository = eventRepository,
+            onCalendarDayClicked = navigator::onShowCalendarDayDetail,
+            onFinished = navigator::pop,
+            dispatchers = dispatchers
         )
     }
 }

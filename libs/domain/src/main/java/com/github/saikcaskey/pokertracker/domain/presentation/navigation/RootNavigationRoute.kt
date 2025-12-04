@@ -7,7 +7,16 @@ import kotlinx.serialization.Serializable
 sealed interface RootNavigationRoute : NavigationRoute {
 
     @Serializable
-    data object MainRoute : RootNavigationRoute
+    data object DashboardRoute : RootNavigationRoute
+
+    @Serializable
+    data object AccountRoute : RootNavigationRoute
+
+    @Serializable
+    data object StatsRoute : RootNavigationRoute
+
+    @Serializable
+    data object PlannerRoute : RootNavigationRoute
 
     @Serializable
     data class DayDetailRoute(val date: LocalDate) : RootNavigationRoute

@@ -1,24 +1,23 @@
 package com.github.saikcaskey.pokertracker.dashboard.presentation.composables
 
 import androidx.compose.runtime.Composable
-import com.github.saikcaskey.pokertracker.domain.models.Venue
+import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponent
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
 import com.github.saikcaskey.pokertracker.ui_compose.components.venue.VenueList
 
 @Composable
 fun DashboardVenuesSummary(
-    venues: List<Venue>,
+    state: DashboardFeatureComponent.UiState,
     onShowAllVenuesClicked: () -> Unit,
-    onShowInsertVenueClicked: () -> Unit,
     onShowVenueDetailClicked: (Long) -> Unit,
 ) {
     SectionContainer(
         title = "Venues",
-        onAddClick = onShowInsertVenueClicked,
-        onShowAllClick = onShowAllVenuesClicked,
+        action2Label = "Viewer",
+        onAction2Click = onShowAllVenuesClicked,
     ) {
         VenueList(
-            items = venues,
+            items = state.recentVenues,
             onVenueClicked = onShowVenueDetailClicked,
         )
     }

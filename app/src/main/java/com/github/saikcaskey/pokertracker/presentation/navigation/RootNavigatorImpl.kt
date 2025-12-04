@@ -87,4 +87,16 @@ class RootNavigatorImpl : RootNavigator {
         }
         navigator.push(route)
     }
+
+    override fun onShowAccount() {
+        navigator.push(RootNavigationRoute.AccountRoute)
+    }
+
+    override fun onShowStats() {
+        navigator.push(RootNavigationRoute.StatsRoute)
+    }
+
+    override fun onShowPlanner() {
+        navigator.push(RootNavigationRoute.PlannerRoute)
+    }
 }
