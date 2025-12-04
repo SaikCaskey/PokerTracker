@@ -59,7 +59,7 @@ fun ChartyPointChart(
     )
     val labelConfig = LabelConfig(
         textColor = labelColor.asSolidChartColor(),
-        showXLabel = true,
+        showXLabel = false,
         showYLabel = true,
         xAxisCharCount = 5,
         labelTextStyle = MaterialTheme.typography.labelSmall
