@@ -33,9 +33,6 @@ class DashboardFeatureComponentImpl(
     private val dashboardProfitSummary = combine(
         expenseRepository.getBeforeNow(),
         expenseRepository.getBalanceNow(),
-        expenseRepository.getBalanceForMonth(),
-        expenseRepository.getBalanceForYear(),
-        expenseRepository.getUpcomingCosts(),
         ::DashboardProfitSummaryData
     ).stateIn(coroutineScope, SharingStarted.Companion.Eagerly, DashboardProfitSummaryData())
 
