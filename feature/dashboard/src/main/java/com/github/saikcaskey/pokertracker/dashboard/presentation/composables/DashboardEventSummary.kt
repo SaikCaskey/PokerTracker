@@ -3,29 +3,25 @@ package com.github.saikcaskey.pokertracker.dashboard.presentation.composables
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponent
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
 import com.github.saikcaskey.pokertracker.ui_compose.components.event.EventsList
 
 @Composable
 fun DashboardEventSummary(
-    state: State<DashboardFeatureComponent.UiState>,
+    state: DashboardFeatureComponent.UiState,
     onShowAllEventsClicked: () -> Unit,
     onShowPlannerClicked: () -> Unit,
-    onShowInsertEventClicked: () -> Unit,
     onShowEventDetailClicked: (Long) -> Unit,
 ) {
     SectionContainer(
         title = "Events",
-        action1Label = "Add",
-        action2Label = "Show All",
-        action3Label = "Planner",
-        onAction1Click = onShowInsertEventClicked,
-        onAction2Click = onShowAllEventsClicked,
-        onAction3Click = onShowPlannerClicked,
+        action1Label = "Viewer",
+        action2Label = "Planner",
+        onAction1Click = onShowAllEventsClicked,
+        onAction2Click = onShowPlannerClicked,
     ) {
-        val eventsData = state.value.eventsData
+        val eventsData = state.eventsData
         if (eventsData.isEmpty) {
             Text(
                 text = "Add some Events to see data here.",

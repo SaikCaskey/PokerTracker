@@ -1,14 +1,13 @@
 package com.github.saikcaskey.pokertracker.dashboard.presentation.composables
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponent
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
 import com.github.saikcaskey.pokertracker.ui_compose.components.expense.ExpenseList
 
 @Composable
 fun DashboardExpensesSummary(
-    state: State<DashboardFeatureComponent.UiState>,
+    state: DashboardFeatureComponent.UiState,
     onShowAllExpensesClicked: () -> Unit,
     onShowInsertExpenseClicked: () -> Unit,
     onShowExpenseDetailClicked: (Long) -> Unit,
@@ -21,7 +20,7 @@ fun DashboardExpensesSummary(
         action2Label = "Show All",
     ) {
         ExpenseList(
-            items = state.value.recentExpenses,
+            items = state.recentExpenses,
             onExpenseClicked = onShowExpenseDetailClicked,
         )
     }

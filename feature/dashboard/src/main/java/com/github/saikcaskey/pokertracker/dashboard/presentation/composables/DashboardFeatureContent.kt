@@ -9,6 +9,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -23,7 +24,7 @@ import compose.icons.fontawesomeicons.solid.User
 fun DashboardFeatureContent(
     component: DashboardFeatureComponent,
 ) {
-    val uiState = component.uiState.collectAsStateWithLifecycle(
+    val uiState by component.uiState.collectAsStateWithLifecycle(
         initialValue = DashboardFeatureComponent.UiState(),
     )
 
@@ -45,7 +46,7 @@ fun DashboardFeatureContent(
                 .padding(paddingValues)
         ) {
             item {
-                DashboardProfitSummary(
+                DashboardBalanceSummary(
                     state = uiState,
                     onShowViewStatsClicked = { component.onShowStatsClicked() })
             }
@@ -64,7 +65,6 @@ fun DashboardFeatureContent(
                     state = uiState,
                     onShowAllEventsClicked = component::onShowAllEventsClicked,
                     onShowPlannerClicked = component::onShowPlannerClicked,
-                    onShowInsertEventClicked = component::onShowInsertEventClicked,
                     onShowEventDetailClicked = component::onShowEventDetailClicked,
                 )
             }
@@ -73,7 +73,6 @@ fun DashboardFeatureContent(
                 DashboardVenuesSummary(
                     state = uiState,
                     onShowAllVenuesClicked = component::onShowAllVenuesClicked,
-                    onShowInsertVenueClicked = component::onShowInsertVenueClicked,
                     onShowVenueDetailClicked = component::onShowVenueDetailClicked,
                 )
             }
