@@ -45,6 +45,7 @@ androidx-datastore-preferences = { module = "androidx.datastore:datastore-prefer
 androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
 br-compose-icons-font-awesome = { module = "br.com.devsrsouza.compose.icons:font-awesome", version.ref = "compose-icons" }
 compose-multiplatform-calendar = { module = "com.kizitonwose.calendar:compose-multiplatform", version.ref = "composeMultiplatform" }
+charty = { module = "com.himanshoe:charty", version = "2.1.0-beta03.4" }
 decompose-decompose = { group = "com.arkivanov.decompose", name = "decompose", version.ref = "decompose" }
 decompose-extensionsComposeJetbrains = { group = "com.arkivanov.decompose", name = "extensions-compose", version.ref = "decompose" }
 essenty-lifecycle = { group = "com.arkivanov.essenty", name = "lifecycle", version.ref = "essenty" }

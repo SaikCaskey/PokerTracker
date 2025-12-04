@@ -14,8 +14,8 @@ updated_at TEXT
 getAll:
 SELECT * FROM Expense WHERE user_id = :userId ORDER BY id DESC;
 
-getRecent:
-SELECT * FROM Expense WHERE user_id = :userId AND date(date) <= date(:beforeDate) ORDER BY date(date) DESC LIMIT :limit;
+getBeforeDate:
+SELECT * FROM Expense WHERE user_id = :userId AND date <= :beforeDate ORDER BY date DESC LIMIT :limit;
 
 getUpcomingCosts:
 SELECT
@@ -26,7 +26,7 @@ ELSE 0
 END
 ) AS balance
 FROM Expense
-WHERE user_id = :userId AND date(date) >= date(:afterDate);
+WHERE user_id = :userId AND date >= :afterDate;
 
 insert:
 INSERT INTO Expense(user_id, event_id, venue_id, type, amount, description, date, created_at)
@@ -53,6 +53,12 @@ SELECT * FROM Expense WHERE user_id = :userId AND id = :expenseId;
 
 getByVenue:
 SELECT * FROM Expense WHERE user_id = :userId AND venue_id = :venueId ORDER BY date(date) DESC;
+
+getCashesByVenue:
+SELECT * FROM Expense WHERE user_id = :userId AND venue_id = :venueId AND type IN ('CASH_OUT', 'DEAL') ORDER BY date(date) DESC;
+
+getCostsByVenue:
+SELECT * FROM Expense WHERE user_id = :userId AND venue_id = :venueId AND type NOT IN ('CASH_OUT', 'DEAL') ORDER BY date(date) DESC;
 
 deleteById:
 DELETE FROM Expense WHERE user_id = :userId AND id = :id;

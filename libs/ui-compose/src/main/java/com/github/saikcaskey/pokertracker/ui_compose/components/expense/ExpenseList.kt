@@ -3,8 +3,8 @@ package com.github.saikcaskey.pokertracker.ui_compose.components.expense
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.domain.extensions.toUiDateTimeOrNull
+import com.github.saikcaskey.pokertracker.domain.models.Expense
 import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedExpenseText
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionListContainer
 
@@ -12,6 +12,7 @@ import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionListC
 fun ExpenseList(items: List<Expense>, onExpenseClicked: (Long) -> Unit) {
     SectionListContainer(
         items = items,
+        emptyMessage = "Add some Expenses to see data here",
         onItemClicked = { onExpenseClicked(it.id) },
     ) { expense ->
         AnimatedExpenseText(expense, style = MaterialTheme.typography.bodyLarge)

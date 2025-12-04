@@ -1,5 +1,8 @@
 package com.github.saikcaskey.pokertracker.domain.models
 
+/**
+ * TODO Bounty, Prize, etc
+ */
 enum class ExpenseType {
     CASH_OUT,
     DEAL,

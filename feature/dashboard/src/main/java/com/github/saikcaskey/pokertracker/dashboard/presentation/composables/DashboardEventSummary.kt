@@ -21,7 +21,7 @@ fun DashboardEventSummary(
     ) {
         if (data.isEmpty) {
             Text(
-                text = "Nothing here yet!",
+                text = "Add some Events to see data here.",
                 style = MaterialTheme.typography.labelLarge
             )
         } else {

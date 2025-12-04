@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -27,7 +26,10 @@ class VenueDetailComponentImpl(
     private val expenseRepository: ExpenseRepository,
     private val onShowInsertEvent: () -> Unit,
     private val onShowEventDetail: (Long) -> Unit,
+    private val onShowExpenseDetail: (Long) -> Unit,
     private val onShowEditVenue: () -> Unit,
+    private val onShowAllExpenses: () -> Unit,
+    private val onShowAllEvents: () -> Unit,
     private val onFinished: () -> Unit,
     private val dispatchers: CoroutineDispatchers,
 ) : VenueDetailComponent, ComponentContext by componentContext {
@@ -38,7 +40,12 @@ class VenueDetailComponentImpl(
         .stateIn(coroutineScope, Eagerly, null)
 
     private val expenseSummary = venue.flatMapLatest { venue ->
-        expenseRepository.getByVenue(venueId).map(::ExpenseSummary)
+        combine(
+            expenseRepository.getByVenue(venueId),
+            expenseRepository.getCashesByVenue(venueId),
+            expenseRepository.getCostsByVenue(venueId),
+            ::ExpenseSummary
+        )
     }.stateIn(coroutineScope, Eagerly, ExpenseSummary())
 
     private val profitSummary = venue.flatMapLatest { venue ->
@@ -59,6 +66,7 @@ class VenueDetailComponentImpl(
         combine(
             eventRepository.getByVenue(venueId),
             eventRepository.getUpcomingByVenue(venueId),
+            eventRepository.getRecentByVenue(venueId),
             eventRepository.getTodayByVenue(venueId),
             ::EventSummary,
         )
@@ -91,7 +99,11 @@ class VenueDetailComponentImpl(
     override fun onBackClicked() = onFinished()
     override fun onShowInsertEventClicked() = onShowInsertEvent()
     override fun onShowEditVenueClicked() = onShowEditVenue()
+    override fun onShowAllEventsClicked() = onShowAllEvents()
+    override fun onShowAllExpensesClicked() = onShowAllExpenses()
+
     override fun onShowEventDetailClicked(eventId: Long) = onShowEventDetail(eventId)
+    override fun onShowExpenseDetailClicked(expenseId: Long) = onShowExpenseDetail(expenseId)
     override fun onDeleteVenueClicked() {
         coroutineScope.launch {
             runCatching { venueRepository.deleteById(venueId) }
