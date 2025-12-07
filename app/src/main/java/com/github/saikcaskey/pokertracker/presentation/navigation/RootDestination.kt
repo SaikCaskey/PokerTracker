@@ -2,18 +2,18 @@ package com.github.saikcaskey.pokertracker.presentation.navigation
 
 import com.github.saikcaskey.pokertracker.feature.account.presentation.AccountFeatureComponent
 import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.DashboardFeatureComponent
-import com.github.saikcaskey.pokertracker.planner.presentation.PlannerDayDetailComponent
-import com.github.saikcaskey.pokertracker.planner.presentation.PlannerFeatureComponent
-import com.github.saikcaskey.pokertracker.stats.domain.components.EventDetailComponent
-import com.github.saikcaskey.pokertracker.stats.domain.components.ExpenseDetailComponent
-import com.github.saikcaskey.pokertracker.stats.domain.components.InsertEventComponent
-import com.github.saikcaskey.pokertracker.stats.domain.components.InsertExpenseComponent
-import com.github.saikcaskey.pokertracker.stats.domain.components.InsertVenueComponent
-import com.github.saikcaskey.pokertracker.stats.domain.components.StatsFeaturePagerComponent
-import com.github.saikcaskey.pokertracker.stats.domain.components.VenueDetailComponent
-import com.github.saikcaskey.pokertracker.stats.domain.components.ViewEventsComponent
-import com.github.saikcaskey.pokertracker.stats.domain.components.ViewExpensesComponent
-import com.github.saikcaskey.pokertracker.stats.domain.components.ViewVenuesComponent
+import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerDayDetailComponent
+import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerFeatureComponent
+import com.github.saikcaskey.pokertracker.feature.stats.components.EventDetailComponent
+import com.github.saikcaskey.pokertracker.feature.stats.components.ExpenseDetailComponent
+import com.github.saikcaskey.pokertracker.feature.stats.components.InsertEventComponent
+import com.github.saikcaskey.pokertracker.feature.stats.components.InsertExpenseComponent
+import com.github.saikcaskey.pokertracker.feature.stats.components.InsertVenueComponent
+import com.github.saikcaskey.pokertracker.feature.stats.components.StatsFeaturePagerComponent
+import com.github.saikcaskey.pokertracker.feature.stats.components.VenueDetailComponent
+import com.github.saikcaskey.pokertracker.feature.stats.components.ViewEventsComponent
+import com.github.saikcaskey.pokertracker.feature.stats.components.ViewExpensesComponent
+import com.github.saikcaskey.pokertracker.feature.stats.components.ViewVenuesComponent
 
 /**
  * All of the Destinations that can be pushed onto the root stack

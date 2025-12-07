@@ -27,16 +27,16 @@ import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestinatio
 import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination.ViewEventsDestination
 import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination.ViewExpensesDestination
 import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination.ViewVenuesDestination
-import com.github.saikcaskey.pokertracker.stats.presentation.composables.EventDetailContent
-import com.github.saikcaskey.pokertracker.stats.presentation.composables.ExpenseDetailContent
-import com.github.saikcaskey.pokertracker.stats.presentation.composables.InsertEventContent
-import com.github.saikcaskey.pokertracker.stats.presentation.composables.InsertExpenseContent
-import com.github.saikcaskey.pokertracker.stats.presentation.composables.InsertVenueContent
-import com.github.saikcaskey.pokertracker.stats.presentation.composables.StatsFeatureContent
-import com.github.saikcaskey.pokertracker.stats.presentation.composables.VenueDetailContent
-import com.github.saikcaskey.pokertracker.stats.presentation.composables.ViewEventsContent
-import com.github.saikcaskey.pokertracker.stats.presentation.composables.ViewExpensesContent
-import com.github.saikcaskey.pokertracker.stats.presentation.composables.ViewVenuesContent
+import com.github.saikcaskey.pokertracker.feature.stats.presentation.composables.EventDetailContent
+import com.github.saikcaskey.pokertracker.feature.stats.presentation.composables.ExpenseDetailContent
+import com.github.saikcaskey.pokertracker.feature.stats.presentation.composables.InsertEventContent
+import com.github.saikcaskey.pokertracker.feature.stats.presentation.composables.InsertExpenseContent
+import com.github.saikcaskey.pokertracker.feature.stats.presentation.composables.InsertVenueContent
+import com.github.saikcaskey.pokertracker.feature.stats.presentation.composables.StatsFeatureContent
+import com.github.saikcaskey.pokertracker.feature.stats.presentation.composables.VenueDetailContent
+import com.github.saikcaskey.pokertracker.feature.stats.presentation.composables.ViewEventsContent
+import com.github.saikcaskey.pokertracker.feature.stats.presentation.composables.ViewExpensesContent
+import com.github.saikcaskey.pokertracker.feature.stats.presentation.composables.ViewVenuesContent
 import com.github.saikcaskey.pokertracker.ui_compose.common.theme.AppTheme
 
 @Composable
