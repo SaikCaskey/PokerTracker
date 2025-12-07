@@ -7,6 +7,9 @@ import kotlinx.serialization.Serializable
 sealed interface RootNavigationRoute : NavigationRoute {
 
     @Serializable
+    data object OnboardingRoute : RootNavigationRoute
+
+    @Serializable
     data object DashboardRoute : RootNavigationRoute
 
     @Serializable

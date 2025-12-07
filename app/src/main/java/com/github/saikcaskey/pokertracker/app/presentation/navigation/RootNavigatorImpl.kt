@@ -27,6 +27,10 @@ class RootNavigatorImpl : RootNavigator {
         navigator.popTo(index)
     }
 
+    override fun onShowOnboarding() {
+        navigator.push(RootNavigationRoute.OnboardingRoute)
+    }
+
     override fun onShowInsertEvent(existingEventId: Long?, venueId: Long?, startDate: LocalDate?) {
         navigator.push(
             RootNavigationRoute.InsertEventRoute(

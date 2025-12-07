@@ -10,6 +10,7 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.plus
 import com.arkivanov.decompose.extensions.compose.stack.animation.scale
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.github.saikcaskey.pokertracker.app.domain.component.RootComponent
+import com.github.saikcaskey.pokertracker.app.presentation.navigation.RootDestination
 import com.github.saikcaskey.pokertracker.app.presentation.navigation.RootDestination.AccountDestination
 import com.github.saikcaskey.pokertracker.app.presentation.navigation.RootDestination.DashboardDestination
 import com.github.saikcaskey.pokertracker.app.presentation.navigation.RootDestination.EventDetailDestination
@@ -26,6 +27,7 @@ import com.github.saikcaskey.pokertracker.app.presentation.navigation.RootDestin
 import com.github.saikcaskey.pokertracker.app.presentation.navigation.RootDestination.ViewVenuesDestination
 import com.github.saikcaskey.pokertracker.feature.account.presentation.AccountFeatureContent
 import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.composables.DashboardFeatureContent
+import com.github.saikcaskey.pokertracker.feature.onboarding.OnboardingFeatureContent
 import com.github.saikcaskey.pokertracker.feature.planner.presentation.composables.PlannerDayDetailContent
 import com.github.saikcaskey.pokertracker.feature.planner.presentation.composables.PlannerFeatureContent
 import com.github.saikcaskey.pokertracker.feature.stats.presentation.composables.EventDetailContent
@@ -55,6 +57,7 @@ fun RootContent(
                 animation = stackAnimation(fade() + scale())
             ) {
                 when (val instance = it.instance) {
+                    is RootDestination.OnboardingDestination -> OnboardingFeatureContent(instance.component)
                     is DashboardDestination -> DashboardFeatureContent(instance.component)
                     is ViewExpensesDestination -> ViewExpensesContent(instance.component)
                     is ViewEventsDestination -> ViewEventsContent(instance.component)

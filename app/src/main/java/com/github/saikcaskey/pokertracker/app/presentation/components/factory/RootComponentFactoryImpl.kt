@@ -4,11 +4,12 @@ import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.app.di.StatsComponentFactoryProvider
 import com.github.saikcaskey.pokertracker.app.domain.factory.RootComponentFactory
 import com.github.saikcaskey.pokertracker.app.presentation.navigation.RootDestination
-import com.github.saikcaskey.pokertracker.feature.account.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.feature.account.presentation.AccountFeatureComponent
 import com.github.saikcaskey.pokertracker.feature.account.presentation.AccountFeatureComponentImpl
 import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.DashboardFeatureComponent
 import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.DashboardFeatureComponentImpl
+import com.github.saikcaskey.pokertracker.feature.onboarding.composables.OnboardingFeatureComponent
+import com.github.saikcaskey.pokertracker.feature.onboarding.composables.OnboardingFeatureComponentImpl
 import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerDayDetailComponent
 import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerDayDetailComponentImpl
 import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerFeatureComponent
@@ -36,8 +37,10 @@ import com.github.saikcaskey.pokertracker.feature.stats.presentation.components.
 import com.github.saikcaskey.pokertracker.libs.database.di.PokerTrackerDatabaseProvider
 import com.github.saikcaskey.pokertracker.libs.database.di.SampleDataSeederProvider
 import com.github.saikcaskey.pokertracker.libs.domain.CoroutineDispatchers
+import com.github.saikcaskey.pokertracker.libs.domain.generators.GeneratorUsernames
 import com.github.saikcaskey.pokertracker.libs.domain.presentation.navigation.RootNavigationRoute
 import com.github.saikcaskey.pokertracker.libs.domain.presentation.navigation.RootNavigator
+import com.github.saikcaskey.pokertracker.libs.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.libs.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.libs.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.libs.domain.repository.UserRepository
@@ -51,12 +54,17 @@ class RootComponentFactoryImpl(
     private val venueRepository: VenueRepository,
     private val userRepository: UserRepository,
     private val accountSettingsRepository: AccountSettingsRepository,
+    private val usernameGenerator: GeneratorUsernames,
 ) : RootComponentFactory {
 
     override fun buildComponent(
         ctx: ComponentContext,
         route: RootNavigationRoute,
     ): RootDestination = when (route) {
+        is RootNavigationRoute.OnboardingRoute -> RootDestination.OnboardingDestination(
+            onboardingFeatureComponent(ctx, route)
+        )
+
         is RootNavigationRoute.DashboardRoute -> RootDestination.DashboardDestination(
             dashboardFeatureComponent(ctx, route)
         )
@@ -128,6 +136,20 @@ class RootComponentFactoryImpl(
         )
     }
 
+    private fun onboardingFeatureComponent(
+        componentContext: ComponentContext,
+        @Suppress("unused") route: RootNavigationRoute.OnboardingRoute,
+    ): OnboardingFeatureComponent {
+        return OnboardingFeatureComponentImpl(
+            componentContext = componentContext,
+            rootNavigator = navigator,
+            userRepository = userRepository,
+            usernameGenerator = usernameGenerator,
+            accountSettingsRepository = accountSettingsRepository,
+            dispatchers = dispatchers,
+        )
+    }
+
     private fun eventDetailComponent(
         componentContext: ComponentContext,
         route: RootNavigationRoute.EventDetailRoute,
@@ -136,21 +158,19 @@ class RootComponentFactoryImpl(
             componentContext = componentContext,
             eventId = route.eventId,
             dispatchers = dispatchers,
-            onShowExpenseDetail = { navigator.push(RootNavigationRoute.ExpenseDetailRoute(it)) },
+            onShowExpenseDetail = navigator::onShowInsertExpense,
             onShowInsertExpense = { eventId, venueId ->
-                navigator.push(
-                    RootNavigationRoute.InsertExpenseRoute(
-                        existingExpenseId = null,
-                        eventId = eventId,
-                        venueId = venueId
-                    )
+                navigator.onShowInsertExpense(
+                    existingExpenseId = null,
+                    eventId = eventId,
+                    venueId = venueId
                 )
             },
             onShowVenueDetail = { venueId ->
-                navigator.push(RootNavigationRoute.VenueDetailRoute(venueId))
+                navigator.onShowVenueDetail(venueId)
             },
             onShowEditEvent = { eventId ->
-                navigator.push(RootNavigationRoute.InsertEventRoute(eventId))
+                navigator.onShowInsertEvent(eventId)
             },
             onFinished = navigator::pop,
             eventRepository = eventRepository,
@@ -167,9 +187,9 @@ class RootComponentFactoryImpl(
             componentContext = componentContext,
             date = route.date,
             dispatchers = dispatchers,
-            onShowEventDetail = { navigator.push(RootNavigationRoute.EventDetailRoute(it)) },
+            onShowEventDetail = navigator::onShowEventDetail,
             onShowInsertEvent = {
-                navigator.push(RootNavigationRoute.InsertEventRoute(startDate = route.date))
+                navigator.onShowInsertEvent(startDate = route.date)
             },
             onFinished = navigator::pop,
             eventRepository = eventRepository,
@@ -186,13 +206,13 @@ class RootComponentFactoryImpl(
             expenseId = expenseId,
             dispatchers = dispatchers,
             onShowEditExpense = {
-                navigator.push(RootNavigationRoute.InsertExpenseRoute(expenseId))
+                navigator.onShowInsertExpense(expenseId)
             },
             onShowEventDetail = { eventId ->
-                navigator.push(RootNavigationRoute.EventDetailRoute(eventId))
+                navigator.onShowEventDetail(eventId)
             },
             onShowVenueDetail = { venueId ->
-                navigator.push(RootNavigationRoute.VenueDetailRoute(venueId))
+                navigator.onShowVenueDetail(venueId)
             },
             onFinished = navigator::pop,
             venueRepository = venueRepository,
@@ -210,14 +230,14 @@ class RootComponentFactoryImpl(
             componentContext = componentContext,
             venueId = venueId,
             dispatchers = dispatchers,
-            onShowEventDetail = { navigator.push(RootNavigationRoute.EventDetailRoute(it)) },
-            onShowExpenseDetail = { navigator.push(RootNavigationRoute.ExpenseDetailRoute(expenseId = it)) },
-            onShowInsertEvent = { navigator.push(RootNavigationRoute.InsertEventRoute(venueId = venueId)) },
-            onShowEditVenue = { navigator.push(RootNavigationRoute.InsertVenueRoute(venueId = venueId)) },
+            onShowEventDetail = navigator::onShowInsertEvent,
+            onShowExpenseDetail = navigator::onShowExpenseDetail,
+            onShowInsertEvent = navigator::onShowInsertEvent,
+            onShowEditVenue = { navigator.onShowInsertVenue(venueId) },
             // TODO show / open to expenses for a given venueId
-            onShowAllExpenses = { navigator.push(RootNavigationRoute.ViewExpensesRoute) },
+            onShowAllExpenses = navigator::onShowAllExpenses,
             // TODO show / open to events for a given venueId
-            onShowAllEvents = { navigator.push(RootNavigationRoute.ViewEventsRoute) },
+            onShowAllEvents = navigator::onShowAllEvents,
             onFinished = navigator::pop,
             expenseRepository = expenseRepository,
             venueRepository = venueRepository,
@@ -232,8 +252,8 @@ class RootComponentFactoryImpl(
         ViewExpensesComponentImpl(
             componentContext = componentContext,
             dispatchers = dispatchers,
-            onShowInsertExpense = { navigator.push(RootNavigationRoute.InsertExpenseRoute()) },
-            onShowExpenseDetail = { navigator.push(RootNavigationRoute.ExpenseDetailRoute(it)) },
+            onShowInsertExpense = navigator::onShowInsertExpense,
+            onShowExpenseDetail = navigator::onShowExpenseDetail,
             onFinished = navigator::pop,
             expenseRepository = expenseRepository,
         )
@@ -290,13 +310,13 @@ class RootComponentFactoryImpl(
             existingExpenseId = config.existingExpenseId,
             eventId = config.eventId,
             venueId = config.venueId,
-            dispatchers = dispatchers,
-            onFinished = navigator::pop,
-            onShowInsertVenue = { navigator.push(RootNavigationRoute.InsertVenueRoute()) },
-            onShowInsertEvent = { navigator.push(RootNavigationRoute.InsertEventRoute(venueId = it)) },
             expenseRepository = expenseRepository,
             eventRepository = eventRepository,
             venueRepository = venueRepository,
+            dispatchers = dispatchers,
+            onFinished = navigator::pop,
+            onShowInsertVenue = navigator::onShowInsertVenue,
+            onShowInsertEvent = navigator::onShowInsertEvent,
         )
     }
 
@@ -325,6 +345,7 @@ class RootComponentFactoryImpl(
             seeder = SampleDataSeederProvider.provide(),
             dispatchers = dispatchers,
             onFinished = navigator::pop,
+            onShowOnboarding = navigator::onShowOnboarding
         )
     }
 

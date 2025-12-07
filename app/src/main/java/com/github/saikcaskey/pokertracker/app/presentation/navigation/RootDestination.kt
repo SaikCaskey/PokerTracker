@@ -2,6 +2,7 @@ package com.github.saikcaskey.pokertracker.app.presentation.navigation
 
 import com.github.saikcaskey.pokertracker.feature.account.presentation.AccountFeatureComponent
 import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.DashboardFeatureComponent
+import com.github.saikcaskey.pokertracker.feature.onboarding.composables.OnboardingFeatureComponent
 import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerDayDetailComponent
 import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerFeatureComponent
 import com.github.saikcaskey.pokertracker.feature.stats.components.EventDetailComponent
@@ -19,6 +20,7 @@ import com.github.saikcaskey.pokertracker.feature.stats.components.ViewVenuesCom
  * All of the Destinations that can be pushed onto the root stack
  */
 sealed class RootDestination {
+    class OnboardingDestination(val component: OnboardingFeatureComponent) : RootDestination()
     class DashboardDestination(val component: DashboardFeatureComponent) : RootDestination()
     class EventDetailDestination(val component: EventDetailComponent) : RootDestination()
     class VenueDetailDestination(val component: VenueDetailComponent) : RootDestination()

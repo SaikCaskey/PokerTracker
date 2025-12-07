@@ -12,6 +12,8 @@ interface RootNavigator {
     fun pop(onComplete: (Boolean) -> Unit = {})
     fun popTo(index: Int, onComplete: (Boolean) -> Unit = {})
 
+    fun onShowOnboarding()
+
     fun onShowEventDetail(eventId: Long)
     fun onShowExpenseDetail(expenseId: Long)
     fun onShowVenueDetail(venueId: Long)
