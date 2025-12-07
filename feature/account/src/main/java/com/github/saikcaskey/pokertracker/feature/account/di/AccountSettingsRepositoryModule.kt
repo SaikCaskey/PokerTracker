@@ -1,6 +1,6 @@
 package com.github.saikcaskey.pokertracker.feature.account.di
 
-import com.github.saikcaskey.pokertracker.feature.account.domain.repository.AccountSettingsRepository
+import com.github.saikcaskey.pokertracker.libs.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.feature.account.data.repository.AccountSettingsRepositoryImpl
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get

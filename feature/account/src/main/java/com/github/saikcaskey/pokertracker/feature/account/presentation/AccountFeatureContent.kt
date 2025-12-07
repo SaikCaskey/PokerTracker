@@ -64,7 +64,8 @@ fun AccountFeatureContent(component: AccountFeatureComponent) {
         addDummyData = component::seed,
         clearAllData = component::clearAllData,
         onBackClicked = component::onBackClicked,
-        updatePreferenceValue = component::updatePreferenceValue
+        updatePreferenceValue = component::updatePreferenceValue,
+        showOnboardingClicked = component::showOnboardingClicked
     )
 }
 
@@ -76,6 +77,7 @@ fun AccountSettingsScreenContent(
     setRandomUserId: () -> Unit,
     addDummyData: (AccountSettingsAction.SeedData) -> Unit,
     clearAllData: () -> Unit,
+    showOnboardingClicked: () -> Unit,
     onBackClicked: () -> Unit,
     updatePreferenceValue: (UserPreference<*>, Any?) -> Unit,
 ) {
@@ -96,6 +98,7 @@ fun AccountSettingsScreenContent(
                 onItemPressed = { settingsItem ->
                     val action = settingsItem.linkedAction
                     when (action) {
+                        is AccountSettingsAction.OpenOnboarding -> showOnboardingClicked()
                         is AccountSettingsAction.ClearDefaultBuyIn -> clearDefaultBuyIn()
                         is AccountSettingsAction.ClearUserId -> clearUserId()
                         is AccountSettingsAction.SetRandomUserId -> setRandomUserId()

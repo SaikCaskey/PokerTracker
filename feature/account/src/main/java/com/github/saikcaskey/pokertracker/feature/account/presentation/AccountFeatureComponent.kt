@@ -12,6 +12,7 @@ interface AccountFeatureComponent : FeatureComponent {
 
     fun updatePreferenceValue(preference: UserPreference<*>, value: Any?)
 
+    fun showOnboardingClicked()
     fun setRandomUserId()
     fun clearDefaultBuyIn()
     fun clearUserId()
@@ -91,6 +92,12 @@ interface AccountFeatureComponent : FeatureComponent {
                     AccountSettingsItem.Button(
                         title = "Seed - BadDay",
                         linkedAction = AccountSettingsAction.SeedData.BadDay
+                    )
+                )
+                add(
+                    AccountSettingsItem.Button(
+                        title = "Open onboarding flow",
+                        linkedAction = AccountSettingsAction.OpenOnboarding
                     )
                 )
             }

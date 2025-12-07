@@ -2,7 +2,6 @@ package com.github.saikcaskey.pokertracker.feature.account.presentation
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.feature.account.domain.model.AccountSettingsAction.SeedData
-import com.github.saikcaskey.pokertracker.feature.account.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.feature.account.presentation.AccountFeatureComponent.UiState
 import com.github.saikcaskey.pokertracker.libs.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.libs.database.seed.SampleDataSeeder
@@ -11,6 +10,7 @@ import com.github.saikcaskey.pokertracker.libs.domain.models.User
 import com.github.saikcaskey.pokertracker.libs.domain.models.UserPreference
 import com.github.saikcaskey.pokertracker.libs.domain.models.UserPreference.DefaultBuyIn
 import com.github.saikcaskey.pokertracker.libs.domain.models.UserPreference.UserId
+import com.github.saikcaskey.pokertracker.libs.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.libs.domain.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
@@ -27,6 +27,7 @@ class AccountFeatureComponentImpl(
     userRepository: UserRepository,
     dispatchers: CoroutineDispatchers,
     private val onFinished: () -> Unit,
+    private val onShowOnboarding: () -> Unit,
 ) : AccountFeatureComponent, ComponentContext by componentContext {
 
     private val coroutineScope = CoroutineScope(dispatchers.io)
@@ -53,6 +54,10 @@ class AccountFeatureComponentImpl(
 
     override fun clearUserId() {
         accountSettingsRepository.setUserPreference(UserId, null)
+    }
+
+    override fun showOnboardingClicked() {
+        onShowOnboarding()
     }
 
     override fun seed(action: SeedData) {
