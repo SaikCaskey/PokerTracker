@@ -1,18 +1,16 @@
-import org.gradle.kotlin.dsl.android
-
 plugins {
     id("pokertracker.android.library")
     alias(libs.plugins.sqldelight)
 }
 
 android {
-    namespace = "com.github.saikcaskey.pokertracker.data"
+    namespace = "com.github.saikcaskey.pokertracker.libs.database"
 }
 
 sqldelight {
     databases {
         create("PokerTrackerDatabase") {
-            packageName.set("com.github.saikcaskey.pokertracker.database")
+            packageName.set("com.github.saikcaskey.pokertracker.libs.database")
         }
     }
 }
