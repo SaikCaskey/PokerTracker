@@ -1,0 +1,47 @@
+package com.github.saikcaskey.pokertracker.libs.domain.repository
+
+import com.github.saikcaskey.pokertracker.libs.domain.models.Expense
+import com.github.saikcaskey.pokertracker.libs.domain.models.ExpenseType
+import kotlinx.coroutines.flow.Flow
+
+interface ExpenseRepository {
+    fun getAll(): Flow<List<Expense>>
+    fun getBeforeNow(): Flow<List<Expense>>
+    fun getTomorrow(): Flow<List<Expense>>
+    fun getByEvent(eventId: Long): Flow<List<Expense>>
+    fun getById(eventId: Long): Flow<Expense>
+    fun getByVenue(venueId: Long): Flow<List<Expense>>
+    fun getCashesByVenue(venueId: Long): Flow<List<Expense>>
+    fun getCostsByVenue(venueId: Long): Flow<List<Expense>>
+    fun getUpcomingCosts(): Flow<Double>
+    fun getBalanceNow(): Flow<Double>
+    fun getBalanceForYear(): Flow<Double>
+    fun getBalanceForMonth(): Flow<Double>
+    fun getEventBalance(eventId: Long): Flow<Double>
+    fun getEventCostSubtotal(eventId: Long): Flow<Double>
+    fun getEventCashesSubtotal(eventId: Long): Flow<Double>
+    fun getVenueBalance(venueId: Long): Flow<Double>
+    fun getVenueCostSubtotal(venueId: Long): Flow<Double>
+    fun getVenueCashesSubtotal(venueId: Long): Flow<Double>
+    suspend fun insert(
+        eventId: Long?,
+        venueId: Long?,
+        amount: Double,
+        type: ExpenseType,
+        date: String? = null,
+        description: String? = null,
+    )
+
+    suspend fun update(
+        expenseId: Long,
+        eventId: Long?,
+        venueId: Long?,
+        amount: Double,
+        type: ExpenseType,
+        date: String? = null,
+        description: String? = null,
+    )
+
+    suspend fun deleteById(expenseId: Long)
+    suspend fun deleteAll()
+}

@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PokerTracker">
         <activity
-            android:name=".presentation.MainActivity"
+            android:name=".app.presentation.MainActivity"
             android:exported="true">
 
             <intent-filter>
