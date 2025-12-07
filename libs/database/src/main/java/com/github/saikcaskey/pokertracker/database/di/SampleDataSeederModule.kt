@@ -1,7 +1,7 @@
-package com.github.saikcaskey.database.di
+package com.github.saikcaskey.pokertracker.database.di
 
-import com.github.saikcaskey.database.seed.SampleDataSeeder
-import com.github.saikcaskey.database.seed.SampleDataSeederImpl
+import com.github.saikcaskey.pokertracker.database.seed.SampleDataSeeder
+import com.github.saikcaskey.pokertracker.database.seed.SampleDataSeederImpl
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.koin.dsl.module

@@ -1,4 +1,4 @@
-package com.github.saikcaskey.database.driver
+package com.github.saikcaskey.pokertracker.database.driver
 
 import android.content.Context
 import androidx.sqlite.db.SupportSQLiteDatabase

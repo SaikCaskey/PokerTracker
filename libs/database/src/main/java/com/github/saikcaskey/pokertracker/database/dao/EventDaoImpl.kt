@@ -1,4 +1,4 @@
-package com.github.saikcaskey.database.dao
+package com.github.saikcaskey.pokertracker.database.dao
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList

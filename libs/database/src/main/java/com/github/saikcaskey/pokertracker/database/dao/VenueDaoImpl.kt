@@ -1,4 +1,4 @@
-package com.github.saikcaskey.database.dao
+package com.github.saikcaskey.pokertracker.database.dao
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
@@ -6,7 +6,6 @@ import app.cash.sqldelight.coroutines.mapToOneNotNull
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.dao.VenueDao
-import com.github.saikcaskey.pokertracker.domain.extensions.asInstantOrNow
 import com.github.saikcaskey.pokertracker.domain.extensions.asInstantOrNull
 import com.github.saikcaskey.pokertracker.domain.models.Venue
 import com.github.saikcaskey.pokertracker.domain.util.nowAsInstant

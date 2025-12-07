@@ -1,4 +1,4 @@
-package com.github.saikcaskey.database.seed
+package com.github.saikcaskey.pokertracker.database.seed
 
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.domain.extensions.adjustedForType
