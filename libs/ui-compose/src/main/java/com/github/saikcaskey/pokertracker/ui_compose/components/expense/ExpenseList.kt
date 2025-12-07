@@ -3,8 +3,8 @@ package com.github.saikcaskey.pokertracker.ui_compose.components.expense
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.github.saikcaskey.pokertracker.domain.extensions.toUiDateTimeOrNull
-import com.github.saikcaskey.pokertracker.domain.models.Expense
+import com.github.saikcaskey.pokertracker.libs.domain.extensions.toUiDateTimeOrNull
+import com.github.saikcaskey.pokertracker.libs.domain.models.Expense
 import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedExpenseText
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionListContainer
 

@@ -2,9 +2,9 @@ package com.github.saikcaskey.pokertracker.account.presentation
 
 import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsAction
 import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsItem
-import com.github.saikcaskey.pokertracker.domain.models.AccountSettingsData
-import com.github.saikcaskey.pokertracker.domain.models.UserPreference
-import com.github.saikcaskey.pokertracker.domain.presentation.component.FeatureComponent
+import com.github.saikcaskey.pokertracker.libs.domain.models.AccountSettingsData
+import com.github.saikcaskey.pokertracker.libs.domain.models.UserPreference
+import com.github.saikcaskey.pokertracker.libs.domain.presentation.component.FeatureComponent
 import kotlinx.coroutines.flow.StateFlow
 
 interface AccountFeatureComponent : FeatureComponent {

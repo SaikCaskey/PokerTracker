@@ -4,11 +4,11 @@ import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
-import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
-import com.github.saikcaskey.pokertracker.domain.dao.UserDao
-import com.github.saikcaskey.pokertracker.domain.extensions.asInstantOrNull
-import com.github.saikcaskey.pokertracker.domain.models.User
-import com.github.saikcaskey.pokertracker.domain.util.nowAsInstant
+import com.github.saikcaskey.pokertracker.libs.domain.CoroutineDispatchers
+import com.github.saikcaskey.pokertracker.libs.domain.dao.UserDao
+import com.github.saikcaskey.pokertracker.libs.domain.extensions.asInstantOrNull
+import com.github.saikcaskey.pokertracker.libs.domain.models.User
+import com.github.saikcaskey.pokertracker.libs.domain.util.nowAsInstant
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.mapNotNull
 import com.github.saikcaskey.pokertracker.database.User as DatabaseUser

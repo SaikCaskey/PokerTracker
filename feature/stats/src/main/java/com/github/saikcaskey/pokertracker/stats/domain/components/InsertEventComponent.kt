@@ -1,7 +1,7 @@
 package com.github.saikcaskey.pokertracker.stats.domain.components
 
-import com.github.saikcaskey.pokertracker.domain.models.GameType
-import com.github.saikcaskey.pokertracker.domain.models.Venue
+import com.github.saikcaskey.pokertracker.libs.domain.models.GameType
+import com.github.saikcaskey.pokertracker.libs.domain.models.Venue
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime

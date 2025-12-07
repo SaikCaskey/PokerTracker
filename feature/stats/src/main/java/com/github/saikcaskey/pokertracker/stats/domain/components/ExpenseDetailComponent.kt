@@ -1,8 +1,8 @@
 package com.github.saikcaskey.pokertracker.stats.domain.components
 
-import com.github.saikcaskey.pokertracker.domain.models.Event
-import com.github.saikcaskey.pokertracker.domain.models.Expense
-import com.github.saikcaskey.pokertracker.domain.models.Venue
+import com.github.saikcaskey.pokertracker.libs.domain.models.Event
+import com.github.saikcaskey.pokertracker.libs.domain.models.Expense
+import com.github.saikcaskey.pokertracker.libs.domain.models.Venue
 import kotlinx.coroutines.flow.StateFlow
 
 interface ExpenseDetailComponent {

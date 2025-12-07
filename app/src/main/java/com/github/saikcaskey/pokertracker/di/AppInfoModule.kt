@@ -1,7 +1,7 @@
 package com.github.saikcaskey.pokertracker.di
 
 import com.github.saikcaskey.pokertracker.BuildConfig
-import com.github.saikcaskey.pokertracker.domain.models.AppInfo
+import com.github.saikcaskey.pokertracker.libs.domain.models.AppInfo
 import org.koin.dsl.module
 
 val appInfoModule = module {

@@ -1,6 +1,6 @@
 package com.github.saikcaskey.pokertracker.stats.data.extensions
 
-import com.github.saikcaskey.pokertracker.domain.models.User
+import com.github.saikcaskey.pokertracker.libs.domain.models.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flatMapLatest

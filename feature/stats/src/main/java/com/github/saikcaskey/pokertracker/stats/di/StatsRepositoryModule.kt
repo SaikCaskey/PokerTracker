@@ -1,9 +1,9 @@
 package com.github.saikcaskey.pokertracker.stats.di
 
-import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
-import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
-import com.github.saikcaskey.pokertracker.domain.repository.UserRepository
-import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
+import com.github.saikcaskey.pokertracker.libs.domain.repository.EventRepository
+import com.github.saikcaskey.pokertracker.libs.domain.repository.ExpenseRepository
+import com.github.saikcaskey.pokertracker.libs.domain.repository.UserRepository
+import com.github.saikcaskey.pokertracker.libs.domain.repository.VenueRepository
 import com.github.saikcaskey.pokertracker.stats.data.repository.EventRepositoryImpl
 import com.github.saikcaskey.pokertracker.stats.data.repository.ExpenseRepositoryImpl
 import com.github.saikcaskey.pokertracker.stats.data.repository.UserRepositoryImpl

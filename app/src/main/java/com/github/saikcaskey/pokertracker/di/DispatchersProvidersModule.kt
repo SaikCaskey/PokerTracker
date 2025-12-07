@@ -1,6 +1,6 @@
 package com.github.saikcaskey.pokertracker.di
 
-import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
+import com.github.saikcaskey.pokertracker.libs.domain.CoroutineDispatchers
 import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module
 

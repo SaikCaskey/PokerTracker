@@ -1,9 +1,9 @@
 package com.github.saikcaskey.pokertracker.stats.domain.components
 
-import com.github.saikcaskey.pokertracker.domain.models.EventSummary
-import com.github.saikcaskey.pokertracker.domain.models.ExpenseSummary
-import com.github.saikcaskey.pokertracker.domain.models.ProfitSummary
-import com.github.saikcaskey.pokertracker.domain.models.Venue
+import com.github.saikcaskey.pokertracker.libs.domain.models.EventSummary
+import com.github.saikcaskey.pokertracker.libs.domain.models.ExpenseSummary
+import com.github.saikcaskey.pokertracker.libs.domain.models.ProfitSummary
+import com.github.saikcaskey.pokertracker.libs.domain.models.Venue
 import kotlinx.coroutines.flow.StateFlow
 
 interface VenueDetailComponent {

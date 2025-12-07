@@ -5,8 +5,8 @@ import androidx.compose.animation.core.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.text.TextStyle
-import com.github.saikcaskey.pokertracker.domain.extensions.formatAsCurrency
-import com.github.saikcaskey.pokertracker.domain.models.Expense
+import com.github.saikcaskey.pokertracker.libs.domain.extensions.formatAsCurrency
+import com.github.saikcaskey.pokertracker.libs.domain.models.Expense
 import com.github.saikcaskey.pokertracker.ui_compose.extensions.toExpenseColor
 
 @Composable

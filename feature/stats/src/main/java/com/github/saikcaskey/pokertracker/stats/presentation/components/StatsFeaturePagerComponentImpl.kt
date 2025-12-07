@@ -8,7 +8,7 @@ import com.arkivanov.decompose.router.pages.childPages
 import com.arkivanov.decompose.router.pages.select
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.subscribe
-import com.github.saikcaskey.pokertracker.domain.presentation.component.FeatureComponent
+import com.github.saikcaskey.pokertracker.libs.domain.presentation.component.FeatureComponent
 import com.github.saikcaskey.pokertracker.stats.domain.components.StatsFeaturePagerComponent
 import com.github.saikcaskey.pokertracker.stats.domain.components.factory.StatsComponentFactory
 import com.github.saikcaskey.pokertracker.stats.presentation.navigation.StatsPagerNavigationRoute

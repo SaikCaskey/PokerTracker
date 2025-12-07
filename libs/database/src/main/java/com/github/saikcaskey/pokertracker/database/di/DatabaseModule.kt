@@ -7,10 +7,10 @@ import com.github.saikcaskey.pokertracker.database.dao.UserDaoImpl
 import com.github.saikcaskey.pokertracker.database.dao.VenueDaoImpl
 import com.github.saikcaskey.pokertracker.database.driver.DriverFactoryImpl
 import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
-import com.github.saikcaskey.pokertracker.domain.dao.EventDao
-import com.github.saikcaskey.pokertracker.domain.dao.ExpenseDao
-import com.github.saikcaskey.pokertracker.domain.dao.UserDao
-import com.github.saikcaskey.pokertracker.domain.dao.VenueDao
+import com.github.saikcaskey.pokertracker.libs.domain.dao.EventDao
+import com.github.saikcaskey.pokertracker.libs.domain.dao.ExpenseDao
+import com.github.saikcaskey.pokertracker.libs.domain.dao.UserDao
+import com.github.saikcaskey.pokertracker.libs.domain.dao.VenueDao
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.koin.dsl.module

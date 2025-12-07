@@ -7,8 +7,8 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
 import com.github.saikcaskey.pokertracker.domain.component.RootComponent
 import com.github.saikcaskey.pokertracker.domain.factory.RootComponentFactory
-import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNavigationRoute
-import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNavigator
+import com.github.saikcaskey.pokertracker.libs.domain.presentation.navigation.RootNavigationRoute
+import com.github.saikcaskey.pokertracker.libs.domain.presentation.navigation.RootNavigator
 import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination
 
 class RootComponentImpl(

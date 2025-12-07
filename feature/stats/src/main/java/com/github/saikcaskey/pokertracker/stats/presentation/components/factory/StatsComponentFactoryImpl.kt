@@ -1,12 +1,12 @@
 package com.github.saikcaskey.pokertracker.stats.presentation.components.factory
 
 import com.arkivanov.decompose.ComponentContext
-import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
-import com.github.saikcaskey.pokertracker.domain.presentation.component.FeatureComponent
-import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNavigator
-import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
-import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
-import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
+import com.github.saikcaskey.pokertracker.libs.domain.CoroutineDispatchers
+import com.github.saikcaskey.pokertracker.libs.domain.presentation.component.FeatureComponent
+import com.github.saikcaskey.pokertracker.libs.domain.presentation.navigation.RootNavigator
+import com.github.saikcaskey.pokertracker.libs.domain.repository.EventRepository
+import com.github.saikcaskey.pokertracker.libs.domain.repository.ExpenseRepository
+import com.github.saikcaskey.pokertracker.libs.domain.repository.VenueRepository
 import com.github.saikcaskey.pokertracker.stats.domain.components.factory.StatsComponentFactory
 import com.github.saikcaskey.pokertracker.stats.domain.components.ViewEventsComponent
 import com.github.saikcaskey.pokertracker.stats.presentation.components.ViewEventsComponentImpl

@@ -1,6 +1,6 @@
 package com.github.saikcaskey.pokertracker.di
 
-import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNavigator
+import com.github.saikcaskey.pokertracker.libs.domain.presentation.navigation.RootNavigator
 import com.github.saikcaskey.pokertracker.presentation.navigation.RootNavigatorImpl
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get

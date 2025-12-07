@@ -1,8 +1,8 @@
 package com.github.saikcaskey.pokertracker.planner.presentation
 
 import com.arkivanov.decompose.ComponentContext
-import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
-import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
+import com.github.saikcaskey.pokertracker.libs.domain.CoroutineDispatchers
+import com.github.saikcaskey.pokertracker.libs.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.planner.presentation.PlannerFeatureComponent.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly

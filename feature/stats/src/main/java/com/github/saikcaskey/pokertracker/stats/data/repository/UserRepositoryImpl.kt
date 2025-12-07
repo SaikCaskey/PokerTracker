@@ -1,9 +1,9 @@
 package com.github.saikcaskey.pokertracker.stats.data.repository
 
-import com.github.saikcaskey.pokertracker.domain.dao.UserDao
-import com.github.saikcaskey.pokertracker.domain.datasource.UserDataSource
-import com.github.saikcaskey.pokertracker.domain.models.User
-import com.github.saikcaskey.pokertracker.domain.repository.UserRepository
+import com.github.saikcaskey.pokertracker.libs.domain.dao.UserDao
+import com.github.saikcaskey.pokertracker.libs.domain.datasource.UserDataSource
+import com.github.saikcaskey.pokertracker.libs.domain.models.User
+import com.github.saikcaskey.pokertracker.libs.domain.repository.UserRepository
 import com.github.saikcaskey.pokertracker.stats.data.extensions.flatMapWithUserId
 import kotlinx.coroutines.flow.Flow
 

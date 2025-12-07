@@ -1,13 +1,13 @@
 package com.github.saikcaskey.pokertracker.dashboard.presentation
 
 import com.arkivanov.decompose.ComponentContext
-import com.github.saikcaskey.pokertracker.domain.CoroutineDispatchers
-import com.github.saikcaskey.pokertracker.domain.models.DashboardEventsData
-import com.github.saikcaskey.pokertracker.domain.models.DashboardProfitSummaryData
-import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNavigator
-import com.github.saikcaskey.pokertracker.domain.repository.EventRepository
-import com.github.saikcaskey.pokertracker.domain.repository.ExpenseRepository
-import com.github.saikcaskey.pokertracker.domain.repository.VenueRepository
+import com.github.saikcaskey.pokertracker.libs.domain.CoroutineDispatchers
+import com.github.saikcaskey.pokertracker.libs.domain.models.DashboardEventsData
+import com.github.saikcaskey.pokertracker.libs.domain.models.DashboardProfitSummaryData
+import com.github.saikcaskey.pokertracker.libs.domain.presentation.navigation.RootNavigator
+import com.github.saikcaskey.pokertracker.libs.domain.repository.EventRepository
+import com.github.saikcaskey.pokertracker.libs.domain.repository.ExpenseRepository
+import com.github.saikcaskey.pokertracker.libs.domain.repository.VenueRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine

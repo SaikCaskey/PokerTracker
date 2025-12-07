@@ -3,8 +3,8 @@ package com.github.saikcaskey.pokertracker.ui_compose.extensions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import com.github.saikcaskey.pokertracker.domain.models.Expense
-import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
+import com.github.saikcaskey.pokertracker.libs.domain.models.Expense
+import com.github.saikcaskey.pokertracker.libs.domain.models.ExpenseType
 
 @Composable
 fun Expense.toExpenseColor(): Color {

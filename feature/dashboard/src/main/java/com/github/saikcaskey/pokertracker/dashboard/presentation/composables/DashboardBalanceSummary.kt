@@ -10,10 +10,10 @@ import androidx.compose.ui.Modifier
 import com.github.saikcaskey.libs.ui_charts.domain.model.ChartDataItem
 import com.github.saikcaskey.libs.ui_charts.presentation.charts.charty.ChartyLineChart
 import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponent
-import com.github.saikcaskey.pokertracker.domain.extensions.asLocalDateTime
-import com.github.saikcaskey.pokertracker.domain.extensions.formatAsCurrency
-import com.github.saikcaskey.pokertracker.domain.models.Expense
-import com.github.saikcaskey.pokertracker.domain.util.nowAsUiDateOrNull
+import com.github.saikcaskey.pokertracker.libs.domain.extensions.asLocalDateTime
+import com.github.saikcaskey.pokertracker.libs.domain.extensions.formatAsCurrency
+import com.github.saikcaskey.pokertracker.libs.domain.models.Expense
+import com.github.saikcaskey.pokertracker.libs.domain.util.nowAsUiDateOrNull
 import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedProfitText
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
 

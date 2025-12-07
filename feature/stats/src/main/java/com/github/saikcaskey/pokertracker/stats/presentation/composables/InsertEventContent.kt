@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.github.saikcaskey.pokertracker.domain.models.GameType
+import com.github.saikcaskey.pokertracker.libs.domain.models.GameType
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDateField
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDropdownField
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDropdownVenue

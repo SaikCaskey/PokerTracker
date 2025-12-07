@@ -19,9 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.github.saikcaskey.pokertracker.domain.extensions.toUiDateTimeOrNull
-import com.github.saikcaskey.pokertracker.domain.models.Expense
-import com.github.saikcaskey.pokertracker.domain.models.Venue
+import com.github.saikcaskey.pokertracker.libs.domain.extensions.toUiDateTimeOrNull
+import com.github.saikcaskey.pokertracker.libs.domain.models.Expense
+import com.github.saikcaskey.pokertracker.libs.domain.models.Venue
 import com.github.saikcaskey.pokertracker.stats.domain.components.EventDetailComponent
 import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopBarItemDetail
 import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedExpenseText

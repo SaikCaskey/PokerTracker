@@ -1,6 +1,6 @@
 package com.github.saikcaskey.pokertracker.planner.presentation
 
-import com.github.saikcaskey.pokertracker.domain.models.Event
+import com.github.saikcaskey.pokertracker.libs.domain.models.Event
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.datetime.LocalDate
 

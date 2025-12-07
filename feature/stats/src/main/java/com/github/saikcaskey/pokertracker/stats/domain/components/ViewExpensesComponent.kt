@@ -1,6 +1,6 @@
 package com.github.saikcaskey.pokertracker.stats.domain.components
 
-import com.github.saikcaskey.pokertracker.domain.models.Expense
+import com.github.saikcaskey.pokertracker.libs.domain.models.Expense
 import kotlinx.coroutines.flow.StateFlow
 
 interface ViewExpensesComponent : StatsPagerPageComponent {

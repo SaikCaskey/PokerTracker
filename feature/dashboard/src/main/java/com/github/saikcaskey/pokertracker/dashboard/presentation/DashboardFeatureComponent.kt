@@ -1,10 +1,10 @@
 package com.github.saikcaskey.pokertracker.dashboard.presentation
 
-import com.github.saikcaskey.pokertracker.domain.models.DashboardEventsData
-import com.github.saikcaskey.pokertracker.domain.models.DashboardProfitSummaryData
-import com.github.saikcaskey.pokertracker.domain.models.Expense
-import com.github.saikcaskey.pokertracker.domain.models.Venue
-import com.github.saikcaskey.pokertracker.domain.presentation.component.FeatureComponent
+import com.github.saikcaskey.pokertracker.libs.domain.models.DashboardEventsData
+import com.github.saikcaskey.pokertracker.libs.domain.models.DashboardProfitSummaryData
+import com.github.saikcaskey.pokertracker.libs.domain.models.Expense
+import com.github.saikcaskey.pokertracker.libs.domain.models.Venue
+import com.github.saikcaskey.pokertracker.libs.domain.presentation.component.FeatureComponent
 import kotlinx.coroutines.flow.Flow
 
 interface DashboardFeatureComponent : FeatureComponent {

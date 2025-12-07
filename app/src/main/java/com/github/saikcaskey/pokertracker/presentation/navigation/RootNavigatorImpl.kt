@@ -5,8 +5,8 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.popTo
 import com.arkivanov.decompose.router.stack.push
-import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNavigationRoute
-import com.github.saikcaskey.pokertracker.domain.presentation.navigation.RootNavigator
+import com.github.saikcaskey.pokertracker.libs.domain.presentation.navigation.RootNavigationRoute
+import com.github.saikcaskey.pokertracker.libs.domain.presentation.navigation.RootNavigator
 import kotlinx.datetime.LocalDate
 
 class RootNavigatorImpl : RootNavigator {

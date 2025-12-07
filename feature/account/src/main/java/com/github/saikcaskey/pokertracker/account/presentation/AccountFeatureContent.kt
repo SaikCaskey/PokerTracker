@@ -44,10 +44,10 @@ import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsIt
 import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsItem.LongInput
 import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsItem.TextInput
 import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsItem.Toggle
-import com.github.saikcaskey.pokertracker.domain.models.UserPreference
-import com.github.saikcaskey.pokertracker.domain.models.UserPreference.DefaultBuyIn
-import com.github.saikcaskey.pokertracker.domain.models.UserPreference.ShowAdvancedSettings
-import com.github.saikcaskey.pokertracker.domain.models.UserPreference.UserId
+import com.github.saikcaskey.pokertracker.libs.domain.models.UserPreference
+import com.github.saikcaskey.pokertracker.libs.domain.models.UserPreference.DefaultBuyIn
+import com.github.saikcaskey.pokertracker.libs.domain.models.UserPreference.ShowAdvancedSettings
+import com.github.saikcaskey.pokertracker.libs.domain.models.UserPreference.UserId
 import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopAppBarAccount
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputSearchableDropdownField
 import kotlinx.coroutines.flow.collectLatest

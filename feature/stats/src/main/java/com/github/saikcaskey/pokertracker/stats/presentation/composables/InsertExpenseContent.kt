@@ -6,7 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
-import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
+import com.github.saikcaskey.pokertracker.libs.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDateField
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDropdownEvent
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDropdownField
