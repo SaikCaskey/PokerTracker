@@ -13,8 +13,7 @@ fun DashboardVenuesSummary(
 ) {
     SectionContainer(
         title = "Venues",
-        action2Label = "Viewer",
-        onAction2Click = onShowAllVenuesClicked,
+        onClick = onShowAllVenuesClicked,
     ) {
         VenueList(
             items = state.recentVenues,

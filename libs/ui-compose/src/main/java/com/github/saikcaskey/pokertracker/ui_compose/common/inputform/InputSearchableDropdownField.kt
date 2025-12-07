@@ -1,13 +1,28 @@
 package com.github.saikcaskey.pokertracker.ui_compose.common.inputform
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.github.saikcaskey.pokertracker.ui_compose.extensions.AsIcon
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
-import compose.icons.fontawesomeicons.solid.*
+import compose.icons.fontawesomeicons.solid.CaretSquareDown
+import compose.icons.fontawesomeicons.solid.PlusCircle
 
 @Composable
 fun <T> InputSearchableDropdownField(
@@ -21,7 +36,9 @@ fun <T> InputSearchableDropdownField(
     modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var searchText by remember { mutableStateOf(selectedItem?.let { item -> itemToString(item) } ?: "") }
+    var searchText by remember {
+        mutableStateOf(selectedItem?.let { item -> itemToString(item) } ?: "")
+    }
 
     val filteredItems = if (filterItems) remember(searchText, items) {
         if (searchText.isBlank()) items
@@ -44,7 +61,7 @@ fun <T> InputSearchableDropdownField(
                 modifier = Modifier.weight(1f),
                 trailingIcon = {
                     IconButton(onClick = { expanded = !expanded }) {
-                        Icon(FontAwesomeIcons.Solid.CaretSquareDown, contentDescription = "Dropdown")
+                        FontAwesomeIcons.Solid.CaretSquareDown.AsIcon(24.dp, "Select an option",)
                     }
                 }
             )
@@ -52,7 +69,7 @@ fun <T> InputSearchableDropdownField(
             Spacer(Modifier.width(8.dp))
 
             IconButton(onClick = onAddNewItemClicked) {
-                Icon(FontAwesomeIcons.Solid.PlusCircle, contentDescription = "Add new")
+                FontAwesomeIcons.Solid.PlusCircle.AsIcon(24.dp, "Add new",)
             }
         }
 
