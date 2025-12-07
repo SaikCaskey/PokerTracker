@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.saikcaskey.pokertracker.ui_compose"
+    namespace = "com.github.saikcaskey.pokertracker.libs.ui_compose"
 }
 
 dependencies {

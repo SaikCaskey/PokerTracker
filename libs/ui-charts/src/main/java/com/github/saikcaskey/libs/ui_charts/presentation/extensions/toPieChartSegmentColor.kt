@@ -4,7 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
-import com.github.saikcaskey.pokertracker.domain.models.ExpenseType
+import com.github.saikcaskey.pokertracker.libs.domain.models.ExpenseType
 import com.materialkolor.palettes.TonalPalette
 
 /**
