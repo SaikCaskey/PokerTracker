@@ -1,13 +1,16 @@
-package com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary
+package com.github.saikcaskey.pokertracker.libs.ui_compose.common.profitsummary
 
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.text.TextStyle
+import com.github.saikcaskey.pokertracker.ui_compose.extensions.toProfitColor
 import com.github.saikcaskey.pokertracker.libs.domain.extensions.formatAsCurrency
 import com.github.saikcaskey.pokertracker.libs.domain.models.Expense
-import com.github.saikcaskey.pokertracker.ui_compose.extensions.toExpenseColor
 
 @Composable
 fun AnimatedExpenseText(
@@ -15,13 +18,13 @@ fun AnimatedExpenseText(
     style: TextStyle = MaterialTheme.typography.displayMedium,
 ) {
     val animatedBalance by animateFloatAsState(
-        targetValue = expense.amount.toFloat(),
+        targetValue = expense.adjustedAmount.toFloat(),
         animationSpec = tween(durationMillis = 500),
         label = "BalanceAnimation"
     )
 
     val animatedColor by animateColorAsState(
-        targetValue = expense.toExpenseColor(),
+        targetValue = expense.adjustedAmount.toProfitColor(),
         animationSpec = tween(durationMillis = 500),
         label = "ColorAnimation"
     )
