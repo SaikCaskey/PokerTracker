@@ -17,7 +17,7 @@ import com.github.saikcaskey.pokertracker.libs.domain.extensions.formatAsCurrenc
 import com.github.saikcaskey.pokertracker.libs.domain.models.Expense
 import com.github.saikcaskey.pokertracker.libs.domain.util.nowAsUiDateOrNull
 import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedProfitText
-import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
+import com.github.saikcaskey.pokertracker.libs.ui_compose.common.section.SectionContainer
 import com.github.saikcaskey.pokertracker.ui_compose.extensions.AsIcon
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
