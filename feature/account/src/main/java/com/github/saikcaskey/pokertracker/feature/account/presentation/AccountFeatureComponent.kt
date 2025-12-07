@@ -1,7 +1,7 @@
-package com.github.saikcaskey.pokertracker.account.presentation
+package com.github.saikcaskey.pokertracker.feature.account.presentation
 
-import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsAction
-import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsItem
+import com.github.saikcaskey.pokertracker.feature.account.domain.model.AccountSettingsAction
+import com.github.saikcaskey.pokertracker.feature.account.domain.model.AccountSettingsItem
 import com.github.saikcaskey.pokertracker.libs.domain.models.AccountSettingsData
 import com.github.saikcaskey.pokertracker.libs.domain.models.UserPreference
 import com.github.saikcaskey.pokertracker.libs.domain.presentation.component.FeatureComponent

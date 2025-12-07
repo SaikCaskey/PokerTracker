@@ -1,6 +1,6 @@
-package com.github.saikcaskey.pokertracker.account.di
+package com.github.saikcaskey.pokertracker.feature.account.di
 
-import com.github.saikcaskey.pokertracker.account.data.datasource.AccountSettingsDataSourceImpl
+import com.github.saikcaskey.pokertracker.feature.account.data.datasource.AccountSettingsDataSourceImpl
 import com.github.saikcaskey.pokertracker.libs.domain.datasource.AccountSettingsDataSource
 import org.koin.dsl.module
 

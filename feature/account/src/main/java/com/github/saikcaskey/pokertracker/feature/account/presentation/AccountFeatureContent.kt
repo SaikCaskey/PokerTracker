@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
 
-package com.github.saikcaskey.pokertracker.account.presentation
+package com.github.saikcaskey.pokertracker.feature.account.presentation
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -33,17 +33,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsAction
-import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsItem
-import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsItem.Button
-import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsItem.Check
-import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsItem.DropdownInput
-import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsItem.Header
-import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsItem.InfoText
-import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsItem.IntegerInput
-import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsItem.LongInput
-import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsItem.TextInput
-import com.github.saikcaskey.pokertracker.account.domain.model.AccountSettingsItem.Toggle
+import com.github.saikcaskey.pokertracker.feature.account.domain.model.AccountSettingsAction
+import com.github.saikcaskey.pokertracker.feature.account.domain.model.AccountSettingsItem
+import com.github.saikcaskey.pokertracker.feature.account.domain.model.AccountSettingsItem.Button
+import com.github.saikcaskey.pokertracker.feature.account.domain.model.AccountSettingsItem.Check
+import com.github.saikcaskey.pokertracker.feature.account.domain.model.AccountSettingsItem.DropdownInput
+import com.github.saikcaskey.pokertracker.feature.account.domain.model.AccountSettingsItem.Header
+import com.github.saikcaskey.pokertracker.feature.account.domain.model.AccountSettingsItem.InfoText
+import com.github.saikcaskey.pokertracker.feature.account.domain.model.AccountSettingsItem.IntegerInput
+import com.github.saikcaskey.pokertracker.feature.account.domain.model.AccountSettingsItem.LongInput
+import com.github.saikcaskey.pokertracker.feature.account.domain.model.AccountSettingsItem.TextInput
+import com.github.saikcaskey.pokertracker.feature.account.domain.model.AccountSettingsItem.Toggle
 import com.github.saikcaskey.pokertracker.libs.domain.models.UserPreference
 import com.github.saikcaskey.pokertracker.libs.domain.models.UserPreference.DefaultBuyIn
 import com.github.saikcaskey.pokertracker.libs.domain.models.UserPreference.ShowAdvancedSettings

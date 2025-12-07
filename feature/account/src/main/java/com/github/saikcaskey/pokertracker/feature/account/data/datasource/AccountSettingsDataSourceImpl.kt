@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.account.data.datasource
+package com.github.saikcaskey.pokertracker.feature.account.data.datasource
 
 import com.github.saikcaskey.pokertracker.libs.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.libs.domain.datasource.AccountSettingsDataSource

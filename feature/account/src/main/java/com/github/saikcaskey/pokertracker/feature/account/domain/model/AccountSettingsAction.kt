@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.account.domain.model
+package com.github.saikcaskey.pokertracker.feature.account.domain.model
 
 sealed class AccountSettingsAction {
     data object SetRandomUserId : AccountSettingsAction()

@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.account.data.datastore
+package com.github.saikcaskey.pokertracker.feature.account.data.datastore
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

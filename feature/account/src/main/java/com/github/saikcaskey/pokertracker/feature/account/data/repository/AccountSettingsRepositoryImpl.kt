@@ -1,6 +1,6 @@
-package com.github.saikcaskey.pokertracker.account.data.repository
+package com.github.saikcaskey.pokertracker.feature.account.data.repository
 
-import com.github.saikcaskey.pokertracker.account.domain.repository.AccountSettingsRepository
+import com.github.saikcaskey.pokertracker.feature.account.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.libs.domain.datasource.AccountSettingsDataSource
 import com.github.saikcaskey.pokertracker.libs.domain.models.UserPreference
 

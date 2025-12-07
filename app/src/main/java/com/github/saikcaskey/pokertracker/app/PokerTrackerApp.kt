@@ -1,9 +1,9 @@
 package com.github.saikcaskey.pokertracker.app
 
 import android.app.Application
-import com.github.saikcaskey.pokertracker.account.di.accountSettingsDataSourceModule
-import com.github.saikcaskey.pokertracker.account.di.accountSettingsDataStoreModule
-import com.github.saikcaskey.pokertracker.account.di.accountSettingsRepositoryModule
+import com.github.saikcaskey.pokertracker.feature.account.di.accountSettingsDataSourceModule
+import com.github.saikcaskey.pokertracker.feature.account.di.accountSettingsDataStoreModule
+import com.github.saikcaskey.pokertracker.feature.account.di.accountSettingsRepositoryModule
 import com.github.saikcaskey.pokertracker.libs.database.di.databaseModule
 import com.github.saikcaskey.pokertracker.libs.database.di.sampleDataSeederModule
 import com.github.saikcaskey.pokertracker.di.appInfoModule
