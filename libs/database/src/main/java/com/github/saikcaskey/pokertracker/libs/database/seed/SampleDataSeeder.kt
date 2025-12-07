@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.database.seed
+package com.github.saikcaskey.pokertracker.libs.database.seed
 
 interface SampleDataSeeder {
     fun smokeTest(selectedUser: Long?)

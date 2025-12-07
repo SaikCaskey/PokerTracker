@@ -4,8 +4,8 @@ import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.account.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.account.presentation.AccountFeatureComponent
 import com.github.saikcaskey.pokertracker.account.presentation.AccountFeatureComponentImpl
-import com.github.saikcaskey.pokertracker.database.di.PokerTrackerDatabaseProvider
-import com.github.saikcaskey.pokertracker.database.di.SampleDataSeederProvider
+import com.github.saikcaskey.pokertracker.libs.database.di.PokerTrackerDatabaseProvider
+import com.github.saikcaskey.pokertracker.libs.database.di.SampleDataSeederProvider
 import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponent
 import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponentImpl
 import com.github.saikcaskey.pokertracker.di.StatsComponentFactoryProvider

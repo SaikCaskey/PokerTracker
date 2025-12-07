@@ -1,9 +1,9 @@
-package com.github.saikcaskey.pokertracker.database.dao
+package com.github.saikcaskey.pokertracker.libs.database.dao
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
 import app.cash.sqldelight.coroutines.mapToOneOrNull
-import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
+import com.github.saikcaskey.pokertracker.libs.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.libs.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.libs.domain.DEFAULT_LIMIT
 import com.github.saikcaskey.pokertracker.libs.domain.dao.EventDao

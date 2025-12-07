@@ -1,6 +1,6 @@
-package com.github.saikcaskey.pokertracker.database.seed
+package com.github.saikcaskey.pokertracker.libs.database.seed
 
-import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
+import com.github.saikcaskey.pokertracker.libs.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.libs.domain.extensions.adjustedForType
 import com.github.saikcaskey.pokertracker.libs.domain.extensions.asLocalDateTime
 import com.github.saikcaskey.pokertracker.libs.domain.extensions.atStartOfDayInstant

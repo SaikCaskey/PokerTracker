@@ -1,10 +1,10 @@
-package com.github.saikcaskey.pokertracker.database.driver
+package com.github.saikcaskey.pokertracker.libs.database.driver
 
 import android.content.Context
 import androidx.sqlite.db.SupportSQLiteDatabase
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
-import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
+import com.github.saikcaskey.pokertracker.libs.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.libs.domain.DriverFactory
 
 class DriverFactoryImpl(private val context: Context) : DriverFactory {

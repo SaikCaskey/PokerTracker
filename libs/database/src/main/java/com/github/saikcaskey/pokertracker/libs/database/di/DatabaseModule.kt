@@ -1,12 +1,12 @@
-package com.github.saikcaskey.pokertracker.database.di
+package com.github.saikcaskey.pokertracker.libs.database.di
 
 import app.cash.sqldelight.db.SqlDriver
-import com.github.saikcaskey.pokertracker.database.dao.EventDaoImpl
-import com.github.saikcaskey.pokertracker.database.dao.ExpenseDaoImpl
-import com.github.saikcaskey.pokertracker.database.dao.UserDaoImpl
-import com.github.saikcaskey.pokertracker.database.dao.VenueDaoImpl
-import com.github.saikcaskey.pokertracker.database.driver.DriverFactoryImpl
-import com.github.saikcaskey.pokertracker.database.PokerTrackerDatabase
+import com.github.saikcaskey.pokertracker.libs.database.dao.EventDaoImpl
+import com.github.saikcaskey.pokertracker.libs.database.dao.ExpenseDaoImpl
+import com.github.saikcaskey.pokertracker.libs.database.dao.UserDaoImpl
+import com.github.saikcaskey.pokertracker.libs.database.dao.VenueDaoImpl
+import com.github.saikcaskey.pokertracker.libs.database.driver.DriverFactoryImpl
+import com.github.saikcaskey.pokertracker.libs.database.PokerTrackerDatabase
 import com.github.saikcaskey.pokertracker.libs.domain.dao.EventDao
 import com.github.saikcaskey.pokertracker.libs.domain.dao.ExpenseDao
 import com.github.saikcaskey.pokertracker.libs.domain.dao.UserDao
