@@ -1,4 +1,4 @@
-package com.github.saikcaskey.account.di
+package com.github.saikcaskey.pokertracker.account.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore

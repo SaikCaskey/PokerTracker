@@ -1,4 +1,4 @@
-package com.github.saikcaskey.account.presentation
+package com.github.saikcaskey.pokertracker.account.presentation
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.account.domain.model.AccountSettingsAction.SeedData

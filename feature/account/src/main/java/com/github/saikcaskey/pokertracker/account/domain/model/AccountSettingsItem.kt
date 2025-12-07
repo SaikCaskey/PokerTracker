@@ -1,4 +1,4 @@
-package com.github.saikcaskey.account.domain.model
+package com.github.saikcaskey.pokertracker.account.domain.model
 
 import com.github.saikcaskey.pokertracker.domain.models.UserPreference
 
