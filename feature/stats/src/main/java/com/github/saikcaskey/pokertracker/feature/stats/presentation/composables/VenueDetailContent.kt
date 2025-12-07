@@ -39,7 +39,7 @@ import com.github.saikcaskey.pokertracker.libs.domain.models.ExpenseType
 import com.github.saikcaskey.pokertracker.libs.domain.util.nowAsUiDateOrNull
 import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopBarItemDetail
 import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedProfitText
-import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
+import com.github.saikcaskey.pokertracker.libs.ui_compose.common.section.SectionContainer
 import com.github.saikcaskey.pokertracker.ui_compose.components.event.EventsList
 import com.github.saikcaskey.pokertracker.ui_compose.components.expense.ExpenseList
 import com.github.saikcaskey.pokertracker.ui_compose.extensions.toProfitColor
@@ -85,7 +85,6 @@ fun VenueDetailContent(component: VenueDetailComponent) {
                 VenueEventsSummary(
                     eventSummary = state.eventSummary,
                     onEventClicked = component::onShowEventDetailClicked,
-                    onShowInsertEventClicked = component::onShowInsertEventClicked,
                     onShowAllEventsClicked = component::onShowAllEventsClicked,
                 )
             }
@@ -104,15 +103,11 @@ fun VenueDetailContent(component: VenueDetailComponent) {
 fun VenueEventsSummary(
     eventSummary: EventSummary,
     onEventClicked: (Long) -> Unit,
-    onShowInsertEventClicked: () -> Unit,
     onShowAllEventsClicked: () -> Unit,
 ) {
     SectionContainer(
         title = "Events",
-        action1Label = "Add",
-        action2Label = "Show All",
-        onAction1Click = onShowInsertEventClicked,
-        onAction2Click = onShowAllEventsClicked,
+        onClick = onShowAllEventsClicked,
     ) {
         if (eventSummary.today.isNotEmpty()) {
             Spacer(Modifier.height(8.dp))
@@ -228,7 +223,7 @@ private fun VenueExpenseFeedSection(
     onShowAllExpenses: () -> Unit,
 ) {
 
-    SectionContainer(title = "Feed", onAction2Click = onShowAllExpenses) {
+    SectionContainer(title = "Feed", onClick = onShowAllExpenses) {
         ExpenseList(
             items = state.expenseSummary.all.sortedByDescending(Expense::date),
             onExpenseClicked = onShowExpenseDetail,

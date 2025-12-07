@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.DashboardFeatureComponent
-import com.github.saikcaskey.pokertracker.ui_compose.extensions.asIcon
+import com.github.saikcaskey.pokertracker.ui_compose.extensions.AsIcon
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.User
@@ -32,7 +32,7 @@ fun DashboardFeatureContent(
         topBar = {
             TopAppBar(title = { Text("PokerTracker") }, actions = {
                 IconButton(onClick = component::onShowAccountClicked) {
-                    FontAwesomeIcons.Solid.User.asIcon(24.dp, "Go To Account")
+                    FontAwesomeIcons.Solid.User.AsIcon(24.dp, "Go To Account",)
                 }
             })
         }
@@ -55,7 +55,6 @@ fun DashboardFeatureContent(
                 DashboardExpensesSummary(
                     state = uiState,
                     onShowAllExpensesClicked = component::onShowAllExpensesClicked,
-                    onShowInsertExpenseClicked = component::onShowInsertExpenseClicked,
                     onShowExpenseDetailClicked = component::onShowExpenseDetailClicked,
                 )
             }

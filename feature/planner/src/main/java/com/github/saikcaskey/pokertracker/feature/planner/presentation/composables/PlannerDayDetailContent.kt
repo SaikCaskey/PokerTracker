@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.github.saikcaskey.pokertracker.ui_compose.extensions.AsIcon
 import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerDayDetailComponent
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Regular
@@ -48,10 +49,7 @@ fun PlannerDayDetailContent(component: PlannerDayDetailComponent) {
                 title = { Text(text = "Events on ${state.date}") },
                 navigationIcon = {
                     IconButton(onClick = component::onBackClicked) {
-                        Icon(
-                            imageVector = FontAwesomeIcons.Regular.ArrowAltCircleLeft,
-                            contentDescription = "Back button",
-                        )
+                        FontAwesomeIcons.Regular.ArrowAltCircleLeft.AsIcon(24.dp, "Back",)
                     }
                 },
             )

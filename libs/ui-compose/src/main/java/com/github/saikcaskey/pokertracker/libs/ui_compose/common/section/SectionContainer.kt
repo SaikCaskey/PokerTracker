@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.ui_compose.common.section
+package com.github.saikcaskey.pokertracker.libs.ui_compose.common.section
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

@@ -26,7 +26,7 @@ import com.github.saikcaskey.pokertracker.libs.domain.models.Venue
 import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopBarItemDetail
 import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedExpenseText
 import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedProfitText
-import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
+import com.github.saikcaskey.pokertracker.libs.ui_compose.common.section.SectionContainer
 import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionListContainer
 import com.github.saikcaskey.pokertracker.ui_compose.extensions.toProfitColor
 import compose.icons.FontAwesomeIcons

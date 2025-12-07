@@ -3,10 +3,12 @@ package com.github.saikcaskey.pokertracker.feature.dashboard.presentation.compos
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.github.saikcaskey.libs.ui_charts.domain.model.ChartDataItem
 import com.github.saikcaskey.libs.ui_charts.presentation.charts.charty.ChartyLineChart
 import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.DashboardFeatureComponent
@@ -15,7 +17,11 @@ import com.github.saikcaskey.pokertracker.libs.domain.extensions.formatAsCurrenc
 import com.github.saikcaskey.pokertracker.libs.domain.models.Expense
 import com.github.saikcaskey.pokertracker.libs.domain.util.nowAsUiDateOrNull
 import com.github.saikcaskey.pokertracker.ui_compose.common.profitsummary.AnimatedProfitText
-import com.github.saikcaskey.pokertracker.ui_compose.common.section.SectionContainer
+import com.github.saikcaskey.pokertracker.libs.ui_compose.common.section.SectionContainer
+import com.github.saikcaskey.pokertracker.ui_compose.extensions.AsIcon
+import compose.icons.FontAwesomeIcons
+import compose.icons.fontawesomeicons.Solid
+import compose.icons.fontawesomeicons.solid.ChartLine
 
 @Composable
 fun DashboardBalanceSummary(
@@ -46,8 +52,9 @@ fun DashboardBalanceSummary(
                 }
             }
         },
-        action1Label = "Viewer",
-        onAction1Click = onShowViewStatsClicked,
+        action = { IconButton(onClick = onShowViewStatsClicked)  {
+            FontAwesomeIcons.Solid.ChartLine.AsIcon(24.dp, "View All Expenses",)
+        }},
     )
 }
 
@@ -66,7 +73,7 @@ private fun calculateDashboardBalanceChartData(
             // If the expense had no date we can't include it here, but we enforce it
             .filter { it.date != null }
             // Sort by date ascending
-            .sortedBy { it.date }
+            .sortedBy(Expense::date)
             // Group by eventId (or use default)
             .groupBy { it.eventId ?: it.date }
             // Map each group of expenses
