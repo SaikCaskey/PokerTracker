@@ -1,7 +1,7 @@
-package com.github.saikcaskey.pokertracker.di
+package com.github.saikcaskey.pokertracker.app.di
 
-import com.github.saikcaskey.pokertracker.domain.factory.RootComponentFactory
-import com.github.saikcaskey.pokertracker.presentation.components.factory.RootComponentFactoryImpl
+import com.github.saikcaskey.pokertracker.app.domain.factory.RootComponentFactory
+import com.github.saikcaskey.pokertracker.app.presentation.components.factory.RootComponentFactoryImpl
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.koin.dsl.module

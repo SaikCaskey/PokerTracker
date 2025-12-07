@@ -1,8 +1,8 @@
-package com.github.saikcaskey.pokertracker.domain.component
+package com.github.saikcaskey.pokertracker.app.domain.component
 
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
-import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination
+import com.github.saikcaskey.pokertracker.app.presentation.navigation.RootDestination
 
 interface RootComponent {
 

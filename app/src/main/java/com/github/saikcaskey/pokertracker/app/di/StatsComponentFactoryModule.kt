@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.di
+package com.github.saikcaskey.pokertracker.app.di
 
 import com.github.saikcaskey.pokertracker.feature.stats.components.factory.StatsComponentFactory
 import com.github.saikcaskey.pokertracker.feature.stats.presentation.components.factory.StatsComponentFactoryImpl

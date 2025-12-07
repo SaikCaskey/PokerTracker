@@ -1,14 +1,14 @@
-package com.github.saikcaskey.pokertracker.presentation
+package com.github.saikcaskey.pokertracker.app.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.arkivanov.decompose.defaultComponentContext
-import com.github.saikcaskey.pokertracker.di.RootComponentFactoryProvider
-import com.github.saikcaskey.pokertracker.di.RootNavigatorProvider
-import com.github.saikcaskey.pokertracker.presentation.components.RootComponentImpl
-import com.github.saikcaskey.pokertracker.presentation.composables.RootContent
+import com.github.saikcaskey.pokertracker.app.di.RootComponentFactoryProvider
+import com.github.saikcaskey.pokertracker.app.di.RootNavigatorProvider
+import com.github.saikcaskey.pokertracker.app.presentation.components.RootComponentImpl
+import com.github.saikcaskey.pokertracker.app.presentation.composables.RootContent
 
 class MainActivity : ComponentActivity() {
 

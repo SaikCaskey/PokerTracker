@@ -6,11 +6,11 @@ import com.github.saikcaskey.pokertracker.feature.account.di.accountSettingsData
 import com.github.saikcaskey.pokertracker.feature.account.di.accountSettingsRepositoryModule
 import com.github.saikcaskey.pokertracker.libs.database.di.databaseModule
 import com.github.saikcaskey.pokertracker.libs.database.di.sampleDataSeederModule
-import com.github.saikcaskey.pokertracker.di.appInfoModule
-import com.github.saikcaskey.pokertracker.di.dispatchersProvidersModule
-import com.github.saikcaskey.pokertracker.di.navigationModule
-import com.github.saikcaskey.pokertracker.di.rootComponentFactoryModule
-import com.github.saikcaskey.pokertracker.di.statsComponentFactoryModule
+import com.github.saikcaskey.pokertracker.app.di.appInfoModule
+import com.github.saikcaskey.pokertracker.app.di.dispatchersProvidersModule
+import com.github.saikcaskey.pokertracker.app.di.navigationModule
+import com.github.saikcaskey.pokertracker.app.di.rootComponentFactoryModule
+import com.github.saikcaskey.pokertracker.app.di.statsComponentFactoryModule
 import com.github.saikcaskey.pokertracker.feature.stats.di.statsRepositoryModule
 import com.github.saikcaskey.pokertracker.feature.stats.di.userDataSourceModule
 import org.koin.android.ext.koin.androidContext

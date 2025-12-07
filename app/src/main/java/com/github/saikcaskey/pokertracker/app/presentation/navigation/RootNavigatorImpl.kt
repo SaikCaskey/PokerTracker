@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.navigation
+package com.github.saikcaskey.pokertracker.app.presentation.navigation
 
 import com.arkivanov.decompose.router.children.NavigationSource
 import com.arkivanov.decompose.router.stack.StackNavigation

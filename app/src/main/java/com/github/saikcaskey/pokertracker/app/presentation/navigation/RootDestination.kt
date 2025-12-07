@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.presentation.navigation
+package com.github.saikcaskey.pokertracker.app.presentation.navigation
 
 import com.github.saikcaskey.pokertracker.feature.account.presentation.AccountFeatureComponent
 import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.DashboardFeatureComponent

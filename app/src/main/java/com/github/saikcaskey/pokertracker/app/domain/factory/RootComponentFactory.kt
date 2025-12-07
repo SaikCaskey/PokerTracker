@@ -1,7 +1,7 @@
-package com.github.saikcaskey.pokertracker.domain.factory
+package com.github.saikcaskey.pokertracker.app.domain.factory
 
+import com.github.saikcaskey.pokertracker.app.presentation.navigation.RootDestination
 import com.github.saikcaskey.pokertracker.libs.domain.presentation.component.factory.ComponentFactory
 import com.github.saikcaskey.pokertracker.libs.domain.presentation.navigation.RootNavigationRoute
-import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination
 
 interface RootComponentFactory : ComponentFactory<RootDestination, RootNavigationRoute>

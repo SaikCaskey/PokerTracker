@@ -1,27 +1,18 @@
-package com.github.saikcaskey.pokertracker.presentation.components.factory
+package com.github.saikcaskey.pokertracker.app.presentation.components.factory
 
 import com.arkivanov.decompose.ComponentContext
+import com.github.saikcaskey.pokertracker.app.di.StatsComponentFactoryProvider
+import com.github.saikcaskey.pokertracker.app.domain.factory.RootComponentFactory
+import com.github.saikcaskey.pokertracker.app.presentation.navigation.RootDestination
 import com.github.saikcaskey.pokertracker.feature.account.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.feature.account.presentation.AccountFeatureComponent
 import com.github.saikcaskey.pokertracker.feature.account.presentation.AccountFeatureComponentImpl
-import com.github.saikcaskey.pokertracker.libs.database.di.PokerTrackerDatabaseProvider
-import com.github.saikcaskey.pokertracker.libs.database.di.SampleDataSeederProvider
 import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.DashboardFeatureComponent
 import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.DashboardFeatureComponentImpl
-import com.github.saikcaskey.pokertracker.di.StatsComponentFactoryProvider
-import com.github.saikcaskey.pokertracker.libs.domain.CoroutineDispatchers
-import com.github.saikcaskey.pokertracker.domain.factory.RootComponentFactory
-import com.github.saikcaskey.pokertracker.libs.domain.presentation.navigation.RootNavigationRoute
-import com.github.saikcaskey.pokertracker.libs.domain.presentation.navigation.RootNavigator
-import com.github.saikcaskey.pokertracker.libs.domain.repository.EventRepository
-import com.github.saikcaskey.pokertracker.libs.domain.repository.ExpenseRepository
-import com.github.saikcaskey.pokertracker.libs.domain.repository.UserRepository
-import com.github.saikcaskey.pokertracker.libs.domain.repository.VenueRepository
 import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerDayDetailComponent
 import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerDayDetailComponentImpl
 import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerFeatureComponent
 import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerFeatureComponentImpl
-import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination
 import com.github.saikcaskey.pokertracker.feature.stats.components.EventDetailComponent
 import com.github.saikcaskey.pokertracker.feature.stats.components.ExpenseDetailComponent
 import com.github.saikcaskey.pokertracker.feature.stats.components.InsertEventComponent
@@ -42,6 +33,15 @@ import com.github.saikcaskey.pokertracker.feature.stats.presentation.components.
 import com.github.saikcaskey.pokertracker.feature.stats.presentation.components.ViewEventsComponentImpl
 import com.github.saikcaskey.pokertracker.feature.stats.presentation.components.ViewExpensesComponentImpl
 import com.github.saikcaskey.pokertracker.feature.stats.presentation.components.ViewVenuesComponentImpl
+import com.github.saikcaskey.pokertracker.libs.database.di.PokerTrackerDatabaseProvider
+import com.github.saikcaskey.pokertracker.libs.database.di.SampleDataSeederProvider
+import com.github.saikcaskey.pokertracker.libs.domain.CoroutineDispatchers
+import com.github.saikcaskey.pokertracker.libs.domain.presentation.navigation.RootNavigationRoute
+import com.github.saikcaskey.pokertracker.libs.domain.presentation.navigation.RootNavigator
+import com.github.saikcaskey.pokertracker.libs.domain.repository.EventRepository
+import com.github.saikcaskey.pokertracker.libs.domain.repository.ExpenseRepository
+import com.github.saikcaskey.pokertracker.libs.domain.repository.UserRepository
+import com.github.saikcaskey.pokertracker.libs.domain.repository.VenueRepository
 
 class RootComponentFactoryImpl(
     private val dispatchers: CoroutineDispatchers,
