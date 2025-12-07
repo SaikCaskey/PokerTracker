@@ -17,4 +17,6 @@ interface UserDao {
 
     suspend fun deleteAll()
 
+    suspend fun lastInsertRowId(): Long
+
 }

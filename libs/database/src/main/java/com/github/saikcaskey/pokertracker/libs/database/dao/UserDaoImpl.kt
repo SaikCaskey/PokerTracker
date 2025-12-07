@@ -51,6 +51,10 @@ class UserDaoImpl(
     override suspend fun deleteAll() {
         database.userQueries.deleteAll()
     }
+
+    override suspend fun lastInsertRowId(): Long {
+        return database.userQueries.lastInsertRowId().executeAsOne()
+    }
 }
 
 private fun DatabaseUser.toDomain(): User {

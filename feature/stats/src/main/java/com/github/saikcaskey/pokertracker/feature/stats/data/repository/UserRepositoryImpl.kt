@@ -24,8 +24,9 @@ class UserRepositoryImpl(
         return userDao.getById(userId = userId)
     }
 
-    override suspend fun insert(name: String) {
+    override suspend fun insert(name: String): Long {
         userDao.insert(name = name)
+        return userDao.lastInsertRowId()
     }
 
     override suspend fun update(userId: Long, name: String) {
