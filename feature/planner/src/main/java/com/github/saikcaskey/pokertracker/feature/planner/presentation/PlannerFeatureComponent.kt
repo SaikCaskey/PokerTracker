@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.planner.presentation
+package com.github.saikcaskey.pokertracker.feature.planner.presentation
 
 import com.github.saikcaskey.pokertracker.libs.domain.presentation.component.FeatureComponent
 import kotlinx.coroutines.flow.StateFlow

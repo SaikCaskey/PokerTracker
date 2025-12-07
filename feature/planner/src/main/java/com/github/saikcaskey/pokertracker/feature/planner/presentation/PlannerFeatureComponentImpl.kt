@@ -1,9 +1,8 @@
-package com.github.saikcaskey.pokertracker.planner.presentation
+package com.github.saikcaskey.pokertracker.feature.planner.presentation
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.libs.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.libs.domain.repository.EventRepository
-import com.github.saikcaskey.pokertracker.planner.presentation.PlannerFeatureComponent.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 import kotlinx.coroutines.flow.StateFlow
@@ -21,9 +20,9 @@ class PlannerFeatureComponentImpl(
 
     private val coroutineScope = CoroutineScope(dispatchers.io)
 
-    override val uiState: StateFlow<UiState> = eventsRepository.getDaysWithEvents()
-        .map(::UiState)
-        .stateIn(coroutineScope, Eagerly, UiState())
+    override val uiState: StateFlow<PlannerFeatureComponent.UiState> = eventsRepository.getDaysWithEvents()
+        .map(PlannerFeatureComponent::UiState)
+        .stateIn(coroutineScope, Eagerly, PlannerFeatureComponent.UiState())
 
     override fun onShowDayDetail(day: LocalDate, hasEvent: Boolean) =
         onCalendarDayClicked(day, hasEvent)

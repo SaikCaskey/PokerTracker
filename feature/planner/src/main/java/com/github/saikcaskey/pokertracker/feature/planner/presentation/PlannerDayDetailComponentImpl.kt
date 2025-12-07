@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.planner.presentation
+package com.github.saikcaskey.pokertracker.feature.planner.presentation
 
 import com.arkivanov.decompose.ComponentContext
 import com.github.saikcaskey.pokertracker.libs.domain.CoroutineDispatchers

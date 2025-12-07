@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.planner.presentation.composables
+package com.github.saikcaskey.pokertracker.feature.planner.presentation.composables
 
 import android.R.attr.name
 import androidx.compose.foundation.layout.Row

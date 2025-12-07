@@ -12,8 +12,8 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.github.saikcaskey.pokertracker.feature.account.presentation.AccountFeatureContent
 import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.composables.DashboardFeatureContent
 import com.github.saikcaskey.pokertracker.domain.component.RootComponent
-import com.github.saikcaskey.pokertracker.planner.presentation.composables.PlannerDayDetailContent
-import com.github.saikcaskey.pokertracker.planner.presentation.composables.PlannerFeatureContent
+import com.github.saikcaskey.pokertracker.feature.planner.presentation.composables.PlannerDayDetailContent
+import com.github.saikcaskey.pokertracker.feature.planner.presentation.composables.PlannerFeatureContent
 import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination
 import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination.AccountDestination
 import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination.DashboardDestination

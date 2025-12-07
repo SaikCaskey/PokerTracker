@@ -17,10 +17,10 @@ import com.github.saikcaskey.pokertracker.libs.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.libs.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.libs.domain.repository.UserRepository
 import com.github.saikcaskey.pokertracker.libs.domain.repository.VenueRepository
-import com.github.saikcaskey.pokertracker.planner.presentation.PlannerDayDetailComponent
-import com.github.saikcaskey.pokertracker.planner.presentation.PlannerDayDetailComponentImpl
-import com.github.saikcaskey.pokertracker.planner.presentation.PlannerFeatureComponent
-import com.github.saikcaskey.pokertracker.planner.presentation.PlannerFeatureComponentImpl
+import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerDayDetailComponent
+import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerDayDetailComponentImpl
+import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerFeatureComponent
+import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerFeatureComponentImpl
 import com.github.saikcaskey.pokertracker.presentation.navigation.RootDestination
 import com.github.saikcaskey.pokertracker.stats.domain.components.EventDetailComponent
 import com.github.saikcaskey.pokertracker.stats.domain.components.ExpenseDetailComponent

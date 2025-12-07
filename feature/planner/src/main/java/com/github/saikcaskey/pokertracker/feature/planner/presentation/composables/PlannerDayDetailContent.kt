@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.planner.presentation.composables
+package com.github.saikcaskey.pokertracker.feature.planner.presentation.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,7 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.github.saikcaskey.pokertracker.planner.presentation.PlannerDayDetailComponent
+import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerDayDetailComponent
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Regular
 import compose.icons.fontawesomeicons.Solid
