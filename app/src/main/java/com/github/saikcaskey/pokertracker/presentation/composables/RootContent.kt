@@ -10,7 +10,7 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.plus
 import com.arkivanov.decompose.extensions.compose.stack.animation.scale
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.github.saikcaskey.pokertracker.feature.account.presentation.AccountFeatureContent
-import com.github.saikcaskey.pokertracker.dashboard.presentation.composables.DashboardFeatureContent
+import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.composables.DashboardFeatureContent
 import com.github.saikcaskey.pokertracker.domain.component.RootComponent
 import com.github.saikcaskey.pokertracker.planner.presentation.composables.PlannerDayDetailContent
 import com.github.saikcaskey.pokertracker.planner.presentation.composables.PlannerFeatureContent

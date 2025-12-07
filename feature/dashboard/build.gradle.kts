@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.github.saikcaskey.pokertracker.dashboard"
+    namespace = "com.github.saikcaskey.pokertracker.feature.dashboard"
 }
 
 dependencies {

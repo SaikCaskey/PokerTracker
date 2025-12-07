@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.dashboard.presentation.composables
+package com.github.saikcaskey.pokertracker.feature.dashboard.presentation.composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponent
+import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.DashboardFeatureComponent
 import com.github.saikcaskey.pokertracker.ui_compose.extensions.asIcon
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid

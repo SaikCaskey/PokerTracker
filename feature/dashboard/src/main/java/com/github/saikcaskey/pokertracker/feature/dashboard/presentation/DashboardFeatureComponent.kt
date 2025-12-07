@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.dashboard.presentation
+package com.github.saikcaskey.pokertracker.feature.dashboard.presentation
 
 import com.github.saikcaskey.pokertracker.libs.domain.models.DashboardEventsData
 import com.github.saikcaskey.pokertracker.libs.domain.models.DashboardProfitSummaryData

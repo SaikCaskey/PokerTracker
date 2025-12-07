@@ -1,7 +1,7 @@
 package com.github.saikcaskey.pokertracker.presentation.navigation
 
 import com.github.saikcaskey.pokertracker.feature.account.presentation.AccountFeatureComponent
-import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponent
+import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.DashboardFeatureComponent
 import com.github.saikcaskey.pokertracker.planner.presentation.PlannerDayDetailComponent
 import com.github.saikcaskey.pokertracker.planner.presentation.PlannerFeatureComponent
 import com.github.saikcaskey.pokertracker.stats.domain.components.EventDetailComponent

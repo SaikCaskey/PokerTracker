@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.dashboard.presentation.composables
+package com.github.saikcaskey.pokertracker.feature.dashboard.presentation.composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.github.saikcaskey.libs.ui_charts.domain.model.ChartDataItem
 import com.github.saikcaskey.libs.ui_charts.presentation.charts.charty.ChartyLineChart
-import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponent
+import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.DashboardFeatureComponent
 import com.github.saikcaskey.pokertracker.libs.domain.extensions.asLocalDateTime
 import com.github.saikcaskey.pokertracker.libs.domain.extensions.formatAsCurrency
 import com.github.saikcaskey.pokertracker.libs.domain.models.Expense

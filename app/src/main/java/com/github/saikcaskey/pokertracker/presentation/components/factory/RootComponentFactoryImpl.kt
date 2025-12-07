@@ -6,8 +6,8 @@ import com.github.saikcaskey.pokertracker.feature.account.presentation.AccountFe
 import com.github.saikcaskey.pokertracker.feature.account.presentation.AccountFeatureComponentImpl
 import com.github.saikcaskey.pokertracker.libs.database.di.PokerTrackerDatabaseProvider
 import com.github.saikcaskey.pokertracker.libs.database.di.SampleDataSeederProvider
-import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponent
-import com.github.saikcaskey.pokertracker.dashboard.presentation.DashboardFeatureComponentImpl
+import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.DashboardFeatureComponent
+import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.DashboardFeatureComponentImpl
 import com.github.saikcaskey.pokertracker.di.StatsComponentFactoryProvider
 import com.github.saikcaskey.pokertracker.libs.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.domain.factory.RootComponentFactory
