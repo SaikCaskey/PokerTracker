@@ -1,11 +1,16 @@
 package com.github.saikcaskey.pokertracker.feature.stats.presentation.composables
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.github.saikcaskey.pokertracker.feature.stats.components.InsertVenueComponent
-import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputFormScaffold
+import com.github.saikcaskey.pokertracker.libs.ui_compose.common.inputform.InputFormScaffold
 
 @Composable
 fun InsertVenueContent(component: InsertVenueComponent) {

@@ -9,7 +9,7 @@ import com.github.saikcaskey.pokertracker.libs.domain.models.GameType
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDateField
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDropdownField
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputDropdownVenue
-import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputFormScaffold
+import com.github.saikcaskey.pokertracker.libs.ui_compose.common.inputform.InputFormScaffold
 import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputTimeField
 
 @Composable

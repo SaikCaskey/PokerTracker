@@ -1,6 +1,7 @@
 package com.github.saikcaskey.pokertracker.app.presentation.components.factory
 
 import com.arkivanov.decompose.ComponentContext
+import com.github.saikcaskey.pokertracker.app.di.OnboardingNavigatorProvider
 import com.github.saikcaskey.pokertracker.app.di.StatsComponentFactoryProvider
 import com.github.saikcaskey.pokertracker.app.domain.factory.RootComponentFactory
 import com.github.saikcaskey.pokertracker.app.presentation.navigation.RootDestination
@@ -8,8 +9,9 @@ import com.github.saikcaskey.pokertracker.feature.account.presentation.AccountFe
 import com.github.saikcaskey.pokertracker.feature.account.presentation.AccountFeatureComponentImpl
 import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.DashboardFeatureComponent
 import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.DashboardFeatureComponentImpl
-import com.github.saikcaskey.pokertracker.feature.onboarding.composables.OnboardingFeatureComponent
-import com.github.saikcaskey.pokertracker.feature.onboarding.composables.OnboardingFeatureComponentImpl
+import com.github.saikcaskey.pokertracker.feature.onboarding.di.OnboardingComponentFactoryProvider
+import com.github.saikcaskey.pokertracker.feature.onboarding.presentation.composables.OnboardingFeaturePagerComponent
+import com.github.saikcaskey.pokertracker.feature.onboarding.presentation.composables.OnboardingFeaturePagerComponentImpl
 import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerDayDetailComponent
 import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerDayDetailComponentImpl
 import com.github.saikcaskey.pokertracker.feature.planner.presentation.PlannerFeatureComponent
@@ -139,13 +141,15 @@ class RootComponentFactoryImpl(
     private fun onboardingFeatureComponent(
         componentContext: ComponentContext,
         @Suppress("unused") route: RootNavigationRoute.OnboardingRoute,
-    ): OnboardingFeatureComponent {
-        return OnboardingFeatureComponentImpl(
+    ): OnboardingFeaturePagerComponent {
+        return OnboardingFeaturePagerComponentImpl(
             componentContext = componentContext,
             rootNavigator = navigator,
             userRepository = userRepository,
             usernameGenerator = usernameGenerator,
             accountSettingsRepository = accountSettingsRepository,
+            componentFactory = OnboardingComponentFactoryProvider.provide(),
+            onboardingNavigator = OnboardingNavigatorProvider.provide(),
             dispatchers = dispatchers,
         )
     }

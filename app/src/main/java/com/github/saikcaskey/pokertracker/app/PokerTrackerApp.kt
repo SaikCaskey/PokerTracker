@@ -10,6 +10,7 @@ import com.github.saikcaskey.pokertracker.app.di.statsComponentFactoryModule
 import com.github.saikcaskey.pokertracker.feature.account.di.accountSettingsDataSourceModule
 import com.github.saikcaskey.pokertracker.feature.account.di.accountSettingsDataStoreModule
 import com.github.saikcaskey.pokertracker.feature.account.di.accountSettingsRepositoryModule
+import com.github.saikcaskey.pokertracker.feature.onboarding.di.onboardingComponentFactoryModule
 import com.github.saikcaskey.pokertracker.feature.stats.di.statsRepositoryModule
 import com.github.saikcaskey.pokertracker.feature.stats.di.userDataSourceModule
 import com.github.saikcaskey.pokertracker.libs.database.di.databaseModule
@@ -32,6 +33,7 @@ class PokerTrackerApp : Application() {
                     navigationModule,
                     rootComponentFactoryModule,
                     statsComponentFactoryModule,
+                    onboardingComponentFactoryModule,
                     statsRepositoryModule,
                     userDataSourceModule,
                     sampleDataSeederModule,

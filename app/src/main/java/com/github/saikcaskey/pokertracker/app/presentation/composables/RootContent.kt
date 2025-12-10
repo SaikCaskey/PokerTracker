@@ -27,7 +27,7 @@ import com.github.saikcaskey.pokertracker.app.presentation.navigation.RootDestin
 import com.github.saikcaskey.pokertracker.app.presentation.navigation.RootDestination.ViewVenuesDestination
 import com.github.saikcaskey.pokertracker.feature.account.presentation.AccountFeatureContent
 import com.github.saikcaskey.pokertracker.feature.dashboard.presentation.composables.DashboardFeatureContent
-import com.github.saikcaskey.pokertracker.feature.onboarding.OnboardingFeatureContent
+import com.github.saikcaskey.pokertracker.feature.onboarding.presentation.composables.OnboardingFeatureContent
 import com.github.saikcaskey.pokertracker.feature.planner.presentation.composables.PlannerDayDetailContent
 import com.github.saikcaskey.pokertracker.feature.planner.presentation.composables.PlannerFeatureContent
 import com.github.saikcaskey.pokertracker.feature.stats.presentation.composables.EventDetailContent
