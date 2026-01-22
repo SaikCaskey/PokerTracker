@@ -33,3 +33,4 @@ fastlane/report.xml
 /tmp
 
 /.kotlin/sessions
+/.idea
