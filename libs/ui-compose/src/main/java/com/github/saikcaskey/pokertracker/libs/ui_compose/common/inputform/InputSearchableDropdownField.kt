@@ -1,4 +1,4 @@
-package com.github.saikcaskey.pokertracker.ui_compose.common.inputform
+package com.github.saikcaskey.pokertracker.libs.ui_compose.common.inputform
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,9 +31,9 @@ fun <T> InputSearchableDropdownField(
     selectedItem: T?,
     onItemSelected: (T) -> Unit,
     itemToString: (T) -> String,
-    filterItems: Boolean = true,
     onAddNewItemClicked: () -> Unit,
     modifier: Modifier = Modifier,
+    filterItems: Boolean = true,
 ) {
     var expanded by remember { mutableStateOf(false) }
     var searchText by remember {

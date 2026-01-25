@@ -49,7 +49,7 @@ import com.github.saikcaskey.pokertracker.libs.domain.models.UserPreference.Defa
 import com.github.saikcaskey.pokertracker.libs.domain.models.UserPreference.ShowAdvancedSettings
 import com.github.saikcaskey.pokertracker.libs.domain.models.UserPreference.UserId
 import com.github.saikcaskey.pokertracker.ui_compose.common.appbar.TopAppBarAccount
-import com.github.saikcaskey.pokertracker.ui_compose.common.inputform.InputSearchableDropdownField
+import com.github.saikcaskey.pokertracker.libs.ui_compose.common.inputform.InputSearchableDropdownField
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
