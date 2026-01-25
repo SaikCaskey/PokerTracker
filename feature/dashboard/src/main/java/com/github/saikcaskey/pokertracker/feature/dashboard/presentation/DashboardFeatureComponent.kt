@@ -23,7 +23,7 @@ interface DashboardFeatureComponent : FeatureComponent {
     fun onShowAccountClicked()
     fun onShowStatsClicked()
     fun onShowPlannerClicked()
-
+    fun ensureUserOrOpenOnboarding()
     data class UiState(
         val eventsData: DashboardEventsData = DashboardEventsData(),
         val profitSummaryData: DashboardProfitSummaryData = DashboardProfitSummaryData(),

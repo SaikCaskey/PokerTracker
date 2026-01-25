@@ -62,66 +62,68 @@ class RootComponentFactoryImpl(
     override fun buildComponent(
         ctx: ComponentContext,
         route: RootNavigationRoute,
-    ): RootDestination = when (route) {
-        is RootNavigationRoute.OnboardingRoute -> RootDestination.OnboardingDestination(
-            onboardingFeatureComponent(ctx, route)
-        )
+    ): RootDestination {
+        return when (route) {
+            is RootNavigationRoute.OnboardingRoute -> RootDestination.OnboardingDestination(
+                onboardingFeatureComponent(ctx, route)
+            )
 
-        is RootNavigationRoute.DashboardRoute -> RootDestination.DashboardDestination(
-            dashboardFeatureComponent(ctx, route)
-        )
+            is RootNavigationRoute.DashboardRoute -> RootDestination.DashboardDestination(
+                dashboardFeatureComponent(ctx, route)
+            )
 
-        is RootNavigationRoute.PlannerRoute -> RootDestination.PlannerDestination(
-            plannerFeatureComponent(ctx, route)
-        )
+            is RootNavigationRoute.PlannerRoute -> RootDestination.PlannerDestination(
+                plannerFeatureComponent(ctx, route)
+            )
 
-        is RootNavigationRoute.StatsRoute -> RootDestination.StatsDestination(
-            statsFeatureComponent(ctx, route)
-        )
+            is RootNavigationRoute.StatsRoute -> RootDestination.StatsDestination(
+                statsFeatureComponent(ctx, route)
+            )
 
-        is RootNavigationRoute.AccountRoute -> RootDestination.AccountDestination(
-            accountFeatureComponent(ctx, route)
-        )
+            is RootNavigationRoute.AccountRoute -> RootDestination.AccountDestination(
+                accountFeatureComponent(ctx, route)
+            )
 
-        is RootNavigationRoute.DayDetailRoute -> RootDestination.PlannerDayDetailDestination(
-            dayDetailComponent(ctx, route)
-        )
+            is RootNavigationRoute.DayDetailRoute -> RootDestination.PlannerDayDetailDestination(
+                dayDetailComponent(ctx, route)
+            )
 
-        is RootNavigationRoute.InsertEventRoute -> RootDestination.InsertEventDestination(
-            insertEventComponent(ctx, route)
-        )
+            is RootNavigationRoute.InsertEventRoute -> RootDestination.InsertEventDestination(
+                insertEventComponent(ctx, route)
+            )
 
-        is RootNavigationRoute.InsertVenueRoute -> RootDestination.InsertVenueDestination(
-            insertVenueComponent(ctx, route)
-        )
+            is RootNavigationRoute.InsertVenueRoute -> RootDestination.InsertVenueDestination(
+                insertVenueComponent(ctx, route)
+            )
 
-        is RootNavigationRoute.InsertExpenseRoute -> RootDestination.InsertExpenseDestination(
-            insertExpenseComponent(ctx, route)
-        )
+            is RootNavigationRoute.InsertExpenseRoute -> RootDestination.InsertExpenseDestination(
+                insertExpenseComponent(ctx, route)
+            )
 
-        is RootNavigationRoute.EventDetailRoute -> RootDestination.EventDetailDestination(
-            eventDetailComponent(ctx, route)
-        )
+            is RootNavigationRoute.EventDetailRoute -> RootDestination.EventDetailDestination(
+                eventDetailComponent(ctx, route)
+            )
 
-        is RootNavigationRoute.VenueDetailRoute -> RootDestination.VenueDetailDestination(
-            venueDetailComponent(ctx, route)
-        )
+            is RootNavigationRoute.VenueDetailRoute -> RootDestination.VenueDetailDestination(
+                venueDetailComponent(ctx, route)
+            )
 
-        is RootNavigationRoute.ViewEventsRoute -> RootDestination.ViewEventsDestination(
-            viewEventsComponent(ctx, route)
-        )
+            is RootNavigationRoute.ViewEventsRoute -> RootDestination.ViewEventsDestination(
+                viewEventsComponent(ctx, route)
+            )
 
-        is RootNavigationRoute.ViewVenuesRoute -> RootDestination.ViewVenuesDestination(
-            viewVenuesComponent(ctx, route)
-        )
+            is RootNavigationRoute.ViewVenuesRoute -> RootDestination.ViewVenuesDestination(
+                viewVenuesComponent(ctx, route)
+            )
 
-        is RootNavigationRoute.ViewExpensesRoute -> RootDestination.ViewExpensesDestination(
-            viewExpensesComponent(ctx, route)
-        )
+            is RootNavigationRoute.ViewExpensesRoute -> RootDestination.ViewExpensesDestination(
+                viewExpensesComponent(ctx, route)
+            )
 
-        is RootNavigationRoute.ExpenseDetailRoute -> RootDestination.ExpenseDetailDestination(
-            expenseDetailComponent(ctx, route)
-        )
+            is RootNavigationRoute.ExpenseDetailRoute -> RootDestination.ExpenseDetailDestination(
+                expenseDetailComponent(ctx, route)
+            )
+        }
     }
 
     private fun dashboardFeatureComponent(
@@ -130,11 +132,12 @@ class RootComponentFactoryImpl(
     ): DashboardFeatureComponent {
         return DashboardFeatureComponentImpl(
             componentContext = componentContext,
-            dispatchers = dispatchers,
-            rootNavigator = navigator,
             eventRepository = eventRepository,
             expenseRepository = expenseRepository,
-            venueRepository = venueRepository
+            venueRepository = venueRepository,
+            accountSettingsRepository = accountSettingsRepository,
+            rootNavigator = navigator,
+            dispatchers = dispatchers,
         )
     }
 
