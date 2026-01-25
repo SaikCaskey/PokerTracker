@@ -5,6 +5,7 @@ import com.github.saikcaskey.pokertracker.libs.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.libs.domain.models.DashboardEventsData
 import com.github.saikcaskey.pokertracker.libs.domain.models.DashboardProfitSummaryData
 import com.github.saikcaskey.pokertracker.libs.domain.presentation.navigation.RootNavigator
+import com.github.saikcaskey.pokertracker.libs.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.libs.domain.repository.EventRepository
 import com.github.saikcaskey.pokertracker.libs.domain.repository.ExpenseRepository
 import com.github.saikcaskey.pokertracker.libs.domain.repository.VenueRepository
@@ -12,14 +13,17 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DashboardFeatureComponentImpl(
     componentContext: ComponentContext,
     eventRepository: EventRepository,
     expenseRepository: ExpenseRepository,
     venueRepository: VenueRepository,
-    dispatchers: CoroutineDispatchers,
+    private val accountSettingsRepository: AccountSettingsRepository,
     private val rootNavigator: RootNavigator,
+    private val dispatchers: CoroutineDispatchers,
 ) : DashboardFeatureComponent, ComponentContext by componentContext {
     private val coroutineScope = CoroutineScope(dispatchers.io)
 
@@ -28,13 +32,13 @@ class DashboardFeatureComponentImpl(
         eventRepository.getToday(),
         eventRepository.getUpcoming(),
         ::DashboardEventsData
-    ).stateIn(coroutineScope, SharingStarted.Companion.Eagerly, DashboardEventsData())
+    ).stateIn(coroutineScope, SharingStarted.Eagerly, DashboardEventsData())
 
     private val dashboardProfitSummary = combine(
         expenseRepository.getBeforeNow(),
         expenseRepository.getBalanceNow(),
         ::DashboardProfitSummaryData
-    ).stateIn(coroutineScope, SharingStarted.Companion.Eagerly, DashboardProfitSummaryData())
+    ).stateIn(coroutineScope, SharingStarted.Eagerly, DashboardProfitSummaryData())
 
     override val uiState = combine(
         dashboardEventsData,
@@ -42,7 +46,17 @@ class DashboardFeatureComponentImpl(
         venueRepository.getAll(),
         expenseRepository.getTomorrow(),
         DashboardFeatureComponent::UiState
-    ).stateIn(coroutineScope, SharingStarted.Companion.Eagerly, DashboardFeatureComponent.UiState())
+    ).stateIn(coroutineScope, SharingStarted.Eagerly, DashboardFeatureComponent.UiState())
+
+    override fun ensureUserOrOpenOnboarding() {
+        coroutineScope.launch {
+            if (accountSettingsRepository.state.value.userId == null) {
+                withContext(dispatchers.main) {
+                    rootNavigator.onShowOnboarding()
+                }
+            }
+        }
+    }
 
     override fun onShowEventDetailClicked(id: Long) = rootNavigator.onShowEventDetail(id)
     override fun onShowExpenseDetailClicked(id: Long) = rootNavigator.onShowExpenseDetail(id)

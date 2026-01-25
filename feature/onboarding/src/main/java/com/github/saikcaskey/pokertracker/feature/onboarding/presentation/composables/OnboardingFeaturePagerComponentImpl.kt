@@ -11,6 +11,7 @@ import com.github.saikcaskey.pokertracker.feature.onboarding.presentation.naviga
 import com.github.saikcaskey.pokertracker.libs.domain.CoroutineDispatchers
 import com.github.saikcaskey.pokertracker.libs.domain.generators.GeneratorUsernames
 import com.github.saikcaskey.pokertracker.libs.domain.models.UserPreference
+import com.github.saikcaskey.pokertracker.libs.domain.presentation.navigation.RootNavigationRoute
 import com.github.saikcaskey.pokertracker.libs.domain.presentation.navigation.RootNavigator
 import com.github.saikcaskey.pokertracker.libs.domain.repository.AccountSettingsRepository
 import com.github.saikcaskey.pokertracker.libs.domain.repository.UserRepository
@@ -19,7 +20,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class OnboardingFeaturePagerComponentImpl(
     componentContext: ComponentContext,
@@ -29,7 +29,7 @@ class OnboardingFeaturePagerComponentImpl(
     private val onboardingNavigator: OnboardingNavigator,
     private val usernameGenerator: GeneratorUsernames,
     private val accountSettingsRepository: AccountSettingsRepository,
-    private val dispatchers: CoroutineDispatchers,
+    dispatchers: CoroutineDispatchers,
 ) : OnboardingFeaturePagerComponent, ComponentContext by componentContext {
 
     private val scope = CoroutineScope(dispatchers.io)
@@ -54,42 +54,33 @@ class OnboardingFeaturePagerComponentImpl(
     }
 
     override fun onClickNext() {
-        val x = when (stack.value.active?.configuration) {
+        when (stack.value.active.configuration) {
             is OnboardingNavigationRoute.IntroRoute -> {
-                OnboardingNavigationRoute.CreateAccountRoute
+                onboardingNavigator.push(OnboardingNavigationRoute.CreateAccountRoute)
             }
 
             is OnboardingNavigationRoute.CreateAccountRoute -> {
-                OnboardingNavigationRoute.InstructionsRoute
+                onboardingNavigator.push(OnboardingNavigationRoute.InstructionsRoute)
             }
 
             is OnboardingNavigationRoute.InstructionsRoute -> {
-                Logger.i("asd Onboarding Complete")
-                return
+                createInitialUser()
+                rootNavigator.push(RootNavigationRoute.DashboardRoute)
             }
-
-            null -> return
         }
-        onboardingNavigator.push(x)
     }
 
     override fun generateUsername() {
-        _uiState.value = OnboardingFeaturePagerComponent.UiState(usernameGenerator.generate())
+        _uiState.value = OnboardingFeaturePagerComponent.UiState(
+            usernameGenerator.generate()
+        )
     }
 
     override fun createInitialUser() {
         scope.launch {
             val newUser = _uiState.value.username
-            if (newUser != null) {
-                val newUserId = userRepository.insert(newUser)
-                accountSettingsRepository.setUserPreference(UserPreference.UserId, newUserId)
-
-                withContext(dispatchers.main) {
-                    rootNavigator.onShowAccount()
-                }
-            } else {
-                Logger.i("asd can't finish onboarding as username null")
-            }
+            val newUserId = userRepository.insert(newUser.orEmpty())
+            accountSettingsRepository.setUserPreference(UserPreference.UserId, newUserId)
         }
     }
 }

@@ -2,6 +2,7 @@ package com.github.saikcaskey.pokertracker.feature.onboarding.presentation.compo
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +15,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,11 +32,10 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.stack.animation.plus
 import com.arkivanov.decompose.extensions.compose.stack.animation.scale
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
-import com.github.saikcaskey.pokertracker.libs.ui_compose.common.inputform.InputFormScaffold
 import com.github.saikcaskey.pokertracker.ui_compose.extensions.AsIcon
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
-import compose.icons.fontawesomeicons.solid.User
+import compose.icons.fontawesomeicons.solid.Dice
 
 @Composable
 fun OnboardingFeatureContent(
@@ -46,11 +47,6 @@ fun OnboardingFeatureContent(
 
     Scaffold { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
-            IconButton(onClick = component::createInitialUser) {
-                FontAwesomeIcons.Solid.User.AsIcon(24.dp, "Go To Account")
-            }
-            Text("asd User ${uiState.username}")
-
             Button(component::generateUsername) {
                 Text("GenerateUserName")
             }
@@ -64,19 +60,20 @@ fun OnboardingFeatureContent(
                 animation = stackAnimation(fade() + scale())
             ) {
                 when (it.instance) {
-                    is OnboardingFeatureDestination.IntroDestination -> IntroScreen(
-                        state = uiState,
-                        onNext = component::onClickNext
+                    is OnboardingFeatureDestination.IntroDestination -> OnboardingPageIntro(
+                        onNext = component::onClickNext,
                     )
 
-                    is OnboardingFeatureDestination.CreateAccountDestination -> CreateAccountScreen(
+                    is OnboardingFeatureDestination.CreateAccountDestination -> OnboardingPageCreateAccount(
+                        state = uiState,
                         onNext = component::onClickNext,
                         onBack = component::onClickBack,
                         onUsernameChanged = component::onUsernameChanged,
+                        onGenerateRandomUsernameClicked = component::generateUsername,
                     )
 
-                    is OnboardingFeatureDestination.InstructionsDestination -> InstructionsScreen(
-                        onFinish = component::onClickNext,
+                    is OnboardingFeatureDestination.InstructionsDestination -> OnboardingPageInstructions(
+                        onNext = component::onClickNext,
                         onBack = component::onClickBack,
                     )
                 }
@@ -86,116 +83,98 @@ fun OnboardingFeatureContent(
 }
 
 @Composable
-fun IntroScreen(
-    state: OnboardingFeaturePagerComponent.UiState,
+fun OnboardingPageInstructions(
+    onNext: () -> Unit,
+    onBack: (() -> Unit)?,
+) {
+    OnboardingPagerPage(
+        onNext = onNext,
+        onBack = onBack,
+        title = "Instructions",
+        body = "Track your poker cash flow by adding individual expenses, or attaching expenses to an event. Start by adding a Venue, or some Expenses.",
+        buttonText = "Done",
+    )
+}
+
+@Composable
+fun OnboardingPageIntro(
     onNext: () -> Unit,
 ) {
+    OnboardingPagerPage(
+        onNext = onNext,
+        title = "Intro",
+        body = "Intro",
+        buttonText = "Next"
+    )
+}
 
+@Composable
+fun OnboardingPageCreateAccount(
+    state: OnboardingFeaturePagerComponent.UiState,
+    modifier: Modifier = Modifier,
+    onUsernameChanged: (String) -> Unit,
+    onGenerateRandomUsernameClicked: () -> Unit,
+    onNext: () -> Unit,
+    onBack: (() -> Unit)?,
+) {
+    OnboardingPagerPage(
+        title = "Create Account",
+        body = "Create an account by setting a username",
+        buttonText = "Next",
+        modifier = modifier,
+        onNext = onNext,
+        onBack = onBack
+    ) {
+        CreateAccountInputField(
+            state = state,
+            onUsernameChanged = onUsernameChanged,
+            onGenerateRandomUsernameClicked = onGenerateRandomUsernameClicked
+        )
+    }
+}
+
+@Composable
+fun CreateAccountInputField(
+    state: OnboardingFeaturePagerComponent.UiState,
+    onUsernameChanged: (String) -> Unit,
+    onGenerateRandomUsernameClicked: () -> Unit
+) {
     val localUsernameState = remember(state.username) {
         mutableStateOf(state.username)
     }
-
-    InputFormScaffold(
-        title = "Create Account",
-        onBackClicked = null,
-        onSubmit = {},
-        isSubmitEnabled = { }
-    ) { }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(Modifier.height(64.dp))
-
-        Text(
-            text = "IntroScreen",
-            style = MaterialTheme.typography.headlineLarge,
-            textAlign = TextAlign.Center
-        )
-    }
-
     Row {
-        Button(
-            modifier = Modifier.weight(1f),
-            onClick = onNext
-        ) {
-            Text("Start")
-        }
-    }
-}
-
-@Composable
-fun CreateAccountScreen(
-    onNext: () -> Unit,
-    onUsernameChanged: (String) -> Unit,
-    onBack: () -> Unit,
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(Modifier.height(64.dp))
-
-        Text(
-            text = "Create account",
-            style = MaterialTheme.typography.headlineLarge,
-            textAlign = TextAlign.Center
+        OutlinedTextField(
+            value = localUsernameState.value.orEmpty(),
+            onValueChange = { newValue ->
+                localUsernameState.value = newValue
+                onUsernameChanged(newValue)
+            },
+            label = { Text("Username") },
+            modifier = Modifier.weight(1f)
         )
-
-        Row {
-            Button(modifier = Modifier.weight(1f), onClick = onNext) {
-                Text("Next")
-            }
-            Button(modifier = Modifier.weight(1f), onClick = onBack) {
-                Text("Previous")
-            }
+        IconButton(
+            onClick = onGenerateRandomUsernameClicked,
+        ){
+            FontAwesomeIcons.Solid.Dice.AsIcon(
+                height = 24.dp,
+                contentDescription = "Random username"
+            )
         }
     }
 }
 
 @Composable
-fun InstructionsScreen(onFinish: () -> Unit, onBack: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(Modifier.height(64.dp))
-
-        Text(
-            text = "Instructions",
-            style = MaterialTheme.typography.headlineLarge,
-            textAlign = TextAlign.Center
-        )
-
-        Row {
-            Button(onClick = onFinish) {
-                Text("Next")
-            }
-            Button(onClick = onBack) {
-                Text("Previous")
-            }
-        }
-    }
-}
-
-@Composable
-fun ScreenTemplate(
+fun OnboardingPagerPage(
     title: String,
     body: String,
     buttonText: String,
-    onPrimaryClick: () -> Unit,
-    onSecondaryClick: (() -> Unit)? = null,
-    showBack: Boolean = false,
+    modifier: Modifier = Modifier,
+    onNext: () -> Unit,
+    onBack: (() -> Unit)? = null,
+    content: @Composable BoxScope.() -> Unit = {},
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -217,27 +196,21 @@ fun ScreenTemplate(
                 .padding(vertical = 32.dp),
             contentAlignment = Alignment.Center
         ) {
-            Text("UI CONTENT GOES HERE", color = MaterialTheme.colorScheme.outline)
+            content()
         }
 
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            if (showBack) {
-                OutlinedButton(onClick = onSecondaryClick!!) {
+            if (onBack != null) {
+                OutlinedButton(onClick = onBack) {
                     Text("Back")
                 }
-            } else {
-                Spacer(Modifier.weight(1f)) // Push Next button to the right if no Back button
             }
-
             Spacer(Modifier.width(16.dp))
 
-            Button(
-                onClick = onPrimaryClick,
-                modifier = Modifier.weight(if (showBack) 1f else 0.1f)
-            ) {
+            Button(onClick = onNext) {
                 Text(buttonText)
             }
         }
