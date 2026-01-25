@@ -26,4 +26,10 @@ class AccountSettingsDataSourceImpl(
     ) {
         dataStore.setUserPreference(preference, value)
     }
+
+    override fun clearAll() {
+        dataStore.clearUserPreference(UserPreference.UserId)
+        dataStore.clearUserPreference(UserPreference.DefaultBuyIn)
+        dataStore.clearUserPreference(UserPreference.ShowAdvancedSettings)
+    }
 }

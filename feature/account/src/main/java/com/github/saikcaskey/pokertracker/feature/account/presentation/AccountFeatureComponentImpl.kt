@@ -82,6 +82,7 @@ class AccountFeatureComponentImpl(
             database.userQueries.deleteAll()
             database.venueQueries.deleteAll()
             database.expenseQueries.deleteAll()
+            accountSettingsRepository.clearAll()
         }
     }
 

@@ -9,4 +9,6 @@ interface AccountSettingsRepository {
     val state: StateFlow<AccountSettingsData>
 
     fun setUserPreference(preference: UserPreference<*>, value: Any?)
+
+    fun clearAll()
 }

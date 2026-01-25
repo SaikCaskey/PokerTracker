@@ -13,4 +13,8 @@ class AccountSettingsRepositoryImpl(
     override fun setUserPreference(preference: UserPreference<*>, value: Any?) {
         accountSettingsDataSource.setUserPreference(preference, value)
     }
+
+    override fun clearAll() {
+        accountSettingsDataSource.clearAll()
+    }
 }
