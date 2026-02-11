@@ -11,6 +11,10 @@ Add Venues, Plan events at them, and then associate Expenses.
 This project was inspired by the [sample project of Decompose](https://github.com/arkivanov/Decompose/tree/master/sample) and was adopted from a 
 multiplatform project to simplify the submission process
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/com.github.saikcaskey.pokertracker/)
+
 ## Dependencies
 
 - [Kermit](https://github.com/touchlab/Kermit) for logging
